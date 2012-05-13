@@ -10,7 +10,7 @@
 
 @class Resources;
 
-@interface Village : NSObject
+@interface Village : NSObject <NSCoding>
 
 @property (nonatomic, strong) Resources *resources; // Village resources
 @property (nonatomic, strong) Resources *resourceProduction; // Village resource production / hour

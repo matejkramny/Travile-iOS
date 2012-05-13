@@ -7,14 +7,48 @@
 //
 
 #import "AppDelegate.h"
+#import "Account.h"
+#import "Storage.h"
+#import "Village.h"
+#import "Hero.h"
+#import "Resources.h"
 
 @implementation AppDelegate
 
 @synthesize window = _window;
+@synthesize storage;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+	storage = [[Storage alloc] init];
+	
+	Account *account = [[Account alloc] init];
+	Village *village = [[Village alloc] init];
+	Hero *hero = [[Hero alloc] init];
+	Resources *resources = [[Resources alloc] init];
+	Resources *resourcesProduction = [[Resources alloc] init];
+	[resources setWood:200]; [resources setClay:200]; [resources setIron:200]; [resources setWheat:100];
+	[resourcesProduction setWood:5]; [resourcesProduction setClay:5]; [resourcesProduction setIron:5]; [resourcesProduction setWheat:5];
+	[hero setSpeed:4];
+	[hero setStrengthPoints:80];
+	[hero setOffBonusPercentage:2];
+	[hero setDefBonusPercentage:2];
+	[hero setIsHidden:YES];
+	
+	[village setResources:resources];
+	[village setResourceProduction:resourcesProduction];
+	
+	[account setVillages:[NSArray arrayWithObjects:village, nil]];
+	[account setName:@"Something personalised"];
+	[account setHero:hero];
+	
+	NSArray *arr = [[NSArray alloc] initWithObjects:account, nil];
+	
+	[storage setAccounts:arr];
+	[storage setAccount:[arr objectAtIndex:0]];
+	
+	[storage saveData];
+	
     return YES;
 }
 							

@@ -10,4 +10,13 @@
 
 @implementation Troop
 
+- (id)initWithCoder:(NSCoder *)coder {
+    self = [super init];
+    
+	return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder {
+}
+
 @end

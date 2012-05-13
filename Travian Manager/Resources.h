@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Resources : NSObject
+@interface Resources : NSObject <NSCoding>
 
 @property (assign) unsigned int wood;
 @property (assign) unsigned int clay;

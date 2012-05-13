@@ -11,7 +11,9 @@
 @class Hero;
 //@class Profile;
 
-@interface Account : NSObject
+@interface Account : NSObject <NSCoding>
+
+@property (nonatomic, strong) NSString *name; // User's account name
 
 @property (nonatomic, strong) NSArray *villages; // List of villages
 @property (nonatomic, strong) NSArray *reports; // Reports

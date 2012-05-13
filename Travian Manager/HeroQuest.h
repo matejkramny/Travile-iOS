@@ -13,7 +13,7 @@ typedef enum {
 	VERY_HARD
 } questDifficulty;
 
-@interface HeroQuest : NSObject
+@interface HeroQuest : NSObject <NSCoding>
 
 @property (assign) questDifficulty difficulty; // Defines how difficult quest is
 // Duration

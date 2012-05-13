@@ -8,8 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Troop : NSObject
-
-
+@interface Troop : NSObject <NSCoding>
 
 @end

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Hero : NSObject
+@interface Hero : NSObject <NSCoding>
 
 @property (assign) int strengthPoints; // Attribute - Strength
 @property (assign) int offBonusPercentage; // Attribute - Offence bonus (%)

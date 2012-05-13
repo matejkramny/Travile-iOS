@@ -8,8 +8,17 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Storage : NSObject
+@class Account;
 
+@interface Storage : NSObject {
+	NSString *savePath;
+}
 
+@property (nonatomic, strong) NSArray *accounts; // List of accounts
+@property (nonatomic, weak) Account *account; // Active account
+// game settings?
+
+- (BOOL)saveData;
+- (BOOL)loadData;
 
 @end
