@@ -12,6 +12,8 @@
 
 @synthesize difficulty, x, y;
 
+#pragma mark - Coders
+
 - (id)initWithCoder:(NSCoder *)coder {
     self = [super init];
     

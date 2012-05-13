@@ -25,11 +25,9 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <connections>
-                        <outlet property="label" destination="fqB-KA-Mc9" id="w0a-Yc-AbZ"/>
-                    </connections>
                 </viewController>
             </objects>
+            <point key="canvasLocation" x="-389" y="-36"/>
         </scene>
     </scenes>
     <classes>

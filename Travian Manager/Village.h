@@ -7,10 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "TravianPageParsingProtocol.h"
 
 @class Resources;
+@class HTMLNode;
 
-@interface Village : NSObject <NSCoding>
+@interface Village : NSObject <NSCoding, TravianPageParsingProtocol>
 
 @property (nonatomic, strong) Resources *resources; // Village resources
 @property (nonatomic, strong) Resources *resourceProduction; // Village resource production / hour
@@ -25,5 +27,8 @@
 @property (assign) unsigned int consumption; // Consuming / hour
 @property (assign) int x; // Location X
 @property (assign) int y; // Location Y
+
+@property (nonatomic, strong) NSURLConnection *villageConnection; // Village connection
+@property (nonatomic, strong) NSData *villageData; // Village data
 
 @end

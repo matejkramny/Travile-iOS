@@ -10,6 +10,8 @@
 
 @implementation Troop
 
+#pragma mark - Coders
+
 - (id)initWithCoder:(NSCoder *)coder {
     self = [super init];
     

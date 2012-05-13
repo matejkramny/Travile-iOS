@@ -7,15 +7,35 @@
 //
 
 #import "Account.h"
+#import "HTMLParser.h"
+#import "HTMLNode.h"
 
 @implementation Account
 
-@synthesize name, villages, reports, messages, contacts, hero, hasBeginnersProtection;
+@synthesize name, username, password, villages, reports, messages, contacts, hero, hasBeginnersProtection;
+
+#pragma mark - TravianPageParsingProtocol
+
+- (void)parsePage:(TravianPages)page fromHTML:(NSString *)html
+{
+	NSError *error;
+	HTMLParser *p = [[HTMLParser alloc] initWithString:html error:&error];
+	[self parsePage:page fromHTMLNode:[p body]];
+}
+
+- (void)parsePage:(TravianPages)page fromHTMLNode:(HTMLNode *)node
+{
+	
+}
+
+#pragma mark - Coders
 
 - (id)initWithCoder:(NSCoder *)coder {
 	self = [super init];
 	
 	name = [coder decodeObjectForKey:@"name"];
+	username = [coder decodeObjectForKey:@"username"];
+	password = [coder decodeObjectForKey:@"password"];
 	villages = [coder decodeObjectForKey:@"villages"];
 	reports = [coder decodeObjectForKey:@"reports"];
 	messages = [coder decodeObjectForKey:@"messages"];
@@ -29,6 +49,8 @@
 
 - (void)encodeWithCoder:(NSCoder *)coder {
 	[coder encodeObject:name forKey:@"name"];
+	[coder encodeObject:username forKey:@"username"];
+	[coder encodeObject:password forKey:@"password"];
 	[coder encodeObject:villages forKey:@"villages"];
 	[coder encodeObject:reports forKey:@"reports"];
 	[coder encodeObject:messages forKey:@"messages"];

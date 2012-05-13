@@ -7,11 +7,39 @@
 //
 
 #import "Village.h"
+#import "HTMLParser.h"
+#import "HTMLNode.h"
+#import "Resources.h"
 
 @implementation Village
 
 @synthesize resources, resourceProduction, troops, movements;
 @synthesize id, loyalty, population, warehouse, granary, consumption, x, y;
+@synthesize villageConnection, villageData;
+
+#pragma mark - Page parsing
+
+- (void)parsePage:(TravianPages)page fromHTML:(NSString *)html
+{
+	NSError *error;
+	HTMLParser *p = [[HTMLParser alloc] initWithString:html error:&error];
+	[self parsePage:page fromHTMLNode:[p body]];
+}
+
+- (void)parsePage:(TravianPages)page fromHTMLNode:(HTMLNode *)node
+{
+	switch (page) {
+		case TPResources:
+			[resources parsePage:page fromHTMLNode:node];
+			[resourceProduction parsePage:page fromHTMLNode:node];
+			break;
+			
+		default:
+			break;
+	}
+}
+
+#pragma mark - Coders
 
 - (id)initWithCoder:(NSCoder *)coder {
     self = [super init];

@@ -7,8 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "TravianPageParsingProtocol.h"
 
-@interface Resources : NSObject <NSCoding>
+@interface Resources : NSObject <NSCoding, TravianPageParsingProtocol>
 
 @property (assign) unsigned int wood;
 @property (assign) unsigned int clay;

@@ -12,6 +12,8 @@
 
 @synthesize strengthPoints, offBonusPercentage, defBonusPercentage, experience, health, speed, quests, isHidden, resourcePoints, resourceProductionBoost;
 
+#pragma mark - Coders
+
 - (id)initWithCoder:(NSCoder *)coder {
     self = [super init];
     
