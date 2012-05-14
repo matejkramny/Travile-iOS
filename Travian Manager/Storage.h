@@ -21,4 +21,7 @@
 - (BOOL)saveData;
 - (BOOL)loadData;
 
+- (void)setActiveAccount:(Account *)a;
+- (void)deactivateActiveAccount;
+
 @end

@@ -22,10 +22,14 @@
 		NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 		NSString *documentsDirectory = [paths objectAtIndex:0];
 		savePath = [documentsDirectory stringByAppendingPathComponent:@"Accounts.plist"];
+		
+		[self loadData];
 	}
 	
 	return self;
 }
+
+#pragma mark - Data Saving
 
 - (BOOL)saveData {
 	
@@ -52,8 +56,25 @@
 		return true;
 	}
 	
+	NSLog(@"No data loaded");
+	
 	return false;
 	
+}
+
+#pragma mark - Active Account
+
+- (void)setActiveAccount:(Account *)a {
+	self.account = a;
+	
+	[self.account activateAccount];
+}
+
+- (void)deactivateActiveAccount {
+	if (account)
+	//	[account deactivateAccount];
+	
+	account = nil;
 }
 
 @end

@@ -28,6 +28,14 @@
 
 - (void)parsePage:(TravianPages)page fromHTMLNode:(HTMLNode *)node
 {
+	// Do not parse unparseable pages
+	if ((page & TPMaskUnparseable) != 0)
+		return;
+	
+	// Parse this village's id
+	// Its on every page (except unparseable pages)
+	
+	
 	switch (page) {
 		case TPResources:
 			[resources parsePage:page fromHTMLNode:node];
@@ -80,6 +88,33 @@
 	[coder encodeObject:[NSNumber numberWithInt:granary] forKey:@"granary"];
 	[coder encodeObject:[NSNumber numberWithInt:x] forKey:@"villageX"];
 	[coder encodeObject:[NSNumber numberWithInt:y] forKey:@"villageY"];
+}
+
+#pragma mark - NSURLConnectionDelegate
+
+- (void)connection:(NSURLConnection *)connection willSendRequestForAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {  }
+- (BOOL)connectionShouldUseCredentialStorage:(NSURLConnection *)connection	{	return NO;	}
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error { NSLog(@"Connection failed with error: %@. Fix error by: %@", [error localizedFailureReason], [error localizedRecoverySuggestion]); }
+
+#pragma mark NSURLConnectionDataDelegate
+
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
+{
+	//[[self getConnectionData:connection] appendData:data];
+}
+
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSHTTPURLResponse *)response
+{
+	//[[self getConnectionData:connection] setLength:0];
+    //[[self getConnectionData:connection] setData:[NSData data]];
+}
+
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+{
+	// Parse data
+	
+	
+	
 }
 
 @end

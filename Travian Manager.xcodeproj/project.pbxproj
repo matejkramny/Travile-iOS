@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4F0261D115612EA300DF545F /* TPIdentifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F0261D015612EA300DF545F /* TPIdentifier.m */; };
 		4F09520D155C767800C15D6E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F09520C155C767800C15D6E /* UIKit.framework */; };
 		4F09520F155C767800C15D6E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F09520E155C767800C15D6E /* Foundation.framework */; };
 		4F095211155C767800C15D6E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F095210155C767800C15D6E /* CoreGraphics.framework */; };
@@ -29,6 +30,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4F0261CF15612EA300DF545F /* TPIdentifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPIdentifier.h; sourceTree = "<group>"; };
+		4F0261D015612EA300DF545F /* TPIdentifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPIdentifier.m; sourceTree = "<group>"; };
 		4F095208155C767800C15D6E /* Travian Manager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Travian Manager.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F09520C155C767800C15D6E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		4F09520E155C767800C15D6E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -132,6 +135,8 @@
 				4F095225155C767800C15D6E /* ViewController.m */,
 				4F09521E155C767800C15D6E /* MainStoryboard_iPhone.storyboard */,
 				4F095221155C767800C15D6E /* MainStoryboard_iPad.storyboard */,
+				4F0261CF15612EA300DF545F /* TPIdentifier.h */,
+				4F0261D015612EA300DF545F /* TPIdentifier.m */,
 				4F38F93A15600B6700AF2E82 /* TravianPageParsingProtocol.h */,
 				4F38F938156008FE00AF2E82 /* TravianPages.h */,
 				4F095239155C7C6300C15D6E /* HTMLParser */,
@@ -237,6 +242,7 @@
 				4F095245155C804400C15D6E /* Account.m in Sources */,
 				4F095293155DD2CB00C15D6E /* Hero.m in Sources */,
 				4F095296155DD53300C15D6E /* HeroQuest.m in Sources */,
+				4F0261D115612EA300DF545F /* TPIdentifier.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -324,6 +330,7 @@
 				GCC_PREFIX_HEADER = "Travian Manager/Travian Manager-Prefix.pch";
 				HEADER_SEARCH_PATHS = "/usr/include/libxml2/**";
 				INFOPLIST_FILE = "Travian Manager/Travian Manager-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -336,6 +343,7 @@
 				GCC_PREFIX_HEADER = "Travian Manager/Travian Manager-Prefix.pch";
 				HEADER_SEARCH_PATHS = "/usr/include/libxml2/**";
 				INFOPLIST_FILE = "Travian Manager/Travian Manager-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

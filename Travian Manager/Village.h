@@ -12,7 +12,7 @@
 @class Resources;
 @class HTMLNode;
 
-@interface Village : NSObject <NSCoding, TravianPageParsingProtocol>
+@interface Village : NSObject <NSCoding, TravianPageParsingProtocol, NSURLConnectionDelegate, NSURLConnectionDataDelegate>
 
 @property (nonatomic, strong) Resources *resources; // Village resources
 @property (nonatomic, strong) Resources *resourceProduction; // Village resource production / hour
