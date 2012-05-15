@@ -30,7 +30,7 @@ typedef enum {
 	TPStatistics = 1 << 15, // Statistics page
 	TPAuction = 1 << 16, // Auctions,
 	TPBuildList = 1 << 17, // Page features list of buildings being built
-	TPNotFound = -1, // Page unknown
+	TPNotFound = 1 << 18, // Page unknown
 	
 	// Masks
 	TPMaskUnparseable = TPNotFound | TPLogin | TPMaintanance | TPNotification, // Pages that do not contain relevant information to the account

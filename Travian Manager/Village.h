@@ -18,8 +18,8 @@
 @property (nonatomic, strong) Resources *resourceProduction; // Village resource production / hour
 @property (nonatomic, strong) NSArray *troops; // Village troops
 @property (nonatomic, strong) NSArray *movements; // Village movements
-
-@property (assign) int id; // Village ID required for switching villages in url
+@property (nonatomic, strong) NSString *name; // Village's name
+@property (nonatomic, strong) NSString *urlPart; // Village ID required for switching villages in url
 @property (assign) int population; // Village population
 @property (assign) int loyalty; // Village loyalty
 @property (assign) unsigned int warehouse; // Max storage of resources (other than wheat)
@@ -29,6 +29,8 @@
 @property (assign) int y; // Location Y
 
 @property (nonatomic, strong) NSURLConnection *villageConnection; // Village connection
-@property (nonatomic, strong) NSData *villageData; // Village data
+@property (nonatomic, strong) NSMutableData *villageData; // Village data
+
+- (void)downloadAndParse;
 
 @end

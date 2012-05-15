@@ -13,6 +13,6 @@
 
 @interface TPIdentifier : NSObject
 
-- (TravianPages)identifyPage:(HTMLNode *)body;
++ (TravianPages)identifyPage:(HTMLNode *)body;
 
 @end

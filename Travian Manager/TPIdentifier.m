@@ -11,7 +11,7 @@
 
 @implementation TPIdentifier
 
-- (TravianPages)identifyPage:(HTMLNode *)body {
++ (TravianPages)identifyPage:(HTMLNode *)body {
 	
 	// Looks at whether body node contains login elements, then (from url) identifies page from TravianPages enum
 	

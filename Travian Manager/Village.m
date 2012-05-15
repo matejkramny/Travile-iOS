@@ -10,12 +10,36 @@
 #import "HTMLParser.h"
 #import "HTMLNode.h"
 #import "Resources.h"
+#import "AppDelegate.h"
+#import "Storage.h"
+#import "Account.h"
+#import "TPIdentifier.h"
 
 @implementation Village
 
-@synthesize resources, resourceProduction, troops, movements;
-@synthesize id, loyalty, population, warehouse, granary, consumption, x, y;
+@synthesize resources, resourceProduction, troops, movements, name;
+@synthesize urlPart, loyalty, population, warehouse, granary, consumption, x, y;
 @synthesize villageConnection, villageData;
+
+#pragma mark - Custom messages
+
+- (void)downloadAndParse
+{
+	
+	Account *account = [[(AppDelegate *)[UIApplication sharedApplication].delegate storage] account]; // This village's owner
+	
+	// Start a request containing Resources, ResourceProduction, and troops
+	NSString *stringUrl = [NSString stringWithFormat:@"http://%@.travian.%@/dorf1.php", account.world, account.server];
+	NSURL *url = [NSURL URLWithString: stringUrl];
+	
+	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: url cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
+	
+	// Preserve any cookies received
+	[request setHTTPShouldHandleCookies:YES];
+	
+	villageConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
+	
+}
 
 #pragma mark - Page parsing
 
@@ -28,21 +52,27 @@
 
 - (void)parsePage:(TravianPages)page fromHTMLNode:(HTMLNode *)node
 {
-	// Do not parse unparseable pages
-	if ((page & TPMaskUnparseable) != 0)
+	// Do not parse unparseable pages || tagName must be body - root element
+	if ((page & TPMaskUnparseable) != 0 || ![[node tagName] isEqualToString:@"body"])
 		return;
-	
-	// Parse this village's id
-	// Its on every page (except unparseable pages)
-	
 	
 	switch (page) {
 		case TPResources:
 			[resources parsePage:page fromHTMLNode:node];
 			[resourceProduction parsePage:page fromHTMLNode:node];
+			// get basic troops
+			// get basic movements
 			break;
-			
+		case TPBuildList:
+			// get construction list
+			break;
+		case TPBuilding:
+			// check if the building is a rally point
+			// get comprehensive info about troops
+			// get all movements
+			break;
 		default:
+			// get loyalty
 			break;
 	}
 }
@@ -56,8 +86,8 @@
 	resourceProduction = [coder decodeObjectForKey:@"resourceProduction"];
 	troops = [coder decodeObjectForKey:@"troops"];
 	movements = [coder decodeObjectForKey:@"movements"];
-	NSNumber *numberObject = [coder decodeObjectForKey:@"villageID"];
-	self.id = [numberObject intValue];
+	urlPart = [coder decodeObjectForKey:@"villageID"];
+		NSNumber *numberObject;
 	numberObject = [coder decodeObjectForKey:@"population"];
 	population = [numberObject intValue];
 	numberObject = [coder decodeObjectForKey:@"loyalty"];
@@ -81,7 +111,7 @@
 	[coder encodeObject:resourceProduction forKey:@"resourceProduction"];
 	[coder encodeObject:troops forKey:@"troops"];
 	[coder encodeObject:movements forKey:@"movements"];
-	[coder encodeObject:[NSNumber numberWithInt:self.id] forKey:@"villageID"];
+	[coder encodeObject:urlPart forKey:@"villageID"];
 	[coder encodeObject:[NSNumber numberWithInt:population] forKey:@"population"];
 	[coder encodeObject:[NSNumber numberWithInt:loyalty] forKey:@"loyalty"];
 	[coder encodeObject:[NSNumber numberWithInt:warehouse] forKey:@"warehouse"];
@@ -100,20 +130,38 @@
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
-	//[[self getConnectionData:connection] appendData:data];
+	[villageData appendData:data];
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSHTTPURLResponse *)response
 {
-	//[[self getConnectionData:connection] setLength:0];
-    //[[self getConnectionData:connection] setData:[NSData data]];
+	villageData = [[NSMutableData alloc] initWithLength:0];
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
+	
 	// Parse data
-	
-	
+	if (connection == villageConnection)
+	{
+		NSError *error;
+		HTMLParser *parser = [[HTMLParser alloc] initWithData:villageData error:&error];
+		HTMLNode *body = [parser body];
+		
+		if (!parser) {
+			NSLog(@"Cannot parse village data. Reason: %@, recovery options: %@", [error localizedDescription], [error localizedRecoveryOptions]);
+			return;
+		}
+		
+		TravianPages page = [TPIdentifier identifyPage:body];
+		
+		[self parsePage:page fromHTMLNode:body];
+		
+		if ((page & TPResources) != 0)
+		{
+			// Make another request for villageList then for rally point (if built)
+		}
+	}
 	
 }
 
