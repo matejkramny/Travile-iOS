@@ -39,4 +39,16 @@ typedef enum {
 	TPMaskConstructionsList = TPResources | TPVillage // Pages that have list of buildings being constructed
 } TravianPages;
 
+// e.g. 0 = 'gid0' <- building identifier
+typedef enum {
+	TBList = 0, // No building, just a list of buildings that can be built
+	
+	TBWarehouse = 10, // Warehouse
+	
+	TBMainBuilding = 15, // Main Building
+	TBRallyPoint = 16, // Rally Point
+	
+	TBNotFound = -1 /// Building not found 
+} TravianBuildings;
+
 #endif

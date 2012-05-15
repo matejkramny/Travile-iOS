@@ -10,6 +10,7 @@
 #import "HTMLParser.h"
 #import "HTMLNode.h"
 #import "Resources.h"
+#import "ResourcesProduction.h"
 #import "AppDelegate.h"
 #import "Storage.h"
 #import "Account.h"
@@ -25,7 +26,6 @@
 
 - (void)downloadAndParse
 {
-	
 	Account *account = [[(AppDelegate *)[UIApplication sharedApplication].delegate storage] account]; // This village's owner
 	
 	// Start a request containing Resources, ResourceProduction, and troops
@@ -56,25 +56,43 @@
 	if ((page & TPMaskUnparseable) != 0 || ![[node tagName] isEqualToString:@"body"])
 		return;
 	
-	switch (page) {
-		case TPResources:
-			[resources parsePage:page fromHTMLNode:node];
-			[resourceProduction parsePage:page fromHTMLNode:node];
-			// get basic troops
-			// get basic movements
-			break;
-		case TPBuildList:
-			// get construction list
-			break;
-		case TPBuilding:
-			// check if the building is a rally point
-			// get comprehensive info about troops
-			// get all movements
-			break;
-		default:
-			// get loyalty
-			break;
+	if ((page & TPResources) != 0) {
+		NSArray *woodRaw = [[[node findChildWithAttribute:@"id" matchingName:@"l1" allowPartial:NO] contents] componentsSeparatedByString:@"/"];
+		
+		warehouse = [[woodRaw objectAtIndex:1] intValue];
+		
+		if (!resources)
+			resources = [[Resources alloc] init];
+		
+		[resources setWood:[[woodRaw objectAtIndex:0] intValue]];
+		resources.clay = [[[[[node findChildWithAttribute:@"id" matchingName:@"l2" allowPartial:NO] contents] componentsSeparatedByString:@"/"] objectAtIndex:0] intValue];
+		resources.iron = [[[[[node findChildWithAttribute:@"id" matchingName:@"l3" allowPartial:NO] contents] componentsSeparatedByString:@"/"] objectAtIndex:0] intValue];
+		
+		NSArray *rawWheat = [[[node findChildWithAttribute:@"id" matchingName:@"l4" allowPartial:NO] contents] componentsSeparatedByString:@"/"];
+		granary = [[rawWheat objectAtIndex:1] intValue];
+		[resources setWheat:[[rawWheat objectAtIndex:0] intValue]];
+		consumption = [[[[[node findChildWithAttribute:@"id" matchingName:@"l5" allowPartial:NO] contents] componentsSeparatedByString:@"/"] objectAtIndex:0] intValue];
+		
+		[resourceProduction parsePage:page fromHTMLNode:node];
+		// get basic troops
+		// get basic movements
+	} else if ((page & TPBuildList) != 0) {
+		// get construction list
+	} else if ((page & TPBuilding) != 0) {
+		[self parseBuilding:node];
+		// get comprehensive info about troops
+		// get all movements
+	} else {
+		
 	}
+	
+	// get loyalty
+}
+
+- (void)parseBuilding:(HTMLNode *)body {
+	// check if the building is a rally point to update troops
+	
+	
 }
 
 #pragma mark - Coders
@@ -159,7 +177,13 @@
 		
 		if ((page & TPResources) != 0)
 		{
-			// Make another request for villageList then for rally point (if built)
+			// Make another request for village rally point
+			Account *account = [[(AppDelegate *)[UIApplication sharedApplication].delegate storage] account]; // This village's owner
+			
+			NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@.travian.%@/build.php?tt=1&id=39", account.world, account.server]] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60]; // Building Spot # 39 & 1st tab (Overview)
+			[request setHTTPShouldHandleCookies:YES];
+			
+			villageConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
 		}
 	}
 	

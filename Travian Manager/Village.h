@@ -10,12 +10,14 @@
 #import "TravianPageParsingProtocol.h"
 
 @class Resources;
+@class ResourcesProduction;
 @class HTMLNode;
+@class Account;
 
 @interface Village : NSObject <NSCoding, TravianPageParsingProtocol, NSURLConnectionDelegate, NSURLConnectionDataDelegate>
 
 @property (nonatomic, strong) Resources *resources; // Village resources
-@property (nonatomic, strong) Resources *resourceProduction; // Village resource production / hour
+@property (nonatomic, strong) ResourcesProduction *resourceProduction; // Village resource production / hour
 @property (nonatomic, strong) NSArray *troops; // Village troops
 @property (nonatomic, strong) NSArray *movements; // Village movements
 @property (nonatomic, strong) NSString *name; // Village's name
@@ -32,5 +34,6 @@
 @property (nonatomic, strong) NSMutableData *villageData; // Village data
 
 - (void)downloadAndParse;
+- (void)parseBuilding:(HTMLNode *)body;
 
 @end

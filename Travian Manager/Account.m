@@ -46,7 +46,8 @@
 			Village *tempVillage = [[Village alloc] init];
 			
 			tempVillage.name = [[[villageNode findChildWithAttribute:@"class" matchingName:@"name" allowPartial:NO] findChildTag:@"a"] contents];
-			tempVillage.population = [[[villageNode findChildWithAttribute:@"class" matchingName:@"inhabitants" allowPartial:NO] contents] intValue];
+			NSString *inhabitants = [[[villageNode findChildWithAttribute:@"class" matchingName:@"inhabitants" allowPartial:NO] contents] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+			tempVillage.population = [inhabitants intValue];
 			// x & y
 			
 			[tempVillages addObject:tempVillage];

@@ -71,4 +71,26 @@
 	
 }
 
++ (TravianBuildings)identifyBuilding:(HTMLNode *)body {
+	
+	if (![[body tagName] isEqualToString:@"body"])
+		return TBNotFound;
+	
+	TravianBuildings building = TBNotFound;
+	
+	HTMLNode *buildingId = [body findChildWithAttribute:@"id" matchingName:@"build" allowPartial:NO];
+	if (!buildingId)
+		return TBNotFound;
+	
+	NSString *class = [buildingId getAttributeNamed:@"class"];
+	if ([class rangeOfString:@"gid"].location == NSNotFound)
+		return TBNotFound;
+	
+	class = [class stringByReplacingOccurrencesOfString:@"gid" withString:@""];
+	
+	building = [class intValue];
+	
+	return building;
+}
+
 @end

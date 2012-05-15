@@ -27,6 +27,7 @@
 		4F095245155C804400C15D6E /* Account.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F095244155C804400C15D6E /* Account.m */; };
 		4F095293155DD2CB00C15D6E /* Hero.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F095292155DD2CB00C15D6E /* Hero.m */; };
 		4F095296155DD53300C15D6E /* HeroQuest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F095295155DD53300C15D6E /* HeroQuest.m */; };
+		4FDA07851563189200E9C6C2 /* ResourcesProduction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FDA07841563189100E9C6C2 /* ResourcesProduction.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -67,6 +68,8 @@
 		4F095295155DD53300C15D6E /* HeroQuest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeroQuest.m; sourceTree = "<group>"; };
 		4F38F938156008FE00AF2E82 /* TravianPages.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TravianPages.h; sourceTree = "<group>"; };
 		4F38F93A15600B6700AF2E82 /* TravianPageParsingProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TravianPageParsingProtocol.h; sourceTree = "<group>"; };
+		4FDA07831563189100E9C6C2 /* ResourcesProduction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResourcesProduction.h; sourceTree = "<group>"; };
+		4FDA07841563189100E9C6C2 /* ResourcesProduction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResourcesProduction.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +128,8 @@
 				4F095241155C7F6300C15D6E /* Village.m */,
 				4F09523D155C7DE400C15D6E /* Resources.h */,
 				4F09523E155C7DE400C15D6E /* Resources.m */,
+				4FDA07831563189100E9C6C2 /* ResourcesProduction.h */,
+				4FDA07841563189100E9C6C2 /* ResourcesProduction.m */,
 				4F09523A155C7CB200C15D6E /* Troop.h */,
 				4F09523B155C7CB200C15D6E /* Troop.m */,
 				4F095291155DD2CB00C15D6E /* Hero.h */,
@@ -243,6 +248,7 @@
 				4F095293155DD2CB00C15D6E /* Hero.m in Sources */,
 				4F095296155DD53300C15D6E /* HeroQuest.m in Sources */,
 				4F0261D115612EA300DF545F /* TPIdentifier.m in Sources */,
+				4FDA07851563189200E9C6C2 /* ResourcesProduction.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -14,20 +14,6 @@
 
 @synthesize wood, clay, iron, wheat;
 
-#pragma mark - TravianPageParsingProtocol
-
-- (void)parsePage:(TravianPages)page fromHTML:(NSString *)html
-{
-	NSError *error;
-	HTMLParser *p = [[HTMLParser alloc] initWithString:html error:&error];
-	[self parsePage:page fromHTMLNode:[p body]];
-}
-
-- (void)parsePage:(TravianPages)page fromHTMLNode:(HTMLNode *)node
-{
-	
-}
-
 #pragma mark - Coder
 
 - (id)initWithCoder:(NSCoder *)coder {
