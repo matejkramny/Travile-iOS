@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @class Storage;
+@class ViewController;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 

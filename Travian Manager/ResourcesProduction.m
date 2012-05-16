@@ -24,7 +24,25 @@
 	if (![[node tagName] isEqualToString:@"body"])
 		return;
 	
+	HTMLNode *tableProduction = [node findChildWithAttribute:@"id" matchingName:@"production" allowPartial:NO];
+	if (!tableProduction) {
+		NSLog(@"Cannot find table#production");
+		return;
+	}
 	
+	NSArray *tr = [[tableProduction findChildTag:@"tbody"] findChildTags:@"tr"];
+	NSMutableArray *strings = [[NSMutableArray alloc] initWithCapacity:[tr count]];
+	for (int i = 0; i < [tr count]; i++) {
+		HTMLNode *no = [tr objectAtIndex:i];
+		NSString *string = [[[no findChildWithAttribute:@"class" matchingName:@"num" allowPartial:NO] contents] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+		
+		[strings addObject:string];
+	}
+	
+	self.wood = [[strings objectAtIndex:0] intValue];
+	self.clay = [[strings objectAtIndex:1] intValue];
+	self.iron = [[strings objectAtIndex:2] intValue];
+	self.wheat = [[strings objectAtIndex:3] intValue];
 }
 
 #pragma mark - Coder

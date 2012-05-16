@@ -15,10 +15,11 @@
 #import "Storage.h"
 #import "Account.h"
 #import "TPIdentifier.h"
+#import "Construction.h"
 
 @implementation Village
 
-@synthesize resources, resourceProduction, troops, movements, name;
+@synthesize resources, resourceProduction, troops, movements, constructions, buildings, name;
 @synthesize urlPart, loyalty, population, warehouse, granary, consumption, x, y;
 @synthesize villageConnection, villageData;
 
@@ -57,41 +58,104 @@
 		return;
 	
 	if ((page & TPResources) != 0) {
-		NSArray *woodRaw = [[[node findChildWithAttribute:@"id" matchingName:@"l1" allowPartial:NO] contents] componentsSeparatedByString:@"/"];
+		[self parseResources:node];
 		
-		warehouse = [[woodRaw objectAtIndex:1] intValue];
-		
-		if (!resources)
-			resources = [[Resources alloc] init];
-		
-		[resources setWood:[[woodRaw objectAtIndex:0] intValue]];
-		resources.clay = [[[[[node findChildWithAttribute:@"id" matchingName:@"l2" allowPartial:NO] contents] componentsSeparatedByString:@"/"] objectAtIndex:0] intValue];
-		resources.iron = [[[[[node findChildWithAttribute:@"id" matchingName:@"l3" allowPartial:NO] contents] componentsSeparatedByString:@"/"] objectAtIndex:0] intValue];
-		
-		NSArray *rawWheat = [[[node findChildWithAttribute:@"id" matchingName:@"l4" allowPartial:NO] contents] componentsSeparatedByString:@"/"];
-		granary = [[rawWheat objectAtIndex:1] intValue];
-		[resources setWheat:[[rawWheat objectAtIndex:0] intValue]];
-		consumption = [[[[[node findChildWithAttribute:@"id" matchingName:@"l5" allowPartial:NO] contents] componentsSeparatedByString:@"/"] objectAtIndex:0] intValue];
+		if (!resourceProduction)
+			resourceProduction = [[ResourcesProduction alloc] init];
 		
 		[resourceProduction parsePage:page fromHTMLNode:node];
-		// get basic troops
+		[self parseTroops:node];
 		// get basic movements
-	} else if ((page & TPBuildList) != 0) {
-		// get construction list
 	} else if ((page & TPBuilding) != 0) {
 		[self parseBuilding:node];
-		// get comprehensive info about troops
-		// get all movements
 	} else {
 		
 	}
 	
+	if ((page & TPBuildList) != 0) {
+		// get construction list
+		
+		HTMLNode *building_contract = [node findChildWithAttribute:@"id" matchingName:@"building_contract" allowPartial:NO];
+		NSMutableArray *tempConstructions = [[NSMutableArray alloc] init];
+		if (building_contract) {
+			NSArray *trs = [[building_contract findChildTag:@"tbody"] findChildTags:@"tr"];
+			
+			for (HTMLNode *tr in trs) {
+				Construction *construction = [[Construction alloc] init];
+				NSArray *tds = [tr findChildTags:@"td"];
+				
+				NSString *conName = [[tds objectAtIndex:1] contents];
+				NSString *conLevel = [[[tds objectAtIndex:1] findChildTag:@"span"] contents];
+				NSString *conFinishTime = [[tds objectAtIndex:2] rawContents];
+				NSString *conFInishTimeSpan = [[[tds objectAtIndex:2] findChildTag:@"span"] rawContents];
+				conFinishTime = [conFinishTime stringByReplacingOccurrencesOfString:conFInishTimeSpan withString:@""];
+				
+				NSError *error;
+				HTMLParser *parser = [[HTMLParser alloc] initWithString:conFinishTime error:&error];
+				if (error) {
+					conFinishTime = @"Undetectable";
+					NSLog(@"Unparseable construciton");
+					
+					continue;
+				}
+				
+				conFinishTime = [[[[parser body] findChildTag:@"td"] contents] stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+				NSString *ampm = [conFinishTime stringByReplacingCharactersInRange:NSMakeRange(0, [conFinishTime length] - 2) withString:@""];
+				conFinishTime = [conFinishTime stringByTrimmingCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]];
+				
+				NSString *ampmFormattedString = @"";
+				if ([ampm isEqualToString:@"am"]) {
+					ampmFormattedString = [NSString stringWithString:@" AM"];
+				} else if ([ampm isEqualToString:@"pm"]) {
+					ampmFormattedString = [NSString stringWithString:@" PM"];
+				}
+				
+				construction.name = [conName stringByReplacingOccurrencesOfString:conLevel withString:@""];
+				construction.level = [conLevel stringByTrimmingCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]];
+				construction.finishTime = [conFinishTime stringByAppendingString:ampmFormattedString];
+				
+				[tempConstructions addObject:construction];
+			}
+			
+			constructions = tempConstructions;
+		} else
+			constructions = [[NSArray alloc] init];
+	}
+	
 	// get loyalty
+	HTMLNode *villageName = [node findChildWithAttribute:@"id" matchingName:@"villageName" allowPartial:NO];
+	if (villageName) {
+		NSString *span = [[[villageName findChildWithAttribute:@"class" matchingName:@"loyalty" allowPartial:YES] contents] stringByTrimmingCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]];
+		loyalty = [span intValue];
+	}
+}
+
+- (void)parseTroops:(HTMLNode *)node {
+	
+}
+
+- (void)parseResources:(HTMLNode *)body {
+	NSArray *woodRaw = [[[body findChildWithAttribute:@"id" matchingName:@"l1" allowPartial:NO] contents] componentsSeparatedByString:@"/"];
+	
+	warehouse = [[woodRaw objectAtIndex:1] intValue];
+	
+	// Resources object might be nil
+	if (!resources)
+		resources = [[Resources alloc] init];
+	
+	resources.wood = [[woodRaw objectAtIndex:0] intValue];
+	resources.clay = [[[[[body findChildWithAttribute:@"id" matchingName:@"l2" allowPartial:NO] contents] componentsSeparatedByString:@"/"] objectAtIndex:0] intValue];
+	resources.iron = [[[[[body findChildWithAttribute:@"id" matchingName:@"l3" allowPartial:NO] contents] componentsSeparatedByString:@"/"] objectAtIndex:0] intValue];
+	
+	NSArray *rawWheat = [[[body findChildWithAttribute:@"id" matchingName:@"l4" allowPartial:NO] contents] componentsSeparatedByString:@"/"];
+	granary = [[rawWheat objectAtIndex:1] intValue];
+	resources.wheat =[[rawWheat objectAtIndex:0] intValue];
+	consumption = [[[[[body findChildWithAttribute:@"id" matchingName:@"l5" allowPartial:NO] contents] componentsSeparatedByString:@"/"] objectAtIndex:0] intValue];
 }
 
 - (void)parseBuilding:(HTMLNode *)body {
 	// check if the building is a rally point to update troops
-	
+	// get all movements
 	
 }
 
@@ -104,6 +168,7 @@
 	resourceProduction = [coder decodeObjectForKey:@"resourceProduction"];
 	troops = [coder decodeObjectForKey:@"troops"];
 	movements = [coder decodeObjectForKey:@"movements"];
+	buildings = [coder decodeObjectForKey:@"buildings"];
 	urlPart = [coder decodeObjectForKey:@"villageID"];
 		NSNumber *numberObject;
 	numberObject = [coder decodeObjectForKey:@"population"];
@@ -129,6 +194,7 @@
 	[coder encodeObject:resourceProduction forKey:@"resourceProduction"];
 	[coder encodeObject:troops forKey:@"troops"];
 	[coder encodeObject:movements forKey:@"movements"];
+	[coder encodeObject:buildings forKey:@"buildings"];
 	[coder encodeObject:urlPart forKey:@"villageID"];
 	[coder encodeObject:[NSNumber numberWithInt:population] forKey:@"population"];
 	[coder encodeObject:[NSNumber numberWithInt:loyalty] forKey:@"loyalty"];

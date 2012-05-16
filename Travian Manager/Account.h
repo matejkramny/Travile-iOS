@@ -37,8 +37,6 @@ typedef enum {
 //@property (nonatomic, strong) Profile *profile;
 @property (nonatomic, strong) Hero *hero; // Hero
 
-@property (assign) bool hasBeginnersProtection; // Flags when user has beginner protection
-
 @property (assign) AccountStatus status; // Tells other objects the status of this account
 
 - (void)activateAccount;

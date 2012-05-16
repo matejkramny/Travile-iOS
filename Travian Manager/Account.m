@@ -14,7 +14,7 @@
 
 @implementation Account
 
-@synthesize name, username, password, world, server, villages, reports, messages, contacts, hero, hasBeginnersProtection, status;
+@synthesize name, username, password, world, server, villages, reports, messages, contacts, hero, status;
 
 #pragma mark - TravianPageParsingProtocol
 
@@ -110,8 +110,6 @@
 	messages = [coder decodeObjectForKey:@"messages"];
 	contacts = [coder decodeObjectForKey:@"contacts"];
 	hero = [coder decodeObjectForKey:@"hero"];
-	NSNumber *hasBeginnersProtectionObject = [coder decodeObjectForKey:@"hasBeginnersProtection"];
-	hasBeginnersProtection = [hasBeginnersProtectionObject boolValue];
 	
 	return self;
 }
@@ -127,7 +125,6 @@
 	[coder encodeObject:messages forKey:@"messages"];
 	[coder encodeObject:contacts forKey:@"contacts"];
 	[coder encodeObject:hero forKey:@"hero"];
-	[coder encodeObject:[NSNumber numberWithBool:hasBeginnersProtection] forKey:@"hasBeginnersProtection"];
 }
 
 - (void)activateAccount {

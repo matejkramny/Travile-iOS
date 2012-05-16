@@ -20,6 +20,8 @@
 @property (nonatomic, strong) ResourcesProduction *resourceProduction; // Village resource production / hour
 @property (nonatomic, strong) NSArray *troops; // Village troops
 @property (nonatomic, strong) NSArray *movements; // Village movements
+@property (nonatomic, strong) NSArray *buildings; // Buildings (including resource fields)
+@property (nonatomic, strong) NSArray *constructions; // Construction list
 @property (nonatomic, strong) NSString *name; // Village's name
 @property (nonatomic, strong) NSString *urlPart; // Village ID required for switching villages in url
 @property (assign) int population; // Village population
@@ -34,6 +36,8 @@
 @property (nonatomic, strong) NSMutableData *villageData; // Village data
 
 - (void)downloadAndParse;
+- (void)parseTroops:(HTMLNode *)node;
+- (void)parseResources:(HTMLNode *)body;
 - (void)parseBuilding:(HTMLNode *)body;
 
 @end

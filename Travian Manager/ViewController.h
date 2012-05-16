@@ -10,8 +10,20 @@
 
 @interface ViewController : UIViewController {
 	
-	IBOutlet UILabel *label;
+	IBOutlet UILabel *wood;
+	IBOutlet UILabel *clay;
+	IBOutlet UILabel *iron;
+	IBOutlet UILabel *wheat;
+	IBOutlet UILabel *granary;
+	IBOutlet UILabel *warehouse;
 	
+	IBOutlet UILabel *vilName;
+	IBOutlet UILabel *vilLoyalty;
+	IBOutlet UILabel *vilPopulation;
+	
+	IBOutlet UILabel *troopsHero;
 }
+
+- (IBAction)updateView:(id)sender;
 
 @end
