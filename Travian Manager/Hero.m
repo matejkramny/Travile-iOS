@@ -57,6 +57,11 @@
 	int i = 0;
 	for (HTMLNode *resourceNode in resourcesArray) {
 		HTMLNode *resourceInput = [resourceNode findChildTag:@"input"];
+		
+		if (resourceInput == nil) continue; // not an input
+		
+		NSLog(@"%@", [resourceInput rawContents]);
+		
 		if ([resourceInput getAttributeNamed:@"checked"]) {
 			activeResource = i;
 			manyResource = [[[resourceNode findChildTag:@"span"] contents] intValue];

@@ -26,6 +26,19 @@
 	IBOutlet UILabel *consName;
 	IBOutlet UILabel *consLevel;
 	IBOutlet UILabel *consFinish;
+	
+	IBOutlet UILabel *heroStrength;
+	IBOutlet UILabel *heroOff;
+	IBOutlet UILabel *heroDef;
+	IBOutlet UILabel *heroExp;
+	IBOutlet UILabel *heroHealth;
+	IBOutlet UILabel *heroisHiding;
+	IBOutlet UILabel *heroisAlive;
+	IBOutlet UILabel *heroWood;
+	IBOutlet UILabel *heroClay;
+	IBOutlet UILabel *heroIron;
+	IBOutlet UILabel *heroWheat;
+	
 }
 
 - (IBAction)updateView:(id)sender;

@@ -14,6 +14,7 @@
 #import "Resources.h"
 #import "Troop.h"
 #import "Construction.h"
+#import "Hero.h"
 
 @interface ViewController ()
 
@@ -46,7 +47,8 @@
 - (IBAction)updateView:(id)sender {
 	NSLog(@"Update view");
 	
-	Village *v = [[[[(AppDelegate *)[UIApplication sharedApplication].delegate storage] account] villages] objectAtIndex:0];
+	Account *a = [[(AppDelegate *)[UIApplication sharedApplication].delegate storage] account];
+	Village *v = [[a villages] objectAtIndex:0];
 	
 	[warehouse setText:[NSString stringWithFormat:@"%d", v.warehouse]];
 	[granary setText:[NSString stringWithFormat:@"%d", v.granary]];
@@ -71,6 +73,21 @@
 		[consLevel setText:[NSString stringWithFormat:@"%d", [c level]]];
 		[consFinish setText:[c finishTime]];
 	}
+	
+	// Hero
+	Hero *h = a.hero;
+	
+	[heroStrength setText:[NSString stringWithFormat:@"%d", h.strengthPoints]];
+	[heroOff setText:[NSString stringWithFormat:@"%d%%", h.offBonusPercentage]];
+	[heroDef setText:[NSString stringWithFormat:@"%d%%", h.defBonusPercentage]];
+	[heroExp setText:[NSString stringWithFormat:@"%d", h.experience]];
+	[heroHealth setText:[NSString stringWithFormat:@"%d%%", h.health]];
+	[heroisHiding setText:h.isHidden ? @"YES" : @"NO"];
+	[heroisAlive setText:h.isAlive ? @"YES" : @"NO"];
+	[heroWood setText:[NSString stringWithFormat:@"%d", h.resourceProductionBoost.wood]];
+	[heroClay setText:[NSString stringWithFormat:@"%d", h.resourceProductionBoost.clay]];
+	[heroIron setText:[NSString stringWithFormat:@"%d", h.resourceProductionBoost.iron]];
+	[heroWheat setText:[NSString stringWithFormat:@"%d", h.resourceProductionBoost.wheat]];
 }
 
 @end
