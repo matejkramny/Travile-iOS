@@ -262,17 +262,6 @@
 		TravianPages page = [TPIdentifier identifyPage:body];
 		
 		[self parsePage:page fromHTMLNode:body];
-		
-		if ((page & TPResources) != 0)
-		{
-			// Make another request for village rally point
-			Account *account = [[(AppDelegate *)[UIApplication sharedApplication].delegate storage] account]; // This village's owner
-			
-			NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@.travian.%@/build.php?tt=1&id=39", account.world, account.server]] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60]; // Building Spot # 39 & 1st tab (Overview)
-			[request setHTTPShouldHandleCookies:YES];
-			
-			villageConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
-		}
 	}
 	
 }

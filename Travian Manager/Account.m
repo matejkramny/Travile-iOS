@@ -11,6 +11,7 @@
 #import "HTMLNode.h"
 #import "TPIdentifier.h"
 #import "Village.h"
+#import "Hero.h"
 
 @implementation Account
 
@@ -33,7 +34,7 @@
 		return; // Can't do anything with unparseable pages or non-body nodes
 	
 	// Villages
-	if (page == TPProfile) {
+	if ((page & TPProfile) != 0) {
 		
 		// Find each village's population & x, y coordinates
 		HTMLNode *idVillages = [node findChildWithAttribute:@"id" matchingName:@"villages" allowPartial:NO];
@@ -94,6 +95,11 @@
 			[vil downloadAndParse]; // Tell each village to download its data
 		}
 		
+	} else if ((page & TPHero) != 0) {
+		if (!hero)
+			hero = [[Hero alloc] init];
+		
+		[hero parsePage:page fromHTMLNode:node];
 	}
 }
 
@@ -204,13 +210,15 @@
 		
 		TravianPages page = [TPIdentifier identifyPage:[parser body]];
 		
+		// Parse the page
+		[self parsePage:page fromHTMLNode:[parser body]];
+		
 		if ((page & (TPLogin | TPNotFound)) != 0) {
 			// Still at login page.
 			status = ANotLoggedIn | ACannotLogIn;
 			return;
-		} else if (page & TPResources) {
-			NSLog(@"Loading profile");
-			
+		} else if ((page & TPResources) != 0) {
+			// load profile
 			NSString *stringUrl = [NSString stringWithFormat:@"http://%@.travian.%@/spieler.php", self.world, self.server];
 			NSURL *url = [NSURL URLWithString: stringUrl];
 			
@@ -222,10 +230,16 @@
 			loginConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
 			
 			return;
+		} else if ((page & TPProfile) != 0) {
+			// load hero
+			
+			// Make another request for hero
+			
+			NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@.travian.%@/hero_inventory.php", world, server]] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
+			[request setHTTPShouldHandleCookies:YES];
+			
+			loginConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
 		}
-		
-		// Parse the page
-		[self parsePage:page fromHTMLNode:[parser body]];
 		
 		status = ALoggedIn;
 		
