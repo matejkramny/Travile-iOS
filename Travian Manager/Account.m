@@ -95,7 +95,7 @@
 			[vil downloadAndParse]; // Tell each village to download its data
 		}
 		
-	} else if ((page & TPHero) != 0) {
+	} else if ((page & (TPHero | TPAdventures | TPAuction)) != 0) {
 		if (!hero)
 			hero = [[Hero alloc] init];
 		
@@ -236,6 +236,13 @@
 			// Make another request for hero
 			
 			NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@.travian.%@/hero_inventory.php", world, server]] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
+			[request setHTTPShouldHandleCookies:YES];
+			
+			loginConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
+		} else if ((page & TPHero) != 0) {
+			// Next download adventures
+			
+			NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@.travian.%@/hero_adventure.php", world, server]] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
 			[request setHTTPShouldHandleCookies:YES];
 			
 			loginConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];

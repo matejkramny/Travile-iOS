@@ -9,6 +9,7 @@
 #import "Hero.h"
 #import "HTMLNode.h"
 #import "TravianPages.h"
+#import "HeroQuest.h"
 
 @implementation Hero
 
@@ -123,8 +124,21 @@
 
 - (void)parseAdventures:(HTMLNode *)node {
 	
+	HTMLNode *form = [node findChildWithAttribute:@"id" matchingName:@"adventureListForm" allowPartial:NO];
 	
+	if (!form)
+		return; // Wrong page, form doesn't exist!
 	
+	NSArray *trs = [[form findChildTag:@"tbody"] findChildTags:@"tr"];
+	NSMutableArray *adventures = [[NSMutableArray alloc] initWithCapacity:[trs count]];
+	
+	for (HTMLNode *tr in trs) {
+		
+		HeroQuest *adventure = [[HeroQuest alloc] init];
+		
+		// Continue later..
+		
+	}
 }
 
 #pragma mark - Coders

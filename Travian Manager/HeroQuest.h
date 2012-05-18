@@ -16,9 +16,10 @@ typedef enum {
 @interface HeroQuest : NSObject <NSCoding>
 
 @property (assign) questDifficulty difficulty; // Defines how difficult quest is
-// Duration
-// Time left
+@property (assign) int duration; // How long the quest is (in seconds)
+@property (strong, nonatomic) NSDate *expiry; // When the quest expires
 @property (assign) int x; // Where the quest is on X axis
 @property (assign) int y; // Where the quest is on Y axis
+@property (nonatomic, strong) NSString *urlPart; // URL to access the adventure
 
 @end
