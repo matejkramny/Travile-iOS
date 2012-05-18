@@ -61,8 +61,6 @@
 		
 		if (resourceInput == nil) continue; // not an input
 		
-		NSLog(@"%@", [resourceInput rawContents]);
-		
 		if ([resourceInput getAttributeNamed:@"checked"]) {
 			activeResource = i;
 			manyResource = [[[resourceNode findChildTag:@"span"] contents] intValue];
@@ -136,7 +134,38 @@
 		
 		HeroQuest *adventure = [[HeroQuest alloc] init];
 		
-		// Continue later..
+		// ID & URL
+		adventure.urlPart = [NSString stringWithFormat:@"?from=list&kid=%@", [[tr getAttributeNamed:@"id"] stringByReplacingOccurrencesOfString:@"adventure" withString:@""]]; // tr#adventureXXXXX (XXXXX = id of the adventure)
+		
+		// X, Y
+		// Strip "(" and ")" from coordinates
+		NSString *coordinateX = [[[tr findChildWithAttribute:@"class" matchingName:@"coordinateX" allowPartial:NO] contents] stringByReplacingOccurrencesOfString:@"(" withString:@""];
+		NSString *coordinateY = [[[tr findChildWithAttribute:@"class" matchingName:@"coordinateY" allowPartial:NO] contents] stringByReplacingOccurrencesOfString:@")" withString:@""];
+		// Parse them as integers & put them into adventure object
+		adventure.x = [coordinateX intValue];
+		adventure.y = [coordinateY intValue];
+		
+		// Duration
+		NSString *rawTime = [[[tr findChildWithAttribute:@"class" matchingName:@"moveTime" allowPartial:NO] contents] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+		NSArray *rawTimeSplit = [rawTime componentsSeparatedByString:@":"];
+		if ([rawTimeSplit count] == 3) {
+			// Hour, Minute, Second
+			int hour, minute, second;
+			
+			hour = [[rawTimeSplit objectAtIndex:0] intValue];
+			minute = [[rawTimeSplit objectAtIndex:1] intValue];
+			second = [[rawTimeSplit objectAtIndex:2] intValue];
+			
+			adventure.duration = hour * 60 * 60 + minute * 60 + second;
+		}
+		
+		// Difficulty
+		NSString *difficulty = [[[tr findChildWithAttribute:@"class" matchingName:@"adventureDifficulty" allowPartial:YES] getAttributeNamed:@"class"] stringByReplacingOccurrencesOfString:@"adventureDifficulty" withString:@""];
+		int difficultyInt = [difficulty intValue];
+		// Difficulty with value 1 or higher is still in DQ_NORMAL
+		if (difficultyInt > 1) difficultyInt = 1;
+		
+		adventure.difficulty = difficultyInt;
 		
 	}
 }

@@ -10,7 +10,7 @@
 
 @implementation HeroQuest
 
-@synthesize difficulty, duration, expiry, x, y, urlPart;
+@synthesize difficulty, duration, x, y, urlPart;
 
 #pragma mark - Coders
 
@@ -21,7 +21,6 @@
 	difficulty = [n intValue];
 	n = [coder decodeObjectForKey:@"duration"];
 	duration = [n intValue];
-	expiry = [coder decodeObjectForKey:@"expiry"];
 	n = [coder decodeObjectForKey:@"x"];
 	x = [n intValue];
 	n = [coder decodeObjectForKey:@"y"];
@@ -33,7 +32,6 @@
 - (void)encodeWithCoder:(NSCoder *)coder {
 	[coder encodeObject:[NSNumber numberWithInt:difficulty] forKey:@"difficulty"];
 	[coder encodeObject:[NSNumber numberWithInt:duration] forKey:@"duration"];
-	[coder encodeObject:expiry forKey:@"expiry"];
 	[coder encodeObject:[NSNumber numberWithInt:x] forKey:@"x"];
 	[coder encodeObject:[NSNumber numberWithInt:y] forKey:@"y"];
 }
