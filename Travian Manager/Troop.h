@@ -10,4 +10,7 @@
 
 @interface Troop : NSObject <NSCoding>
 
+@property (strong, nonatomic) NSString *name; // As appears in browser
+@property (assign) int count; // Number of troops with name ^
+
 @end

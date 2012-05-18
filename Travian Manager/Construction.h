@@ -11,7 +11,7 @@
 @interface Construction : NSObject
 
 @property (strong, nonatomic) NSString *name; // As it appears in browser
-@property (strong, nonatomic) NSString *level; // ^ same as above
+@property (assign) int level; // ^ same as above
 @property (strong, nonatomic) NSString *finishTime; // ^
 
 @end

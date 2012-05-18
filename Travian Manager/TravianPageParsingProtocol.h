@@ -14,7 +14,10 @@
 
 @protocol TravianPageParsingProtocol <NSObject>
 
+@optional
 - (void)parsePage:(TravianPages)page fromHTML:(NSString *)html;
+
+@required
 - (void)parsePage:(TravianPages)page fromHTMLNode:(HTMLNode *)node;
 
 @end

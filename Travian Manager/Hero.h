@@ -7,8 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "TravianPageParsingProtocol.h"
 
-@interface Hero : NSObject <NSCoding>
+@interface Hero : NSObject <NSCoding, TravianPageParsingProtocol>
 
 @property (assign) int strengthPoints; // Attribute - Strength
 @property (assign) int offBonusPercentage; // Attribute - Offence bonus (%)
@@ -20,5 +21,8 @@
 @property (assign) int speed; // Fields / hour
 @property (assign) bool isHidden; // Whether hero is hidden when village is attacked
 @property (assign) NSArray *quests; // Array of quests available
+
+- (void)parseHero:(HTMLNode *)node;
+- (void)parseAdventures:(HTMLNode *)node;
 
 @end

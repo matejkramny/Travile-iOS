@@ -14,7 +14,9 @@
 @class HTMLNode;
 @class Account;
 
-@interface Village : NSObject <NSCoding, TravianPageParsingProtocol, NSURLConnectionDelegate, NSURLConnectionDataDelegate>
+@interface Village : NSObject <NSCoding, TravianPageParsingProtocol, NSURLConnectionDelegate, NSURLConnectionDataDelegate> {
+	__weak Account *parent;
+}
 
 @property (nonatomic, strong) Resources *resources; // Village resources
 @property (nonatomic, strong) ResourcesProduction *resourceProduction; // Village resource production / hour
@@ -35,6 +37,7 @@
 @property (nonatomic, strong) NSURLConnection *villageConnection; // Village connection
 @property (nonatomic, strong) NSMutableData *villageData; // Village data
 
+- (void)setAccountParent:(Account *)newParent;
 - (void)downloadAndParse;
 - (void)parseTroops:(HTMLNode *)node;
 - (void)parseResources:(HTMLNode *)body;

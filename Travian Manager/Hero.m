@@ -7,10 +7,35 @@
 //
 
 #import "Hero.h"
+#import "HTMLNode.h"
+#import "TravianPages.h"
 
 @implementation Hero
 
 @synthesize strengthPoints, offBonusPercentage, defBonusPercentage, experience, health, speed, quests, isHidden, resourcePoints, resourceProductionBoost;
+
+#pragma mark - Page Parsing protocol
+
+- (void)parsePage:(TravianPages)page fromHTMLNode:(HTMLNode *)node {
+	
+	if (![[node tagName] isEqualToString:@"body"])
+		return;
+	
+	if ((page & TPHero) != 0) {
+		//[self parseHero:node];
+	} else if ((page & TPAdventures) != 0) {
+		//[self parseAdventures:node];
+	}
+	
+}
+
+- (void)parseHero:(HTMLNode *)node {
+	
+}
+
+- (void)parseAdventures:(HTMLNode *)node {
+	
+}
 
 #pragma mark - Coders
 

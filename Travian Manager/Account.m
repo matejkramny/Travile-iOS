@@ -82,6 +82,8 @@
 			tempVillage = [tempVillages objectAtIndex:index];
 			
 			tempVillage.urlPart = [[li findChildTag:@"a"] getAttributeNamed:@"href"];
+			
+			[tempVillage setAccountParent:self];
 		}
 		
 		// Empty local villages and replace them with tempVillages
@@ -110,6 +112,10 @@
 	messages = [coder decodeObjectForKey:@"messages"];
 	contacts = [coder decodeObjectForKey:@"contacts"];
 	hero = [coder decodeObjectForKey:@"hero"];
+	
+	for (Village *vil in villages) {
+		[vil setAccountParent:self];
+	}
 	
 	return self;
 }

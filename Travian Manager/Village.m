@@ -16,12 +16,18 @@
 #import "Account.h"
 #import "TPIdentifier.h"
 #import "Construction.h"
+#import "Troop.h"
+#import "Hero.h"
 
 @implementation Village
 
 @synthesize resources, resourceProduction, troops, movements, constructions, buildings, name;
 @synthesize urlPart, loyalty, population, warehouse, granary, consumption, x, y;
 @synthesize villageConnection, villageData;
+
+- (void)setAccountParent:(Account *)newParent {
+	parent = newParent;
+}
 
 #pragma mark - Custom messages
 
@@ -44,13 +50,6 @@
 
 #pragma mark - Page parsing
 
-- (void)parsePage:(TravianPages)page fromHTML:(NSString *)html
-{
-	NSError *error;
-	HTMLParser *p = [[HTMLParser alloc] initWithString:html error:&error];
-	[self parsePage:page fromHTMLNode:[p body]];
-}
-
 - (void)parsePage:(TravianPages)page fromHTMLNode:(HTMLNode *)node
 {
 	// Do not parse unparseable pages || tagName must be body - root element
@@ -67,9 +66,9 @@
 		[self parseTroops:node];
 		// get basic movements
 	} else if ((page & TPBuilding) != 0) {
-		[self parseBuilding:node];
-	} else {
-		
+		[self parseBuilding:node]; // TODO			TODO		TODO		TODO		TODO		TODO
+	} else if ((page & TPHero) != 0) {
+		[parent.hero parsePage:page fromHTMLNode:node];
 	}
 	
 	if ((page & TPBuildList) != 0) {
@@ -111,7 +110,7 @@
 				}
 				
 				construction.name = [conName stringByReplacingOccurrencesOfString:conLevel withString:@""];
-				construction.level = [conLevel stringByTrimmingCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]];
+				construction.level = [[conLevel stringByTrimmingCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]] intValue];
 				construction.finishTime = [conFinishTime stringByAppendingString:ampmFormattedString];
 				
 				[tempConstructions addObject:construction];
@@ -131,6 +130,29 @@
 }
 
 - (void)parseTroops:(HTMLNode *)node {
+	
+	if (![[node tagName] isEqualToString:@"body"])
+		return;
+	
+	HTMLNode *tableTroops = [node findChildWithAttribute:@"id" matchingName:@"troops" allowPartial:NO];
+	if (!tableTroops) {
+		NSLog(@"Did not find table#troops");
+		return;
+	}
+	
+	NSArray *trs = [[tableTroops findChildTag:@"tbody"] findChildTags:@"tr"];
+	NSMutableArray *troopsTemp = [[NSMutableArray alloc] initWithCapacity:[trs count]];
+	
+	for (HTMLNode *tr in trs) {
+		Troop *troop = [[Troop alloc] init];
+		
+		troop.count = [[[tr findChildWithAttribute:@"class" matchingName:@"num" allowPartial:NO] contents] intValue];
+		troop.name = [[tr findChildWithAttribute:@"class" matchingName:@"un" allowPartial:NO] contents];
+		
+		[troopsTemp addObject:troop];
+	}
+	
+	troops = troopsTemp;
 	
 }
 
@@ -154,7 +176,7 @@
 }
 
 - (void)parseBuilding:(HTMLNode *)body {
-	// check if the building is a rally point to update troops
+	// check if the building is a rally point to get movements
 	// get all movements
 	
 }

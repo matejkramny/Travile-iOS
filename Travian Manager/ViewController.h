@@ -22,6 +22,10 @@
 	IBOutlet UILabel *vilPopulation;
 	
 	IBOutlet UILabel *troopsHero;
+	
+	IBOutlet UILabel *consName;
+	IBOutlet UILabel *consLevel;
+	IBOutlet UILabel *consFinish;
 }
 
 - (IBAction)updateView:(id)sender;

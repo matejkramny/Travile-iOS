@@ -12,6 +12,8 @@
 #import "Account.h"
 #import "Village.h"
 #import "Resources.h"
+#import "Troop.h"
+#import "Construction.h"
 
 @interface ViewController ()
 
@@ -58,6 +60,17 @@
 	[vilName setText:v.name];
 	[vilLoyalty setText:[NSString stringWithFormat:@"%d", v.loyalty]];
 	[vilPopulation setText:[NSString stringWithFormat:@"%d", v.population]];
+	
+	if (v.troops && [v.troops count] > 0)
+		[troopsHero setText:[NSString stringWithFormat:@"%d", [[v.troops objectAtIndex:0] count]]];
+	
+	if (v.constructions && [v.constructions count] > 0) {
+		Construction *c = [v.constructions objectAtIndex:0];
+		
+		[consName setText:[c name]];
+		[consLevel setText:[NSString stringWithFormat:@"%d", [c level]]];
+		[consFinish setText:[c finishTime]];
+	}
 }
 
 @end
