@@ -135,7 +135,7 @@
 		HeroQuest *adventure = [[HeroQuest alloc] init];
 		
 		// ID & URL
-		adventure.urlPart = [NSString stringWithFormat:@"?from=list&kid=%@", [[tr getAttributeNamed:@"id"] stringByReplacingOccurrencesOfString:@"adventure" withString:@""]]; // tr#adventureXXXXX (XXXXX = id of the adventure)
+		adventure.kid = [[[tr getAttributeNamed:@"id"] stringByReplacingOccurrencesOfString:@"adventure" withString:@""] intValue]; // tr#adventureXXXXX (XXXXX = id of the adventure)
 		
 		// X, Y
 		// Strip "(" and ")" from coordinates
@@ -159,6 +159,17 @@
 			adventure.duration = hour * 60 * 60 + minute * 60 + second;
 		}
 		
+		// Expiry
+		rawTime = [[[tr findChildWithAttribute:@"class" matchingName:@"timeLeft" allowPartial:NO] findChildTag:@"span"] contents];
+		rawTimeSplit = [rawTime componentsSeparatedByString:@":"];
+		int hour = 0, minute = 0, second = 0;
+		hour = [[rawTimeSplit objectAtIndex:0] intValue];
+		minute = [[rawTimeSplit objectAtIndex:1] intValue];
+		second = [[rawTimeSplit objectAtIndex:2] intValue];
+		int timestamp = [[NSDate date] timeIntervalSince1970]; // Now date
+		timestamp += hour * 60 * 60 + minute * 60 + second; // Now date + hour:minute:second
+		adventure.expiry = [NSDate dateWithTimeIntervalSince1970:timestamp]; // Future date
+		
 		// Difficulty
 		NSString *difficulty = [[[tr findChildWithAttribute:@"class" matchingName:@"adventureDifficulty" allowPartial:YES] getAttributeNamed:@"class"] stringByReplacingOccurrencesOfString:@"adventureDifficulty" withString:@""];
 		int difficultyInt = [difficulty intValue];
@@ -167,7 +178,11 @@
 		
 		adventure.difficulty = difficultyInt;
 		
+		[adventures addObject:adventure];
+		
 	}
+	
+	quests = adventures;
 }
 
 #pragma mark - Coders

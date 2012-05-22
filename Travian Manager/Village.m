@@ -18,6 +18,7 @@
 #import "Construction.h"
 #import "Troop.h"
 #import "Hero.h"
+#import "Building.h"
 
 @implementation Village
 
@@ -27,6 +28,10 @@
 
 - (void)setAccountParent:(Account *)newParent {
 	parent = newParent;
+}
+
+- (Account *)getParent {
+	return parent;
 }
 
 #pragma mark - Custom messages
@@ -65,10 +70,13 @@
 		[resourceProduction parsePage:page fromHTMLNode:node];
 		[self parseTroops:node];
 		// get basic movements
+		[self parseBuildingsPage:page fromNode:node];
 	} else if ((page & TPBuilding) != 0) {
-		[self parseBuilding:node]; // TODO			TODO		TODO		TODO		TODO		TODO
+		//[self parseBuilding:node];
 	} else if ((page & TPHero) != 0) {
 		[parent.hero parsePage:page fromHTMLNode:node];
+	} else if ((page & TPVillage) != 0) {
+		[self parseBuildingsPage:page fromNode:node];
 	}
 	
 	if ((page & TPBuildList) != 0) {
@@ -175,10 +183,96 @@
 	consumption = [[[[[body findChildWithAttribute:@"id" matchingName:@"l5" allowPartial:NO] contents] componentsSeparatedByString:@"/"] objectAtIndex:0] intValue];
 }
 
-- (void)parseBuilding:(HTMLNode *)body {
-	// check if the building is a rally point to get movements
-	// get all movements
+- (void)parseBuildingsPage:(TravianPages)page fromNode:(HTMLNode *)node {
 	
+	HTMLNode *idContent = [node findChildWithAttribute:@"id" matchingName:@"content" allowPartial:NO];
+	if (!idContent) { NSLog(@"Cannot find id#content"); return; }
+	
+	NSArray *areas = [idContent findChildTags:@"area"];
+	if (!areas) { NSLog(@"No areas in id#content!"); return; }
+	
+	if (!buildings)
+		buildings = [[NSMutableArray alloc] init];
+	
+	for (HTMLNode *area in areas) {
+		
+		if ([[area getAttributeNamed:@"href"] isEqualToString:@"dorf2.php"]) continue; // Village Centre
+		
+		Building *building = [[Building alloc] init];
+		
+		NSString *title = [area getAttributeNamed:@"title"];
+		building.bid = [[area getAttributeNamed:@"href"] stringByReplacingOccurrencesOfString:@"build.php?id=" withString:@""];
+		
+		NSError *error;
+		HTMLParser *p = [[HTMLParser alloc] initWithString:title error:&error];
+		if (error) { NSLog(@"Unparseable HTMLParser error %@ %@", [error localizedDescription], [error localizedRecoverySuggestion]); return; }
+		
+		HTMLNode *body = [p body];
+		
+		// check if body contains costs required to upgrade
+		HTMLNode *div;
+		if ((div = [body findChildTag:@"div"])) {
+			Resources *res = [[Resources alloc] init];
+			
+			NSArray *spans = [div findChildTags:@"span"];
+			NSMutableArray *spansParsed = [[NSMutableArray alloc] initWithCapacity:[spans count]];
+			for (int i = 0; i < [spans count]; i++) {
+				HTMLNode *span = [spans objectAtIndex:i];
+				
+				NSString *img = [[span findChildTag:@"img"] rawContents];
+				NSString *raw = [span rawContents];
+				
+				raw = [raw stringByReplacingOccurrencesOfString:img withString:@""];
+				
+				NSError *error;
+				HTMLParser *p = [[HTMLParser alloc] initWithString:raw error:&error];
+				if (error) {
+					NSLog(@"Cannot parse resource %@ %@", [error localizedDescription], [error localizedRecoverySuggestion]);
+					continue;
+				}
+				
+				[spansParsed addObject:[NSNumber numberWithInt:[[[[[p body] findChildTag:@"span"] contents] stringByTrimmingCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]] intValue]]];
+			}
+			
+			res.wood = [[spansParsed objectAtIndex:0] intValue];
+			res.clay = [[spansParsed objectAtIndex:1] intValue];
+			res.iron = [[spansParsed objectAtIndex:2] intValue];
+			res.wheat = [[spansParsed objectAtIndex:3] intValue];
+			
+			building.resources = res;
+		}
+		
+		building.level = [[[[[body findChildTag:@"p"] findChildTag:@"span"] contents] stringByTrimmingCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]] intValue];
+		building.name = [[body findChildTag:@"p"] contents];
+		building.page = page;
+		building.parent = self;
+		
+		bool foundExistingBuilding = false;
+		for (int i = 0; i < [buildings count]; i++) {
+			Building *exBu = [buildings objectAtIndex:i];
+			if (!exBu) continue;
+			
+			if ([[exBu bid] isEqualToString:building.bid]) {
+				
+				foundExistingBuilding = true;
+				
+				// Update building object
+				[buildings replaceObjectAtIndex:i withObject:building];
+				
+				break;
+			}
+		}
+		
+		if (!foundExistingBuilding) {
+			[buildings addObject:building];
+		}
+	}
+	
+	if ((page & TPResources) != 0) return; // incomplete buildings
+	NSLog(@"Listing buildings");
+	for (Building *b in buildings) {
+		NSLog(@"%@ %d", [b name], [b level]);
+	}
 }
 
 #pragma mark - Coders
@@ -261,9 +355,17 @@
 		
 		TravianPages page = [TPIdentifier identifyPage:body];
 		
+		if ((page & TPResources) != 0) {
+			// Village overview
+			
+			NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@.travian.%@/dorf2.php", [parent world], [parent server]]] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
+			[request setHTTPShouldHandleCookies:YES];
+			
+			villageConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
+		}
+		
 		[self parsePage:page fromHTMLNode:body];
 	}
-	
 }
 
 @end

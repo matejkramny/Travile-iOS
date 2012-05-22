@@ -39,6 +39,8 @@
 	IBOutlet UILabel *heroIron;
 	IBOutlet UILabel *heroWheat;
 	
+	IBOutlet UILabel *heroAdventures;
+	
 }
 
 - (IBAction)updateView:(id)sender;

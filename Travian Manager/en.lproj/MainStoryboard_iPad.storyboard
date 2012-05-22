@@ -176,6 +176,13 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="0" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" minimumFontSize="10" id="4oQ-Rh-sgC">
+                                <rect key="frame" x="177" y="438" width="68" height="24"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="0" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" minimumFontSize="10" id="0El-w8-8K4">
                                 <rect key="frame" x="172" y="527" width="68" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -423,7 +430,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Adventures (count):" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="gYg-Wa-PKh">
-                                <rect key="frame" x="20" y="78" width="149" height="21"/>
+                                <rect key="frame" x="20" y="437" width="149" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -438,6 +445,7 @@
                         <outlet property="consLevel" destination="PaR-hg-ZTP" id="hDu-FC-Bi2"/>
                         <outlet property="consName" destination="dfg-Eu-Qm2" id="9ny-r6-NLC"/>
                         <outlet property="granary" destination="prw-z2-vSZ" id="e11-D6-vD8"/>
+                        <outlet property="heroAdventures" destination="4oQ-Rh-sgC" id="OJg-fX-H5s"/>
                         <outlet property="heroClay" destination="Vvk-Ye-BfR" id="SOY-6x-fwa"/>
                         <outlet property="heroDef" destination="ctU-Am-Tr5" id="5H5-9f-FiC"/>
                         <outlet property="heroExp" destination="uLb-Y4-Na3" id="ITP-bY-kM5"/>
@@ -473,6 +481,7 @@
                 <relationship kind="outlet" name="consLevel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="consName" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="granary" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="heroAdventures" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="heroClay" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="heroDef" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="heroExp" candidateClass="UILabel"/>

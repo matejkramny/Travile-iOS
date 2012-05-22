@@ -28,6 +28,7 @@
 		4F095293155DD2CB00C15D6E /* Hero.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F095292155DD2CB00C15D6E /* Hero.m */; };
 		4F095296155DD53300C15D6E /* HeroQuest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F095295155DD53300C15D6E /* HeroQuest.m */; };
 		4F99267515644E7200C6AFFC /* Construction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F99267415644E7200C6AFFC /* Construction.m */; };
+		4FCA3750156B96DF0071BAD5 /* Building.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FCA374F156B96DF0071BAD5 /* Building.m */; };
 		4FDA07851563189200E9C6C2 /* ResourcesProduction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FDA07841563189100E9C6C2 /* ResourcesProduction.m */; };
 /* End PBXBuildFile section */
 
@@ -71,6 +72,8 @@
 		4F38F93A15600B6700AF2E82 /* TravianPageParsingProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TravianPageParsingProtocol.h; sourceTree = "<group>"; };
 		4F99267315644E7200C6AFFC /* Construction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Construction.h; sourceTree = "<group>"; };
 		4F99267415644E7200C6AFFC /* Construction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Construction.m; sourceTree = "<group>"; };
+		4FCA374E156B96DF0071BAD5 /* Building.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Building.h; sourceTree = "<group>"; };
+		4FCA374F156B96DF0071BAD5 /* Building.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Building.m; sourceTree = "<group>"; };
 		4FDA07831563189100E9C6C2 /* ResourcesProduction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResourcesProduction.h; sourceTree = "<group>"; };
 		4FDA07841563189100E9C6C2 /* ResourcesProduction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResourcesProduction.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -129,6 +132,8 @@
 				4F095244155C804400C15D6E /* Account.m */,
 				4F095240155C7F6300C15D6E /* Village.h */,
 				4F095241155C7F6300C15D6E /* Village.m */,
+				4FCA374E156B96DF0071BAD5 /* Building.h */,
+				4FCA374F156B96DF0071BAD5 /* Building.m */,
 				4F09523D155C7DE400C15D6E /* Resources.h */,
 				4F09523E155C7DE400C15D6E /* Resources.m */,
 				4FDA07831563189100E9C6C2 /* ResourcesProduction.h */,
@@ -255,6 +260,7 @@
 				4F0261D115612EA300DF545F /* TPIdentifier.m in Sources */,
 				4FDA07851563189200E9C6C2 /* ResourcesProduction.m in Sources */,
 				4F99267515644E7200C6AFFC /* Construction.m in Sources */,
+				4FCA3750156B96DF0071BAD5 /* Building.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

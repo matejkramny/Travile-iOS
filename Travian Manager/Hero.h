@@ -21,7 +21,7 @@
 @property (assign) int speed; // Fields / hour
 @property (assign) bool isHidden; // Whether hero is hidden when village is attacked
 @property (assign) bool isAlive; // Hero alive/dead true/false
-@property (assign) NSArray *quests; // Array of quests available
+@property (nonatomic, strong) NSArray *quests; // Array of quests available
 
 - (void)parseHero:(HTMLNode *)node;
 - (void)parseAdventures:(HTMLNode *)node;

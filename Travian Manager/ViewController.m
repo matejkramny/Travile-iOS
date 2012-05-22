@@ -15,6 +15,7 @@
 #import "Troop.h"
 #import "Construction.h"
 #import "Hero.h"
+#import "HeroQuest.h"
 
 @interface ViewController ()
 
@@ -88,6 +89,19 @@
 	[heroClay setText:[NSString stringWithFormat:@"%d", h.resourceProductionBoost.clay]];
 	[heroIron setText:[NSString stringWithFormat:@"%d", h.resourceProductionBoost.iron]];
 	[heroWheat setText:[NSString stringWithFormat:@"%d", h.resourceProductionBoost.wheat]];
+	
+	if ([h quests] && [[h quests] count] > 0) {
+		[heroAdventures setText:[NSString stringWithFormat:@"%d", [[h quests] count]]];
+		
+		if ([[[h quests] objectAtIndex:0] canStartQuest:h]) {
+			[[h.quests objectAtIndex:0] startQuest:a];
+		
+			NSLog(@"Sending hero on %@ adventure. It %@ recommended to do the quest.", [[h.quests objectAtIndex:0] difficulty] == QD_NORMAL ? @"normal" : @"hard", [[h.quests objectAtIndex:0] recommendedToStartQuestWithHero:h] == true ? @"is" : @"is not");
+		} else {
+			NSLog(@"Cannot start quest");
+			NSLog(@"Hero is %@.", [h isAlive] ? @"alive" : @"dead");
+		}
+	}
 }
 
 @end
