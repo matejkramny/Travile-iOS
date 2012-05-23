@@ -42,6 +42,7 @@
 - (void)downloadAndParse;
 - (void)parseTroops:(HTMLNode *)node;
 - (void)parseResources:(HTMLNode *)body;
+- (void)parseMovements:(HTMLNode *)body;
 - (void)parseBuildingsPage:(TravianPages)page fromNode:(HTMLNode *)node;
 
 @end

@@ -19,6 +19,7 @@
 #import "Troop.h"
 #import "Hero.h"
 #import "Building.h"
+#import "Movement.h"
 
 @implementation Village
 
@@ -69,7 +70,7 @@
 		
 		[resourceProduction parsePage:page fromHTMLNode:node];
 		[self parseTroops:node];
-		// get basic movements
+		[self parseMovements:node];
 		[self parseBuildingsPage:page fromNode:node];
 	} else if ((page & TPBuilding) != 0) {
 		//[self parseBuilding:node];
@@ -183,6 +184,45 @@
 	consumption = [[[[[body findChildWithAttribute:@"id" matchingName:@"l5" allowPartial:NO] contents] componentsSeparatedByString:@"/"] objectAtIndex:0] intValue];
 }
 
+- (void)parseMovements:(HTMLNode *)body {
+	
+	HTMLNode *idMovements = [body findChildWithAttribute:@"id" matchingName:@"movements" allowPartial:NO];
+	
+	if (!idMovements) {
+		// No movements
+		movements = [[NSArray alloc] init];
+		return;
+	}
+	
+	NSArray *tds = [idMovements findChildTags:@"tr"];
+	NSMutableArray *tempMovements = [[NSMutableArray alloc] init];
+	for (HTMLNode *td in tds) {
+		
+		HTMLNode *divMov = [td findChildWithAttribute:@"class" matchingName:@"mov" allowPartial:NO];
+		HTMLNode *timer = [td findChildWithAttribute:@"id" matchingName:@"timer" allowPartial:YES];
+		// Not containing name or duration
+		if (!divMov | !timer)
+			continue;
+		
+		Movement *movement = [[Movement alloc] init];
+		
+		movement.name = [[divMov findChildTag:@"span"] contents];
+		
+		NSArray *timeSplit = [[timer contents] componentsSeparatedByString:@":"];
+		int hour = 0, minute = 0, second = 0;
+		hour = [[timeSplit objectAtIndex:0] intValue];
+		minute = [[timeSplit objectAtIndex:1] intValue];
+		second = [[timeSplit objectAtIndex:2] intValue];
+		int timestamp = [[NSDate date] timeIntervalSince1970]; // Now date
+		timestamp += hour * 60 * 60 + minute * 60 + second; // Now date + hour:minute:second
+		movement.finished = [NSDate dateWithTimeIntervalSince1970:timestamp]; // Future date
+		
+		[tempMovements addObject:movement];
+		
+	}
+	
+}
+
 - (void)parseBuildingsPage:(TravianPages)page fromNode:(HTMLNode *)node {
 	
 	HTMLNode *idContent = [node findChildWithAttribute:@"id" matchingName:@"content" allowPartial:NO];
@@ -273,6 +313,14 @@
 	for (Building *b in buildings) {
 		NSLog(@"%@ %d", [b name], [b level]);
 	}
+
+for (Building *b in buildings) {
+	if ([b level] == 0){
+		[b buildFromAccount:parent];
+		NSLog(@"Building building %@ to level %d", [b name], [b level] + 1);
+		break;
+	}
+}
 }
 
 #pragma mark - Coders
