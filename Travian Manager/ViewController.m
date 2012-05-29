@@ -12,10 +12,13 @@
 #import "Account.h"
 #import "Village.h"
 #import "Resources.h"
+#import "ResourcesProduction.h"
 #import "Troop.h"
 #import "Construction.h"
 #import "Hero.h"
 #import "HeroQuest.h"
+#import "Building.h"
+#import "Movement.h"
 
 @interface ViewController ()
 
@@ -26,14 +29,18 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	
-	// Do any additional setup after loading the view, typically from a nib.
 }
 
 - (void)viewDidUnload
 {
+	wood = clay = iron = wheat = granary = warehouse = vilName = vilLoyalty = vilPopulation = troopsHero = consName = consLevel = consFinish = heroStrength = heroOff = heroDef = heroExp = heroHealth = heroisHiding = heroisAlive = heroWood = heroClay = heroIron = heroWheat = heroAdventures = nil;
+	
+	BuildingsTable = nil;
+	mov1Name = nil;
+	mov1Time = nil;
+	mov2Name = nil;
+	mov2Time = nil;
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -55,10 +62,11 @@
 	[granary setText:[NSString stringWithFormat:@"%d", v.granary]];
 	
 	Resources *r = [v resources];
-	[wood setText:[NSString stringWithFormat:@"%d", r.wood]];
-	[clay setText:[NSString stringWithFormat:@"%d", r.clay]];
-	[iron setText:[NSString stringWithFormat:@"%d", r.iron]];
-	[wheat setText:[NSString stringWithFormat:@"%d", r.wheat]];
+	ResourcesProduction *rp = [v resourceProduction];
+	[wood setText:[NSString stringWithFormat:@"%d (%d)", r.wood, rp.wood]];
+	[clay setText:[NSString stringWithFormat:@"%d (%d)", r.clay, rp.clay]];
+	[iron setText:[NSString stringWithFormat:@"%d (%d)", r.iron, rp.iron]];
+	[wheat setText:[NSString stringWithFormat:@"%d (%d)", r.wheat, rp.wheat]];
 	
 	[vilName setText:v.name];
 	[vilLoyalty setText:[NSString stringWithFormat:@"%d", v.loyalty]];
@@ -89,19 +97,72 @@
 	[heroClay setText:[NSString stringWithFormat:@"%d", h.resourceProductionBoost.clay]];
 	[heroIron setText:[NSString stringWithFormat:@"%d", h.resourceProductionBoost.iron]];
 	[heroWheat setText:[NSString stringWithFormat:@"%d", h.resourceProductionBoost.wheat]];
+	[heroAdventures setText:[NSString stringWithFormat:@"%d", [h.quests count]]];
 	
-	if ([h quests] && [[h quests] count] > 0) {
-		[heroAdventures setText:[NSString stringWithFormat:@"%d", [[h quests] count]]];
+	// Buildings
+	[BuildingsTable reloadData];
+	
+	// Movements
+	if ([v movements] && [[v movements] count] > 0) {
 		
-		if ([[[h quests] objectAtIndex:0] canStartQuest:h]) {
-			[[h.quests objectAtIndex:0] startQuest:a];
+		Movement *mov = [[v movements] objectAtIndex:0];
 		
-			NSLog(@"Sending hero on %@ adventure. It %@ recommended to do the quest.", [[h.quests objectAtIndex:0] difficulty] == QD_NORMAL ? @"normal" : @"hard", [[h.quests objectAtIndex:0] recommendedToStartQuestWithHero:h] == true ? @"is" : @"is not");
-		} else {
-			NSLog(@"Cannot start quest");
-			NSLog(@"Hero is %@.", [h isAlive] ? @"alive" : @"dead");
+		mov1Name.text = mov.name;
+		mov1Time.text = [mov.finished descriptionWithLocale:[NSLocale currentLocale]];
+		
+		if ([[v movements] count] > 1) {
+			mov = [[v movements] objectAtIndex:1];
+			
+			mov2Name.text = mov.name;
+			mov2Time.text = [mov.finished descriptionWithLocale:[NSLocale currentLocale]];
 		}
+		
 	}
+}
+
+- (IBAction)reloadData:(id)sender {
+	
+	Account *a = [[(AppDelegate *)[UIApplication sharedApplication].delegate storage] account];
+	
+	[a refreshAccount];
+	
+}
+
+- (int)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+	Account *a = [[(AppDelegate *)[UIApplication sharedApplication].delegate storage] account];
+	Village *v = [[a villages] objectAtIndex:0];
+	
+	return [[v buildings] count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BuildingCell"];
+	
+	Account *a = [[(AppDelegate *)[UIApplication sharedApplication].delegate storage] account];
+	Village *v = [[a villages] objectAtIndex:0];
+	
+	Building *building = [[v buildings] objectAtIndex:indexPath.row];
+	
+	cell.textLabel.text = [NSString stringWithFormat:@"%@ %d",building.name, building.level];
+	cell.detailTextLabel.text = building.bid;
+	
+	return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	
+	Account *a = [[(AppDelegate *)[UIApplication sharedApplication].delegate storage] account];
+	Village *v = [[a villages] objectAtIndex:0];
+	
+	Building *b = [[v buildings] objectAtIndex:indexPath.row];
+	
+	[b buildFromAccount:a];
+}
+
+#pragma mark - UIWebViewDelegate
+
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+	return YES;
 }
 
 @end

@@ -40,6 +40,7 @@ typedef enum {
 @property (assign) AccountStatus status; // Tells other objects the status of this account
 
 - (void)activateAccount;
+- (void)refreshAccount;
 - (void)deactivateAccount;
 
 @end

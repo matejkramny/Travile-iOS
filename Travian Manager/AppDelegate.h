@@ -16,4 +16,7 @@
 @property (strong, nonatomic) UIWindow *window;
 @property (nonatomic, strong) Storage *storage;
 
+- (void)log:(id)sender;
+- (void)refresh:(id)sender;
+
 @end

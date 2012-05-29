@@ -113,10 +113,10 @@
 			return;
 		}
 		
-		TravianPages page = [TPIdentifier identifyPage:body];
+		TravianPages travianPage = [TPIdentifier identifyPage:body];
 		
-		if ((page & TPBuilding) != 0) // Parse only Building page
-			[self parsePage:page fromHTMLNode:body];
+		if ((travianPage & TPBuilding) != 0) // Parse only Building page
+			[self parsePage:travianPage fromHTMLNode:body];
 	}
 	
 }

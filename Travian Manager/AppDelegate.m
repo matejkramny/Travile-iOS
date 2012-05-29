@@ -12,6 +12,8 @@
 #import "Village.h"
 #import "Hero.h"
 #import "Resources.h"
+#import "Building.h"
+#import "TravianPages.h"
 
 @implementation AppDelegate
 
@@ -24,13 +26,56 @@
 	
 	[storage setActiveAccount:[[storage accounts] objectAtIndex:0]];
 	
+	NSTimer *time __unused = [NSTimer scheduledTimerWithTimeInterval:400 target:self selector:@selector(log:) userInfo:nil repeats:YES];
+	NSTimer *timer __unused = [NSTimer scheduledTimerWithTimeInterval:300 target:self selector:@selector(refresh:) userInfo:nil repeats:YES];
+	
+	
 	return YES;
+}
+
+- (void)log:(id)sender {
+	NSLog(@"Building a building..");
+	
+	NSArray *bu = [[[[storage account] villages] objectAtIndex:0] buildings];
+	bool built = false;
+	for (Building *b in bu) {
+		if ([b level] < 3 && ([b page] & TPResources) != 0) {
+			[b buildFromAccount:[storage account]];
+			
+			NSLog(@"Building %@", [b name]);
+			built = true;
+			
+			break;
+		}
+	}
+	
+	if (!built) {
+		NSLog(@"Nothing built");
+	}
+	
+}
+
+- (void)refresh:(id)sender {
+	
+	NSLog(@"Refreshing account");
+	[[storage account] refreshAccount];
+	
 }
 							
 - (void)applicationWillResignActive:(UIApplication *)application {}
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-	[storage saveData];
+	//[storage saveData];
+	
+	//As we are going into the background, I want to start a background task to clean up the disk caches
+	if ([[UIDevice currentDevice] respondsToSelector:@selector(isMultitaskingSupported)]) { //Check if our iOS version supports multitasking I.E iOS 4
+		if ([[UIDevice currentDevice] isMultitaskingSupported]) { //Check if device supports mulitasking
+			
+			[application beginBackgroundTaskWithExpirationHandler:^ {
+				NSLog(@"what");
+			}];
+		}
+	}
 }
 - (void)applicationWillEnterForeground:(UIApplication *)application {}
 - (void)applicationDidBecomeActive:(UIApplication *)application {}

@@ -30,6 +30,8 @@
 		4F0D502F156D36CA005065AE /* Movement.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F0D502E156D36CA005065AE /* Movement.m */; };
 		4F99267515644E7200C6AFFC /* Construction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F99267415644E7200C6AFFC /* Construction.m */; };
 		4FCA3750156B96DF0071BAD5 /* Building.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FCA374F156B96DF0071BAD5 /* Building.m */; };
+		4FD480FD15724B5C00BECE24 /* Report.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD480FC15724B5C00BECE24 /* Report.m */; };
+		4FD4810115724B6500BECE24 /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD4810015724B6500BECE24 /* Message.m */; };
 		4FDA07851563189200E9C6C2 /* ResourcesProduction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FDA07841563189100E9C6C2 /* ResourcesProduction.m */; };
 /* End PBXBuildFile section */
 
@@ -77,6 +79,10 @@
 		4F99267415644E7200C6AFFC /* Construction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Construction.m; sourceTree = "<group>"; };
 		4FCA374E156B96DF0071BAD5 /* Building.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Building.h; sourceTree = "<group>"; };
 		4FCA374F156B96DF0071BAD5 /* Building.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Building.m; sourceTree = "<group>"; };
+		4FD480FB15724B5C00BECE24 /* Report.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Report.h; sourceTree = "<group>"; };
+		4FD480FC15724B5C00BECE24 /* Report.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Report.m; sourceTree = "<group>"; };
+		4FD480FF15724B6500BECE24 /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Message.h; sourceTree = "<group>"; };
+		4FD4810015724B6500BECE24 /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Message.m; sourceTree = "<group>"; };
 		4FDA07831563189100E9C6C2 /* ResourcesProduction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResourcesProduction.h; sourceTree = "<group>"; };
 		4FDA07841563189100E9C6C2 /* ResourcesProduction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResourcesProduction.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -151,6 +157,10 @@
 				4F095295155DD53300C15D6E /* HeroQuest.m */,
 				4F0D502D156D36CA005065AE /* Movement.h */,
 				4F0D502E156D36CA005065AE /* Movement.m */,
+				4FD480FB15724B5C00BECE24 /* Report.h */,
+				4FD480FC15724B5C00BECE24 /* Report.m */,
+				4FD480FF15724B6500BECE24 /* Message.h */,
+				4FD4810015724B6500BECE24 /* Message.m */,
 				4F095224155C767800C15D6E /* ViewController.h */,
 				4F095225155C767800C15D6E /* ViewController.m */,
 				4F09521E155C767800C15D6E /* MainStoryboard_iPhone.storyboard */,
@@ -267,6 +277,8 @@
 				4F99267515644E7200C6AFFC /* Construction.m in Sources */,
 				4FCA3750156B96DF0071BAD5 /* Building.m in Sources */,
 				4F0D502F156D36CA005065AE /* Movement.m in Sources */,
+				4FD480FD15724B5C00BECE24 /* Report.m in Sources */,
+				4FD4810115724B6500BECE24 /* Message.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

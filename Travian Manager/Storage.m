@@ -56,13 +56,13 @@
 		return true;
 	}
 	
-	Account *account = [[Account alloc] init];
-	account.username = @"matejkramny";
-	account.password = @"xpressmusic";
-	account.world = @"ts6";
-	account.server = @"co.uk";
+	Account *a = [[Account alloc] init];
+	a.username = @"matejkramny";
+	a.password = @"temp0rary";
+	a.world = @"ts6";
+	a.server = @"co.uk";
 	
-	accounts = [NSArray arrayWithObject:account];
+	accounts = [NSArray arrayWithObject:a];
 	
 	NSLog(@"No data loaded");
 	

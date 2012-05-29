@@ -221,6 +221,8 @@
 		
 	}
 	
+	movements = [tempMovements copy];
+	
 }
 
 - (void)parseBuildingsPage:(TravianPages)page fromNode:(HTMLNode *)node {
@@ -307,20 +309,6 @@
 			[buildings addObject:building];
 		}
 	}
-	
-	if ((page & TPResources) != 0) return; // incomplete buildings
-	NSLog(@"Listing buildings");
-	for (Building *b in buildings) {
-		NSLog(@"%@ %d", [b name], [b level]);
-	}
-
-for (Building *b in buildings) {
-	if ([b level] == 0){
-		[b buildFromAccount:parent];
-		NSLog(@"Building building %@ to level %d", [b name], [b level] + 1);
-		break;
-	}
-}
 }
 
 #pragma mark - Coders

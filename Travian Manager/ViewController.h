@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController {
+@interface ViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIWebViewDelegate> {
 	
 	IBOutlet UILabel *wood;
 	IBOutlet UILabel *clay;
@@ -41,8 +41,15 @@
 	
 	IBOutlet UILabel *heroAdventures;
 	
+	IBOutlet UITableView *BuildingsTable;
+	
+	IBOutlet UILabel *mov1Name;
+	IBOutlet UILabel *mov1Time;
+	IBOutlet UILabel *mov2Name;
+	IBOutlet UILabel *mov2Time;
 }
 
 - (IBAction)updateView:(id)sender;
+- (IBAction)reloadData:(id)sender;
 
 @end

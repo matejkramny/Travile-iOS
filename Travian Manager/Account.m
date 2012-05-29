@@ -33,6 +33,19 @@
 	if ((page & TPMaskUnparseable) != 0 || ![[node tagName] isEqualToString:@"body"])
 		return; // Can't do anything with unparseable pages or non-body nodes
 	
+	HTMLNode *sysmsg = [node findChildWithAttribute:@"id" matchingName:@"sysmsg" allowPartial:NO];
+	if (sysmsg) {
+		// Notification pending
+		HTMLNode *iframe = [sysmsg findChildTag:@"iframe"];
+		
+		NSLog(@"Sysmsg..");
+		
+		if (iframe) {
+			NSLog(@"Src: %@", [iframe getAttributeNamed:@"src"]);
+			// Open safari or something with url
+		}
+	}
+	
 	// Villages
 	if ((page & TPProfile) != 0) {
 		
@@ -163,6 +176,16 @@
 	
 }
 
+- (void)refreshAccount {
+	
+	NSMutableURLRequest *req = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@.travian.%@/dorf1.php", world, server]] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60.0];
+	
+	[req setHTTPShouldHandleCookies:YES];
+	
+	loginConnection = [[NSURLConnection alloc] initWithRequest:req delegate:self startImmediately:YES];
+	
+}
+
 - (void)deactivateAccount {
 	
 	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[[NSURL alloc] initWithString:[NSString stringWithFormat:@"http://%@.travian.%@/logout.php"]] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
@@ -171,7 +194,8 @@
 	
 	status = ANotLoggedIn;
 	
-	NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
+	NSURLConnection *conn __unused = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES]; 
+	
 }
 
 #pragma mark - NSURLConnectionDelegate
@@ -212,6 +236,8 @@
 		
 		// Parse the page
 		[self parsePage:page fromHTMLNode:[parser body]];
+		
+		// Connections chain
 		
 		if ((page & (TPLogin | TPNotFound)) != 0) {
 			// Still at login page.
