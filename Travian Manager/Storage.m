@@ -36,6 +36,8 @@
 	// Data
 	NSData *data = [NSKeyedArchiver archivedDataWithRootObject:accounts];
 	
+	NSLog(@"Saving Data");
+	
 	// Write the data
 	if ([data writeToFile:savePath atomically:YES])
 		return true;
@@ -52,6 +54,8 @@
 	if (data) {
 		accounts = [NSKeyedUnarchiver unarchiveObjectWithData:data];
 		account = nil;
+		
+		NSLog(@"Data loaded");
 		
 		return true;
 	}
@@ -80,7 +84,7 @@
 
 - (void)deactivateActiveAccount {
 	if (account)
-	//	[account deactivateAccount];
+		[account deactivateAccount];
 	
 	account = nil;
 }

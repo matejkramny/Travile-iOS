@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Construction : NSObject
+@interface Construction : NSObject <NSCoding>
 
 @property (strong, nonatomic) NSString *name; // As it appears in browser
 @property (assign) int level; // ^ same as above

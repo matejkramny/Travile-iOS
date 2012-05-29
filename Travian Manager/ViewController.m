@@ -28,6 +28,8 @@
 
 - (void)viewDidLoad
 {
+	[self reloadData:self];
+	
     [super viewDidLoad];
 }
 

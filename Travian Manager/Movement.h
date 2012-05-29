@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Movement : NSObject
+@interface Movement : NSObject <NSCoding>
 
 @property (nonatomic, strong) NSString *name; // Name of the movement
 @property (nonatomic, strong) NSDate *finished; // Date when finished

@@ -65,7 +65,7 @@
 - (void)applicationWillResignActive:(UIApplication *)application {}
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-	//[storage saveData];
+	[storage saveData];
 	
 	//As we are going into the background, I want to start a background task to clean up the disk caches
 	if ([[UIDevice currentDevice] respondsToSelector:@selector(isMultitaskingSupported)]) { //Check if our iOS version supports multitasking I.E iOS 4
