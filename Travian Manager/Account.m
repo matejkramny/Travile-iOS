@@ -19,13 +19,6 @@
 
 #pragma mark - TravianPageParsingProtocol
 
-- (void)parsePage:(TravianPages)page fromHTML:(NSString *)html
-{
-	NSError *error;
-	HTMLParser *p = [[HTMLParser alloc] initWithString:html error:&error];
-	[self parsePage:page fromHTMLNode:[p body]];
-}
-
 - (void)parsePage:(TravianPages)page fromHTMLNode:(HTMLNode *)node
 {
 	// Parses the HTML Body of the Page, and adds data to villages, messages etc
@@ -49,71 +42,97 @@
 	// Villages
 	if ((page & TPProfile) != 0) {
 		
-		// Find each village's population & x, y coordinates
-		HTMLNode *idVillages = [node findChildWithAttribute:@"id" matchingName:@"villages" allowPartial:NO];
-		if (!idVillages) { NSLog (@"Did not find div#villages"); return; }
-		// Table > tr (village)
-		NSArray *villageList = [[idVillages findChildTag:@"tbody"] findChildTags:@"tr"];
-		NSMutableArray *tempVillages = [[NSMutableArray alloc] initWithCapacity:[villageList count]];
-		
-		for (HTMLNode *villageNode in villageList) {
-			Village *tempVillage = [[Village alloc] init];
-			
-			tempVillage.name = [[[villageNode findChildWithAttribute:@"class" matchingName:@"name" allowPartial:NO] findChildTag:@"a"] contents];
-			NSString *inhabitants = [[[villageNode findChildWithAttribute:@"class" matchingName:@"inhabitants" allowPartial:NO] contents] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-			tempVillage.population = [inhabitants intValue];
-			// x & y
-			
-			[tempVillages addObject:tempVillage];
-		}
-		
-		// Now find their urlPart
-		// Get div with ID 'villageList'
-		HTMLNode *villagesList = [node findChildWithAttribute:@"id" matchingName:@"villageList" allowPartial:NO];
-		if (!villagesList) { NSLog(@"Did not get div#villageList"); return; }
-		// Get div#villageList div.list
-		HTMLNode *villageList_div_List = [villagesList findChildWithAttribute:@"class" matchingName:@"list" allowPartial:NO];
-		if (!villageList_div_List) { NSLog(@"No div#villageList div.list"); return; }
-		
-		// List of villages in <li> tags
-		NSArray *divList_li = [villageList_div_List findChildTags:@"li"];
-		
-		for (int i = 0; i < [divList_li count]; i++) {
-			HTMLNode *li = [divList_li objectAtIndex:i];
-			Village *tempVillage = [[Village alloc] init];
-			tempVillage.name = [[li findChildTag:@"a"] contents];
-			
-			int index = -1;
-			for (int ii = 0; ii < [tempVillages count]; ii++) {
-				if ([[(Village *)[tempVillages objectAtIndex:ii] name] isEqualToString:tempVillage.name]) {
-					index = ii;
-					break;
-				}
-			}
-			
-			if (index == -1) continue;
-			
-			tempVillage = [tempVillages objectAtIndex:index];
-			
-			tempVillage.urlPart = [[li findChildTag:@"a"] getAttributeNamed:@"href"];
-			
-			[tempVillage setAccountParent:self];
-		}
-		
-		// Empty local villages and replace them with tempVillages
-		villages = tempVillages;
-		
-		for (Village *vil in villages) {
-			NSLog(@"Village named: %@ has %d population and is accessed by this url: %@", vil.name, vil.population, vil.urlPart);
-			[vil downloadAndParse]; // Tell each village to download its data
-		}
+		[self parseVillages:node];
 		
 	} else if ((page & (TPHero | TPAdventures | TPAuction)) != 0) {
 		if (!hero)
 			hero = [[Hero alloc] init];
 		
 		[hero parsePage:page fromHTMLNode:node];
+	} else if ((page & TPReports) != 0) {
+		
+		[self parseReports:node];
+		
+	} else if ((page & TPMessages) != 0) {
+		
+		[self parseMessages:node];
+		
 	}
+}
+
+- (void)parseVillages:(HTMLNode *)node {
+	
+	// Find each village's population & x, y coordinates
+	HTMLNode *idVillages = [node findChildWithAttribute:@"id" matchingName:@"villages" allowPartial:NO];
+	if (!idVillages) { NSLog (@"Did not find div#villages"); return; }
+	// Table > tr (village)
+	NSArray *villageList = [[idVillages findChildTag:@"tbody"] findChildTags:@"tr"];
+	NSMutableArray *tempVillages = [[NSMutableArray alloc] initWithCapacity:[villageList count]];
+	
+	for (HTMLNode *villageNode in villageList) {
+		Village *tempVillage = [[Village alloc] init];
+		
+		tempVillage.name = [[[villageNode findChildWithAttribute:@"class" matchingName:@"name" allowPartial:NO] findChildTag:@"a"] contents];
+		NSString *inhabitants = [[[villageNode findChildWithAttribute:@"class" matchingName:@"inhabitants" allowPartial:NO] contents] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+		tempVillage.population = [inhabitants intValue];
+		// x & y
+		
+		[tempVillages addObject:tempVillage];
+	}
+	
+	// Now find their urlPart
+	// Get div with ID 'villageList'
+	HTMLNode *villagesList = [node findChildWithAttribute:@"id" matchingName:@"villageList" allowPartial:NO];
+	if (!villagesList) { NSLog(@"Did not get div#villageList"); return; }
+	// Get div#villageList div.list
+	HTMLNode *villageList_div_List = [villagesList findChildWithAttribute:@"class" matchingName:@"list" allowPartial:NO];
+	if (!villageList_div_List) { NSLog(@"No div#villageList div.list"); return; }
+	
+	// List of villages in <li> tags
+	NSArray *divList_li = [villageList_div_List findChildTags:@"li"];
+	
+	for (int i = 0; i < [divList_li count]; i++) {
+		HTMLNode *li = [divList_li objectAtIndex:i];
+		Village *tempVillage = [[Village alloc] init];
+		tempVillage.name = [[li findChildTag:@"a"] contents];
+		
+		int index = -1;
+		for (int ii = 0; ii < [tempVillages count]; ii++) {
+			if ([[(Village *)[tempVillages objectAtIndex:ii] name] isEqualToString:tempVillage.name]) {
+				index = ii;
+				break;
+			}
+		}
+		
+		if (index == -1) continue;
+		
+		tempVillage = [tempVillages objectAtIndex:index];
+		
+		tempVillage.urlPart = [[li findChildTag:@"a"] getAttributeNamed:@"href"];
+		
+		[tempVillage setAccountParent:self];
+	}
+	
+	// Empty local villages and replace them with tempVillages
+	villages = tempVillages;
+	
+	for (Village *vil in villages) {
+		NSLog(@"Village named: %@ has %d population and is accessed by this url: %@", vil.name, vil.population, vil.urlPart);
+		[vil downloadAndParse]; // Tell each village to download its data
+	}
+	
+}
+
+- (void)parseReports:(HTMLNode *)node {
+	
+	NSLog(@"Parsing reports");
+	
+}
+
+- (void)parseMessages:(HTMLNode *)node {
+	
+	NSLog(@"Parsing messages");
+	
 }
 
 #pragma mark - Coders
@@ -255,7 +274,8 @@
 			
 			loginConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
 			
-			return;
+			NSLog(@"Loaded TPResources");
+			
 		} else if ((page & TPProfile) != 0) {
 			// load hero
 			
@@ -265,6 +285,9 @@
 			[request setHTTPShouldHandleCookies:YES];
 			
 			loginConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
+			
+			NSLog(@"Loaded TPProfile");
+			
 		} else if ((page & TPHero) != 0) {
 			// Next download adventures
 			
@@ -272,6 +295,28 @@
 			[request setHTTPShouldHandleCookies:YES];
 			
 			loginConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
+			
+			NSLog(@"Loaded TPHero");
+			
+		} else if ((page & TPAdventures) != 0) {
+			// Load Reports
+			
+			NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@.travian.%@/berichte.php", world, server]] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
+			[request setHTTPShouldHandleCookies:YES];
+			
+			loginConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
+			
+			NSLog(@"Loaded TPAdventures");
+			
+		} else if ((page & TPReports) != 0) {
+			
+			NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@.travian.%@/nachrichten.php", world, server]] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
+			[request setHTTPShouldHandleCookies:YES];
+			
+			loginConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
+			
+			NSLog(@"Loaded TPReports");
+			
 		}
 		
 		status = ALoggedIn;

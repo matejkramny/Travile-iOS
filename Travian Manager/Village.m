@@ -81,53 +81,7 @@
 	}
 	
 	if ((page & TPBuildList) != 0) {
-		// get construction list
-		
-		HTMLNode *building_contract = [node findChildWithAttribute:@"id" matchingName:@"building_contract" allowPartial:NO];
-		NSMutableArray *tempConstructions = [[NSMutableArray alloc] init];
-		if (building_contract) {
-			NSArray *trs = [[building_contract findChildTag:@"tbody"] findChildTags:@"tr"];
-			
-			for (HTMLNode *tr in trs) {
-				Construction *construction = [[Construction alloc] init];
-				NSArray *tds = [tr findChildTags:@"td"];
-				
-				NSString *conName = [[tds objectAtIndex:1] contents];
-				NSString *conLevel = [[[tds objectAtIndex:1] findChildTag:@"span"] contents];
-				NSString *conFinishTime = [[tds objectAtIndex:2] rawContents];
-				NSString *conFInishTimeSpan = [[[tds objectAtIndex:2] findChildTag:@"span"] rawContents];
-				conFinishTime = [conFinishTime stringByReplacingOccurrencesOfString:conFInishTimeSpan withString:@""];
-				
-				NSError *error;
-				HTMLParser *parser = [[HTMLParser alloc] initWithString:conFinishTime error:&error];
-				if (error) {
-					conFinishTime = @"Undetectable";
-					NSLog(@"Unparseable construciton");
-					
-					continue;
-				}
-				
-				conFinishTime = [[[[parser body] findChildTag:@"td"] contents] stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
-				NSString *ampm = [conFinishTime stringByReplacingCharactersInRange:NSMakeRange(0, [conFinishTime length] - 2) withString:@""];
-				conFinishTime = [conFinishTime stringByTrimmingCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]];
-				
-				NSString *ampmFormattedString = @"";
-				if ([ampm isEqualToString:@"am"]) {
-					ampmFormattedString = [NSString stringWithString:@" AM"];
-				} else if ([ampm isEqualToString:@"pm"]) {
-					ampmFormattedString = [NSString stringWithString:@" PM"];
-				}
-				
-				construction.name = [conName stringByReplacingOccurrencesOfString:conLevel withString:@""];
-				construction.level = [[conLevel stringByTrimmingCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]] intValue];
-				construction.finishTime = [conFinishTime stringByAppendingString:ampmFormattedString];
-				
-				[tempConstructions addObject:construction];
-			}
-			
-			constructions = tempConstructions;
-		} else
-			constructions = [[NSArray alloc] init];
+		[self parseConstructions:node];
 	}
 	
 	// get loyalty
@@ -309,6 +263,58 @@
 			[buildings addObject:building];
 		}
 	}
+}
+
+- (void)parseConstructions:(HTMLNode *)node {
+	
+	// get construction list
+	
+	HTMLNode *building_contract = [node findChildWithAttribute:@"id" matchingName:@"building_contract" allowPartial:NO];
+	NSMutableArray *tempConstructions = [[NSMutableArray alloc] init];
+	if (building_contract) {
+		NSArray *trs = [[building_contract findChildTag:@"tbody"] findChildTags:@"tr"];
+		
+		for (HTMLNode *tr in trs) {
+			Construction *construction = [[Construction alloc] init];
+			NSArray *tds = [tr findChildTags:@"td"];
+			
+			NSString *conName = [[tds objectAtIndex:1] contents];
+			NSString *conLevel = [[[tds objectAtIndex:1] findChildTag:@"span"] contents];
+			NSString *conFinishTime = [[tds objectAtIndex:2] rawContents];
+			NSString *conFInishTimeSpan = [[[tds objectAtIndex:2] findChildTag:@"span"] rawContents];
+			conFinishTime = [conFinishTime stringByReplacingOccurrencesOfString:conFInishTimeSpan withString:@""];
+			
+			NSError *error;
+			HTMLParser *parser = [[HTMLParser alloc] initWithString:conFinishTime error:&error];
+			if (error) {
+				conFinishTime = @"Undetectable";
+				NSLog(@"Unparseable construciton");
+				
+				continue;
+			}
+			
+			conFinishTime = [[[[parser body] findChildTag:@"td"] contents] stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+			NSString *ampm = [conFinishTime stringByReplacingCharactersInRange:NSMakeRange(0, [conFinishTime length] - 2) withString:@""];
+			conFinishTime = [conFinishTime stringByTrimmingCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]];
+			
+			NSString *ampmFormattedString = @"";
+			if ([ampm isEqualToString:@"am"]) {
+				ampmFormattedString = [NSString stringWithString:@" AM"];
+			} else if ([ampm isEqualToString:@"pm"]) {
+				ampmFormattedString = [NSString stringWithString:@" PM"];
+			}
+			
+			construction.name = [conName stringByReplacingOccurrencesOfString:conLevel withString:@""];
+			construction.level = [[conLevel stringByTrimmingCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]] intValue];
+			construction.finishTime = [conFinishTime stringByAppendingString:ampmFormattedString];
+			
+			[tempConstructions addObject:construction];
+		}
+		
+		constructions = tempConstructions;
+	} else
+		constructions = [[NSArray alloc] init];
+	
 }
 
 #pragma mark - Coders

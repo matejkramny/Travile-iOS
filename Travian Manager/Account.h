@@ -39,6 +39,9 @@ typedef enum {
 
 @property (assign) AccountStatus status; // Tells other objects the status of this account
 
+- (void)parseVillages:(HTMLNode *)node;
+- (void)parseReports:(HTMLNode *)node;
+- (void)parseMessages:(HTMLNode *)node;
 - (void)activateAccount;
 - (void)refreshAccount;
 - (void)deactivateAccount;

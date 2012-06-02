@@ -14,6 +14,7 @@
 #import "Resources.h"
 #import "Building.h"
 #import "TravianPages.h"
+#import "HeroQuest.h"
 
 @implementation AppDelegate
 
@@ -26,8 +27,7 @@
 	
 	[storage setActiveAccount:[[storage accounts] objectAtIndex:0]];
 	
-	NSTimer *time __unused = [NSTimer scheduledTimerWithTimeInterval:400 target:self selector:@selector(log:) userInfo:nil repeats:YES];
-	NSTimer *timer __unused = [NSTimer scheduledTimerWithTimeInterval:300 target:self selector:@selector(refresh:) userInfo:nil repeats:YES];
+	NSTimer *timer __unused = [NSTimer scheduledTimerWithTimeInterval:390 target:self selector:@selector(refresh:) userInfo:nil repeats:YES];
 	
 	
 	return YES;
@@ -39,7 +39,7 @@
 	NSArray *bu = [[[[storage account] villages] objectAtIndex:0] buildings];
 	bool built = false;
 	for (Building *b in bu) {
-		if ([b level] < 3 && ([b page] & TPResources) != 0) {
+		if ([b level] < 4 && ([b page] & TPResources) != 0) {
 			[b buildFromAccount:[storage account]];
 			
 			NSLog(@"Building %@", [b name]);
@@ -53,12 +53,17 @@
 		NSLog(@"Nothing built");
 	}
 	
+	NSLog(@"Sending hero on adventure");
+	[[[[[storage account] hero] quests] objectAtIndex:0] startQuest:[storage account]];
+	
 }
 
 - (void)refresh:(id)sender {
 	
 	NSLog(@"Refreshing account");
 	[[storage account] refreshAccount];
+	
+	NSTimer *timer __unused = [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(log:) userInfo:nil repeats:NO];
 	
 }
 							
