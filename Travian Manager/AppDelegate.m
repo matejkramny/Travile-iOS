@@ -27,6 +27,7 @@
 	
 	[storage setActiveAccount:[[storage accounts] objectAtIndex:0]];
 	
+	// Auto-build timer
 	NSTimer *timer __unused = [NSTimer scheduledTimerWithTimeInterval:390 target:self selector:@selector(refresh:) userInfo:nil repeats:YES];
 	
 	
@@ -39,7 +40,7 @@
 	NSArray *bu = [[[[storage account] villages] objectAtIndex:0] buildings];
 	bool built = false;
 	for (Building *b in bu) {
-		if ([b level] < 4 && ([b page] & TPResources) != 0) {
+		if ([b level] < 1 && ([b page] & TPResources) != 0) {
 			[b buildFromAccount:[storage account]];
 			
 			NSLog(@"Building %@", [b name]);

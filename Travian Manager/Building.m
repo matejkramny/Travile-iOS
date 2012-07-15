@@ -18,7 +18,7 @@
 @synthesize bid, name, page, resources, level, buildData, buildConnection, parent;
 
 - (void)buildFromAccount:(Account *)account {
-	
+	NSLog(@"Starting build connection");
 	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@.travian.%@/build.php?id=%@", [account world], [account server], bid]] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
 	
 	// Preserve any cookies received
@@ -29,7 +29,7 @@
 }
 
 - (void)parsePage:(TravianPages)page fromHTMLNode:(HTMLNode *)node {
-	
+	NSLog(@"Parsing build");
 	HTMLNode *idContract = [node findChildWithAttribute:@"id" matchingName:@"contract" allowPartial:NO];
 	if (!idContract) {
 		NSLog(@"Cannot find div#contract");
@@ -84,7 +84,7 @@
 
 - (void)connection:(NSURLConnection *)connection willSendRequestForAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {  }
 - (BOOL)connectionShouldUseCredentialStorage:(NSURLConnection *)connection	{	return NO;	}
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error { NSLog(@"Connection failed with error: %@. Fix error by: %@", [error localizedFailureReason], [error localizedRecoverySuggestion]); }
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error { NSLog(@"Building Connection failed with error: %@. Fix error by: %@", [error localizedFailureReason], [error localizedRecoverySuggestion]); }
 
 #pragma mark NSURLConnectionDataDelegate
 

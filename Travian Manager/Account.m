@@ -12,6 +12,8 @@
 #import "TPIdentifier.h"
 #import "Village.h"
 #import "Hero.h"
+#import "Message.h"
+#import "Report.h"
 
 @implementation Account
 
@@ -125,7 +127,71 @@
 
 - (void)parseReports:(HTMLNode *)node {
 	
-	NSLog(@"Parsing reports");
+	HTMLNode *table = [node findChildWithAttribute:@"id" matchingName:@"overview" allowPartial:NO];
+	if (!table) {
+		NSLog(@"No Reports form..");
+		return;
+	}
+	
+	HTMLNode *tbody = [table findChildTag:@"tbody"];
+	NSArray *trs = [tbody findChildTags:@"tr"];
+	NSMutableArray *tempReports = [[NSMutableArray alloc] initWithCapacity:[trs count]];
+	
+	for (HTMLNode *tr in trs) {
+		Report *report = [[Report alloc] init];
+		
+		HTMLNode *aTag = [tr findChildWithAttribute:@"href" matchingName:@"berichte.php?id=" allowPartial:YES];
+		
+		if ([[aTag getAttributeNamed:@"class"] isEqualToString:@"adventure"]) {
+			NSString *coordText = [[aTag findChildWithAttribute:@"class" matchingName:@"coordText" allowPartial:NO] contents];
+			NSString *coordinates = [[NSString alloc] initWithFormat:@"%@|%@", 
+									 [[aTag findChildWithAttribute:@"class" matchingName:@"coordinateX" allowPartial:NO] contents], 
+									 [[aTag findChildWithAttribute:@"class" matchingName:@"coordinateY" allowPartial:NO] contents]];
+			report.name = [NSString stringWithFormat:@"%@ %@", coordText, coordinates];
+		}
+		else {
+			report.name = [aTag contents];
+		}
+		
+		report.accessID = [[[aTag getAttributeNamed:@"href"] stringByReplacingOccurrencesOfString:@"berichte.php?id=" withString:@""] stringByReplacingOccurrencesOfString:@"&t=" withString:@""];
+		report.deleteID = [[tr findChildTag:@"input"] getAttributeNamed:@"value"];
+		
+		[tempReports addObject:report];
+	}
+	
+	if (!reports) {
+		reports = [[NSArray alloc] init];
+	}
+	
+	// 'Merge' the arrays
+	reports = [reports arrayByAddingObjectsFromArray:tempReports];
+	
+	HTMLNode *paginator = [[table parent] findChildWithAttribute:@"class" matchingName:@"paginator" allowPartial:NO];
+	HTMLNode *nextPage = [paginator findChildWithAttribute:@"class" matchingName:@"next" allowPartial:NO];
+	if (!nextPage || [paginator findChildWithAttribute:@"class" matchingName:@"next disabled" allowPartial:NO]) {
+		// No next page available
+		
+		for (Report *report in reports) {
+			// Tell the report to load itself?
+			//[report downloadAndParse]; // causes connection to be reset (if too many @ once)
+		}
+		
+		// Delete the reports
+		for (Report *r in reports) {
+			//[r delete];
+		}
+		
+	} else {
+		NSString *nextPageHref = [nextPage getAttributeNamed:@"href"];
+		
+		// Load next page
+		NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@.travian.%@/%@", world, server, nextPageHref]] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
+		[request setHTTPShouldHandleCookies:YES];
+		
+		reportsConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
+	}
+	
+	NSLog(@"Parsed reports page");
 	
 }
 
@@ -229,12 +295,16 @@
 {
 	if (connection == loginConnection)
 		[loginData appendData:data];
+	else if (connection == reportsConnection)
+		[reportsData appendData:data];
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSHTTPURLResponse *)response
 {
 	if (connection == loginConnection)
 		loginData = [[NSMutableData alloc] initWithLength:0];
+	else if (connection == reportsConnection)
+		reportsData = [[NSMutableData alloc] initWithLength:0];
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
@@ -262,7 +332,9 @@
 			// Still at login page.
 			status = ANotLoggedIn | ACannotLogIn;
 			return;
-		} else if ((page & TPResources) != 0) {
+		}
+		
+		if ((page & TPResources) != 0) {
 			// load profile
 			NSString *stringUrl = [NSString stringWithFormat:@"http://%@.travian.%@/spieler.php", self.world, self.server];
 			NSURL *url = [NSURL URLWithString: stringUrl];
@@ -309,6 +381,7 @@
 			NSLog(@"Loaded TPAdventures");
 			
 		} else if ((page & TPReports) != 0) {
+			// Load Messages
 			
 			NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@.travian.%@/nachrichten.php", world, server]] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
 			[request setHTTPShouldHandleCookies:YES];
@@ -317,10 +390,27 @@
 			
 			NSLog(@"Loaded TPReports");
 			
+		} else if ((page & TPMessages) != 0) {
+			
+			NSLog(@"Loaded TPMessages");
+		
 		}
 		
 		status = ALoggedIn;
 		
+	}
+	
+	else if (connection == reportsConnection) {
+		NSError *error;
+		HTMLParser *parser = [[HTMLParser alloc] initWithData:reportsData error:&error];
+		if (error) {
+			
+		}
+		HTMLNode *body = [parser body];
+		
+		TravianPages page = [TPIdentifier identifyPage:body];
+		
+		[self parsePage:page fromHTMLNode:body];
 	}
 	
 }

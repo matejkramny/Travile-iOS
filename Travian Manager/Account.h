@@ -22,6 +22,8 @@ typedef enum {
 @interface Account : NSObject <NSCoding, TravianPageParsingProtocol, NSURLConnectionDelegate, NSURLConnectionDataDelegate> {
 	NSURLConnection *loginConnection; // Login connection
 	NSMutableData *loginData; // Login data
+	NSURLConnection *reportsConnection;
+	NSMutableData *reportsData;
 }
 
 @property (nonatomic, strong) NSString *name; // User's account name
