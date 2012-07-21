@@ -40,6 +40,7 @@
 		if ([table getAttributeNamed:@"id"] && [[table getAttributeNamed:@"id"] isEqualToString:@"attacker"]) {
 			
 			// Attacker
+			// TODO this
 			
 		}
 		
@@ -66,7 +67,7 @@
 	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:url] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
 	[request setHTTPShouldHandleCookies:YES];
 	
-	NSURLConnection *conn __unused = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
+	NSURLConnection *conn __unused = [[NSURLConnection alloc] initWithRequest:request delegate:nil startImmediately:YES];
 }
 
 #pragma mark - NSCoder

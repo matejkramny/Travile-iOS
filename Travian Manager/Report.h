@@ -19,7 +19,7 @@
 }
 
 @property (nonatomic, strong) NSString *name; // Name of the report, as in browser
-@property (nonatomic, strong) NSDate *when; // When the report happened
+@property (nonatomic, strong) NSString *when; // When the report happened, as appears in browser
 @property (nonatomic, strong) NSString *accessID; // ID|ID of the report
 @property (nonatomic, strong) Resources *bounty; // Bounty is usually resources, but can be items like 'cage'
 @property (nonatomic, strong) NSString *bountyName;

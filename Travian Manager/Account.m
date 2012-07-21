@@ -137,7 +137,12 @@
 	NSArray *trs = [tbody findChildTags:@"tr"];
 	NSMutableArray *tempReports = [[NSMutableArray alloc] initWithCapacity:[trs count]];
 	
+    // Table with list of reports
 	for (HTMLNode *tr in trs) {
+		// Check if tr contains td.noData
+		if ([[[tr findChildTag:@"td"] getAttributeNamed:@"class"] isEqualToString:@"noData"])
+			continue;
+		
 		Report *report = [[Report alloc] init];
 		
 		HTMLNode *aTag = [tr findChildWithAttribute:@"href" matchingName:@"berichte.php?id=" allowPartial:YES];
@@ -156,32 +161,26 @@
 		report.accessID = [[[aTag getAttributeNamed:@"href"] stringByReplacingOccurrencesOfString:@"berichte.php?id=" withString:@""] stringByReplacingOccurrencesOfString:@"&t=" withString:@""];
 		report.deleteID = [[tr findChildTag:@"input"] getAttributeNamed:@"value"];
 		
+		// Parse the date - remove \t and \n from string
+		report.when = [[[[tr findChildWithAttribute:@"class" matchingName:@"dat" allowPartial:NO] contents] stringByReplacingOccurrencesOfString:@"\t" withString:@""] stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+		
 		[tempReports addObject:report];
 	}
 	
-	if (!reports) {
+    HTMLNode *paginator = [[table parent] findChildWithAttribute:@"class" matchingName:@"paginator" allowPartial:NO];
+    
+	// Check if on 1st page. If on first page, erase previous reports to avoid duplicity.
+	if (!reports || [paginator findChildWithAttribute:@"class" matchingName:@"previous disabled" allowPartial:NO] != NULL) {
 		reports = [[NSArray alloc] init];
 	}
 	
 	// 'Merge' the arrays
 	reports = [reports arrayByAddingObjectsFromArray:tempReports];
 	
-	HTMLNode *paginator = [[table parent] findChildWithAttribute:@"class" matchingName:@"paginator" allowPartial:NO];
 	HTMLNode *nextPage = [paginator findChildWithAttribute:@"class" matchingName:@"next" allowPartial:NO];
-	if (!nextPage || [paginator findChildWithAttribute:@"class" matchingName:@"next disabled" allowPartial:NO]) {
-		// No next page available
+	if (nextPage && ![paginator findChildWithAttribute:@"class" matchingName:@"next disabled" allowPartial:NO]) {
+		// There is another page
 		
-		for (Report *report in reports) {
-			// Tell the report to load itself?
-			//[report downloadAndParse]; // causes connection to be reset (if too many @ once)
-		}
-		
-		// Delete the reports
-		for (Report *r in reports) {
-			//[r delete];
-		}
-		
-	} else {
 		NSString *nextPageHref = [nextPage getAttributeNamed:@"href"];
 		
 		// Load next page
@@ -192,13 +191,74 @@
 	}
 	
 	NSLog(@"Parsed reports page");
-	
 }
 
 - (void)parseMessages:(HTMLNode *)node {
 	
-	NSLog(@"Parsing messages");
+	HTMLNode *table = [node findChildWithAttribute:@"id" matchingName:@"overview" allowPartial:NO];
+	if (!table) {
+		NSLog(@"No messages form..");
+		return;
+	}
 	
+	HTMLNode *tbody = [table findChildTag:@"tbody"];
+	NSArray *trs = [tbody findChildTags:@"tr"];
+	NSMutableArray *tempMessages = [[NSMutableArray alloc] initWithCapacity:[trs count]];
+	
+	// Table with list of messages
+	for (HTMLNode *tr in trs) {
+		// Check if tr contains td.noData
+		if ([[[tr findChildTag:@"td"] getAttributeNamed:@"class"] isEqualToString:@"noData"])
+			continue;
+		
+		// Allocate new message object
+		Message *message = [[Message alloc] init];
+		
+		// Parse available data into message
+		HTMLNode *subjectWrapper = [tr findChildWithAttribute:@"class" matchingName:@"subjectWrapper" allowPartial:NO];
+		
+		// Check if message has been read
+		message.read = false;
+		if ([subjectWrapper findChildWithAttribute:@"class" matchingName:@"messageStatusRead" allowPartial:YES] != NULL) {
+			message.read = true;
+		}
+		
+		// Retrieve message Title
+		HTMLNode *link = [subjectWrapper findChildTag:@"a"];
+		message.title = [[[link contents] stringByReplacingOccurrencesOfString:@"\t" withString:@""] stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+		message.href = [link getAttributeNamed:@"href"];
+		
+		// Retrieve date - remove tabs and newlines
+		message.when = [[[[tr findChildWithAttribute:@"class" matchingName:@"dat" allowPartial:NO] contents] stringByReplacingOccurrencesOfString:@"\t" withString:@""] stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+		// message.accessID = message.href without nachrichten.php?id=
+		
+		[tempMessages addObject:message];
+	}
+	
+    HTMLNode *paginator = [[table parent] findChildWithAttribute:@"class" matchingName:@"paginator" allowPartial:NO];
+    
+	// Check if on 1st page. If on first page, erase previous reports to avoid duplicity.
+	if (!messages || [paginator findChildWithAttribute:@"class" matchingName:@"previous disabled" allowPartial:NO] != NULL) {
+		messages = [[NSArray alloc] init];
+	}
+	
+	// 'Merge' the arrays
+	messages = [messages arrayByAddingObjectsFromArray:tempMessages];
+	
+	HTMLNode *nextPage = [paginator findChildWithAttribute:@"class" matchingName:@"next" allowPartial:NO];
+	if (nextPage && ![paginator findChildWithAttribute:@"class" matchingName:@"next disabled" allowPartial:NO]) {
+		// There is another page
+		
+		NSString *nextPageHref = [nextPage getAttributeNamed:@"href"];
+		
+		// Load next page
+		NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@.travian.%@/%@", world, server, nextPageHref]] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
+		[request setHTTPShouldHandleCookies:YES];
+		
+		reportsConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
+	}
+	
+	NSLog(@"Parsed messages page");
 }
 
 #pragma mark - Coders
@@ -240,7 +300,7 @@
 - (void)activateAccount {
 	
 	// Start connection
-	NSString *postData = [[NSString alloc] initWithFormat:@"name=%@&password=%@&s1=Login&w=%@&login=%d", username, password, @"640:960", [[NSDate date] timeIntervalSince1970]];
+	NSString *postData = [[NSString alloc] initWithFormat:@"name=%@&password=%@&s1=Login&w=%@&login=%f", username, password, @"640:960", [[NSDate date] timeIntervalSince1970]];
 	NSData *myRequestData = [NSData dataWithBytes: [postData UTF8String] length: [postData length]];
 	NSString *stringUrl = [NSString stringWithFormat:@"http://%@.travian.%@/dorf1.php", self.world, self.server];
 	NSURL *url = [NSURL URLWithString: stringUrl];
@@ -273,7 +333,7 @@
 
 - (void)deactivateAccount {
 	
-	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[[NSURL alloc] initWithString:[NSString stringWithFormat:@"http://%@.travian.%@/logout.php"]] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
+	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[[NSURL alloc] initWithString:[NSString stringWithFormat:@"http://%@.travian.%@/logout.php", world, server]] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
 	
 	[request setHTTPShouldHandleCookies:YES];
 	

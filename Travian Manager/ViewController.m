@@ -19,6 +19,7 @@
 #import "HeroQuest.h"
 #import "Building.h"
 #import "Movement.h"
+#import "Message.h"
 
 @interface ViewController ()
 

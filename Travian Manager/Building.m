@@ -30,6 +30,18 @@
 
 - (void)parsePage:(TravianPages)page fromHTMLNode:(HTMLNode *)node {
 	NSLog(@"Parsing build");
+	
+	HTMLNode *build = [node findChildWithAttribute:@"id" matchingName:@"build" allowPartial:NO];
+	if ([[build getAttributeNamed:@"class"] isEqualToString:@"gid0"]) {
+		// Nothing built on this location
+		
+		// TODO list the buildings available to user and when they select build the building on this location
+		
+		NSLog(@"Nothing built on this location.");
+		
+		return;
+	}
+	
 	HTMLNode *idContract = [node findChildWithAttribute:@"id" matchingName:@"contract" allowPartial:NO];
 	if (!idContract) {
 		NSLog(@"Cannot find div#contract");
@@ -39,6 +51,13 @@
 	HTMLNode *button = [idContract findChildTag:@"button"];
 	if (!button) {
 		NSLog(@"Cannot build/upgrade");
+		
+		HTMLNode *contractLink = [idContract findChildWithAttribute:@"class" matchingName:@"contractLink" allowPartial:NO];
+		HTMLNode *messageSpan = [contractLink findChildTag:@"span"];
+		
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[@"Error building " stringByAppendingFormat:@"%@", name] message:[messageSpan contents] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+		[alert show];
+		
 		return;
 	}
 	

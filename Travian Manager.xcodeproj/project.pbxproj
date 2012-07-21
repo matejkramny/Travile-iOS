@@ -29,6 +29,7 @@
 		4F095296155DD53300C15D6E /* HeroQuest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F095295155DD53300C15D6E /* HeroQuest.m */; };
 		4F0D502F156D36CA005065AE /* Movement.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F0D502E156D36CA005065AE /* Movement.m */; };
 		4F1865A01587EB16000C9CD4 /* ReportsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F18659F1587EB16000C9CD4 /* ReportsViewController.m */; };
+		4F28C6E815B8C84100C976E3 /* MessagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F28C6E715B8C84100C976E3 /* MessagesViewController.m */; };
 		4F99267515644E7200C6AFFC /* Construction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F99267415644E7200C6AFFC /* Construction.m */; };
 		4FCA3750156B96DF0071BAD5 /* Building.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FCA374F156B96DF0071BAD5 /* Building.m */; };
 		4FD480FD15724B5C00BECE24 /* Report.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD480FC15724B5C00BECE24 /* Report.m */; };
@@ -76,6 +77,8 @@
 		4F0D502E156D36CA005065AE /* Movement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Movement.m; sourceTree = "<group>"; };
 		4F18659E1587EB16000C9CD4 /* ReportsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReportsViewController.h; sourceTree = "<group>"; };
 		4F18659F1587EB16000C9CD4 /* ReportsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportsViewController.m; sourceTree = "<group>"; };
+		4F28C6E615B8C84100C976E3 /* MessagesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagesViewController.h; sourceTree = "<group>"; };
+		4F28C6E715B8C84100C976E3 /* MessagesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessagesViewController.m; sourceTree = "<group>"; };
 		4F38F938156008FE00AF2E82 /* TravianPages.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TravianPages.h; sourceTree = "<group>"; };
 		4F38F93A15600B6700AF2E82 /* TravianPageParsingProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TravianPageParsingProtocol.h; sourceTree = "<group>"; };
 		4F99267315644E7200C6AFFC /* Construction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Construction.h; sourceTree = "<group>"; };
@@ -166,6 +169,8 @@
 				4FD4810015724B6500BECE24 /* Message.m */,
 				4F095224155C767800C15D6E /* ViewController.h */,
 				4F095225155C767800C15D6E /* ViewController.m */,
+				4F28C6E615B8C84100C976E3 /* MessagesViewController.h */,
+				4F28C6E715B8C84100C976E3 /* MessagesViewController.m */,
 				4F18659E1587EB16000C9CD4 /* ReportsViewController.h */,
 				4F18659F1587EB16000C9CD4 /* ReportsViewController.m */,
 				4F09521E155C767800C15D6E /* MainStoryboard_iPhone.storyboard */,
@@ -285,6 +290,7 @@
 				4FD480FD15724B5C00BECE24 /* Report.m in Sources */,
 				4FD4810115724B6500BECE24 /* Message.m in Sources */,
 				4F1865A01587EB16000C9CD4 /* ReportsViewController.m in Sources */,
+				4F28C6E815B8C84100C976E3 /* MessagesViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
