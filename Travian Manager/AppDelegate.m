@@ -25,11 +25,10 @@
 {
 	storage = [[Storage alloc] init];
 	
-	[storage setActiveAccount:[[storage accounts] objectAtIndex:0]];
+	//[storage setActiveAccount:[[storage accounts] objectAtIndex:0]];
 	
 	// Auto-build timer
 	NSTimer *timer __unused = [NSTimer scheduledTimerWithTimeInterval:390 target:self selector:@selector(refresh:) userInfo:nil repeats:YES];
-	
 	
 	return YES;
 }

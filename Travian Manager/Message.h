@@ -19,6 +19,7 @@
 @property (nonatomic, strong) NSString *href; // Download link
 @property (nonatomic, strong) NSString *when; // Date received
 @property (assign) bool read; // Flags message status
+@property (nonatomic, strong) NSString *accessID; // Unique message ID
 
 - (void)downloadAndParse;
 - (void)delete;

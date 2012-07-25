@@ -40,12 +40,16 @@ typedef enum {
 @property (nonatomic, strong) Hero *hero; // Hero
 
 @property (assign) AccountStatus status; // Tells other objects the status of this account
+@property (assign) bool notificationPending; // There is a notification. Notify user to either skipNotification or view it in safari.
+//@property (assign) bool hasFinishedLoading; // When NO, HUD should be up stating the account is loading..
+@property (nonatomic, strong) NSString *progressIndicator; // Label on HUD
 
-- (void)parseVillages:(HTMLNode *)node;
-- (void)parseReports:(HTMLNode *)node;
-- (void)parseMessages:(HTMLNode *)node;
 - (void)activateAccount;
+- (void)activateAccountWithPassword:(NSString *)passwd;
 - (void)refreshAccount;
 - (void)deactivateAccount;
+
+- (void)skipNotification;
+- (bool)isComplete; // returns true if all required fields aren't empty
 
 @end

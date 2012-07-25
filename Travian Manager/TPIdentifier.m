@@ -19,6 +19,9 @@
 	if (![[body tagName] isEqualToString:@"body"])
 		return TPNotFound;
 	
+	if ([body findChildWithAttribute:@"id" matchingName:@"sysmsg" allowPartial:NO])
+		return TPNotification;
+	
 	NSString *bodyClass = [body getAttributeNamed:@"class"];
 	
 	// Identify if page is login type

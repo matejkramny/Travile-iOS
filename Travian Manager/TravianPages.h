@@ -24,7 +24,7 @@ typedef enum {
 	TPReport = 1 << 9, // Report view
 	TPMessages = 1 << 10, // List of messages
 	TPMessage = 1 << 11, // Message view
-	TPNotification = 1 << 12, // Scheduled maintanance. Click ok to continue.
+	TPNotification = 1 << 12, // Scheduled maintanance. Click dorf.php?ok ok to continue.
 	TPLogin = 1 << 13, // Login page
 	TPMaintanance = 1 << 14, // Server is being maintained
 	TPStatistics = 1 << 15, // Statistics page
@@ -33,9 +33,9 @@ typedef enum {
 	TPNotFound = 1 << 18, // Page unknown
 	
 	// Masks
-	TPMaskUnparseable = TPNotFound | TPLogin | TPMaintanance | TPNotification, // Pages that do not contain relevant information to the account
-	TPMaskBasicVillageList = ~(TPMaskUnparseable), // Pages that it does not have basicVillageList then inverted bits
-	TPMaskFullVillageList = TPProfile, // Pages with full village list (with population)
+	TPMaskUnparseable = TPNotFound | TPLogin | TPMaintanance, // Pages that do not contain relevant information to the account
+	//TPMaskBasicVillageList = ~(TPMaskUnparseable), // Pages that it does not have basicVillageList then inverted bits
+	//TPMaskFullVillageList = TPProfile, // Pages with full village list (with population)
 	TPMaskConstructionsList = TPResources | TPVillage // Pages that have list of buildings being constructed
 } TravianPages;
 

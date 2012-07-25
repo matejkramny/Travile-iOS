@@ -15,50 +15,81 @@
 #import "Message.h"
 #import "Report.h"
 
+@interface Account ()
+
+- (void)parseVillages:(HTMLNode *)node;
+- (void)parseReports:(HTMLNode *)node;
+- (void)parseMessages:(HTMLNode *)node;
+
+@end
+
 @implementation Account
 
-@synthesize name, username, password, world, server, villages, reports, messages, contacts, hero, status;
+@synthesize name, username, password, world, server, villages, reports, messages, contacts, hero, status, notificationPending, progressIndicator;
+
+- (bool)isComplete {
+	if ([name length] < 2 || username.length < 2 || world.length < 2 || server.length < 1)
+		return NO;
+	
+	return YES;
+}
+
+- (void)skipNotification {
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@.travian.%@/dorf1.php?ok", world, server]];
+	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
+	[request setHTTPShouldHandleCookies:YES];
+	
+	loginConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
+}
 
 #pragma mark - TravianPageParsingProtocol
 
 - (void)parsePage:(TravianPages)page fromHTMLNode:(HTMLNode *)node
 {
 	// Parses the HTML Body of the Page, and adds data to villages, messages etc
+	if ((page & TPNotification) != 0) {
+		// Notification pending view
+		[self setProgressIndicator:@"Found notification"];
+		//[self setHasFinishedLoading:YES];
+		
+		[self setNotificationPending:YES];
+		
+		return;
+	}
 	
-	if ((page & TPMaskUnparseable) != 0 || ![[node tagName] isEqualToString:@"body"])
+	if ((page & TPMaskUnparseable) != 0 || ![[node tagName] isEqualToString:@"body"]) {
+		[self setProgressIndicator:@"Cannot load!"];
+		//[self setHasFinishedLoading:YES];
+		
 		return; // Can't do anything with unparseable pages or non-body nodes
-	
-	HTMLNode *sysmsg = [node findChildWithAttribute:@"id" matchingName:@"sysmsg" allowPartial:NO];
-	if (sysmsg) {
-		// Notification pending
-		HTMLNode *iframe = [sysmsg findChildTag:@"iframe"];
-		
-		NSLog(@"Sysmsg..");
-		
-		if (iframe) {
-			NSLog(@"Src: %@", [iframe getAttributeNamed:@"src"]);
-			// Open safari or something with url
-		}
 	}
 	
 	// Villages
 	if ((page & TPProfile) != 0) {
 		
+		[self setProgressIndicator:@"Loading villages"];
 		[self parseVillages:node];
 		
 	} else if ((page & (TPHero | TPAdventures | TPAuction)) != 0) {
 		if (!hero)
 			hero = [[Hero alloc] init];
 		
+		[self setProgressIndicator:@"Loading Hero"];
 		[hero parsePage:page fromHTMLNode:node];
+		
 	} else if ((page & TPReports) != 0) {
 		
+		[self setProgressIndicator:@"Loading Reports"];
 		[self parseReports:node];
 		
 	} else if ((page & TPMessages) != 0) {
 		
+		[self setProgressIndicator:@"Loading Messages"];
 		[self parseMessages:node];
 		
+		// Finished
+		//[self setHasFinishedLoading:YES];
+		[self setStatus:ALoggedIn];
 	}
 }
 
@@ -141,7 +172,10 @@
 	for (HTMLNode *tr in trs) {
 		// Check if tr contains td.noData
 		if ([[[tr findChildTag:@"td"] getAttributeNamed:@"class"] isEqualToString:@"noData"])
-			continue;
+		{
+			reports = [[NSArray alloc] init];
+			return;
+		}
 		
 		Report *report = [[Report alloc] init];
 		
@@ -209,7 +243,10 @@
 	for (HTMLNode *tr in trs) {
 		// Check if tr contains td.noData
 		if ([[[tr findChildTag:@"td"] getAttributeNamed:@"class"] isEqualToString:@"noData"])
-			continue;
+		{
+			messages = [[NSArray alloc] init];
+			return;
+		}
 		
 		// Allocate new message object
 		Message *message = [[Message alloc] init];
@@ -226,7 +263,10 @@
 		// Retrieve message Title
 		HTMLNode *link = [subjectWrapper findChildTag:@"a"];
 		message.title = [[[link contents] stringByReplacingOccurrencesOfString:@"\t" withString:@""] stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+		// Href - nachrichten.php?id=accessID
 		message.href = [link getAttributeNamed:@"href"];
+		
+		message.accessID = [message.href stringByReplacingOccurrencesOfString:@"nachrichten.php?id=" withString:@""];
 		
 		// Retrieve date - remove tabs and newlines
 		message.when = [[[[tr findChildWithAttribute:@"class" matchingName:@"dat" allowPartial:NO] contents] stringByReplacingOccurrencesOfString:@"\t" withString:@""] stringByReplacingOccurrencesOfString:@"\n" withString:@""];
@@ -298,9 +338,12 @@
 }
 
 - (void)activateAccount {
-	
+	[self activateAccountWithPassword:password];
+}
+
+- (void)activateAccountWithPassword:(NSString *)passwd {
 	// Start connection
-	NSString *postData = [[NSString alloc] initWithFormat:@"name=%@&password=%@&s1=Login&w=%@&login=%f", username, password, @"640:960", [[NSDate date] timeIntervalSince1970]];
+	NSString *postData = [[NSString alloc] initWithFormat:@"name=%@&password=%@&s1=Login&w=%@&login=%f", username, passwd, @"640:960", [[NSDate date] timeIntervalSince1970]];
 	NSData *myRequestData = [NSData dataWithBytes: [postData UTF8String] length: [postData length]];
 	NSString *stringUrl = [NSString stringWithFormat:@"http://%@.travian.%@/dorf1.php", self.world, self.server];
 	NSURL *url = [NSURL URLWithString: stringUrl];
@@ -318,7 +361,6 @@
 	status = ANotLoggedIn | ALoggingIn;
 	
 	loginConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
-	
 }
 
 - (void)refreshAccount {
@@ -337,7 +379,7 @@
 	
 	[request setHTTPShouldHandleCookies:YES];
 	
-	status = ANotLoggedIn;
+	[self setStatus:ANotLoggedIn];
 	
 	NSURLConnection *conn __unused = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES]; 
 	
@@ -390,7 +432,7 @@
 		
 		if ((page & (TPLogin | TPNotFound)) != 0) {
 			// Still at login page.
-			status = ANotLoggedIn | ACannotLogIn;
+			[self setStatus:(ANotLoggedIn | ACannotLogIn)];
 			return;
 		}
 		
@@ -453,11 +495,10 @@
 		} else if ((page & TPMessages) != 0) {
 			
 			NSLog(@"Loaded TPMessages");
-		
+			
+			[self setStatus:ALoggedIn];
+			
 		}
-		
-		status = ALoggedIn;
-		
 	}
 	
 	else if (connection == reportsConnection) {

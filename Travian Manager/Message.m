@@ -16,7 +16,7 @@
 
 @implementation Message
 
-@synthesize title, content, href, when, read;
+@synthesize title, content, href, when, read, accessID;
 
 - (void)parsePage:(TravianPages)page fromHTMLNode:(HTMLNode *)node {
 	// TODO test this
@@ -40,7 +40,27 @@
 }
 
 - (void)delete {
-	// TODO this
+	Account *account = [[(AppDelegate *)[UIApplication sharedApplication].delegate storage] account];
+	
+	NSString *data = [NSString stringWithFormat:@"delmsg=Delete&s=0&n1=%@", accessID];
+	
+	NSData *myRequestData = [NSData dataWithBytes: [data UTF8String] length: [data length]];
+	NSString *stringUrl = [NSString stringWithFormat:@"http://%@.travian.%@/nachrichten.php", [account world], [account server]];
+	NSURL *url = [NSURL URLWithString: stringUrl];
+	
+	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: url cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
+	
+	// Set POST HTTP Headers if necessary
+	[request setHTTPMethod: @"POST"];
+	[request setHTTPBody: myRequestData];
+	[request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"content-type"];
+	
+	// Preserve any cookies received
+	[request setHTTPShouldHandleCookies:YES];
+	
+	@autoreleasepool {
+		NSURLConnection *c __unused = [[NSURLConnection alloc] initWithRequest:request delegate:nil startImmediately:YES];
+	}
 }
 
 - (void)send:(NSString *)recipient {
@@ -71,6 +91,7 @@
 	when = [aDecoder decodeObjectForKey:@"when"];
 	NSNumber *n = [aDecoder decodeObjectForKey:@"read"];
 	read = [n boolValue];
+	accessID = [aDecoder decodeObjectForKey:@"accessID"];
 	
 	return self;
 }
@@ -81,6 +102,7 @@
 	[aCoder encodeObject:href forKey:@"href"];
 	[aCoder encodeObject:when forKey:@"when"];
 	[aCoder encodeObject:[NSNumber numberWithBool:read] forKey:@"read"];
+	[aCoder encodeObject:accessID forKey:@"accessID"];
 }
 
 #pragma mark - NSURLConnectionDelegate

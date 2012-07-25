@@ -22,6 +22,7 @@
 - (BOOL)loadData;
 
 - (void)setActiveAccount:(Account *)a;
+- (void)setActiveAccount:(Account *)a withPassword:(NSString *)password;
 - (void)deactivateActiveAccount;
 
 @end

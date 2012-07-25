@@ -68,6 +68,8 @@
 		if (!resourceProduction)
 			resourceProduction = [[ResourcesProduction alloc] init];
 		
+		[parent setProgressIndicator:@"Loading Resources"];
+		
 		[resourceProduction parsePage:page fromHTMLNode:node];
 		[self parseTroops:node];
 		[self parseMovements:node];
@@ -77,6 +79,7 @@
 	} else if ((page & TPHero) != 0) {
 		[parent.hero parsePage:page fromHTMLNode:node];
 	} else if ((page & TPVillage) != 0) {
+		[parent setProgressIndicator:@"Loading Village"];
 		[self parseBuildingsPage:page fromNode:node];
 	}
 	
@@ -299,9 +302,9 @@
 			
 			NSString *ampmFormattedString = @"";
 			if ([ampm isEqualToString:@"am"]) {
-				ampmFormattedString = [NSString stringWithString:@" AM"];
+				ampmFormattedString = @" AM";
 			} else if ([ampm isEqualToString:@"pm"]) {
-				ampmFormattedString = [NSString stringWithString:@" PM"];
+				ampmFormattedString = @" PM";
 			}
 			
 			construction.name = [conName stringByReplacingOccurrencesOfString:conLevel withString:@""];

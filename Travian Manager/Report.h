@@ -13,10 +13,7 @@
 @class Village;
 @class Account;
 
-@interface Report : NSObject <TravianPageParsingProtocol, NSCoding, NSURLConnectionDelegate, NSURLConnectionDataDelegate> {
-	NSURLConnection *reportConnection;
-	NSMutableData *reportData;
-}
+@interface Report : NSObject <TravianPageParsingProtocol, NSCoding, NSURLConnectionDelegate, NSURLConnectionDataDelegate>
 
 @property (nonatomic, strong) NSString *name; // Name of the report, as in browser
 @property (nonatomic, strong) NSString *when; // When the report happened, as appears in browser

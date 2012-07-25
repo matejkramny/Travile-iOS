@@ -49,7 +49,6 @@
 }
 
 - (BOOL)loadData {
-	
 	NSData *data = [NSData dataWithContentsOfFile:savePath];
 	if (data) {
 		accounts = [NSKeyedUnarchiver unarchiveObjectWithData:data];
@@ -61,6 +60,7 @@
 	}
 	
 	Account *a = [[Account alloc] init];
+	a.name = @"Main Account";
 	a.username = @"matejkramny";
 	a.password = @"temp0rary";
 	a.world = @"ts6";
@@ -77,9 +77,13 @@
 #pragma mark - Active Account
 
 - (void)setActiveAccount:(Account *)a {
+	[self setActiveAccount:a withPassword:[a password]];
+}
+
+- (void)setActiveAccount:(Account *)a withPassword:(NSString *)password {
 	self.account = a;
 	
-	[self.account activateAccount];
+	[self.account activateAccountWithPassword:password];
 }
 
 - (void)deactivateActiveAccount {

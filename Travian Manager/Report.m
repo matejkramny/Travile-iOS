@@ -16,6 +16,14 @@
 #import "Storage.h"
 #import "TPIdentifier.h"
 
+@interface Report () {
+	NSURLConnection *deleteConnection;
+	NSURLConnection *reportConnection;
+	NSMutableData *reportData;
+}
+
+@end
+
 @implementation Report
 
 @synthesize name, when, accessID, bounty, deleteID, attacker, attackerVillage, attackerTroops, defender, defenderVillage, defenderTroops, bountyName;
@@ -53,6 +61,7 @@
 	Account *account = [[(AppDelegate *)[UIApplication sharedApplication].delegate storage] account];
 	
 	NSString *url = [NSString stringWithFormat:@"http://%@.travian.%@/berichte.php?id=%@&t=", account.world, account.server, [accessID stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+	
 	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:url] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
 	[request setHTTPShouldHandleCookies:YES];
 	
@@ -63,11 +72,12 @@
 - (void)delete {
 	Account *account = [[(AppDelegate *)[UIApplication sharedApplication].delegate storage] account];
 	
-	NSString *url = [NSString stringWithFormat:@"http://%@.travian.%@/berichte.php?n1=%@&del=1&%@", account.world, account.server, deleteID,[accessID stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+	NSString *url = [[NSString stringWithFormat:@"http://%@.travian.%@/berichte.php?n1=%@&del=1&", account.world, account.server, deleteID] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+	
 	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:url] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
 	[request setHTTPShouldHandleCookies:YES];
 	
-	NSURLConnection *conn __unused = [[NSURLConnection alloc] initWithRequest:request delegate:nil startImmediately:YES];
+	deleteConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
 }
 
 #pragma mark - NSCoder
