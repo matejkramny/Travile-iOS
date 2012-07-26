@@ -128,10 +128,4 @@
 	[message send:[recipient text]];
 }
 
-#pragma mark - PHOpenMessageDelegate
-
-- (void)openMessageControllerDidCloseMessage:(PHOpenMessageViewController *)controller {
-	
-}
-
 @end

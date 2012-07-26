@@ -272,6 +272,9 @@
 		message.when = [[[[tr findChildWithAttribute:@"class" matchingName:@"dat" allowPartial:NO] contents] stringByReplacingOccurrencesOfString:@"\t" withString:@""] stringByReplacingOccurrencesOfString:@"\n" withString:@""];
 		// message.accessID = message.href without nachrichten.php?id=
 		
+		// Sender name
+		message.sender = [[[tr findChildWithAttribute:@"class" matchingName:@"send" allowPartial:NO] findChildTag:@"a"] contents];
+		
 		[tempMessages addObject:message];
 	}
 	

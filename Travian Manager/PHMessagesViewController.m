@@ -12,12 +12,14 @@
 #import "Account.h"
 #import "Message.h"
 #import "MBProgressHUD.h"
+#import "PHOpenMessageViewController.h"
 
 @interface PHMessagesViewController () {
 	AppDelegate *appDelegate;
 	Storage *storage;
 	UIAlertView *deleteAllAlert;
 	MBProgressHUD *HUD;
+	Message *selectedMessage;
 }
 
 - (IBAction)editButtonClicked:(id)sender;
@@ -56,6 +58,8 @@
 	[self.tabBarController.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editButtonClicked:)]];
 	
 	[self.tabBarController setTitle:[NSString stringWithFormat:@"Messages"]];
+	
+	[[self tableView] reloadData];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -215,7 +219,23 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // TODO show the message
+	selectedMessage = [storage.account.messages objectAtIndex:indexPath.row];
+	
+	if ([selectedMessage content] == nil) {
+		// Load the message
+		[selectedMessage addObserver:self forKeyPath:@"content" options:NSKeyValueObservingOptionNew context:NULL];
+		[selectedMessage downloadAndParse];
+		
+		HUD = [[MBProgressHUD alloc] initWithView:self.tabBarController.navigationController.view];
+		[self.tabBarController.navigationController.view addSubview:HUD];
+		HUD.delegate = self;
+		HUD.labelText = [NSString stringWithFormat:@"Downloading message"];
+		
+		[HUD show:YES];
+		
+		return;
+	}
+	
 	[self performSegueWithIdentifier:@"OpenMessage" sender:self];
 }
 
@@ -224,6 +244,27 @@
 - (void)hudWasHidden:(MBProgressHUD *)hud {
 	[hud removeFromSuperview];
 	HUD = nil;
+}
+
+#pragma mark - KVO
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+	if (object == selectedMessage && [keyPath isEqualToString:@"content"]) {
+		[HUD hide:YES];
+		
+		[self performSegueWithIdentifier:@"OpenMessage" sender:self];
+	}
+}
+
+#pragma mark - Segue
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+	if ([[segue identifier] isEqualToString:@"OpenMessage"]) {
+		UINavigationController *nc = [segue destinationViewController];
+		PHOpenMessageViewController *vc = [[nc viewControllers] objectAtIndex:0];
+		
+		vc.message = selectedMessage;
+	}
 }
 
 @end

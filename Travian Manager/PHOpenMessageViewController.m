@@ -7,6 +7,9 @@
 //
 
 #import "PHOpenMessageViewController.h"
+#import "AppDelegate.h"
+#import "Storage.h"
+#import "Account.h"
 
 @interface PHOpenMessageViewController ()
 
@@ -16,6 +19,8 @@
 @synthesize sentBy;
 @synthesize time;
 @synthesize subject;
+@synthesize content;
+@synthesize message;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -35,6 +40,13 @@
 	[super viewWillAppear:animated];
 	
 	[[self navigationController] setToolbarHidden:NO animated:NO];
+	
+	[self setTitle:message.title];
+	
+	[sentBy setText:message.sender];
+	[time setText:message.when];
+	[subject setText:message.title];
+	[content setText:message.content];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -48,6 +60,8 @@
     [self setSentBy:nil];
     [self setTime:nil];
     [self setSubject:nil];
+	[self setContent:nil];
+	[self setMessage:nil];
     [super viewDidUnload];
 }
 
@@ -56,4 +70,20 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+- (IBAction)return:(id)sender {
+	[self dismissModalViewControllerAnimated:YES];
+}
+
+- (IBAction)delete:(id)sender {
+	[[self message] delete];
+	Account *a = [[(AppDelegate *)[UIApplication sharedApplication].delegate storage] account];
+	NSMutableArray *ar = [[a messages] mutableCopy];
+	[ar removeObjectIdenticalTo:message];
+	a.messages = [ar copy];
+	
+	[self return:sender];
+}
+- (IBAction)reply:(id)sender {
+	
+}
 @end

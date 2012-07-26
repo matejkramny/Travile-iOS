@@ -7,9 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PHOpenMessageViewController.h"
 
-@interface PHNewMessageViewController : UITableViewController <UIAlertViewDelegate, PHOpenMessageDelegate>
+@interface PHNewMessageViewController : UITableViewController <UIAlertViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *recipient;
 @property (weak, nonatomic) IBOutlet UITextField *subject;

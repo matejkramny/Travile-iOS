@@ -14,6 +14,7 @@
 	NSMutableData *messageData;
 }
 
+@property (nonatomic, strong) NSString *sender; // Sender's name
 @property (nonatomic, strong) NSString *title; // Message title
 @property (nonatomic, strong) NSString *content; // Message conttent
 @property (nonatomic, strong) NSString *href; // Download link

@@ -16,7 +16,7 @@
 
 @implementation Message
 
-@synthesize title, content, href, when, read, accessID;
+@synthesize sender, title, content, href, when, read, accessID;
 
 - (void)parsePage:(TravianPages)page fromHTMLNode:(HTMLNode *)node {
 	// TODO test this
@@ -26,7 +26,7 @@
 		return;
 	}
 	
-	content = [divMessage contents];
+	[self setContent:[divMessage contents]];
 }
 
 - (void)downloadAndParse {
