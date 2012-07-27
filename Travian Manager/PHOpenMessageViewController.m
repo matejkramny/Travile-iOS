@@ -10,6 +10,7 @@
 #import "AppDelegate.h"
 #import "Storage.h"
 #import "Account.h"
+#import "PHNewMessageViewController.h"
 
 @interface PHOpenMessageViewController ()
 
@@ -84,6 +85,16 @@
 	[self return:sender];
 }
 - (IBAction)reply:(id)sender {
-	
+	[self performSegueWithIdentifier:@"MessageReply" sender:self];
 }
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+	if ([[segue identifier] isEqualToString:@"MessageReply"]) {
+		UINavigationController *nc = [segue destinationViewController];
+		PHNewMessageViewController *nmvc = [[nc viewControllers] objectAtIndex:0];
+		nmvc.replyToMessage = message;
+	}
+}
+
+
 @end

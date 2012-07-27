@@ -13,6 +13,7 @@
 #import "HTMLParser.h"
 #import "HTMLNode.h"
 #import "TPIdentifier.h"
+#import "NSString+HTML.h"
 
 @implementation Message
 
@@ -26,7 +27,11 @@
 		return;
 	}
 	
-	[self setContent:[divMessage contents]];
+	NSString *raw = [[divMessage rawContents] substringFromIndex:[@"<div id=\"message\">" length]];
+	raw = [[[[[raw substringToIndex:[raw length]-6] stringByReplacingOccurrencesOfString:@"\r\n" withString:@""] stringByReplacingOccurrencesOfString:@"\n" withString:@""] stringByReplacingOccurrencesOfString:@"<br>" withString:@"\n"] stringByDecodingHTMLEntities];
+	
+	NSLog(@"%@", raw);
+	[self setContent:raw];
 }
 
 - (void)downloadAndParse {

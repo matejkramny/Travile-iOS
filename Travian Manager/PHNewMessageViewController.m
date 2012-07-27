@@ -27,6 +27,7 @@
 @synthesize subject;
 @synthesize content;
 @synthesize sendButton;
+@synthesize replyToMessage;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -51,7 +52,29 @@
     [self setSubject:nil];
     [self setContent:nil];
 	[self setSendButton:nil];
+	[self setReplyToMessage:nil];
     [super viewDidUnload];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+	
+	if (replyToMessage != nil) {
+		[recipient setText:[replyToMessage sender]];
+		
+		NSString *tit = [replyToMessage title];
+		if ([[tit substringToIndex:3] isEqualToString:@"RE:"]) {
+			tit = [NSString stringWithFormat:@"RE^2:%@", [tit substringFromIndex:3]];
+		} else if ([[tit substringToIndex:3] isEqualToString:@"RE^"]) {
+			int replyTimes = [[[tit substringToIndex:4] substringFromIndex:3] intValue];
+			if (replyTimes != 0) {
+				tit = [NSString stringWithFormat:@"RE^%d:%@", replyTimes+1, [tit substringFromIndex:4+[[NSString stringWithFormat:@"%d", replyTimes] length]]];
+			}
+		}
+		
+		[subject setText:tit];
+		[content setText:[NSString stringWithFormat:@"\n____________\n%@ wrote:\n%@", [replyToMessage sender], [replyToMessage content]]];
+	}
 }
 
 - (void)viewDidAppear:(BOOL)animated {
