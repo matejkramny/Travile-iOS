@@ -17,6 +17,7 @@ typedef enum {
 } AccountStatus;
 
 @class Hero;
+@class Village;
 //@class Profile;
 
 @interface Account : NSObject <NSCoding, TravianPageParsingProtocol, NSURLConnectionDelegate, NSURLConnectionDataDelegate> {
@@ -32,6 +33,7 @@ typedef enum {
 @property (nonatomic, strong) NSString *world; // Login - world (e.g. 'ts7')
 @property (nonatomic, strong) NSString *server; // Login - server (e.g. 'co.uk')
 
+@property (nonatomic, weak) Village *village; // Village being viewed (viewed by viewcontrollers)
 @property (nonatomic, strong) NSArray *villages; // List of villages
 @property (nonatomic, strong) NSArray *reports; // Reports
 @property (nonatomic, strong) NSArray *messages; // Messages

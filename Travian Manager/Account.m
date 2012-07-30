@@ -25,7 +25,7 @@
 
 @implementation Account
 
-@synthesize name, username, password, world, server, villages, reports, messages, contacts, hero, status, notificationPending, progressIndicator;
+@synthesize name, username, password, world, server, villages, reports, messages, contacts, hero, status, notificationPending, progressIndicator, village;
 
 - (bool)isComplete {
 	if ([name length] < 2 || username.length < 2 || world.length < 2 || server.length < 1)

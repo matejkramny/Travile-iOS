@@ -51,7 +51,9 @@
 	[self.tabBarController.navigationItem setRightBarButtonItem:nil];
 	[self.tabBarController.navigationItem setLeftBarButtonItem:nil];
 	[self.tabBarController.navigationItem setLeftBarButtonItems:nil];
-	[self.tabBarController setTitle:[NSString stringWithFormat:@"Villages (%d)", [[[storage account] villages] count]]];
+	
+	int c = [[[storage account] villages] count];
+	[self.tabBarController setTitle:[NSString stringWithFormat:@"%d Village%@", c, c == 1 ? @"" : @"s"]];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -86,13 +88,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+    [[storage account] setVillage:[[storage account].villages objectAtIndex:indexPath.row]];
+	
+	[self performSegueWithIdentifier:@"OpenVillage" sender:self];
 }
 
 @end

@@ -25,7 +25,6 @@
 	[request setHTTPShouldHandleCookies:YES];
 	
 	buildConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
-	
 }
 
 - (void)parsePage:(TravianPages)page fromHTMLNode:(HTMLNode *)node {
