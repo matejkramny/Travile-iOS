@@ -1,0 +1,16 @@
+/* 
+  Localizable.strings
+  Travian Manager
+
+  Created by Matej Kramny on 05/08/2012.
+
+*/
+
+"Logging In" = "Logging in";
+"Village" = "Village";
+"Movements" = "Movements";
+"Constructions" = "Constructions";
+"No Movements" = "No Movements";
+"No Constructions" = "No Constructions";
+/* Construction name lvl X */
+"construction lvl to" = "%@ lvl %d";

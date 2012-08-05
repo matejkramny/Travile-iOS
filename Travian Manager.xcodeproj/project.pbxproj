@@ -100,6 +100,8 @@
 		4F5704C915CEE76A001614AC /* Logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F5704C815CEE76A001614AC /* Logo@2x.png */; };
 		4F5704CB15CEE770001614AC /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F5704CA15CEE770001614AC /* Default.png */; };
 		4F5704CD15CEE775001614AC /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F5704CC15CEE775001614AC /* Default@2x.png */; };
+		4F5704D515CF166F001614AC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4F5704D715CF166F001614AC /* Localizable.strings */; };
+		4F5704DC15CF1727001614AC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4F5704D715CF166F001614AC /* Localizable.strings */; };
 		4F5F0A9415C0153400757356 /* PHOpenMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F5F0A9315C0153400757356 /* PHOpenMessageViewController.m */; };
 		4F895F1615C2C19A007525D9 /* PHHeroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F895F1515C2C19A007525D9 /* PHHeroViewController.m */; };
 		4F8A48A715C1FEDF00EC1564 /* NSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8A48A615C1FEDF00EC1564 /* NSString+HTML.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -129,7 +131,7 @@
 		4F095216155C767800C15D6E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4F095218155C767800C15D6E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		4F09521A155C767800C15D6E /* Travian Manager-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Travian Manager-Prefix.pch"; sourceTree = "<group>"; };
-		4F09521B155C767800C15D6E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		4F09521B155C767800C15D6E /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		4F09521C155C767800C15D6E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		4F09521F155C767800C15D6E /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
 		4F095222155C767800C15D6E /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
@@ -240,6 +242,9 @@
 		4F5704C815CEE76A001614AC /* Logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Logo@2x.png"; sourceTree = "<group>"; };
 		4F5704CA15CEE770001614AC /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		4F5704CC15CEE775001614AC /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		4F5704D615CF166F001614AC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		4F5704DE15CF176E001614AC /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Localizable.strings; sourceTree = "<group>"; };
+		4F5704E015CF17C0001614AC /* cs */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = cs; path = cs.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
 		4F5F0A8D15BDEB8800757356 /* Travian Manager.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Travian Manager.entitlements"; sourceTree = "<group>"; };
 		4F5F0A9215C0153400757356 /* PHOpenMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHOpenMessageViewController.h; sourceTree = "<group>"; };
 		4F5F0A9315C0153400757356 /* PHOpenMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHOpenMessageViewController.m; sourceTree = "<group>"; };
@@ -327,6 +332,7 @@
 			isa = PBXGroup;
 			children = (
 				4F5F0A8D15BDEB8800757356 /* Travian Manager.entitlements */,
+				4F5704D715CF166F001614AC /* Localizable.strings */,
 				4F09521B155C767800C15D6E /* AppDelegate.h */,
 				4F09521C155C767800C15D6E /* AppDelegate.m */,
 				4F28C73E15BB1B0C00C976E3 /* Pending del */,
@@ -574,6 +580,8 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				cz,
+				cs,
 			);
 			mainGroup = 4F0951FD155C767700C15D6E;
 			productRefGroup = 4F095209155C767800C15D6E /* Products */;
@@ -655,6 +663,8 @@
 				4F5704C915CEE76A001614AC /* Logo@2x.png in Resources */,
 				4F5704CB15CEE770001614AC /* Default.png in Resources */,
 				4F5704CD15CEE775001614AC /* Default@2x.png in Resources */,
+				4F5704D515CF166F001614AC /* Localizable.strings in Resources */,
+				4F5704DC15CF1727001614AC /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -739,6 +749,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				4F09521F155C767800C15D6E /* en */,
+				4F5704E015CF17C0001614AC /* cs */,
 			);
 			name = MainStoryboard_iPhone.storyboard;
 			sourceTree = "<group>";
@@ -749,6 +760,16 @@
 				4F095222155C767800C15D6E /* en */,
 			);
 			name = MainStoryboard_iPad.storyboard;
+			sourceTree = "<group>";
+		};
+		4F5704D715CF166F001614AC /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4F5704D615CF166F001614AC /* en */,
+				4F5704DE15CF176E001614AC /* cs */,
+			);
+			name = Localizable.strings;
+			path = ..;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

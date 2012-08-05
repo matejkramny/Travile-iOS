@@ -12,6 +12,7 @@
 #import "Village.h"
 #import "Account.h"
 #import "Movement.h"
+#import "Construction.h"
 
 @interface PHVOverviewViewController () {
 	Storage *storage;
@@ -75,7 +76,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-	return 2;
+	return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -86,6 +87,10 @@
 		int c = [[village movements] count];
 		
 		return c == 0 ? 1 : c;
+	} else if (section == 2) {
+		int c = [[village constructions] count];
+		
+		return c == 0 ? 1 : c;
 	}
 	
     return 0;
@@ -93,6 +98,21 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+	NSString *(^calculateRemainingTimeFromDate)(NSDate *) = ^(NSDate *date) {
+		int diff = [date timeIntervalSince1970] - [[NSDate date] timeIntervalSince1970];
+		
+		int hours = diff / (60 * 60);
+		NSString *hoursString = hours < 10 ? [NSString stringWithFormat:@"0%d", hours] : [NSString stringWithFormat:@"%d", hours];
+		diff -= hours * (60 * 60);
+		int minutes = diff / 60;
+		NSString *minutesString = minutes < 10 ? [NSString stringWithFormat:@"0%d", minutes] : [NSString stringWithFormat:@"%d", minutes];
+		diff -= minutes * 60;
+		int seconds = diff;
+		NSString *secondsString = seconds < 10 ? [NSString stringWithFormat:@"0%d", seconds] : [NSString stringWithFormat:@"%d", seconds];
+		
+		return [NSString stringWithFormat:@"%@:%@:%@", hoursString, minutesString, secondsString];
+	};
+	
     if (indexPath.section == 0) {
 		// Population & Loyalty
 		NSString *cellIdentifier = @"RightDetail";
@@ -109,13 +129,13 @@
 		}
 		
 		return cell;
-	} else {
+	} else if (indexPath.section == 1) {
 		// Movements
 		if ([village.movements count] == 0)
 		{
 			UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Basic"];
 			
-			cell.textLabel.text = @"No movements";
+			cell.textLabel.text = NSLocalizedString(@"No Movements", @"");
 			
 			return cell;
 		}
@@ -125,23 +145,32 @@
 			
 			Movement *movement = [village.movements objectAtIndex:indexPath.row];
 			
-			int diff = [movement.finished timeIntervalSince1970] - [[NSDate date] timeIntervalSince1970];
-			
-			int hours = diff / (60 * 60);
-			NSString *hoursString = hours < 10 ? [NSString stringWithFormat:@"0%d", hours] : [NSString stringWithFormat:@"%d", hours];
-			diff -= hours * (60 * 60);
-			int minutes = diff / 60;
-			NSString *minutesString = minutes < 10 ? [NSString stringWithFormat:@"0%d", minutes] : [NSString stringWithFormat:@"%d", minutes];
-			diff -= minutes * 60;
-			int seconds = diff;
-			NSString *secondsString = seconds < 10 ? [NSString stringWithFormat:@"0%d", seconds] : [NSString stringWithFormat:@"%d", seconds];
-			
 			cell.textLabel.text = [movement name];
-			cell.detailTextLabel.text = [NSString stringWithFormat:@"%@:%@:%@", hoursString, minutesString, secondsString];
+			cell.detailTextLabel.text = calculateRemainingTimeFromDate(movement.finished);
+			
+			return cell;
+		}
+	} else if (indexPath.section == 2) {
+		// Constructions
+		if ([village.constructions count] == 0) {
+			// No movements
+			UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Basic"];
+			cell.textLabel.text = NSLocalizedString(@"No Constructions", @"");
+			return cell;
+		} else {
+			UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RightDetail"];
+			
+			Construction *construction = [village.constructions objectAtIndex:indexPath.row];
+			
+			NSString *name = [NSString stringWithFormat:NSLocalizedString(@"construction lvl to", @"Construction name lvl X"), construction.name, construction.level];
+			cell.textLabel.text = name;
+			cell.detailTextLabel.text = construction.finishTime;
 			
 			return cell;
 		}
 	}
+	
+	return nil;
 }
 
 - (IBAction)secondTimerFired:(id)sender {
@@ -151,9 +180,11 @@
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
 	switch (section) {
 		case 0:
-			return @"Village";
+			return NSLocalizedString(@"Village", @"");
 		case 1:
-			return @"Movements";
+			return NSLocalizedString(@"Movements", @"");
+		case 2:
+			return NSLocalizedString(@"Constructions", @"");
 		default:
 			return @"";
 	}

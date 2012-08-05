@@ -66,7 +66,7 @@
                             <outlet property="delegate" destination="7fb-WK-g1n" id="I2I-FZ-jQe"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Accounts" id="Byi-H5-laH"/>
+                    <navigationItem key="navigationItem" title="Účty" id="Byi-H5-laH"/>
                     <connections>
                         <segue destination="Af0-qw-3tr" kind="modal" identifier="NewAccount" id="5II-qE-f8B"/>
                         <segue destination="9O6-kD-ji0" kind="push" identifier="OpenAccount" id="oM6-OB-ZXH"/>
@@ -82,7 +82,7 @@
                 <tabBarController definesPresentationContext="YES" id="9O6-kD-ji0" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="nge-Cv-0en"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
-                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="XNQ-Yy-edn">
                         <rect key="frame" x="129" y="330" width="163" height="49"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>

@@ -86,9 +86,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"RightDetail";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    
 	NSArray *buildings = [[account village] buildings];
 	Building *b;
 	TravianPages type = indexPath.section == 0 ? TPResources : TPVillage;
@@ -110,8 +107,19 @@
 		return nil;
 	}
 	
+	bool isBuildingSite = false;
+	if ([b level] == 0 && (([b page] & TPVillage) != 0)) {
+		// Building site building
+		isBuildingSite = true;
+	}
+	
+	static NSString *RightDetailCellID = @"RightDetail";
+	static NSString *BuildingSiteCellID = @"RightDetailBuildingSite";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:isBuildingSite ? BuildingSiteCellID : RightDetailCellID];
+	
 	cell.textLabel.text = b.name;
-	cell.detailTextLabel.text = [NSString stringWithFormat:@"%d", b.level];
+	if (!isBuildingSite)
+		cell.detailTextLabel.text = [NSString stringWithFormat:@"%d", b.level];
 	
     return cell;
 }

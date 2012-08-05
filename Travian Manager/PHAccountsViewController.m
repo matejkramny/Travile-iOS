@@ -155,7 +155,7 @@
 	[[storage account] addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:NULL]; // Watch for account status
 	
 	hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-	hud.labelText = @"Logging in";
+	hud.labelText = NSLocalizedString(@"Logging In", @"");
 
 }
 
