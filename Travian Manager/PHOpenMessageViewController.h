@@ -10,9 +10,17 @@
 #import "Message.h"
 
 @class Message;
+@class PHOpenMessageViewController;
+
+@protocol PHOpenMessageViewControllerDelegate <NSObject>
+
+- (void)openMessageViewController:(PHOpenMessageViewController *)viewController didCloseMessage:(Message *)message;
+
+@end
 
 @interface PHOpenMessageViewController : UITableViewController
 
+@property (weak, nonatomic) id<PHOpenMessageViewControllerDelegate> delegate;
 @property (weak, nonatomic) Message *message;
 @property (weak, nonatomic) IBOutlet UILabel *sentBy;
 @property (weak, nonatomic) IBOutlet UILabel *time;

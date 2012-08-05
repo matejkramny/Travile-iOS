@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PHVOpenBuildingViewController.h"
+#import "PHVBuildingListViewController.h"
 
-@interface PHVBuildingsViewController : UITableViewController <UITableViewDataSource>
+@interface PHVBuildingsViewController : UITableViewController <UITableViewDataSource, PHVOpenBuildingDelegate, PHVBuildingListDelegate>
 
 @end

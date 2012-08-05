@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "MBProgressHUD.h"
+#import "PHOpenMessageViewController.h"
 
-@interface PHMessagesViewController : UITableViewController <UIAlertViewDelegate, MBProgressHUDDelegate>
+@interface PHMessagesViewController : UITableViewController <UIAlertViewDelegate, MBProgressHUDDelegate, PHOpenMessageViewControllerDelegate>
 
 @end

@@ -52,6 +52,9 @@
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	
+	if (selectedMessage != nil)
+		return;
+	
 	[self.tabBarController.navigationItem setRightBarButtonItems:nil];
 	[self.tabBarController.navigationItem setLeftBarButtonItems:nil];
 	[self.tabBarController.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(newMessage:)]];
@@ -73,7 +76,7 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    return (interfaceOrientation == UIInterfaceOrientationPortrait || interfaceOrientation == UIInterfaceOrientationLandscapeLeft || interfaceOrientation == UIInterfaceOrientationLandscapeRight);
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 #pragma mark - Table view data source
@@ -264,7 +267,15 @@
 		PHOpenMessageViewController *vc = [[nc viewControllers] objectAtIndex:0];
 		
 		vc.message = selectedMessage;
+		vc.delegate = self;
 	}
+}
+
+#pragma mark - PHOpenMessageViewControllerDelegate
+
+- (void)openMessageViewController:(PHOpenMessageViewController *)viewController didCloseMessage:(Message *)message {
+	[self dismissViewControllerAnimated:YES completion:nil];
+	selectedMessage = nil;
 }
 
 @end

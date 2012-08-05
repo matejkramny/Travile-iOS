@@ -53,12 +53,12 @@
 	[self.tabBarController.navigationItem setLeftBarButtonItems:nil];
 	
 	int c = [[[storage account] villages] count];
-	[self.tabBarController setTitle:[NSString stringWithFormat:@"%d Village%@", c, c == 1 ? @"" : @"s"]];
+	[self.tabBarController setTitle:[NSString stringWithFormat:@"Village%@", c == 1 ? @"" : @"s"]];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    return (interfaceOrientation == UIInterfaceOrientationPortrait || interfaceOrientation == UIInterfaceOrientationLandscapeLeft || interfaceOrientation == UIInterfaceOrientationLandscapeRight);
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 #pragma mark - Table view data source

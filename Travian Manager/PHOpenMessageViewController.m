@@ -22,6 +22,7 @@
 @synthesize subject;
 @synthesize content;
 @synthesize message;
+@synthesize delegate;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -40,20 +41,12 @@
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	
-	[[self navigationController] setToolbarHidden:NO animated:NO];
-	
 	[self setTitle:message.title];
 	
 	[sentBy setText:message.sender];
 	[time setText:message.when];
 	[subject setText:message.title];
 	[content setText:message.content];
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-	[super viewWillDisappear:animated];
-	
-	[[self navigationController] setToolbarHidden:YES animated:YES];
 }
 
 - (void)viewDidUnload
@@ -72,7 +65,8 @@
 }
 
 - (IBAction)return:(id)sender {
-	[self dismissModalViewControllerAnimated:YES];
+	//[self dismissModalViewControllerAnimated:YES];
+	[delegate openMessageViewController:self didCloseMessage:message];
 }
 
 - (IBAction)delete:(id)sender {

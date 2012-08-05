@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PHVOverviewViewController : UITableViewController
+@interface PHVOverviewViewController : UITableViewController <UITableViewDataSource>
 
 - (IBAction)secondTimerFired:(id)sender;
 

@@ -148,6 +148,17 @@
 	[[self tableView] reloadData];
 }
 
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+	switch (section) {
+		case 0:
+			return @"Village";
+		case 1:
+			return @"Movements";
+		default:
+			return @"";
+	}
+}
+
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

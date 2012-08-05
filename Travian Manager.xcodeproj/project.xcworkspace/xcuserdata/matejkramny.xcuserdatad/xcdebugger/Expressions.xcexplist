@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "-[PHVBuildingListViewController tableView:didSelectRowAtIndexPath:]:PHVBuildingListViewController.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[Building connectionDidFinishLoading:]:Building.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "(NSString*)data">
+            </PersistentString>
+            <PersistentString
+               value = "(HTMLNode *)body">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[PHVBuildingsViewController phvBuildingListViewController:didSelectBuilding:]:PHVBuildingsViewController.m">
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>

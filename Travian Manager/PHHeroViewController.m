@@ -61,7 +61,7 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    return (interfaceOrientation == UIInterfaceOrientationPortrait || interfaceOrientation == UIInterfaceOrientationLandscapeLeft || interfaceOrientation == UIInterfaceOrientationLandscapeRight);
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 #pragma mark - Table view data source
@@ -84,7 +84,19 @@
 		case 2:
 			// Adventures
 			qsc = [[hero quests] count];
-			return viewingMoreQuests ? qsc+1 : qsc >= 3 ? 4 : qsc+1;
+			//return viewingMoreQuests ? qsc+1 : qsc >= 3 ? 4 : qsc+1;
+			//return viewingMoreQuests ? qsc+1 : qsc < 4 ? qsc : qsc+1;
+			
+			if (viewingMoreQuests)
+				return qsc+1; // Quests + button
+			else if (qsc == 0)
+				return 1; // Label showing no adventures
+			else if (qsc < 4)
+				return qsc; // Quests
+			else if (qsc > 3)
+				return 4; // Quests + button
+			else
+				return qsc+1;
 		case 3:
 			// Resources
 			return 4;
@@ -153,7 +165,10 @@
 			// Adventures
 			qsc = [[hero quests] count];
 			
-			if (indexPath.row+1 == (viewingMoreQuests ? qsc+1 : qsc >= 3 ? 4 : qsc+1)) {
+			if (qsc == 0) {
+				cell = [tableView dequeueReusableCellWithIdentifier:@"BasicCell"];
+				cell.textLabel.text = @"No adventures";
+			} else if (indexPath.row+1 == (viewingMoreQuests ? qsc+1 : 4)) {
 				// Button comes last
 				cell = [tableView dequeueReusableCellWithIdentifier:@"BasicSelectableCell"];
 				cell.textLabel.text = viewingMoreQuests ? @"View less" : [NSString stringWithFormat:@"View more (%d total)", qsc];
@@ -166,6 +181,7 @@
 				
 				cell.textLabel.text = [NSString stringWithFormat:@"[%@] %ds", difficulty, [quest duration]];
 			}
+			
 			break;
 		case 3:
 			// Resources boost
@@ -237,6 +253,12 @@
 			// Start an adventure
 			Account *a = [(AppDelegate *)[UIApplication sharedApplication].delegate storage].account;
 			[[[hero quests] objectAtIndex:indexPath.row] startQuest:a];
+			
+			NSMutableArray *ar = [[hero quests] mutableCopy];
+			[ar removeObjectAtIndex:indexPath.row];
+			[hero setQuests:[ar copy]];
+			
+			[tableView reloadData];
 		}
 	}
 }

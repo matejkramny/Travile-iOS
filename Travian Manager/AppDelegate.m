@@ -25,8 +25,6 @@
 {
 	storage = [[Storage alloc] init];
 	
-	//[storage setActiveAccount:[[storage accounts] objectAtIndex:0]];
-	
 	// Auto-build timer
 	NSTimer *timer __unused = [NSTimer scheduledTimerWithTimeInterval:390 target:self selector:@selector(refresh:) userInfo:nil repeats:YES];
 	
@@ -75,9 +73,8 @@
 	//As we are going into the background, I want to start a background task to clean up the disk caches
 	if ([[UIDevice currentDevice] respondsToSelector:@selector(isMultitaskingSupported)]) { //Check if our iOS version supports multitasking I.E iOS 4
 		if ([[UIDevice currentDevice] isMultitaskingSupported]) { //Check if device supports mulitasking
-			
 			[application beginBackgroundTaskWithExpirationHandler:^ {
-				NSLog(@"what");
+				NSLog(@"Went to background");
 			}];
 		}
 	}
