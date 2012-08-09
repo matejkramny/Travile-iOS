@@ -16,11 +16,15 @@
 
 @interface PHVResourcesViewController () {
 	Account *account;
+	NSTimer *secondTimer;
 }
+
+- (void)timerFired:(id)sender;
 
 @end
 
 @implementation PHVResourcesViewController
+
 @synthesize wood;
 @synthesize clay;
 @synthesize iron;
@@ -57,7 +61,19 @@
 	
 	[self.tabBarController setTitle:[NSString stringWithFormat:@"Resources"]];
 	
-	[self refreshResources];
+	if (secondTimer)
+		[secondTimer invalidate];
+	
+	secondTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timerFired:) userInfo:nil repeats:YES];
+	
+	[self timerFired:self];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+	[super viewWillDisappear:animated];
+	
+	if (secondTimer)
+		[secondTimer invalidate];
 }
 
 - (void)viewDidUnload
@@ -72,6 +88,14 @@
 	[self setProducing:nil];
     [super viewDidUnload];
 	
+	if (secondTimer)
+		[secondTimer invalidate];
+}
+
+- (void)timerFired:(id)sender {
+	Village *v = [account village];
+	[[v resources] updateResourcesFromProduction:[v resourceProduction] warehouse:[v warehouse] granary:[v granary]];
+	[self refreshResources];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

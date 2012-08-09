@@ -19,4 +19,6 @@
 - (void)log:(id)sender;
 - (void)refresh:(id)sender;
 
+- (void)customizeAppearance;
+
 @end

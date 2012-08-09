@@ -40,6 +40,12 @@
 	AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
 	storage = [appDelegate storage];
 	village = [[storage account] village];
+	
+	int badgeCount = 0;
+	badgeCount += [[village movements] count];
+	badgeCount += [[village constructions] count];
+	if (badgeCount > 0)
+		[[self tabBarItem] setBadgeValue:[NSString stringWithFormat:@"%d", badgeCount]];
 }
 
 - (void)viewDidUnload

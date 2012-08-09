@@ -21,6 +21,25 @@
 #import "Building.h"
 #import "Movement.h"
 
+@interface Village () {
+}
+
+@end
+
+@interface Village (ResourceUpdates)
+
+- (void)updateResources:(id)sender;
+
+@end
+
+@implementation Village (ResourceUpdates)
+
+- (void)updateResources:(id)sender {
+	
+}
+
+@end
+
 @implementation Village
 
 @synthesize resources, resourceProduction, troops, movements, constructions, buildings, name;

@@ -59,19 +59,9 @@
 		return true;
 	}
 	
-	Account *a = [[Account alloc] init];
-	a.name = @"Main Account";
-	a.username = @"matejkramny";
-	a.password = @"temp0rary";
-	a.world = @"ts6";
-	a.server = @"co.uk";
-	
-	accounts = [NSArray arrayWithObject:a];
-	
 	NSLog(@"No data loaded");
 	
 	return false;
-	
 }
 
 #pragma mark - Active Account

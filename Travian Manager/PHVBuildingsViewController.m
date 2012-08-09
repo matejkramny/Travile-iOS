@@ -18,7 +18,11 @@
 	Account *account;
 	Building *selectedBuilding;
 	MBProgressHUD *HUD;
+	NSArray *sections;
 }
+
+- (void)loadBuildingsToSections;
+- (Building *)getBuildingUsingIndexPath:(NSIndexPath *)indexPath;
 
 @end
 
@@ -39,6 +43,8 @@
 	
 	AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
 	account = [[appDelegate storage] account];
+	
+	[self loadBuildingsToSections];
 }
 
 - (void)viewDidUnload
@@ -59,102 +65,106 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    return (interfaceOrientation == (UIInterfaceOrientationPortrait | UIInterfaceOrientationLandscapeRight | UIInterfaceOrientationLandscapeLeft));
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+- (void)loadBuildingsToSections {
+	NSArray *buildings = [[account village] buildings];
+	NSMutableArray *sec1 = [[NSMutableArray alloc] init];
+	NSMutableArray *sec2 = [[NSMutableArray alloc] init];
+	NSMutableArray *sec3 = [[NSMutableArray alloc] init]; // secX = sectionX
+	
+	for (int i = 0; i < [buildings count]; i++) {
+		Building *b = [buildings objectAtIndex:i];
+		
+		NSMutableArray *sec __weak; // temporary secX holder
+		
+		if (([b page] & TPResources) != 0) {
+			// Add to section 1
+			sec = sec1;
+		} else {
+			// Add to section 2 or 3
+			sec = sec2;
+			if ([b level] == 0) {
+				// Add to section 3
+				sec = sec3;
+			}
+		}
+		
+		[sec addObject:b];
+	}
+	
+	// Sort the buildings by name
+	NSComparisonResult (^compareBuildings)(id a, id b) = ^NSComparisonResult(id a, id b) {
+		NSString *first = [(Building *)a name];
+		NSString *second = [(Building *)b name];
+		return [first compare:second];
+	};
+	
+	sec1 = [[sec1 sortedArrayUsingComparator:compareBuildings] mutableCopy];
+	sec2 = [[sec2 sortedArrayUsingComparator:compareBuildings] mutableCopy];
+	
+	sections = @[ sec1, sec2, sec3 ];
+}
+
+- (Building *)getBuildingUsingIndexPath:(NSIndexPath *)indexPath {
+	return [[sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    return [sections count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-	NSArray *buildings = [[account village] buildings];
-	
-	// Filter by section. 0 - res, 1 - village
-	int count = 0;
-	TravianPages type = section == 0 ? TPResources : TPVillage;
-	
-	for (Building *b in buildings)
-		if (([b page] & type) != 0)
-			count++;
-	
-    return count;
+    return [[sections objectAtIndex:section] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	NSArray *buildings = [[account village] buildings];
-	Building *b;
-	TravianPages type = indexPath.section == 0 ? TPResources : TPVillage;
-	int buildingsInSection = 0;
-	
-	for (Building *building in buildings) {
-		if (([building page] & type) != 0) {
-			if (buildingsInSection == indexPath.row) {
-				b = building;
-				break;
-			}
-			
-			buildingsInSection++;
-		}
-	}
-	
-	if (!b) {
-		NSLog(@"Building not found!");
-		return nil;
-	}
-	
-	bool isBuildingSite = false;
-	if ([b level] == 0 && (([b page] & TPVillage) != 0)) {
-		// Building site building
-		isBuildingSite = true;
-	}
+	Building *b = [self getBuildingUsingIndexPath:indexPath];
 	
 	static NSString *RightDetailCellID = @"RightDetail";
 	static NSString *BuildingSiteCellID = @"RightDetailBuildingSite";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:isBuildingSite ? BuildingSiteCellID : RightDetailCellID];
+	UITableViewCell *cell;
 	
-	cell.textLabel.text = b.name;
-	if (!isBuildingSite)
-		cell.detailTextLabel.text = [NSString stringWithFormat:@"%d", b.level];
+	if (indexPath.section == 0 || indexPath.section == 1) {
+		cell = [tableView dequeueReusableCellWithIdentifier:RightDetailCellID];
+		cell.textLabel.text = [b name];
+		cell.detailTextLabel.text = [NSString stringWithFormat:@"level %d", [b level]];
+	} else {
+		cell = [tableView dequeueReusableCellWithIdentifier:BuildingSiteCellID];
+		cell.textLabel.text = [b name];
+	}
 	
     return cell;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-	return section == 0 ? @"Resource fields" : @"Village buildings";
+	switch (section) {
+		case 0:
+			return @"Resource fields";
+		case 1:
+			return @"Village buildings";
+		case 2:
+			return @"Building sites";
+		default:
+			return @"";
+	}
 }
 
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	// Build
-	
-	NSArray *buildings = [[account village] buildings];
-	Building *b;
-	TravianPages type = indexPath.section == 0 ? TPResources : TPVillage;
-	int buildingsInSection = 0;
-	
-	for (Building *bu in buildings) {
-		if (([bu page] & type) != 0) {
-			if (buildingsInSection == indexPath.row) {
-				b = bu;
-				break;
-			}
-			buildingsInSection++;
-		}
-	}
-	
-	if (b) {
-		selectedBuilding = b;
-		[b addObserver:self forKeyPath:@"finishedLoading" options:NSKeyValueObservingOptionNew context:nil];
-		[b buildFromAccount:account];
-		HUD = [MBProgressHUD showHUDAddedTo:self.tabBarController.navigationController.view animated:YES];
-		HUD.labelText = @"Building";
-	}
+	selectedBuilding = [self getBuildingUsingIndexPath:indexPath];
+	[selectedBuilding addObserver:self forKeyPath:@"finishedLoading" options:NSKeyValueObservingOptionNew context:nil];
+	[selectedBuilding buildFromAccount:account];
+	HUD = [MBProgressHUD showHUDAddedTo:self.tabBarController.navigationController.view animated:YES];
+	HUD.labelText = @"Building";
 	
 	[[self tableView] deselectRowAtIndexPath:indexPath animated:YES];
 }
@@ -179,32 +189,15 @@
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
 	// View Building in detail
-	NSArray *buildings = [[account village] buildings];
-	Building *b;
-	TravianPages type = indexPath.section == 0 ? TPResources : TPVillage;
-	int buildingsInSection = 0;
-	
-	for (Building *bu in buildings) {
-		if (([bu page] & type) != 0) {
-			if (buildingsInSection == indexPath.row) {
-				b = bu;
-				break;
-			}
-			buildingsInSection++;
-		}
-	}
-	
-	if (b) {
-		selectedBuilding = b;
-		if ([selectedBuilding description] == nil && !([selectedBuilding level] == 0 && (([selectedBuilding page] & TPVillage) != 0))) {
-			[selectedBuilding addObserver:self forKeyPath:@"description" options:NSKeyValueObservingOptionNew context:nil];
-			HUD = [MBProgressHUD showHUDAddedTo:self.tabBarController.navigationController.view animated:YES];
-			HUD.labelText = @"Fetching Description";
-			
-			[selectedBuilding fetchDescription];
-		} else {
-			[self performSegueWithIdentifier:@"OpenBuilding" sender:self];
-		}
+	selectedBuilding = [self getBuildingUsingIndexPath:indexPath];
+	if ([selectedBuilding description] == nil && !([selectedBuilding level] == 0 && (([selectedBuilding page] & TPVillage) != 0))) {
+		[selectedBuilding addObserver:self forKeyPath:@"description" options:NSKeyValueObservingOptionNew context:nil];
+		HUD = [MBProgressHUD showHUDAddedTo:self.tabBarController.navigationController.view animated:YES];
+		HUD.labelText = @"Fetching Description";
+		
+		[selectedBuilding fetchDescription];
+	} else {
+		[self performSegueWithIdentifier:@"OpenBuilding" sender:self];
 	}
 }
 

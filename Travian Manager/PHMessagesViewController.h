@@ -12,4 +12,8 @@
 
 @interface PHMessagesViewController : UITableViewController <UIAlertViewDelegate, MBProgressHUDDelegate, PHOpenMessageViewControllerDelegate>
 
+@property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
+
+- (IBAction)segmentedControlValueChanged:(id)sender;
+
 @end

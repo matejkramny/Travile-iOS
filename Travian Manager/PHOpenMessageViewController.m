@@ -12,7 +12,9 @@
 #import "Account.h"
 #import "PHNewMessageViewController.h"
 
-@interface PHOpenMessageViewController ()
+@interface PHOpenMessageViewController () {
+	bool didCloseReply;
+}
 
 @end
 
@@ -47,6 +49,13 @@
 	[time setText:message.when];
 	[subject setText:message.title];
 	[content setText:message.content];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+	[super viewDidAppear:animated];
+	
+	if (didCloseReply)
+		[[self delegate] openMessageViewController:self didCloseMessage:self.message];
 }
 
 - (void)viewDidUnload
@@ -87,8 +96,14 @@
 		UINavigationController *nc = [segue destinationViewController];
 		PHNewMessageViewController *nmvc = [[nc viewControllers] objectAtIndex:0];
 		nmvc.replyToMessage = message;
+		nmvc.delegate = self;
 	}
 }
 
+#pragma mark - PHNewMessageDelegate
+
+- (void)pHNewMessageController:(PHNewMessageViewController *)controller didSendMessage:(Message *)message {
+	didCloseReply = true;
+}
 
 @end

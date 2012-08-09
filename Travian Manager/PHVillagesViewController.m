@@ -54,11 +54,16 @@
 	
 	int c = [[[storage account] villages] count];
 	[self.tabBarController setTitle:[NSString stringWithFormat:@"Village%@", c == 1 ? @"" : @"s"]];
+	
+	UIInterfaceOrientation orientation = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+	[[[self tabBarController] view] setAutoresizingMask:orientation];
+	[self.tableView setAutoresizingMask:orientation];
+	[self.navigationController.view setAutoresizingMask:orientation];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    return (interfaceOrientation == UIInterfaceOrientationPortrait || interfaceOrientation == UIInterfaceOrientationLandscapeLeft || interfaceOrientation == UIInterfaceOrientationLandscapeRight);
 }
 
 #pragma mark - Table view data source

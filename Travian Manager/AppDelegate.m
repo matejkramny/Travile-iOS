@@ -23,12 +23,34 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+	[self customizeAppearance];
+	
 	storage = [[Storage alloc] init];
 	
 	// Auto-build timer
-	NSTimer *timer __unused = [NSTimer scheduledTimerWithTimeInterval:390 target:self selector:@selector(refresh:) userInfo:nil repeats:YES];
+	//NSTimer *timer __unused = [NSTimer scheduledTimerWithTimeInterval:390 target:self selector:@selector(refresh:) userInfo:nil repeats:YES];
 	
 	return YES;
+}
+
+- (void)customizeAppearance {
+	UIImage *background = [UIImage imageNamed:@"UINavigationBar.png"];
+	UIImage *backgroundLandscape = [UIImage imageNamed:@"UINavigationBarLandscape.png"];
+	
+	[[UINavigationBar appearance] setBackgroundImage:background forBarMetrics:UIBarMetricsDefault];
+	[[UINavigationBar appearance] setBackgroundImage:backgroundLandscape forBarMetrics:UIBarMetricsLandscapePhone];
+	
+	[[UINavigationBar appearance] setTitleTextAttributes:
+	 [NSDictionary dictionaryWithObjectsAndKeys:
+	  [UIColor colorWithRed:60.0/255.0 green:70.0/255.0 blue:81.0/255.0 alpha:1.0],
+	  UITextAttributeTextColor,
+	  [UIColor colorWithRed:126.0/255.0 green:126.0/255.0 blue:126.0/255.0 alpha:0.5],
+	  UITextAttributeTextShadowColor,
+	  [NSValue valueWithUIOffset:UIOffsetMake(0, -1)],
+	  UITextAttributeTextShadowOffset,
+	  [UIFont fontWithName:@"Arial Rounded MT Bold" size:0.0],
+	  UITextAttributeFont,
+	  nil]];
 }
 
 - (void)log:(id)sender {

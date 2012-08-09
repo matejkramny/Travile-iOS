@@ -15,9 +15,15 @@
 #import "TPIdentifier.h"
 #import "NSString+HTML.h"
 
+@interface Message () {
+	NSString *tempRecipient; // Temporary recipient holder while sendParameter is being retrieved
+}
+
+@end
+
 @implementation Message
 
-@synthesize sender, title, content, href, when, read, accessID;
+@synthesize sender, title, content, href, when, read, accessID, sendParameter, sent;
 
 - (void)parsePage:(TravianPages)page fromHTMLNode:(HTMLNode *)node {
 	// TODO test this
@@ -31,6 +37,14 @@
 	raw = [[[[[raw substringToIndex:[raw length]-6] stringByReplacingOccurrencesOfString:@"\r\n" withString:@""] stringByReplacingOccurrencesOfString:@"\n" withString:@""] stringByReplacingOccurrencesOfString:@"<br>" withString:@"\n"] stringByDecodingHTMLEntities];
 	
 	[self setContent:raw];
+}
+
+- (void)parseSendParameter:(HTMLNode *)node {
+	HTMLNode *idSend = [node findChildWithAttribute:@"id" matchingName:@"send" allowPartial:NO];
+	if (idSend) {
+		HTMLNode *input = [idSend findChildTag:@"input"];
+		[self setSendParameter:[input getAttributeNamed:@"value"]];
+	}
 }
 
 - (void)downloadAndParse {
@@ -69,11 +83,25 @@
 
 - (void)send:(NSString *)recipient {
 	Account *account = [[(AppDelegate *)[UIApplication sharedApplication].delegate storage] account];
+	[self setSent:NO];
+	
+	if (!sendParameter) {
+		// Retrieve it
+		NSString *url = [NSString stringWithFormat:@"http://%@.travian.%@/nachrichten.php?t=1", account.world, account.server];
+		NSMutableURLRequest *req = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:url]];
+		[req setHTTPShouldHandleCookies:YES];
+		sendParameterConnection = [[NSURLConnection alloc] initWithRequest:req delegate:self startImmediately:YES];
+		
+		tempRecipient = recipient;
+		[self addObserver:self forKeyPath:@"sendParameter" options:NSKeyValueObservingOptionNew context:nil];
+		
+		return;
+	}
 	
 	NSString *url = [NSString stringWithFormat:@"http://%@.travian.%@/nachrichten.php", account.world, account.server];
 	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:url] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
 	
-	NSString *postData = [[NSString alloc] initWithFormat:@"an=%@&be=%@&message=%@&c=e8c", recipient, title, content];
+	NSString *postData = [[NSString alloc] initWithFormat:@"an=%@&be=%@&message=%@&s1=send&c=%@", recipient, title, content, sendParameter];
 	NSData *myRequestData = [NSData dataWithBytes: [postData UTF8String] length: [postData length]];
 	
 	[request setHTTPMethod: @"POST"];
@@ -84,6 +112,17 @@
 	[request setHTTPShouldHandleCookies:YES];
 	
 	NSURLConnection *conn __unused = [[NSURLConnection alloc] initWithRequest:request delegate:nil startImmediately:YES];
+	
+	[self setSent:YES];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+	if ([keyPath isEqualToString:@"sendParameter"]) {
+		if ([change objectForKey:NSKeyValueChangeNewKey] != nil) {
+			[self removeObserver:self forKeyPath:@"sendParameter"];
+			[self send:tempRecipient];
+		}
+	}
 }
 
 #pragma mark - NSCoder
@@ -119,31 +158,47 @@
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
-	[messageData appendData:data];
+	if (connection == messageConnection)
+		[messageData appendData:data];
+	else if (connection == sendParameterConnection)
+		[sendParameterData appendData:data];
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSHTTPURLResponse *)response
 {
-	messageData = [[NSMutableData alloc] initWithLength:0];
+	if (connection == messageConnection)
+		messageData = [[NSMutableData alloc] initWithLength:0];
+	else if (connection == sendParameterConnection)
+		sendParameterData = [[NSMutableData alloc] initWithLength:0];
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
 	// Parse data
-	if (connection == messageConnection)
+	if (connection == messageConnection || connection == sendParameterConnection)
 	{
 		NSError *error;
-		HTMLParser *parser = [[HTMLParser alloc] initWithData:messageData error:&error];
+		NSData *data;
+		
+		if (connection == messageConnection)
+			data = messageData;
+		else if (connection == sendParameterConnection)
+			data = sendParameterData;
+		
+		HTMLParser *parser = [[HTMLParser alloc] initWithData:data error:&error];
 		HTMLNode *body = [parser body];
 		
 		if (!parser) {
-			NSLog(@"Cannot parse report data. Reason: %@, recovery options: %@", [error localizedDescription], [error localizedRecoveryOptions]);
+			NSLog(@"Cannot parse message data. Reason: %@, recovery options: %@", [error localizedDescription], [error localizedRecoveryOptions]);
 			return;
 		}
 		
 		TravianPages travianPage = [TPIdentifier identifyPage:body];
 		
-		[self parsePage:travianPage fromHTMLNode:body];
+		if (connection == messageConnection)
+			[self parsePage:travianPage fromHTMLNode:body];
+		else if (connection == sendParameterConnection)
+			[self parseSendParameter:body];
 	}
 }
 

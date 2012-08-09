@@ -20,6 +20,7 @@
 	UIAlertView *deleteAllAlert;
 	MBProgressHUD *HUD;
 	Message *selectedMessage;
+	NSDictionary *messages;
 }
 
 - (IBAction)editButtonClicked:(id)sender;
@@ -30,7 +31,33 @@
 
 @end
 
+@interface PHMessagesViewController (RetrieveMessages)
+
+- (NSDictionary *)retrieveMessages;
+
+@end
+
+@implementation PHMessagesViewController (RetrieveMessages)
+
+- (NSDictionary *)retrieveMessages {
+	Account *a = [storage account];
+	NSMutableArray *read = [[NSMutableArray alloc] init];
+	NSMutableArray *uread = [[NSMutableArray alloc] init];
+	
+	for (Message *m in [a messages]) {
+		if ([m read])
+			[read addObject:m];
+		else
+			[uread addObject:m];
+	}
+	
+	return @{ @"read" : read, @"unread" : uread };
+}
+
+@end
+
 @implementation PHMessagesViewController
+@synthesize segmentedControl;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -62,6 +89,9 @@
 	
 	[self.tabBarController setTitle:[NSString stringWithFormat:@"Messages"]];
 	
+	[segmentedControl setSegmentedControlStyle:7];
+	
+	messages = [self retrieveMessages];
 	[[self tableView] reloadData];
 }
 
@@ -71,24 +101,34 @@
 
 - (void)viewDidUnload
 {
+	[self setSegmentedControl:nil];
     [super viewDidUnload];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    return (interfaceOrientation == UIInterfaceOrientationPortrait || interfaceOrientation == UIInterfaceOrientationLandscapeLeft || interfaceOrientation == UIInterfaceOrientationLandscapeRight);
+}
+
+- (IBAction)segmentedControlValueChanged:(id)sender {
+	[[self tableView] reloadData];
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [[[storage account] messages] count];
+	if (section == 0) // Unread
+		return [[messages objectForKey:@"unread"] count];
+	else if (section == 1) // Read
+		return [[messages objectForKey:@"read"] count];
+	
+    return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -96,10 +136,16 @@
     static NSString *CellIdentifier = @"MessageCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
-	Message *m = [[[storage account] messages] objectAtIndex:indexPath.row];
+	NSArray *ms = [messages objectForKey:indexPath.section == 0 ? @"unread" : @"read"];
+	Message *m = [ms objectAtIndex:indexPath.row];
+	
     cell.textLabel.text = [m title];
 	
     return cell;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+	return section == 0 ? @"Unread messages" : @"Read messages";
 }
 
 - (IBAction)editButtonClicked:(id)sender {

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Message.h"
+#import "PHNewMessageViewController.h"
 
 @class Message;
 @class PHOpenMessageViewController;
@@ -18,7 +19,7 @@
 
 @end
 
-@interface PHOpenMessageViewController : UITableViewController
+@interface PHOpenMessageViewController : UITableViewController <PHNewMessageDelegate>
 
 @property (weak, nonatomic) id<PHOpenMessageViewControllerDelegate> delegate;
 @property (weak, nonatomic) Message *message;

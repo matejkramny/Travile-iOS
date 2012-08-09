@@ -9,11 +9,15 @@
 #import <Foundation/Foundation.h>
 #import "TravianPageParsingProtocol.h"
 
+@class ResourcesProduction;
+
 @interface Resources : NSObject <NSCoding>
 
-@property (assign) unsigned int wood;
-@property (assign) unsigned int clay;
-@property (assign) unsigned int iron;
-@property (assign) unsigned int wheat;
+@property (assign) float wood;
+@property (assign) float clay;
+@property (assign) float iron;
+@property (assign) float wheat;
+
+- (void)updateResourcesFromProduction:(ResourcesProduction *)production warehouse:(unsigned int)warehouse granary:(unsigned int)granary;
 
 @end
