@@ -34,6 +34,8 @@
 @synthesize consuming;
 @synthesize producing;
 
+@synthesize refreshControl;
+
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -49,6 +51,8 @@
 	
 	AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
 	account = [[appDelegate storage] account];
+	
+	refreshControl = [AppDelegate addRefreshControlTo:self.tableView target:self action:@selector(didBeginRefreshing:)];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -65,15 +69,18 @@
 		[secondTimer invalidate];
 	
 	secondTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timerFired:) userInfo:nil repeats:YES];
+	[self.tableView reloadData];
 	
 	[self timerFired:self];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-	[super viewWillDisappear:animated];
-	
-	if (secondTimer)
+	if (secondTimer) {
 		[secondTimer invalidate];
+		secondTimer = nil;
+	}
+	
+	[super viewWillDisappear:animated];
 }
 
 - (void)viewDidUnload
@@ -125,6 +132,23 @@
 	
 	setSimpleFormatToResource(consuming, v.consumption);
 	setSimpleFormatToResource(producing, rp.wheat);
+}
+
+- (void)didBeginRefreshing:(id)sender {
+	[account addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:NULL];
+	
+	[account refreshAccountWithMap:ARVillage];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+	if ([keyPath isEqualToString:@"status"]) {
+		if (([[change objectForKey:NSKeyValueChangeNewKey] intValue] & ARefreshed) != 0) {
+			// Refreshed
+			[account removeObserver:self forKeyPath:@"status"];
+			[refreshControl endRefreshing];
+			[[self tableView] reloadData];
+		}
+	}
 }
 
 @end

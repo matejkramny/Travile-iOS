@@ -20,7 +20,6 @@
 	UIAlertView *passwordPromptView;
 	UIAlertView *passwordRetryView;
 	Account *passwordRetryAccount;
-	NSIndexPath *passwordPromptedAccountIndexPath;
 	MBProgressHUD *hud;
 }
 
@@ -32,6 +31,7 @@
 
 - (void)editButtonClicked:(id)sender;
 - (void)addAccount:(id)sender;
+- (void)dismissView;
 
 @end
 
@@ -59,6 +59,10 @@
 		[self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editButtonClicked:)] animated:animated];
 }
 
+- (void)dismissView {
+	[self dismissModalViewControllerAnimated:YES];
+}
+
 @end
 
 @implementation PHAccountsViewController
@@ -78,14 +82,18 @@
 	
 	delegate = [UIApplication sharedApplication].delegate;
 	storage = [delegate storage];
-	
-	[self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editButtonClicked:)]];
-	[self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addAccount:)]];
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+	[self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editButtonClicked:)]];
+	[self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addAccount:)]];
+	
+	[super viewWillAppear:animated];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -118,19 +126,13 @@
     cell.textLabel.text = [a name];
 	cell.detailTextLabel.text = [a username];
 	
+	[cell setOpaque:YES];
+	[cell setAlpha:1];
+	
+	[delegate setCellAppearance:cell forIndexPath:indexPath];
+	
     return cell;
 }
-
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-		//[storage setAccounts:[[[storage accounts] mutableCopy] removeObjectAtIndex:[indexPath row]]];
-		// TODO delete account from accounts
-		// saveData to storage..
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }
-}
-
 
 // Override to support rearranging the table view.
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
@@ -141,6 +143,8 @@
 	[arr removeObjectAtIndex:fromIndexPath.row];
 	[arr insertObject:a atIndex:toIndexPath.row];
 	storage.accounts = [arr copy];
+	
+	[storage saveData];
 }
 
 - (void)logIn:(Account *)a withPasword:(NSString *)password {
@@ -154,7 +158,14 @@
 	
 	hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
 	hud.labelText = NSLocalizedString(@"Logging In", @"");
+}
 
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+	return UITableViewCellEditingStyleNone;
+}
+
+- (BOOL)tableView:(UITableView *)tableview shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath {
+    return NO;
 }
 
 #pragma mark - Table view delegate
@@ -174,7 +185,6 @@
 		Account *a = [[storage accounts] objectAtIndex:indexPath.row];
 		
 		if ([[a password] length] == 0) {
-			passwordPromptedAccountIndexPath = indexPath;
 			passwordPromptView = [[UIAlertView alloc] initWithTitle:@"Password required" message:[NSString stringWithFormat:@"Please enter password for account %@", [a name]] delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Continue", nil];
 			[passwordPromptView setAlertViewStyle:UIAlertViewStyleSecureTextInput];
 			[passwordPromptView show];
@@ -214,14 +224,17 @@
 			passwordRetryView = [[UIAlertView alloc] initWithTitle:@"Cannot log in" message:@"TM cannot log in. Enter your password to retry." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Retry", nil];
 			[passwordRetryView setAlertViewStyle:UIAlertViewStyleSecureTextInput];
 			[passwordRetryView show];
-		} else if ((stat & ALoggedIn) != 0) {
-			[hud hide:YES];
+		} else if ((stat & ARefreshed) != 0) {
+			[hud setLabelText:@"Done"];
+			[hud hide:YES afterDelay:0.3];
 			
 			[storage.account removeObserver:self forKeyPath:@"notificationPending"];
 			[storage.account removeObserver:self forKeyPath:@"progressIndicator"];
 			[storage.account removeObserver:self forKeyPath:@"status"];
 			
-			[self performSegueWithIdentifier:@"OpenAccount" sender:self];
+			[[self tableView] deselectRowAtIndexPath:[[self tableView] indexPathForSelectedRow] animated:YES];
+			
+			[self performSelector:@selector(dismissView) withObject:self afterDelay:0.7];
 		}
 	}
 }
@@ -231,13 +244,14 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
 	if (alertView == passwordPromptView) {
 		if (buttonIndex == 0) {
-			[[self tableView] deselectRowAtIndexPath:passwordPromptedAccountIndexPath animated:YES];
+			[[self tableView] deselectRowAtIndexPath:[[self tableView] indexPathForSelectedRow] animated:YES];
 		} else {
-			[self logIn:[[storage accounts] objectAtIndex:passwordPromptedAccountIndexPath.row] withPasword:[[alertView textFieldAtIndex:0] text]];
+			[self logIn:[[storage accounts] objectAtIndex:[[self tableView] indexPathForSelectedRow].row] withPasword:[[alertView textFieldAtIndex:0] text]];
 		}
 		return;
 	} else if (alertView == passwordRetryView) {
 		if (buttonIndex == 0) {
+			[[self tableView] deselectRowAtIndexPath:[[self tableView] indexPathForSelectedRow] animated:YES];
 		}
 		else {
 			[self logIn:passwordRetryAccount withPasword:[[alertView textFieldAtIndex:0] text]];
@@ -288,6 +302,8 @@
 	
 	selectedAccount = nil;
 	[self setEditing:NO];
+	
+	[storage saveData];
 }
 - (void)accountDetailsViewController:(PHAccountDetailsViewController *)controller didEditAccount:(Account *)oldAccount newAccount:(Account *)newAccount
 {
@@ -308,6 +324,8 @@
 	
 	selectedAccount = nil;
 	[self setEditing:NO];
+	
+	[storage saveData];
 }
 - (void)accountDetailsViewControllerDidCancel:(PHAccountDetailsViewController *)controller
 {

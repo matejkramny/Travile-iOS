@@ -9,7 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "PHVOpenBuildingViewController.h"
 #import "PHVBuildingListViewController.h"
+#import "ODRefreshControl/ODRefreshControl.h"
 
-@interface PHVBuildingsViewController : UITableViewController <UITableViewDataSource, PHVOpenBuildingDelegate, PHVBuildingListDelegate>
+@interface PHVBuildingsViewController : UITableViewController <UITableViewDataSource, PHVOpenBuildingDelegate, PHVBuildingListDelegate, UIActionSheetDelegate, ODRefreshControlDelegate>
+
+@property (strong, nonatomic) ODRefreshControl *refreshControl;
 
 @end

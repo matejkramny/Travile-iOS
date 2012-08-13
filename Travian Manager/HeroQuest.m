@@ -66,9 +66,7 @@
 }
 
 - (void)startQuest:(Account *)account {
-	
-	NSString *urlString = [NSString stringWithFormat:@"http://%@.travian.%@/start_adventure.php", account.world, account.server];
-	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:urlString] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
+	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[account urlForString:@"start_adventure.php"] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
 	
 	NSString *dataString = [NSString stringWithFormat:@"send=1&from=list&kid=%d&a=1&start=start%%20adventure", kid];
 	NSData *data = [[NSData alloc] initWithBytes:[dataString UTF8String] length:[dataString length]];
@@ -79,7 +77,6 @@
 	[request setHTTPShouldHandleCookies:YES];
 	
 	url = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
-	
 }
 
 #pragma mark - NSURLConnectionDelegate

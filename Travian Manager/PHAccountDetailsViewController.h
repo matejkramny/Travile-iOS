@@ -26,7 +26,6 @@
 @property (strong, nonatomic) IBOutlet UITextField *accountNameTextField;
 @property (strong, nonatomic) IBOutlet UITextField *worldTextField;
 @property (strong, nonatomic) IBOutlet UITextField *domainTextField;
-//@property (strong, nonatomic) IBOutlet UISwitch *speedServerSwitch;
 
 - (IBAction)done:(id)sender;
 - (IBAction)cancel:(id)sender;

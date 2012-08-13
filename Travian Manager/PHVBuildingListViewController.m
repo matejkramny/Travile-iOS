@@ -8,12 +8,15 @@
 
 #import "PHVBuildingListViewController.h"
 #import "Building.h"
+#import "AppDelegate.h"
 
 @interface PHVBuildingListViewController () {
+	AppDelegate *appDelegate;
 	Building *selectedBuilding;
 }
 
 - (int)getNonUpgradeableBuildings;
+- (void)accessoryButtonTapped:(UIControl *)button withEvent:(UIEvent *)event;
 
 @end
 
@@ -34,6 +37,7 @@
 {
     [super viewDidLoad];
 	
+	appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
 }
 
 - (void)viewDidUnload
@@ -121,6 +125,9 @@
 	
 	cell.textLabel.text = b.name;
 	
+	[appDelegate setCellAppearance:cell forIndexPath:indexPath];
+	cell.accessoryView = [appDelegate setDetailAccessoryViewForTarget:self action:@selector(accessoryButtonTapped:withEvent:)];
+	
     return cell;
 }
 
@@ -131,6 +138,15 @@
 	} else {
 		return @"";
 	}
+}
+
+- (void)accessoryButtonTapped:(UIControl *)button withEvent:(UIEvent *)event
+{
+    NSIndexPath * indexPath = [self.tableView indexPathForRowAtPoint: [[[event touchesForView: button] anyObject] locationInView: self.tableView]];
+    if ( indexPath == nil )
+        return;
+	
+    [self.tableView.delegate tableView: self.tableView accessoryButtonTappedForRowWithIndexPath: indexPath];
 }
 
 #pragma mark - Table view delegate

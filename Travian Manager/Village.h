@@ -34,9 +34,6 @@
 @property (assign) int x; // Location X
 @property (assign) int y; // Location Y
 
-@property (nonatomic, strong) NSURLConnection *villageConnection; // Village connection
-@property (nonatomic, strong) NSMutableData *villageData; // Village data
-
 - (void)setAccountParent:(Account *)newParent;
 - (Account *)getParent;
 - (void)downloadAndParse;

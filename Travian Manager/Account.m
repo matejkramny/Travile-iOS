@@ -15,7 +15,20 @@
 #import "Message.h"
 #import "Report.h"
 
-@interface Account ()
+@interface Account () {
+	AReloadMap reloadMap;
+
+	NSURLConnection *loginConnection; // Login connection
+	NSMutableData *loginData; // Login data
+	NSURLConnection *reportsConnection;
+	NSMutableData *reportsData; // TODO merge reports with reload
+	NSURLConnection *reloadConnection; // Connection used for reloading parts of Account
+	NSMutableData *reloadData;
+}
+
+@end
+
+@interface Account (Parsing)
 
 - (void)parseVillages:(HTMLNode *)node;
 - (void)parseReports:(HTMLNode *)node;
@@ -23,9 +36,30 @@
 
 @end
 
+@implementation Account (URLParts)
+
+// Static strings for various Travian url locations
+static NSString *profilePage = @"spieler.php";
+static NSString *heroInventory = @"hero_inventory.php";
+static NSString *heroAdventure = @"hero_adventure.php";
+static NSString *reports = @"berichte.php";
+static NSString *messages = @"nachrichten.php";
+static NSString *resources = @"dorf1.php";
+static NSString *village = @"dorf2.php";
+// Getters
++ (NSString *)profilePage { return profilePage; }
++ (NSString *)heroInventory { return heroInventory; }
++ (NSString *)heroAdventure { return heroAdventure; }
++ (NSString *)reports { return reports; }
++ (NSString *)messages { return messages; }
++ (NSString *)resources { return resources; }
++ (NSString *)village { return village; }
+
+@end
+
 @implementation Account
 
-@synthesize name, username, password, world, server, villages, reports, messages, contacts, hero, status, notificationPending, progressIndicator, village;
+@synthesize name, username, password, world, server, baseURL, villages, reports, messages, contacts, hero, status, notificationPending, progressIndicator, village;
 
 - (bool)isComplete {
 	if ([name length] < 2 || username.length < 2 || world.length < 2 || server.length < 1)
@@ -35,11 +69,132 @@
 }
 
 - (void)skipNotification {
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@.travian.%@/dorf1.php?ok", world, server]];
+	NSURL *url = [self urlForString:@"dorf1.php?ok"];
 	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
 	[request setHTTPShouldHandleCookies:YES];
 	
 	loginConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
+}
+
+#pragma mark - Coders
+
+- (id)initWithCoder:(NSCoder *)coder {
+	self = [super init];
+	
+	name = [coder decodeObjectForKey:@"name"];
+	username = [coder decodeObjectForKey:@"username"];
+	password = [coder decodeObjectForKey:@"password"];
+	world = [coder decodeObjectForKey:@"world"];
+	server = [coder decodeObjectForKey:@"server"];
+	villages = [coder decodeObjectForKey:@"villages"];
+	reports = [coder decodeObjectForKey:@"reports"];
+	messages = [coder decodeObjectForKey:@"messages"];
+	contacts = [coder decodeObjectForKey:@"contacts"];
+	hero = [coder decodeObjectForKey:@"hero"];
+	
+	for (Village *vil in villages) {
+		[vil setAccountParent:self];
+	}
+	
+	return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder {
+	[coder encodeObject:name forKey:@"name"];
+	[coder encodeObject:username forKey:@"username"];
+	[coder encodeObject:password forKey:@"password"];
+	[coder encodeObject:world forKey:@"world"];
+	[coder encodeObject:server forKey:@"server"];
+	[coder encodeObject:villages forKey:@"villages"];
+	[coder encodeObject:reports forKey:@"reports"];
+	[coder encodeObject:messages forKey:@"messages"];
+	[coder encodeObject:contacts forKey:@"contacts"];
+	[coder encodeObject:hero forKey:@"hero"];
+}
+
+- (void)activateAccount {
+	[self activateAccountWithPassword:password];
+}
+
+- (NSURL *)urlForString:(NSString *)append {
+	return [self urlForArguments:append, nil];
+}
+
+- (NSURL *)urlForArguments:(NSString *)append, ... {
+	NSString *builtString = [baseURL stringByAppendingString:append];
+	
+	NSString *eachObject;
+	va_list argList;
+	va_start(argList, append);
+	while ((eachObject = va_arg(argList, NSString *)))
+		builtString = [builtString stringByAppendingString:eachObject];
+	va_end(argList);
+	
+	return [NSURL URLWithString:builtString];
+}
+
+- (void)activateAccountWithPassword:(NSString *)passwd {
+	// Start connection
+	NSString *postData = [[NSString alloc] initWithFormat:@"name=%@&password=%@&s1=Login&w=%@&login=%f", username, passwd, @"640:960", [[NSDate date] timeIntervalSince1970]];
+	NSData *myRequestData = [NSData dataWithBytes: [postData UTF8String] length: [postData length]];
+	baseURL = [NSString stringWithFormat:@"http://%@.travian.%@/", world, server]; // Set up shared base URL
+	NSURL *url = [self urlForString:@"dorf1.php"];
+	
+	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: url cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
+	
+	// Set POST HTTP Headers if necessary
+	[request setHTTPMethod: @"POST"];
+	[request setHTTPBody: myRequestData];
+	[request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"content-type"];
+	
+	// Preserve any cookies received
+	[request setHTTPShouldHandleCookies:YES];
+	
+	status = ANotLoggedIn | ALoggingIn;
+	
+	loginConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
+}
+
+- (void)refreshAccountWithMap:(AReloadMap)map {
+	NSString *mapUrl;
+	reloadMap = map;
+	
+	if ((map & ARVillage) != 0)
+		mapUrl = [Account resources];
+	else if ((map & ARVillages) != 0)
+		mapUrl = [Account profilePage];
+	else if ((map & ARReports) != 0)
+		mapUrl = [Account reports];
+	else if ((map & ARMessagesInbox) != 0)
+		mapUrl = [Account messages];
+	else if ((map & ARHero) != 0)
+		mapUrl = [Account heroInventory];
+	else if ((map & ARAdventures) != 0)
+		mapUrl = [Account heroAdventure];
+	else {
+		mapUrl = [Account profilePage];
+		reloadMap = ARAccount;
+	}
+	
+	NSMutableURLRequest *req = [[NSMutableURLRequest alloc] initWithURL:[self urlForString:mapUrl] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60.0];
+	
+	[req setHTTPShouldHandleCookies:YES];
+	
+	[self setStatus:ARefreshing];
+	
+	reloadConnection = [[NSURLConnection alloc] initWithRequest:req delegate:self startImmediately:YES];
+}
+
+- (void)deactivateAccount {
+	
+	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[self urlForString:@"logout.php"] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
+	
+	[request setHTTPShouldHandleCookies:YES];
+	
+	[self setStatus:ANotLoggedIn];
+	
+	NSURLConnection *conn __unused = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES]; 
+	
 }
 
 #pragma mark - TravianPageParsingProtocol
@@ -59,7 +214,8 @@
 	
 	if ((page & TPMaskUnparseable) != 0 || ![[node tagName] isEqualToString:@"body"]) {
 		[self setProgressIndicator:@"Cannot load!"];
-		//[self setHasFinishedLoading:YES];
+		
+		[self setStatus:ACannotLogIn | ARefreshed];
 		
 		return; // Can't do anything with unparseable pages or non-body nodes
 	}
@@ -88,10 +244,158 @@
 		[self parseMessages:node];
 		
 		// Finished
-		//[self setHasFinishedLoading:YES];
-		[self setStatus:ALoggedIn];
+		[self setStatus:ALoggedIn | ARefreshed];
 	}
 }
+
+#pragma mark - NSURLConnectionDelegate
+
+- (void)connection:(NSURLConnection *)connection willSendRequestForAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {  }
+- (BOOL)connectionShouldUseCredentialStorage:(NSURLConnection *)connection	{	return NO;	}
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error { NSLog(@"Connection failed with error: %@. Fix error by: %@", [error localizedFailureReason], [error localizedRecoverySuggestion]); }
+
+#pragma mark NSURLConnectionDataDelegate
+
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
+{
+	if (connection == loginConnection)
+		[loginData appendData:data];
+	else if (connection == reportsConnection)
+		[reportsData appendData:data];
+	else if (connection == reloadConnection)
+		[reloadData appendData:data];
+}
+
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSHTTPURLResponse *)response
+{
+	if (connection == loginConnection)
+		loginData = [[NSMutableData alloc] initWithLength:0];
+	else if (connection == reportsConnection)
+		reportsData = [[NSMutableData alloc] initWithLength:0];
+	else if (connection == reloadConnection)
+		reloadData = [[NSMutableData alloc] initWithLength:0];
+}
+
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+{
+	// Parse data
+	NSURLConnection *(^urlConnectionForURL)(NSString *) = ^(NSString *part) {
+		NSURL *url = [self urlForString:part];
+		NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: url cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
+		
+		// Preserve any cookies received
+		[request setHTTPShouldHandleCookies:YES];
+		
+		return [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
+	};
+	
+	if (connection == loginConnection || (connection == reloadConnection && (reloadMap & ARAccount) != 0))
+	{
+		NSError *error;
+		HTMLParser *parser = [[HTMLParser alloc] initWithData:loginData error:&error];
+		
+		if (error) {
+			NSLog(@"Error parsing html! %@\n\n%@", [error localizedDescription], [error localizedRecoverySuggestion]);
+			return;
+		}
+		
+		TravianPages page = [TPIdentifier identifyPage:[parser body]];
+		
+		if ((page & (TPLogin | TPNotFound)) != 0) {
+			// Still at login page.
+			[self setStatus:(ANotLoggedIn | ACannotLogIn)];
+			return;
+		}
+		
+		[self setStatus:(ALoggedIn | ARefreshing)];
+		
+		// Parse the page
+		[self parsePage:page fromHTMLNode:[parser body]];
+		
+		// Login Connections chain
+		
+		if ((page & TPResources) != 0) {
+			// load profile
+			loginConnection = urlConnectionForURL([Account profilePage]);
+			
+			NSLog(@"Loaded TPResources");
+			
+		} else if ((page & TPProfile) != 0) {
+			// load hero
+			// Make another request for hero
+			
+			loginConnection = urlConnectionForURL([Account heroInventory]);
+			
+			NSLog(@"Loaded TPProfile");
+			
+		} else if ((page & TPHero) != 0) {
+			// Next download adventures
+			
+			loginConnection = urlConnectionForURL([Account heroAdventure]);
+			
+			NSLog(@"Loaded TPHero");
+			
+		} else if ((page & TPAdventures) != 0) {
+			// Load Reports
+			
+			loginConnection = urlConnectionForURL([Account reports]);
+			
+			NSLog(@"Loaded TPAdventures");
+			
+		} else if ((page & TPReports) != 0) {
+			// Load Messages
+			
+			loginConnection = urlConnectionForURL([Account messages]);
+			
+			NSLog(@"Loaded TPReports");
+			
+		} else if ((page & TPMessages) != 0) {
+			
+			NSLog(@"Loaded TPMessages");
+			
+			// Tell other objects that loading is finished.
+			[self setStatus:ALoggedIn | ARefreshed];
+			
+		}
+		
+	} else if (connection == reportsConnection) {
+		NSError *error;
+		HTMLParser *parser = [[HTMLParser alloc] initWithData:reportsData error:&error];
+		if (error) {
+			return;
+		}
+		HTMLNode *body = [parser body];
+		
+		TravianPages page = [TPIdentifier identifyPage:body];
+		
+		[self parsePage:page fromHTMLNode:body];
+	} else if (connection == reloadConnection) {
+		NSError *error;
+		HTMLParser *parser = [[HTMLParser alloc] initWithData:reloadData error:&error];
+		if (error) {
+			return;
+		}
+		HTMLNode *body = [parser body];
+		
+		TravianPages page = [TPIdentifier identifyPage:body];
+		
+		if ((reloadMap & ARVillage) != 0) {
+			[[self village] parsePage:page fromHTMLNode:body];
+			
+			if ((page & TPResources) != 0)
+				reloadConnection = urlConnectionForURL([Account village]); // Loaded resources, now load village
+			else
+				[self setStatus:ARefreshed];
+		} else {
+			[self parsePage:page fromHTMLNode:body];
+			[self setStatus:ARefreshed];
+		}
+	}
+}
+
+@end
+
+@implementation Account (Parsing)
 
 - (void)parseVillages:(HTMLNode *)node {
 	
@@ -183,8 +487,8 @@
 		
 		if ([[aTag getAttributeNamed:@"class"] isEqualToString:@"adventure"]) {
 			NSString *coordText = [[aTag findChildWithAttribute:@"class" matchingName:@"coordText" allowPartial:NO] contents];
-			NSString *coordinates = [[NSString alloc] initWithFormat:@"%@|%@", 
-									 [[aTag findChildWithAttribute:@"class" matchingName:@"coordinateX" allowPartial:NO] contents], 
+			NSString *coordinates = [[NSString alloc] initWithFormat:@"%@|%@",
+									 [[aTag findChildWithAttribute:@"class" matchingName:@"coordinateX" allowPartial:NO] contents],
 									 [[aTag findChildWithAttribute:@"class" matchingName:@"coordinateY" allowPartial:NO] contents]];
 			report.name = [NSString stringWithFormat:@"%@ %@", coordText, coordinates];
 		}
@@ -218,7 +522,7 @@
 		NSString *nextPageHref = [nextPage getAttributeNamed:@"href"];
 		
 		// Load next page
-		NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@.travian.%@/%@", world, server, nextPageHref]] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
+		NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[self urlForString:nextPageHref] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
 		[request setHTTPShouldHandleCookies:YES];
 		
 		reportsConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
@@ -295,228 +599,13 @@
 		NSString *nextPageHref = [nextPage getAttributeNamed:@"href"];
 		
 		// Load next page
-		NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@.travian.%@/%@", world, server, nextPageHref]] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
+		NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[self urlForString:nextPageHref] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
 		[request setHTTPShouldHandleCookies:YES];
 		
 		reportsConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
 	}
 	
 	NSLog(@"Parsed messages page");
-}
-
-#pragma mark - Coders
-
-- (id)initWithCoder:(NSCoder *)coder {
-	self = [super init];
-	
-	name = [coder decodeObjectForKey:@"name"];
-	username = [coder decodeObjectForKey:@"username"];
-	password = [coder decodeObjectForKey:@"password"];
-	world = [coder decodeObjectForKey:@"world"];
-	server = [coder decodeObjectForKey:@"server"];
-	villages = [coder decodeObjectForKey:@"villages"];
-	reports = [coder decodeObjectForKey:@"reports"];
-	messages = [coder decodeObjectForKey:@"messages"];
-	contacts = [coder decodeObjectForKey:@"contacts"];
-	hero = [coder decodeObjectForKey:@"hero"];
-	
-	for (Village *vil in villages) {
-		[vil setAccountParent:self];
-	}
-	
-	return self;
-}
-
-- (void)encodeWithCoder:(NSCoder *)coder {
-	[coder encodeObject:name forKey:@"name"];
-	[coder encodeObject:username forKey:@"username"];
-	[coder encodeObject:password forKey:@"password"];
-	[coder encodeObject:world forKey:@"world"];
-	[coder encodeObject:server forKey:@"server"];
-	[coder encodeObject:villages forKey:@"villages"];
-	[coder encodeObject:reports forKey:@"reports"];
-	[coder encodeObject:messages forKey:@"messages"];
-	[coder encodeObject:contacts forKey:@"contacts"];
-	[coder encodeObject:hero forKey:@"hero"];
-}
-
-- (void)activateAccount {
-	[self activateAccountWithPassword:password];
-}
-
-- (void)activateAccountWithPassword:(NSString *)passwd {
-	// Start connection
-	NSString *postData = [[NSString alloc] initWithFormat:@"name=%@&password=%@&s1=Login&w=%@&login=%f", username, passwd, @"640:960", [[NSDate date] timeIntervalSince1970]];
-	NSData *myRequestData = [NSData dataWithBytes: [postData UTF8String] length: [postData length]];
-	NSString *stringUrl = [NSString stringWithFormat:@"http://%@.travian.%@/dorf1.php", self.world, self.server];
-	NSURL *url = [NSURL URLWithString: stringUrl];
-	
-	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: url cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
-	
-	// Set POST HTTP Headers if necessary
-	[request setHTTPMethod: @"POST"];
-	[request setHTTPBody: myRequestData];
-	[request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"content-type"];
-	
-	// Preserve any cookies received
-	[request setHTTPShouldHandleCookies:YES];
-	
-	status = ANotLoggedIn | ALoggingIn;
-	
-	loginConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
-}
-
-- (void)refreshAccount {
-	
-	NSMutableURLRequest *req = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@.travian.%@/dorf1.php", world, server]] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60.0];
-	
-	[req setHTTPShouldHandleCookies:YES];
-	
-	loginConnection = [[NSURLConnection alloc] initWithRequest:req delegate:self startImmediately:YES];
-	
-}
-
-- (void)deactivateAccount {
-	
-	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[[NSURL alloc] initWithString:[NSString stringWithFormat:@"http://%@.travian.%@/logout.php", world, server]] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
-	
-	[request setHTTPShouldHandleCookies:YES];
-	
-	[self setStatus:ANotLoggedIn];
-	
-	NSURLConnection *conn __unused = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES]; 
-	
-}
-
-#pragma mark - NSURLConnectionDelegate
-
-- (void)connection:(NSURLConnection *)connection willSendRequestForAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {  }
-- (BOOL)connectionShouldUseCredentialStorage:(NSURLConnection *)connection	{	return NO;	}
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error { NSLog(@"Connection failed with error: %@. Fix error by: %@", [error localizedFailureReason], [error localizedRecoverySuggestion]); }
-
-#pragma mark NSURLConnectionDataDelegate
-
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
-{
-	if (connection == loginConnection)
-		[loginData appendData:data];
-	else if (connection == reportsConnection)
-		[reportsData appendData:data];
-}
-
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSHTTPURLResponse *)response
-{
-	if (connection == loginConnection)
-		loginData = [[NSMutableData alloc] initWithLength:0];
-	else if (connection == reportsConnection)
-		reportsData = [[NSMutableData alloc] initWithLength:0];
-}
-
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
-{
-	// Parse data
-	
-	if (connection == loginConnection)
-	{
-		NSError *error;
-		HTMLParser *parser = [[HTMLParser alloc] initWithData:loginData error:&error];
-		
-		if (error) {
-			NSLog(@"Error parsing html! %@\n\n%@", [error localizedDescription], [error localizedRecoverySuggestion]);
-			return;
-		}
-		
-		TravianPages page = [TPIdentifier identifyPage:[parser body]];
-		
-		// Parse the page
-		[self parsePage:page fromHTMLNode:[parser body]];
-		
-		// Connections chain
-		
-		if ((page & (TPLogin | TPNotFound)) != 0) {
-			// Still at login page.
-			[self setStatus:(ANotLoggedIn | ACannotLogIn)];
-			return;
-		}
-		
-		if ((page & TPResources) != 0) {
-			// load profile
-			NSString *stringUrl = [NSString stringWithFormat:@"http://%@.travian.%@/spieler.php", self.world, self.server];
-			NSURL *url = [NSURL URLWithString: stringUrl];
-			
-			NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: url cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
-			
-			// Preserve any cookies received
-			[request setHTTPShouldHandleCookies:YES];
-			
-			loginConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
-			
-			NSLog(@"Loaded TPResources");
-			
-		} else if ((page & TPProfile) != 0) {
-			// load hero
-			
-			// Make another request for hero
-			
-			NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@.travian.%@/hero_inventory.php", world, server]] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
-			[request setHTTPShouldHandleCookies:YES];
-			
-			loginConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
-			
-			NSLog(@"Loaded TPProfile");
-			
-		} else if ((page & TPHero) != 0) {
-			// Next download adventures
-			
-			NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@.travian.%@/hero_adventure.php", world, server]] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
-			[request setHTTPShouldHandleCookies:YES];
-			
-			loginConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
-			
-			NSLog(@"Loaded TPHero");
-			
-		} else if ((page & TPAdventures) != 0) {
-			// Load Reports
-			
-			NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@.travian.%@/berichte.php", world, server]] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
-			[request setHTTPShouldHandleCookies:YES];
-			
-			loginConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
-			
-			NSLog(@"Loaded TPAdventures");
-			
-		} else if ((page & TPReports) != 0) {
-			// Load Messages
-			
-			NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@.travian.%@/nachrichten.php", world, server]] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
-			[request setHTTPShouldHandleCookies:YES];
-			
-			loginConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
-			
-			NSLog(@"Loaded TPReports");
-			
-		} else if ((page & TPMessages) != 0) {
-			
-			NSLog(@"Loaded TPMessages");
-			
-			[self setStatus:ALoggedIn];
-			
-		}
-	}
-	
-	else if (connection == reportsConnection) {
-		NSError *error;
-		HTMLParser *parser = [[HTMLParser alloc] initWithData:reportsData error:&error];
-		if (error) {
-			
-		}
-		HTMLNode *body = [parser body];
-		
-		TravianPages page = [TPIdentifier identifyPage:body];
-		
-		[self parsePage:page fromHTMLNode:body];
-	}
-	
 }
 
 @end

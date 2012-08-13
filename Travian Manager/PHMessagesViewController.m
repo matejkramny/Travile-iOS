@@ -141,6 +141,8 @@
 	
     cell.textLabel.text = [m title];
 	
+	[appDelegate setCellAppearance:cell forIndexPath:indexPath];
+	
     return cell;
 }
 

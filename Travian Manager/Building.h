@@ -16,7 +16,8 @@
 
 @interface Building : NSObject <NSCoding, NSURLConnectionDataDelegate, NSURLConnectionDelegate, TravianPageParsingProtocol>
 
-@property (nonatomic, strong) NSString *bid; // Building ID
+@property (nonatomic, strong) NSString *bid; // Building access ID
+@property (assign) TravianBuildings gid; // Building GID
 @property (nonatomic, strong) NSString *name; // Building Name (localised in browser)
 @property (nonatomic, strong) NSString *description; // What building does (^)
 @property (assign) TravianPages page; // TPVillage | TPResource

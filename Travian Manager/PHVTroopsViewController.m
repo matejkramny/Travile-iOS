@@ -15,11 +15,14 @@
 
 @interface PHVTroopsViewController () {
 	Account *account;
+	AppDelegate *appDelegate;
 }
 
 @end
 
 @implementation PHVTroopsViewController
+
+@synthesize refreshControl;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -34,8 +37,10 @@
 {
     [super viewDidLoad];
 	
-	AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+	appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
 	account = [[appDelegate storage] account];
+	
+	refreshControl = [AppDelegate addRefreshControlTo:self.tableView target:self action:@selector(didBeginRefreshing:)];
 }
 
 - (void)viewDidUnload
@@ -52,6 +57,8 @@
 	[self.tabBarController.navigationItem setLeftBarButtonItem:nil];
 	
 	[self.tabBarController setTitle:[NSString stringWithFormat:@"Troops"]];
+	
+	[self.tableView reloadData];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -68,19 +75,49 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [[[account village] troops] count];
+	int c = [[[account village] troops] count];
+    return c == 0 ? 1 : c;
 }
 
+static NSString *RightDetailCellID = @"RightDetail";
+static NSString *NoTroopsCellID = @"NoTroops";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"RightDetail";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+	if ([account.village.troops count] == 0) {
+		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NoTroopsCellID];
+		cell.textLabel.text = NSLocalizedString(@"NoTroops", @"Village contains no troops - shown inside table as a cell");
+		
+		[appDelegate setCellAppearance:cell forIndexPath:indexPath];
+		
+		return cell;
+	}
+	
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:RightDetailCellID];
     
 	Troop *troop = [[account.village troops] objectAtIndex:indexPath.row];
 	cell.textLabel.text = [troop name];
 	cell.detailTextLabel.text = [NSString stringWithFormat:@"%d", troop.count];
 	
+	[appDelegate setCellAppearance:cell forIndexPath:indexPath];
+	
     return cell;
+}
+
+- (void)didBeginRefreshing:(id)sender {
+	[account addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:NULL];
+	
+	[account refreshAccountWithMap:ARVillage];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+	if ([keyPath isEqualToString:@"status"]) {
+		if (([[change objectForKey:NSKeyValueChangeNewKey] intValue] & ARefreshed) != 0) {
+			// Refreshed
+			[account removeObserver:self forKeyPath:@"status"];
+			[refreshControl endRefreshing];
+			[[self tableView] reloadData];
+		}
+	}
 }
 
 @end

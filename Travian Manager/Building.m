@@ -34,7 +34,7 @@
 
 - (void)buildFromAccount:(Account *)account {
 	NSLog(@"Starting build connection");
-	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@.travian.%@/build.php?id=%@", [account world], [account server], bid]] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
+	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[account urlForArguments:@"build.php?id=", bid, nil] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
 	
 	// Preserve any cookies received
 	[request setHTTPShouldHandleCookies:YES];
@@ -48,7 +48,7 @@
 	
 	Account *a = [parent getParent];
 	
-	NSMutableURLRequest *req = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@.travian.%@/build.php?id=%@", a.world, a.server, bid]] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
+	NSMutableURLRequest *req = [[NSMutableURLRequest alloc] initWithURL:[a urlForArguments:@"build.php?id=", bid, nil] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
 	
 	[req setHTTPShouldHandleCookies:YES];
 	
@@ -80,9 +80,7 @@
 			
 			Account *a = [parent getParent];
 			
-			NSString *base = [NSString stringWithFormat:@"http://%@.travian.%@/build.php?id=%@&category=", a.world, a.server, bid];
-			
-			NSMutableURLRequest *req = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[base stringByAppendingString:@"2"]] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
+			NSMutableURLRequest *req = [[NSMutableURLRequest alloc] initWithURL:[a urlForArguments:@"build.php?id=", bid, @"&category=2", nil] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
 			[req setHTTPShouldHandleCookies:YES];
 			cat2Connection = [[NSURLConnection alloc] initWithRequest:req delegate:self startImmediately:YES];
 		}
@@ -117,7 +115,7 @@
 	NSString *onclickAttr = [button getAttributeNamed:@"onclick"];
 	NSString *url = [[onclickAttr stringByReplacingOccurrencesOfString:@"window.location.href = '" withString:@""] stringByReplacingOccurrencesOfString:@"'; return false;" withString:@""];
 	
-	NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@.travian.%@/%@", [[parent getParent] world], [[parent getParent] server], url]];
+	NSURL *URL = [[parent getParent] urlForString:url];
 	[self buildFromURL:URL];
 	
 	[self setFinishedLoading:YES];
@@ -291,9 +289,7 @@
 			
 			Account *a = [parent getParent];
 			
-			NSString *base = [NSString stringWithFormat:@"http://%@.travian.%@/build.php?id=%@&category=", a.world, a.server, bid];
-			
-			NSMutableURLRequest *req = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[base stringByAppendingString:@"3"]] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
+			NSMutableURLRequest *req = [[NSMutableURLRequest alloc] initWithURL:[a urlForArguments:@"build.php?id=", bid, @"&category=3", nil] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
 			[req setHTTPShouldHandleCookies:YES];
 			cat3Connection = [[NSURLConnection alloc] initWithRequest:req delegate:self startImmediately:YES];
 		}

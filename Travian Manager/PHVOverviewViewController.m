@@ -13,6 +13,7 @@
 #import "Account.h"
 #import "Movement.h"
 #import "Construction.h"
+#import "ODRefreshControl/ODRefreshControl.h"
 
 @interface PHVOverviewViewController () {
 	Storage *storage;
@@ -20,9 +21,13 @@
 	NSTimer *secondTimer;
 }
 
+- (void)reloadBadgeCount;
+
 @end
 
 @implementation PHVOverviewViewController
+
+@synthesize refreshControl;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -41,21 +46,19 @@
 	storage = [appDelegate storage];
 	village = [[storage account] village];
 	
-	int badgeCount = 0;
-	badgeCount += [[village movements] count];
-	badgeCount += [[village constructions] count];
-	if (badgeCount > 0)
-		[[self tabBarItem] setBadgeValue:[NSString stringWithFormat:@"%d", badgeCount]];
+	refreshControl = [AppDelegate addRefreshControlTo:self.tableView target:self action:@selector(didBeginRefreshing:)];
+	
+	[self reloadBadgeCount];
 }
 
 - (void)viewDidUnload
 {
+	refreshControl = nil;
+	
     [super viewDidUnload];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-	[super viewWillAppear:animated];
-	
 	[self.tabBarController.navigationItem setRightBarButtonItems:nil];
 	[self.tabBarController.navigationItem setLeftBarButtonItems:nil];
 	[self.tabBarController.navigationItem setRightBarButtonItem:nil];
@@ -64,18 +67,49 @@
 	[self.tabBarController setTitle:[NSString stringWithFormat:@"Overview"]];
 	
 	secondTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(secondTimerFired:) userInfo:nil repeats:YES];
+	[[self tableView] reloadData];
+	[self reloadBadgeCount];
+	
+	[super viewWillAppear:animated];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-	[super viewWillDisappear:animated];
-	
 	if (secondTimer)
 		[secondTimer invalidate];
+	
+	[super viewWillDisappear:animated];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == (UIInterfaceOrientationPortrait | UIInterfaceOrientationLandscapeLeft | UIInterfaceOrientationLandscapeRight));
+}
+
+- (void)didBeginRefreshing:(id)sender {
+	[[storage account] addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:NULL];
+	
+	[[storage account] refreshAccountWithMap:ARVillage];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+	if ([keyPath isEqualToString:@"status"]) {
+		if (([[change objectForKey:NSKeyValueChangeNewKey] intValue] & ARefreshed) != 0) {
+			// Refreshed
+			[[storage account] removeObserver:self forKeyPath:@"status"];
+			[refreshControl endRefreshing];
+			// Reload data
+			[[self tableView] reloadData];
+			[self reloadBadgeCount];
+		}
+	}
+}
+
+- (void)reloadBadgeCount {
+	int badgeCount = 0;
+	badgeCount += [[village movements] count];
+	badgeCount += [[village constructions] count];
+	if (badgeCount > 0)
+		[[self tabBarItem] setBadgeValue:[NSString stringWithFormat:@"%d", badgeCount]];
 }
 
 #pragma mark - Table view data source
@@ -107,6 +141,11 @@
 	NSString *(^calculateRemainingTimeFromDate)(NSDate *) = ^(NSDate *date) {
 		int diff = [date timeIntervalSince1970] - [[NSDate date] timeIntervalSince1970];
 		
+		if (diff < 0) {
+			// Event happened..
+			return [NSString stringWithString:NSLocalizedString(@"Event Happened", @"Timer has reached < 0 seconds")];
+		}
+		
 		int hours = diff / (60 * 60);
 		NSString *hoursString = hours < 10 ? [NSString stringWithFormat:@"0%d", hours] : [NSString stringWithFormat:@"%d", hours];
 		diff -= hours * (60 * 60);
@@ -116,7 +155,12 @@
 		int seconds = diff;
 		NSString *secondsString = seconds < 10 ? [NSString stringWithFormat:@"0%d", seconds] : [NSString stringWithFormat:@"%d", seconds];
 		
-		return [NSString stringWithFormat:@"%@:%@:%@", hoursString, minutesString, secondsString];
+		if (hours > 0)
+			return [NSString stringWithFormat:@"%@:%@:%@ %@", hoursString, minutesString, secondsString, NSLocalizedString(@"hrs", @"Timers suffix (hours remaining)")];
+		else if (minutes > 0)
+			return [NSString stringWithFormat:@"%@:%@ %@", minutesString, secondsString, NSLocalizedString(@"min", @"Timers suffix (minutes remaining)")];
+		else
+			return [NSString stringWithFormat:@"%@ %@", secondsString, NSLocalizedString(@"sec", @"Timers suffix (seconds remaining)")];
 	};
 	
     if (indexPath.section == 0) {
@@ -170,7 +214,7 @@
 			
 			NSString *name = [NSString stringWithFormat:NSLocalizedString(@"construction lvl to", @"Construction name lvl X"), construction.name, construction.level];
 			cell.textLabel.text = name;
-			cell.detailTextLabel.text = construction.finishTime;
+			cell.detailTextLabel.text = calculateRemainingTimeFromDate(construction.finishTime);
 			
 			return cell;
 		}
@@ -180,7 +224,7 @@
 }
 
 - (IBAction)secondTimerFired:(id)sender {
-	[[self tableView] reloadData];
+	[self.tableView reloadData];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {

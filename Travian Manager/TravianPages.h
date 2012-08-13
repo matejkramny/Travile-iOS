@@ -42,11 +42,45 @@ typedef enum {
 // e.g. 0 = 'gid0' <- building identifier
 typedef enum {
 	TBList = 0, // No building, just a list of buildings that can be built
-	
+	TBWoodCutter = 1, // Woodcutter
+	TBClayPit = 2, // Clay Pit
+	TBIronMine = 3, // Iron Mine
+	TBWheatField = 4, // Wheat Field
+	TBSawMill = 5, // Saw Mill
+	TBBrickWorks = 6, // Brick Works
+	TBIronFoundry = 7, // Iron Foundry
+	TBFlourMill = 8, // Flour Mill
+	TBBakery = 9, // Bakery
 	TBWarehouse = 10, // Warehouse
+	TBGranary = 11, // Granary
 	
+	TBForge = 13, // Forge
+	TBTournamentSquare = 14, // Tournament Square
 	TBMainBuilding = 15, // Main Building
 	TBRallyPoint = 16, // Rally Point
+	
+	TBEmbassy = 18, // Embassy
+	TBBarracks = 19, // Barracks
+	TBStable = 20, // Stable
+	TBWorkshop = 21, // Siege Workshop
+	TBAcademy = 22, // Academy
+	TBCranny = 23, // Cranny
+	TBCityHall = 24, // City Hall
+	TBResidence = 25, // Residence
+	TBPalace = 26, // Palace
+	TBTreasureChamber = 27, // Treasure Chamber
+	TBTradeOffice = 28, // Trading office
+	TBGreatBarracks = 29, // Great Barracks
+	TBGreatStable = 30, // Great Stable
+	TBCityWall = 31, // City Wall - Roman
+	TBEarthWall = 32, // Earth wall - Teuton
+	TBPalisade = 33, // Palisade - Gaul
+	TBStonemason = 34, // Stonemason
+	TBBrewery = 35, // Brewery
+	TBTrapper = 36, // Trapper - Gaul
+	TBHeroMansion = 37, // Hero's mansion
+	TBGreatWarehouse = 38, // Great Warehouse
+	TBGreatGranary = 39, // Great Granary
 	
 	TBNotFound = -1 /// Building not found 
 } TravianBuildings;

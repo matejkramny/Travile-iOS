@@ -14,3 +14,13 @@
 "No Constructions" = "No Constructions";
 /* Construction name lvl X */
 "construction lvl to" = "%@ lvl %d";
+/* Village contains no troops - shown inside table as a cell */
+"NoTroops" = "No troops in this village";
+/* Timers suffix (hours remaining) */
+"hrs" = "hrs";
+/* Timers suffix (minutes remaining) */
+"min" = "min";
+/* Timers suffix (seconds remaining) */
+"sec" = "sec";
+/* Timer has reached < 0 seconds */
+"Event Happened" = "Done";

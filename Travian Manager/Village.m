@@ -22,6 +22,8 @@
 #import "Movement.h"
 
 @interface Village () {
+	NSURLConnection *villageConnection; // Village connection
+	NSMutableData *villageData; // Village data
 }
 
 @end
@@ -44,7 +46,6 @@
 
 @synthesize resources, resourceProduction, troops, movements, constructions, buildings, name;
 @synthesize urlPart, loyalty, population, warehouse, granary, consumption, x, y;
-@synthesize villageConnection, villageData;
 
 - (void)setAccountParent:(Account *)newParent {
 	parent = newParent;
@@ -61,8 +62,7 @@
 	Account *account = [[(AppDelegate *)[UIApplication sharedApplication].delegate storage] account]; // This village's owner
 	
 	// Start a request containing Resources, ResourceProduction, and troops
-	NSString *stringUrl = [NSString stringWithFormat:@"http://%@.travian.%@/dorf1.php", account.world, account.server];
-	NSURL *url = [NSURL URLWithString: stringUrl];
+	NSURL *url = [account urlForString:[Account resources]];
 	
 	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: url cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
 	
@@ -70,7 +70,6 @@
 	[request setHTTPShouldHandleCookies:YES];
 	
 	villageConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
-	
 }
 
 #pragma mark - Page parsing
@@ -131,7 +130,13 @@
 	for (HTMLNode *tr in trs) {
 		Troop *troop = [[Troop alloc] init];
 		
-		troop.count = [[[tr findChildWithAttribute:@"class" matchingName:@"num" allowPartial:NO] contents] intValue];
+		HTMLNode *num = [tr findChildWithAttribute:@"class" matchingName:@"num" allowPartial:NO];
+		if (!num) {
+			// Not a troop
+			continue;
+		}
+		
+		troop.count = [[num contents] intValue];
 		troop.name = [[tr findChildWithAttribute:@"class" matchingName:@"un" allowPartial:NO] contents];
 		
 		[troopsTemp addObject:troop];
@@ -214,7 +219,7 @@
 	
 	for (HTMLNode *area in areas) {
 		
-		if ([[area getAttributeNamed:@"href"] isEqualToString:@"dorf2.php"]) continue; // Village Centre
+		if ([[area getAttributeNamed:@"href"] isEqualToString:[Account village]]) continue; // Village Centre
 		
 		Building *building = [[Building alloc] init];
 		
@@ -262,6 +267,9 @@
 		
 		building.level = [[[[[body findChildTag:@"p"] findChildTag:@"span"] contents] stringByTrimmingCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]] intValue];
 		building.name = [[body findChildTag:@"p"] contents];
+		if ([building.name hasSuffix:@" "])
+			building.name = [building.name substringToIndex:[building.name length]-1];
+		
 		building.page = page;
 		building.parent = self;
 		
@@ -302,33 +310,21 @@
 			
 			NSString *conName = [[tds objectAtIndex:1] contents];
 			NSString *conLevel = [[[tds objectAtIndex:1] findChildTag:@"span"] contents];
-			NSString *conFinishTime = [[tds objectAtIndex:2] rawContents];
-			NSString *conFInishTimeSpan = [[[tds objectAtIndex:2] findChildTag:@"span"] rawContents];
-			conFinishTime = [conFinishTime stringByReplacingOccurrencesOfString:conFInishTimeSpan withString:@""];
+			NSString *finishTime = [[[tds objectAtIndex:2] findChildTag:@"span"] contents];
 			
-			NSError *error;
-			HTMLParser *parser = [[HTMLParser alloc] initWithString:conFinishTime error:&error];
-			if (error) {
-				conFinishTime = @"Undetectable";
-				NSLog(@"Unparseable construciton");
-				
-				continue;
-			}
-			
-			conFinishTime = [[[[parser body] findChildTag:@"td"] contents] stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
-			NSString *ampm = [conFinishTime stringByReplacingCharactersInRange:NSMakeRange(0, [conFinishTime length] - 2) withString:@""];
-			conFinishTime = [conFinishTime stringByTrimmingCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]];
-			
-			NSString *ampmFormattedString = @"";
-			if ([ampm isEqualToString:@"am"]) {
-				ampmFormattedString = @" AM";
-			} else if ([ampm isEqualToString:@"pm"]) {
-				ampmFormattedString = @" PM";
-			}
+			NSArray *timeSplit = [finishTime componentsSeparatedByString:@":"];
+			int hour = 0, minute = 0, second = 0;
+			hour = [[timeSplit objectAtIndex:0] intValue];
+			minute = [[timeSplit objectAtIndex:1] intValue];
+			second = [[timeSplit objectAtIndex:2] intValue];
+			int timestamp = [[NSDate date] timeIntervalSince1970]; // Now date
+			timestamp += hour * 60 * 60 + minute * 60 + second; // Now date + hour:minute:second
+			construction.finishTime = [NSDate dateWithTimeIntervalSince1970:timestamp]; // Future date
 			
 			construction.name = [conName stringByReplacingOccurrencesOfString:conLevel withString:@""];
+			if ([construction.name hasSuffix:@" "])
+				construction.name = [construction.name substringToIndex:[construction.name length] -1];
 			construction.level = [[conLevel stringByTrimmingCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]] intValue];
-			construction.finishTime = [conFinishTime stringByAppendingString:ampmFormattedString];
 			
 			[tempConstructions addObject:construction];
 		}
@@ -422,7 +418,7 @@
 		if ((page & TPResources) != 0) {
 			// Village overview
 			
-			NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@.travian.%@/dorf2.php", [parent world], [parent server]]] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
+			NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[parent urlForString:[Account village]] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
 			[request setHTTPShouldHandleCookies:YES];
 			
 			villageConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];

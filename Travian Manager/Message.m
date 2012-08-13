@@ -50,8 +50,7 @@
 - (void)downloadAndParse {
 	Account *account = [[(AppDelegate *)[UIApplication sharedApplication].delegate storage] account];
 	
-	NSString *url = [NSString stringWithFormat:@"http://%@.travian.%@/%@", account.world, account.server, href];
-	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:url] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
+	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[account urlForString:href] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
 	[request setHTTPShouldHandleCookies:YES];
 	
 	messageConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
@@ -63,10 +62,8 @@
 	NSString *data = [NSString stringWithFormat:@"delmsg=Delete&s=0&n1=%@", accessID];
 	
 	NSData *myRequestData = [NSData dataWithBytes: [data UTF8String] length: [data length]];
-	NSString *stringUrl = [NSString stringWithFormat:@"http://%@.travian.%@/nachrichten.php", [account world], [account server]];
-	NSURL *url = [NSURL URLWithString: stringUrl];
 	
-	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: url cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
+	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [account urlForString:[Account messages]] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
 	
 	// Set POST HTTP Headers if necessary
 	[request setHTTPMethod: @"POST"];
@@ -87,8 +84,7 @@
 	
 	if (!sendParameter) {
 		// Retrieve it
-		NSString *url = [NSString stringWithFormat:@"http://%@.travian.%@/nachrichten.php?t=1", account.world, account.server];
-		NSMutableURLRequest *req = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:url]];
+		NSMutableURLRequest *req = [[NSMutableURLRequest alloc] initWithURL:[account urlForArguments:[Account messages], @"?t=1", nil]];
 		[req setHTTPShouldHandleCookies:YES];
 		sendParameterConnection = [[NSURLConnection alloc] initWithRequest:req delegate:self startImmediately:YES];
 		
@@ -98,8 +94,7 @@
 		return;
 	}
 	
-	NSString *url = [NSString stringWithFormat:@"http://%@.travian.%@/nachrichten.php", account.world, account.server];
-	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:url] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
+	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[account urlForString:[Account messages]] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
 	
 	NSString *postData = [[NSString alloc] initWithFormat:@"an=%@&be=%@&message=%@&s1=send&c=%@", recipient, title, content, sendParameter];
 	NSData *myRequestData = [NSData dataWithBytes: [postData UTF8String] length: [postData length]];
@@ -152,7 +147,7 @@
 
 - (void)connection:(NSURLConnection *)connection willSendRequestForAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {  }
 - (BOOL)connectionShouldUseCredentialStorage:(NSURLConnection *)connection	{	return NO;	}
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error { NSLog(@"Report Connection failed %@ - %@ - %@ - %@", [error localizedDescription], [error localizedFailureReason], [error localizedRecoveryOptions], [error localizedRecoverySuggestion]); }
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error { NSLog(@"Message Connection failed %@ - %@ - %@ - %@", [error localizedDescription], [error localizedFailureReason], [error localizedRecoveryOptions], [error localizedRecoverySuggestion]); }
 
 #pragma mark NSURLConnectionDataDelegate
 

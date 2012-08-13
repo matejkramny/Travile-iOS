@@ -7,8 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ODRefreshControl/ODRefreshControl.h"
 
-@interface PHVOverviewViewController : UITableViewController <UITableViewDataSource>
+@interface PHVOverviewViewController : UITableViewController <UITableViewDataSource, ODRefreshControlDelegate>
+
+@property (nonatomic, strong) ODRefreshControl *refreshControl;
 
 - (IBAction)secondTimerFired:(id)sender;
 

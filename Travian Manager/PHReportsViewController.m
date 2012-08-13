@@ -91,6 +91,8 @@
     cell.textLabel.text = [r name];
 	cell.detailTextLabel.text = @"";
     
+	[appDelegate setCellAppearance:cell forIndexPath:indexPath];
+	
     return cell;
 }
 

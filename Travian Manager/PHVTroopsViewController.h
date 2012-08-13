@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ODRefreshControl/ODRefreshControl.h"
 
-@interface PHVTroopsViewController : UITableViewController
+@interface PHVTroopsViewController : UITableViewController <ODRefreshControlDelegate>
+
+@property (strong, nonatomic) ODRefreshControl *refreshControl;
 
 @end

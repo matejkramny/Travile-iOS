@@ -15,18 +15,23 @@
 #import "MBProgressHUD.h"
 
 @interface PHVBuildingsViewController () {
+	AppDelegate *appDelegate;
 	Account *account;
 	Building *selectedBuilding;
 	MBProgressHUD *HUD;
 	NSArray *sections;
+	UIActionSheet *buildConfirm;
 }
 
 - (void)loadBuildingsToSections;
 - (Building *)getBuildingUsingIndexPath:(NSIndexPath *)indexPath;
+- (void)accessoryButtonTapped:(UIControl *)button withEvent:(UIEvent *)event;
 
 @end
 
 @implementation PHVBuildingsViewController
+
+@synthesize refreshControl;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -41,10 +46,12 @@
 {
     [super viewDidLoad];
 	
-	AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+	appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
 	account = [[appDelegate storage] account];
 	
 	[self loadBuildingsToSections];
+	
+	refreshControl = [AppDelegate addRefreshControlTo:self.tableView target:self action:@selector(didBeginRefreshing:)];
 }
 
 - (void)viewDidUnload
@@ -61,6 +68,8 @@
 	[self.tabBarController.navigationItem setLeftBarButtonItem:nil];
 	
 	[self.tabBarController setTitle:[NSString stringWithFormat:@"Buildings"]];
+	
+	[self.tableView reloadData];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -111,6 +120,12 @@
 	return [[sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
 }
 
+- (void)didBeginRefreshing:(id)sender {
+	[account addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:NULL];
+	
+	[account refreshAccountWithMap:ARVillage];
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -135,12 +150,25 @@
 		cell = [tableView dequeueReusableCellWithIdentifier:RightDetailCellID];
 		cell.textLabel.text = [b name];
 		cell.detailTextLabel.text = [NSString stringWithFormat:@"level %d", [b level]];
+		
+		cell.accessoryView = [appDelegate setDetailAccessoryViewForTarget:self action:@selector(accessoryButtonTapped:withEvent:)];
 	} else {
 		cell = [tableView dequeueReusableCellWithIdentifier:BuildingSiteCellID];
 		cell.textLabel.text = [b name];
 	}
 	
+	[appDelegate setCellAppearance:cell forIndexPath:indexPath];
+	
     return cell;
+}
+
+- (void)accessoryButtonTapped:(UIControl *)button withEvent:(UIEvent *)event
+{
+    NSIndexPath * indexPath = [self.tableView indexPathForRowAtPoint: [[[event touchesForView: button] anyObject] locationInView: self.tableView]];
+    if ( indexPath == nil )
+        return;
+	
+    [self.tableView.delegate tableView: self.tableView accessoryButtonTappedForRowWithIndexPath: indexPath];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -162,11 +190,16 @@
 	// Build
 	selectedBuilding = [self getBuildingUsingIndexPath:indexPath];
 	[selectedBuilding addObserver:self forKeyPath:@"finishedLoading" options:NSKeyValueObservingOptionNew context:nil];
-	[selectedBuilding buildFromAccount:account];
-	HUD = [MBProgressHUD showHUDAddedTo:self.tabBarController.navigationController.view animated:YES];
-	HUD.labelText = @"Building";
 	
-	[[self tableView] deselectRowAtIndexPath:indexPath animated:YES];
+	if (indexPath.section < 2) {
+		buildConfirm = [[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat:@"Build %@ to level %d", selectedBuilding.name, selectedBuilding.level+1] delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Build", @"Add to construction queue", nil];
+		[self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+		[buildConfirm showFromTabBar:self.tabBarController.tabBar];
+	} else {
+		[selectedBuilding buildFromAccount:account];
+		HUD = [MBProgressHUD showHUDAddedTo:self.tabBarController.navigationController.view animated:YES];
+		HUD.labelText = @"Loading";
+	}
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
@@ -176,6 +209,8 @@
 			[selectedBuilding removeObserver:self forKeyPath:@"finishedLoading"];
 			[HUD hide:YES];
 			
+			[[self tableView] deselectRowAtIndexPath:[[self tableView] indexPathForSelectedRow] animated:YES];
+			
 			if ([selectedBuilding availableBuildings]) {
 				NSLog(@"Available buildings: %d", [[selectedBuilding availableBuildings] count]);
 				[self performSegueWithIdentifier:@"BuildingList" sender:self];
@@ -184,6 +219,13 @@
 	} else if (object == selectedBuilding && [keyPath isEqualToString:@"description"]) {
 		[HUD hide:YES];
 		[self performSegueWithIdentifier:@"OpenBuilding" sender:self];
+	} else if (object == account && [keyPath isEqualToString:@"status"]) {
+		if (([[change objectForKey:NSKeyValueChangeNewKey] intValue] & ARefreshed) != 0) {
+			// Refreshed
+			[account removeObserver:self forKeyPath:@"status"];
+			[refreshControl endRefreshing];
+			[[self tableView] reloadData];
+		}
 	}
 }
 
@@ -246,6 +288,29 @@
 	}
 	else
 		[selectedBuilding buildFromURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@.travian.%@/%@", account.world, account.server, [building upgradeURLString]]]];
+}
+
+#pragma mark - UIActionSheetDelegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+	if (actionSheet == buildConfirm) {
+		switch (buttonIndex) {
+			case 0:
+				// Build button
+				[selectedBuilding buildFromAccount:account];
+				HUD = [MBProgressHUD showHUDAddedTo:self.tabBarController.navigationController.view animated:YES];
+				HUD.labelText = @"Building";
+				break;
+			case 1:
+				// Construction queue
+			case 2:
+				// Cancel
+				selectedBuilding = nil;
+				break;
+		}
+		
+		[[self tableView] deselectRowAtIndexPath:[[self tableView] indexPathForSelectedRow] animated:YES];
+	}
 }
 
 @end

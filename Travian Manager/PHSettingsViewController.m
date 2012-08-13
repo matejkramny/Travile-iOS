@@ -26,13 +26,22 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	
-	
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+	
+	[self.tabBarController.navigationItem setRightBarButtonItems:nil];
+	[self.tabBarController.navigationItem setLeftBarButtonItems:nil];
+	[self.tabBarController.navigationItem setRightBarButtonItem:nil];
+	[self.tabBarController.navigationItem setLeftBarButtonItem:nil];
+	
+	[self.tabBarController setTitle:[NSString stringWithFormat:@"Settings"]];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

@@ -60,9 +60,7 @@
 	
 	Account *account = [[(AppDelegate *)[UIApplication sharedApplication].delegate storage] account];
 	
-	NSString *url = [NSString stringWithFormat:@"http://%@.travian.%@/berichte.php?id=%@&t=", account.world, account.server, [accessID stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-	
-	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:url] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
+	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[account urlForArguments:[Account reports], @"?id=", [accessID stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], @"&t=", nil] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
 	[request setHTTPShouldHandleCookies:YES];
 	
 	reportConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
@@ -72,9 +70,7 @@
 - (void)delete {
 	Account *account = [[(AppDelegate *)[UIApplication sharedApplication].delegate storage] account];
 	
-	NSString *url = [[NSString stringWithFormat:@"http://%@.travian.%@/berichte.php?n1=%@&del=1&", account.world, account.server, deleteID] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-	
-	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:url] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
+	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[account urlForArguments:[Account reports], @"?n1=", deleteID, @"&del=1&", nil] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
 	[request setHTTPShouldHandleCookies:YES];
 	
 	deleteConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
@@ -83,7 +79,6 @@
 #pragma mark - NSCoder
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
-	
 	name = [aDecoder decodeObjectForKey:@"name"];
 	when = [aDecoder decodeObjectForKey:@"when"];
 	accessID = [aDecoder decodeObjectForKey:@"accessID"];

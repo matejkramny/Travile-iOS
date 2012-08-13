@@ -15,6 +15,14 @@
 #import "Building.h"
 #import "TravianPages.h"
 #import "HeroQuest.h"
+#import "ODRefreshControl/ODRefreshControl.h"
+
+@interface AppDelegate () {
+	UIImageView *tableCellSelectedBackground;
+	UIImage *detailAccessoryViewImage;
+}
+
+@end
 
 @implementation AppDelegate
 
@@ -27,64 +35,7 @@
 	
 	storage = [[Storage alloc] init];
 	
-	// Auto-build timer
-	//NSTimer *timer __unused = [NSTimer scheduledTimerWithTimeInterval:390 target:self selector:@selector(refresh:) userInfo:nil repeats:YES];
-	
 	return YES;
-}
-
-- (void)customizeAppearance {
-	UIImage *background = [UIImage imageNamed:@"UINavigationBar.png"];
-	UIImage *backgroundLandscape = [UIImage imageNamed:@"UINavigationBarLandscape.png"];
-	
-	[[UINavigationBar appearance] setBackgroundImage:background forBarMetrics:UIBarMetricsDefault];
-	[[UINavigationBar appearance] setBackgroundImage:backgroundLandscape forBarMetrics:UIBarMetricsLandscapePhone];
-	
-	[[UINavigationBar appearance] setTitleTextAttributes:
-	 [NSDictionary dictionaryWithObjectsAndKeys:
-	  [UIColor colorWithRed:60.0/255.0 green:70.0/255.0 blue:81.0/255.0 alpha:1.0],
-	  UITextAttributeTextColor,
-	  [UIColor colorWithRed:126.0/255.0 green:126.0/255.0 blue:126.0/255.0 alpha:0.5],
-	  UITextAttributeTextShadowColor,
-	  [NSValue valueWithUIOffset:UIOffsetMake(0, -1)],
-	  UITextAttributeTextShadowOffset,
-	  [UIFont fontWithName:@"Arial Rounded MT Bold" size:0.0],
-	  UITextAttributeFont,
-	  nil]];
-}
-
-- (void)log:(id)sender {
-	NSLog(@"Building a building..");
-	
-	NSArray *bu = [[[[storage account] villages] objectAtIndex:0] buildings];
-	bool built = false;
-	for (Building *b in bu) {
-		if ([b level] < 1 && ([b page] & TPResources) != 0) {
-			[b buildFromAccount:[storage account]];
-			
-			NSLog(@"Building %@", [b name]);
-			built = true;
-			
-			break;
-		}
-	}
-	
-	if (!built) {
-		NSLog(@"Nothing built");
-	}
-	
-	NSLog(@"Sending hero on adventure");
-	[[[[[storage account] hero] quests] objectAtIndex:0] startQuest:[storage account]];
-	
-}
-
-- (void)refresh:(id)sender {
-	
-	NSLog(@"Refreshing account");
-	[[storage account] refreshAccount];
-	
-	NSTimer *timer __unused = [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(log:) userInfo:nil repeats:NO];
-	
 }
 							
 - (void)applicationWillResignActive:(UIApplication *)application {}
@@ -104,5 +55,90 @@
 - (void)applicationWillEnterForeground:(UIApplication *)application {}
 - (void)applicationDidBecomeActive:(UIApplication *)application {}
 - (void)applicationWillTerminate:(UIApplication *)application {}
+
+@end
+
+@implementation AppDelegate (Appearance)
+
+- (void)customizeAppearance {
+	// Tiled background image
+	UIImage *background = [[UIImage imageNamed:@"UINavigationBar.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(10, 0, 31.5, 0)];
+	// Landscape
+	UIImage *backgroundLandscape = [UIImage imageNamed:@"UINavigationBarLandscape.png"];
+	
+	// Set background
+	[[UINavigationBar appearance] setBackgroundImage:background forBarMetrics:UIBarMetricsDefault];
+	[[UINavigationBar appearance] setBackgroundImage:backgroundLandscape forBarMetrics:UIBarMetricsLandscapePhone];
+	
+	// Set Navigation Bar text
+	[[UINavigationBar appearance] setTitleTextAttributes:@{
+							   UITextAttributeTextColor : [UIColor colorWithRed:60.0/255.0 green:70.0/255.0 blue:81.0/255.0 alpha:1.0],
+						 UITextAttributeTextShadowColor : [UIColor colorWithRed:126.0/255.0 green:126.0/255.0 blue:126.0/255.0 alpha:0.5],
+						UITextAttributeTextShadowOffset : [NSValue valueWithCGSize:CGSizeMake(0, -1)],
+									UITextAttributeFont : [UIFont fontWithName:@"Arial Rounded MT Bold" size:20.0] }];
+	
+	// Back Button
+	UIImage *backButton = [[UIImage imageNamed:@"BackButton.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 13, 0, 8)];
+	// Landscape
+	UIImage *backButtonLandscape = [[UIImage imageNamed:@"BackButtonLandscape.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 12, 0, 8)];
+	
+	// Button (normal state)
+	UIImage *button = [[UIImage imageNamed:@"ButtonStateNormal.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 5, 0, 5)];
+	// Lanscape
+	UIImage *buttonLandscape = [[UIImage imageNamed:@"ButtonStyleNormalLandscape.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 5, 0, 5)];
+	
+	// Set Button
+	[[UIBarButtonItem appearance] setBackgroundImage:button forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+	[[UIBarButtonItem appearance] setBackgroundImage:buttonLandscape forState:UIControlStateNormal barMetrics:UIBarMetricsLandscapePhone];
+	// Set Back Button
+	[[UIBarButtonItem appearance] setBackButtonBackgroundImage:backButton forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+	[[UIBarButtonItem appearance] setBackButtonBackgroundImage:backButtonLandscape forState:UIControlStateNormal barMetrics:UIBarMetricsLandscapePhone];
+	
+	[[UITableView appearance] setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"TMBackground.png"]]];
+}
+
+- (void)setCellAppearance:(UITableViewCell *)cell forIndexPath:(NSIndexPath *)indexPath {
+	UIView *bg = [[UIView alloc] init];
+	
+	if (indexPath.row % 2)
+		[bg setBackgroundColor:[UIColor colorWithWhite:0.98 alpha:0.8]];
+	else
+		[bg setBackgroundColor:[UIColor colorWithWhite:1.0 alpha:0.8]];
+	
+	cell.backgroundView = bg;
+	cell.textLabel.backgroundColor = [UIColor clearColor];
+	cell.detailTextLabel.backgroundColor = [UIColor clearColor];
+	
+	if (!tableCellSelectedBackground)
+		tableCellSelectedBackground = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"SelectedCell.png"] stretchableImageWithLeftCapWidth:0 topCapHeight:0]];
+	
+	cell.selectedBackgroundView = tableCellSelectedBackground;
+	cell.textLabel.highlightedTextColor = [UIColor whiteColor];
+	cell.detailTextLabel.highlightedTextColor = [UIColor whiteColor];
+}
+
+- (UIView *)setDetailAccessoryViewForTarget:(id)target action:(SEL)selector {
+	// Detail view
+	if (!detailAccessoryViewImage)
+		detailAccessoryViewImage = [UIImage imageNamed:@"ArrowIcon.png"];
+	
+	CGRect frame = CGRectMake(0, 0, detailAccessoryViewImage.size.width, detailAccessoryViewImage.size.height);
+	UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+	
+	[button setFrame:frame];
+	[button setBackgroundImage:detailAccessoryViewImage forState:UIControlStateNormal];
+	[button setBackgroundColor:[UIColor clearColor]];
+	[button addTarget:target action:selector forControlEvents:UIControlEventTouchUpInside];
+	
+	return button;
+}
+
++ (ODRefreshControl *)addRefreshControlTo:(UIScrollView *)scrollView target:(id)target action:(SEL)selector {
+	ODRefreshControl *refreshControl = [[ODRefreshControl alloc] initInScrollView:scrollView];
+	[refreshControl setTintColor:[UIColor colorWithRed:81.0/255.0 green:81.0/255.0 blue:81.0/255.0 alpha:0.75]];
+	[refreshControl addTarget:target action:selector forControlEvents:UIControlEventValueChanged];
+	
+	return refreshControl;
+}
 
 @end
