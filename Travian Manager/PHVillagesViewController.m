@@ -15,7 +15,6 @@
 #import "PHVOverviewViewController.h"
 
 @interface PHVillagesViewController () {
-	AppDelegate *appDelegate;
 	Storage *storage;
 	UIView *overlay;
 	ODRefreshControl *refreshControl;
@@ -102,10 +101,8 @@
 {
     [super viewDidLoad];
 	
-	appDelegate = [UIApplication sharedApplication].delegate;
-	storage = [appDelegate storage];
-	refreshControl = [[ODRefreshControl alloc] initInScrollView:self.tableView];
-	[refreshControl addTarget:self action:@selector(didBeginRefreshing:) forControlEvents:UIControlEventValueChanged];
+	storage = [Storage sharedStorage];
+	refreshControl = [AppDelegate addRefreshControlTo:self.tableView target:self action:@selector(didBeginRefreshing:)];
 }
 
 - (void)viewDidUnload
@@ -124,7 +121,7 @@
 	[self.tabBarController.navigationItem setLeftBarButtonItem:nil];
 	[self.tabBarController.navigationItem setLeftBarButtonItems:nil];
 	
-	if (![storage account]) {
+	if (![storage account] || ([storage.account status] & ANotLoggedIn) != 0) {
 		[self.tabBarController setTitle:@"Villages"];
 		
 		[self addOverlay];
@@ -151,7 +148,7 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-	if (![storage account])
+	if (![storage account] || ([storage.account status] & ANotLoggedIn) != 0)
 		[self performSegueWithIdentifier:@"SelectAccount" sender:self];
 	
 	[super viewDidAppear:animated];
@@ -178,6 +175,19 @@
 
 - (void)didBeginRefreshing:(id)sender {
 	// Reload just village list
+	[[storage account] refreshAccountWithMap:ARVillages];
+	[storage.account addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:nil];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+	if ([keyPath isEqualToString:@"status"]) {
+		if (([[change objectForKey:NSKeyValueChangeNewKey] intValue] & ARefreshed) != 0) {
+			// Done refreshing
+			[storage.account removeObserver:self forKeyPath:@"status"];
+			[refreshControl endRefreshing];
+			[self.tableView reloadData];
+		}
+	}
 }
 
 #pragma mark - Table view data source
@@ -201,7 +211,7 @@
 	cell.textLabel.text = [village name];
 	cell.backgroundColor = [UIColor colorWithRed:1.0 green:0 blue:0 alpha:1];
 	
-	[appDelegate setCellAppearance:cell forIndexPath:indexPath];
+	[AppDelegate setCellAppearance:cell forIndexPath:indexPath];
 	
     return cell;
 }

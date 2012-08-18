@@ -15,7 +15,6 @@
 #import "PHOpenMessageViewController.h"
 
 @interface PHMessagesViewController () {
-	AppDelegate *appDelegate;
 	Storage *storage;
 	UIAlertView *deleteAllAlert;
 	MBProgressHUD *HUD;
@@ -71,9 +70,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    appDelegate = [UIApplication sharedApplication].delegate;
-	storage = appDelegate.storage;
+	
+	storage = [Storage sharedStorage];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -141,7 +139,7 @@
 	
     cell.textLabel.text = [m title];
 	
-	[appDelegate setCellAppearance:cell forIndexPath:indexPath];
+	[AppDelegate setCellAppearance:cell forIndexPath:indexPath];
 	
     return cell;
 }

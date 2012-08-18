@@ -40,15 +40,14 @@
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
-	
-	AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-	storage = [appDelegate storage];
+	storage = [Storage sharedStorage];
 	village = [[storage account] village];
 	
 	refreshControl = [AppDelegate addRefreshControlTo:self.tableView target:self action:@selector(didBeginRefreshing:)];
 	
 	[self reloadBadgeCount];
+	
+	[super viewDidLoad];
 }
 
 - (void)viewDidUnload

@@ -49,8 +49,7 @@
 {
     [super viewDidLoad];
 	
-	AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-	account = [[appDelegate storage] account];
+	account = [[Storage sharedStorage] account];
 	
 	refreshControl = [AppDelegate addRefreshControlTo:self.tableView target:self action:@selector(didBeginRefreshing:)];
 }
@@ -115,8 +114,8 @@
 	Resources *r = [v resources];
 	ResourcesProduction *rp = [v resourceProduction];
 	
-	void (^setFormatToResource)(UILabel *, int, int) = ^(UILabel *l, int rv, int rpv) {
-		[l setText:[NSString stringWithFormat:@"%d (%d)", rv, rpv]];
+	void (^setFormatToResource)(UILabel *, float, int) = ^(UILabel *l, float rv, int rpv) {
+		[l setText:[NSString stringWithFormat:@"%.01f (%d)", rv, rpv]];
 	};
 	void (^setSimpleFormatToResource)(UILabel *, int) = ^(UILabel *l, int rv) {
 		[l setText:[NSString stringWithFormat:@"%d", rv]];

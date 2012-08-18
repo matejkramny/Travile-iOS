@@ -7,6 +7,9 @@
 //
 
 #import "PHSettingsViewController.h"
+#import "Storage.h"
+#import "Account.h"
+#import "MBProgressHUD.h"
 
 @interface PHSettingsViewController ()
 
@@ -53,7 +56,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    if (indexPath.section == 0 && indexPath.row == 1) {
+		// Logout
+		[[Storage sharedStorage].account deactivateAccount];
+		[self.tabBarController setSelectedIndex:0];
+	}
 }
 
 @end

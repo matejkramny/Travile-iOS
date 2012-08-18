@@ -80,7 +80,7 @@
 
 - (IBAction)delete:(id)sender {
 	[[self message] delete];
-	Account *a = [[(AppDelegate *)[UIApplication sharedApplication].delegate storage] account];
+	Account *a = [[Storage sharedStorage] account];
 	NSMutableArray *ar = [[a messages] mutableCopy];
 	[ar removeObjectIdenticalTo:message];
 	a.messages = [ar copy];

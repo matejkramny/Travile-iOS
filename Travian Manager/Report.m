@@ -12,7 +12,6 @@
 #import "Village.h"
 #import "Account.h"
 #import "HTMLNode.h"
-#import "AppDelegate.h"
 #import "Storage.h"
 #import "TPIdentifier.h"
 
@@ -58,7 +57,7 @@
 
 - (void)downloadAndParse {
 	
-	Account *account = [[(AppDelegate *)[UIApplication sharedApplication].delegate storage] account];
+	Account *account = [[Storage sharedStorage] account];
 	
 	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[account urlForArguments:[Account reports], @"?id=", [accessID stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], @"&t=", nil] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
 	[request setHTTPShouldHandleCookies:YES];
@@ -68,7 +67,7 @@
 }
 
 - (void)delete {
-	Account *account = [[(AppDelegate *)[UIApplication sharedApplication].delegate storage] account];
+	Account *account = [[Storage sharedStorage] account];
 	
 	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[account urlForArguments:[Account reports], @"?n1=", deleteID, @"&del=1&", nil] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
 	[request setHTTPShouldHandleCookies:YES];

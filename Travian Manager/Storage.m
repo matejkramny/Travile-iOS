@@ -13,6 +13,19 @@
 
 @synthesize accounts, account;
 
+// Singleton
++ (Storage *)sharedStorage {
+	static Storage *sharedStorage;
+	
+	@synchronized(self)
+	{
+		if (!sharedStorage)
+			sharedStorage = [[Storage alloc] init];
+		
+		return sharedStorage;
+	}
+}
+
 - (id)init {
 	self = [super init];
 	

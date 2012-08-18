@@ -12,7 +12,6 @@
 #import "Message.h"
 
 @interface PHNewMessageViewController () {
-	AppDelegate *appDelegate;
 	Storage *storage;
 	UIAlertView *continueWithoutSubject;
 	MBProgressHUD *HUD;
@@ -45,9 +44,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    appDelegate = [UIApplication sharedApplication].delegate;
-	storage = [appDelegate storage];
+	
+	storage = [Storage sharedStorage];
 }
 
 - (void)viewDidUnload
@@ -82,8 +80,6 @@
 		[subject setText:tit];
 		[content setText:[NSString stringWithFormat:@"\n____________\n%@ wrote:\n%@", [replyToMessage sender], [replyToMessage content]]];
 	}
-	
-	//[content addObserver:self forKeyPath:@"text" options:NSKeyValueObservingOptionNew context:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated {

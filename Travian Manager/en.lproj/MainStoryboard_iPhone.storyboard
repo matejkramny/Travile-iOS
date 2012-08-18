@@ -962,7 +962,7 @@
                                     <rect key="frame" x="10" y="1" width="280" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Description" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xje-04-tVM">
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Basic" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xje-04-tVM">
                                             <rect key="frame" x="10" y="0.0" width="260" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
@@ -991,14 +991,14 @@
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="RightDetail" textLabel="L9g-VG-Yh6" detailTextLabel="Mcg-Hc-jT2" style="IBUITableViewCellStyleValue1" id="YD4-QO-If1">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="RightDetail" textLabel="L9g-VG-Yh6" detailTextLabel="Mcg-Hc-jT2" style="IBUITableViewCellStyleValue1" id="YD4-QO-If1">
                                 <rect key="frame" x="0.0" y="135" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="10" y="0.0" width="300" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Level" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="L9g-VG-Yh6">
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Level" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" id="L9g-VG-Yh6">
                                             <rect key="frame" x="10" y="11" width="44" height="21"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
@@ -1049,9 +1049,6 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="yEA-lN-QCW"/>
-                    <connections>
-                        <segue destination="E2d-VV-neT" kind="push" identifier="OpenDescription" id="vax-5s-YXE"/>
-                    </connections>
                 </tableViewController>
             </objects>
             <point key="canvasLocation" x="2579" y="-1313"/>
@@ -1141,33 +1138,6 @@
             </objects>
             <point key="canvasLocation" x="3010" y="-730"/>
         </scene>
-        <!--Building Description View Controller - Description-->
-        <scene sceneID="KmU-a1-GcL">
-            <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="gp1-Ds-eOa" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController id="E2d-VV-neT" customClass="PHVBuildingDescriptionViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="lnh-fJ-SuW">
-                        <rect key="frame" x="0.0" y="64" width="320" height="367"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Description" id="BBZ-UB-J3y">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="367"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="Description" id="hWz-i5-kB8"/>
-                    <connections>
-                        <outlet property="description" destination="BBZ-UB-J3y" id="lXI-wo-rEK"/>
-                    </connections>
-                </viewController>
-            </objects>
-            <point key="canvasLocation" x="3010" y="-1313"/>
-        </scene>
         <!--Settings View Controller - Settings-->
         <scene sceneID="KSd-gl-cUs">
             <objects>
@@ -1250,7 +1220,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Push notifications" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="hve-ok-QHZ">
-                                                    <rect key="frame" x="11" y="11" width="148" height="21"/>
+                                                    <rect key="frame" x="10" y="11" width="148" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -1265,8 +1235,31 @@
                                         </view>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="rlI-dg-xq6">
+                                        <rect key="frame" x="0.0" y="271" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="10" y="0.0" width="300" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Decimal resources" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="5Si-gh-EQ9">
+                                                    <rect key="frame" x="10" y="11" width="198" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                                <switch opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="at5-yr-dNJ">
+                                                    <rect key="frame" x="216" y="8" width="79" height="27"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </switch>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="oqK-Rj-4TF" style="IBUITableViewCellStyleDefault" id="RKZ-TJ-NMe">
-                                        <rect key="frame" x="0.0" y="271" width="320" height="45"/>
+                                        <rect key="frame" x="0.0" y="315" width="320" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="10" y="0.0" width="280" height="43"/>
@@ -1776,125 +1769,6 @@ matejkramny@gmail.com</string>
         <image name="53-house.png" width="22" height="22"/>
         <image name="60-signpost.png" width="22" height="28"/>
     </resources>
-    <classes>
-        <class className="PHAccountDetailsViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PHAccountDetailsViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="cancel:"/>
-                <relationship kind="action" name="done:"/>
-                <relationship kind="action" name="hideKeyboard:"/>
-                <relationship kind="outlet" name="accountNameTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="domainTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="passwordTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="usernameTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="worldTextField" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-        <class className="PHAccountsViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PHAccountsViewController.h"/>
-        </class>
-        <class className="PHHeroViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PHHeroViewController.h"/>
-        </class>
-        <class className="PHMessagesViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PHMessagesViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="deleteAll:"/>
-                <relationship kind="action" name="deleteAll:userDidConfirm:"/>
-                <relationship kind="action" name="deleteTask:"/>
-                <relationship kind="action" name="editButtonClicked:"/>
-                <relationship kind="action" name="newMessage:"/>
-                <relationship kind="action" name="segmentedControlValueChanged:"/>
-                <relationship kind="outlet" name="segmentedControl" candidateClass="UISegmentedControl"/>
-            </relationships>
-        </class>
-        <class className="PHNewMessageViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PHNewMessageViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="closeView:"/>
-                <relationship kind="action" name="sendButtonPressed:"/>
-                <relationship kind="outlet" name="content" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="contentCell" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="recipient" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="sendButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="subject" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-        <class className="PHOpenMessageViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PHOpenMessageViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="delete:"/>
-                <relationship kind="action" name="reply:"/>
-                <relationship kind="action" name="return:"/>
-                <relationship kind="outlet" name="content" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="sentBy" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="subject" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="time" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="PHReportsViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PHReportsViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="deleteAll:"/>
-                <relationship kind="action" name="deleteAll:userDidConfirm:"/>
-                <relationship kind="action" name="deleteTask:"/>
-                <relationship kind="action" name="editButtonClicked:"/>
-            </relationships>
-        </class>
-        <class className="PHSettingsViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PHSettingsViewController.h"/>
-        </class>
-        <class className="PHVBuildingDescriptionViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PHVBuildingDescriptionViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="description" candidateClass="UITextView"/>
-            </relationships>
-        </class>
-        <class className="PHVBuildingListViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PHVBuildingListViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="cancel:"/>
-            </relationships>
-        </class>
-        <class className="PHVBuildingsViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PHVBuildingsViewController.h"/>
-        </class>
-        <class className="PHVOpenBuildingViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PHVOpenBuildingViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="clay" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="iron" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="level" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="wheat" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="wood" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="PHVOverviewViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PHVOverviewViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="secondTimerFired:"/>
-            </relationships>
-        </class>
-        <class className="PHVResourcesViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PHVResourcesViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="clay" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="consuming" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="granary" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="iron" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="producing" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="warehouse" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="wheat" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="wood" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="PHVTroopsViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PHVTroopsViewController.h"/>
-        </class>
-        <class className="PHVillagesViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PHVillagesViewController.h"/>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

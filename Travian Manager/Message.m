@@ -7,7 +7,6 @@
 //
 
 #import "Message.h"
-#import "AppDelegate.h"
 #import "Storage.h"
 #import "Account.h"
 #import "HTMLParser.h"
@@ -48,7 +47,7 @@
 }
 
 - (void)downloadAndParse {
-	Account *account = [[(AppDelegate *)[UIApplication sharedApplication].delegate storage] account];
+	Account *account = [[Storage sharedStorage] account];
 	
 	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[account urlForString:href] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
 	[request setHTTPShouldHandleCookies:YES];
@@ -57,7 +56,7 @@
 }
 
 - (void)delete {
-	Account *account = [[(AppDelegate *)[UIApplication sharedApplication].delegate storage] account];
+	Account *account = [[Storage sharedStorage] account];
 	
 	NSString *data = [NSString stringWithFormat:@"delmsg=Delete&s=0&n1=%@", accessID];
 	
@@ -79,7 +78,7 @@
 }
 
 - (void)send:(NSString *)recipient {
-	Account *account = [[(AppDelegate *)[UIApplication sharedApplication].delegate storage] account];
+	Account *account = [[Storage sharedStorage] account];
 	[self setSent:NO];
 	
 	if (!sendParameter) {

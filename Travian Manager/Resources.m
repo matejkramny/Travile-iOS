@@ -79,4 +79,13 @@
 	}
 }
 
+- (bool)hasMoreResourcesThanResource:(Resources *)res {
+	bool m = false;
+	
+	if (wood > res.wood && clay > res.clay && iron > res.iron && wheat > res.wheat)
+		m = true;
+	
+	return m;
+}
+
 @end

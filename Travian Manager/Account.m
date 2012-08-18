@@ -186,15 +186,14 @@ static NSString *village = @"dorf2.php";
 }
 
 - (void)deactivateAccount {
-	
+	// A logout effectively..
 	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[self urlForString:@"logout.php"] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
 	
 	[request setHTTPShouldHandleCookies:YES];
 	
 	[self setStatus:ANotLoggedIn];
 	
-	NSURLConnection *conn __unused = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES]; 
-	
+	NSURLConnection *conn __unused = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
 }
 
 #pragma mark - TravianPageParsingProtocol
@@ -289,10 +288,10 @@ static NSString *village = @"dorf2.php";
 		return [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
 	};
 	
-	if (connection == loginConnection || (connection == reloadConnection && (reloadMap & ARAccount) != 0))
+	if (connection == loginConnection || (connection == reloadConnection && ((reloadMap & ARAccount) != 0 || (reloadMap & ARVillages) != 0)))
 	{
 		NSError *error;
-		HTMLParser *parser = [[HTMLParser alloc] initWithData:loginData error:&error];
+		HTMLParser *parser = [[HTMLParser alloc] initWithData:connection == loginConnection ? loginData : reloadData error:&error];
 		
 		if (error) {
 			NSLog(@"Error parsing html! %@\n\n%@", [error localizedDescription], [error localizedRecoverySuggestion]);

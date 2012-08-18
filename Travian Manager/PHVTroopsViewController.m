@@ -15,7 +15,6 @@
 
 @interface PHVTroopsViewController () {
 	Account *account;
-	AppDelegate *appDelegate;
 }
 
 @end
@@ -37,8 +36,7 @@
 {
     [super viewDidLoad];
 	
-	appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-	account = [[appDelegate storage] account];
+	account = [[Storage sharedStorage] account];
 	
 	refreshControl = [AppDelegate addRefreshControlTo:self.tableView target:self action:@selector(didBeginRefreshing:)];
 }
@@ -87,7 +85,7 @@ static NSString *NoTroopsCellID = @"NoTroops";
 		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NoTroopsCellID];
 		cell.textLabel.text = NSLocalizedString(@"NoTroops", @"Village contains no troops - shown inside table as a cell");
 		
-		[appDelegate setCellAppearance:cell forIndexPath:indexPath];
+		[AppDelegate setCellAppearance:cell forIndexPath:indexPath];
 		
 		return cell;
 	}
@@ -98,7 +96,7 @@ static NSString *NoTroopsCellID = @"NoTroops";
 	cell.textLabel.text = [troop name];
 	cell.detailTextLabel.text = [NSString stringWithFormat:@"%d", troop.count];
 	
-	[appDelegate setCellAppearance:cell forIndexPath:indexPath];
+	[AppDelegate setCellAppearance:cell forIndexPath:indexPath];
 	
     return cell;
 }

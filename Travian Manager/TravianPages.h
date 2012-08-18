@@ -82,7 +82,8 @@ typedef enum {
 	TBGreatWarehouse = 38, // Great Warehouse
 	TBGreatGranary = 39, // Great Granary
 	
-	TBNotFound = -1 /// Building not found 
+	TBNotFound = -1, /// Building not found
+	TBNotKnown = -2, /// Uknown
 } TravianBuildings;
 
 #endif

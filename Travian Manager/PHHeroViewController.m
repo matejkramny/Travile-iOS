@@ -36,8 +36,7 @@
 {
     [super viewDidLoad];
 	
-	AppDelegate *ad = [UIApplication sharedApplication].delegate;
-	Account *a = [[ad storage] account];
+	Account *a = [[Storage sharedStorage] account];
 	hero = [a hero];
 	viewingMoreQuests = false;
 }
@@ -57,6 +56,8 @@
 	[self.tabBarController.navigationItem setLeftBarButtonItem:nil];
 	
 	[self.tabBarController setTitle:[NSString stringWithFormat:@"Hero"]];
+	
+	[self.tableView reloadData];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -191,19 +192,19 @@
 			switch (indexPath.row) {
 				case 0:
 					tL = @"Wood";
-					dL = [NSString stringWithFormat:@"%d", r.wood];
+					dL = [NSString stringWithFormat:@"%f", r.wood];
 					break;
 				case 1:
 					tL = @"Clay";
-					dL = [NSString stringWithFormat:@"%d", r.clay];
+					dL = [NSString stringWithFormat:@"%f", r.clay];
 					break;
 				case 2:
 					tL = @"Iron";
-					dL = [NSString stringWithFormat:@"%d", r.iron];
+					dL = [NSString stringWithFormat:@"%f", r.iron];
 					break;
 				case 3:
 					tL = @"Wheat";
-					dL = [NSString stringWithFormat:@"%d", r.wheat];
+					dL = [NSString stringWithFormat:@"%f", r.wheat];
 					break;
 			}
 			
@@ -251,7 +252,7 @@
 			}
 		} else {
 			// Start an adventure
-			Account *a = [(AppDelegate *)[UIApplication sharedApplication].delegate storage].account;
+			Account *a = [Storage sharedStorage].account;
 			[[[hero quests] objectAtIndex:indexPath.row] startQuest:a];
 			
 			NSMutableArray *ar = [[hero quests] mutableCopy];

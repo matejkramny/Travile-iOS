@@ -7,33 +7,18 @@
 //
 
 #import "AppDelegate.h"
-#import "Account.h"
 #import "Storage.h"
-#import "Village.h"
-#import "Hero.h"
-#import "Resources.h"
-#import "Building.h"
-#import "TravianPages.h"
-#import "HeroQuest.h"
 #import "ODRefreshControl/ODRefreshControl.h"
-
-@interface AppDelegate () {
-	UIImageView *tableCellSelectedBackground;
-	UIImage *detailAccessoryViewImage;
-}
-
-@end
 
 @implementation AppDelegate
 
 @synthesize window = _window;
-@synthesize storage;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 	[self customizeAppearance];
 	
-	storage = [[Storage alloc] init];
+	[Storage sharedStorage].delegate = self;
 	
 	return YES;
 }
@@ -41,16 +26,16 @@
 - (void)applicationWillResignActive:(UIApplication *)application {}
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-	[storage saveData];
+	[[Storage sharedStorage] saveData];
 	
-	//As we are going into the background, I want to start a background task to clean up the disk caches
+	/*//As we are going into the background, I want to start a background task to clean up the disk caches
 	if ([[UIDevice currentDevice] respondsToSelector:@selector(isMultitaskingSupported)]) { //Check if our iOS version supports multitasking I.E iOS 4
 		if ([[UIDevice currentDevice] isMultitaskingSupported]) { //Check if device supports mulitasking
 			[application beginBackgroundTaskWithExpirationHandler:^ {
 				NSLog(@"Went to background");
 			}];
 		}
-	}
+	}*/
 }
 - (void)applicationWillEnterForeground:(UIApplication *)application {}
 - (void)applicationDidBecomeActive:(UIApplication *)application {}
@@ -97,7 +82,10 @@
 	[[UITableView appearance] setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"TMBackground.png"]]];
 }
 
-- (void)setCellAppearance:(UITableViewCell *)cell forIndexPath:(NSIndexPath *)indexPath {
+static UIImageView *tableCellSelectedBackground;
+static UIImage *detailAccessoryViewImage;
+
++ (void)setCellAppearance:(UITableViewCell *)cell forIndexPath:(NSIndexPath *)indexPath {
 	UIView *bg = [[UIView alloc] init];
 	
 	if (indexPath.row % 2)
@@ -117,7 +105,7 @@
 	cell.detailTextLabel.highlightedTextColor = [UIColor whiteColor];
 }
 
-- (UIView *)setDetailAccessoryViewForTarget:(id)target action:(SEL)selector {
++ (UIView *)setDetailAccessoryViewForTarget:(id)target action:(SEL)selector {
 	// Detail view
 	if (!detailAccessoryViewImage)
 		detailAccessoryViewImage = [UIImage imageNamed:@"ArrowIcon.png"];

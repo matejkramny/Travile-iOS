@@ -22,6 +22,7 @@
 	NSMutableData *cat3Data;
 	NSMutableData *buildData;
 	NSMutableData *descriptionData;
+	bool wantsToBuild;
 }
 
 - (void)buildBuildingsListFromBuildIDNode:(HTMLNode *)node;
@@ -30,10 +31,11 @@
 
 @implementation Building
 
-@synthesize bid, name, page, resources, level, parent, availableBuildings, description, finishedLoading, cannotBuildReason;
+@synthesize bid, name, page, resources, level, parent, availableBuildings, description, finishedLoading, cannotBuildReason, coordinates;
 
 - (void)buildFromAccount:(Account *)account {
 	NSLog(@"Starting build connection");
+	wantsToBuild = true;
 	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[account urlForArguments:@"build.php?id=", bid, nil] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
 	
 	// Preserve any cookies received
@@ -43,8 +45,7 @@
 }
 
 - (void)fetchDescription {
-	if (description != nil)
-		return;
+	wantsToBuild = false;
 	
 	Account *a = [parent getParent];
 	
@@ -65,7 +66,30 @@
 	NSString *aTagRaw = [[build_desc findChildTag:@"a"] rawContents];
 	NSString *desc = [[[[[[build_desc rawContents] stringByReplacingOccurrencesOfString:aTagRaw withString:@""] stringByReplacingOccurrencesOfString:@"<div class=\"build_desc\">" withString:@""] stringByReplacingOccurrencesOfString:@"</div>" withString:@""] stringByReplacingOccurrencesOfString:@"\n" withString:@""] stringByReplacingOccurrencesOfString:@"\t" withString:@""];
 	
+	// Properties
+	NSMutableDictionary *props = [[NSMutableDictionary alloc] initWithCapacity:3];
+	HTMLNode *build_value = [buildID findChildWithAttribute:@"id" matchingName:@"build_value" allowPartial:NO];
+	NSArray *trs = [build_value findChildTags:@"tr"];
+	for (HTMLNode *tr in trs) {
+		NSString *th = [[tr findChildTag:@"th"] contents];
+		NSString *span = [[[tr findChildTag:@"td"] findChildTag:@"span"] contents];
+		
+		if ([th length] && [span length]) { // Checks if prop not empty
+			if ([th hasSuffix:@":"])
+				th = [th substringToIndex:[th length]-1];
+			
+			if (self.gid == TBCranny && [[tr getAttributeNamed:@"class"] isEqualToString:@"overall"]) {
+				th = NSLocalizedString(@"Cranny Overall", @"Overall string is too long in cranny building. This is a short-text like 'All Resoruces Hidden'");
+			}
+			
+			[props setObject:span forKey:th];
+		}
+	}
+	
+	[self setProperties:[props copy]];
 	[self setDescription:desc];
+	
+	[self parsePage:page fromHTMLNode:node];
 }
 
 - (void)parsePage:(TravianPages)page fromHTMLNode:(HTMLNode *)node {
@@ -86,8 +110,11 @@
 		}
 		[self buildBuildingsListFromBuildIDNode:build];
 		
-		NSLog(@"Nothing built on this location.");
-		
+		return;
+	}
+	
+	if (!wantsToBuild) {
+		[self setFinishedLoading:YES];
 		return;
 	}
 	
@@ -97,7 +124,7 @@
 		return;
 	}
 	
-	HTMLNode *button = [idContract findChildTag:@"button"];
+	HTMLNode *button = [idContract findChildWithAttribute:@"class" matchingName:@"build" allowPartial:NO];
 	if (!button) {
 		NSLog(@"Cannot build/upgrade");
 		
@@ -122,6 +149,8 @@
 }
 
 - (void)buildFromURL:(NSURL *)url {
+	wantsToBuild = true;
+	
 	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60.0];
 	
 	[request setHTTPShouldHandleCookies:YES];
@@ -162,7 +191,7 @@
 		NSString *aTagRaw = [[desc findChildTag:@"a"] rawContents];
 		b.description = [[[[[[desc rawContents] stringByReplacingOccurrencesOfString:aTagRaw withString:@""] stringByReplacingOccurrencesOfString:@"<div class=\"build_desc\">" withString:@""] stringByReplacingOccurrencesOfString:@"</div>" withString:@""] stringByReplacingOccurrencesOfString:@"\n" withString:@""] stringByReplacingOccurrencesOfString:@"\t" withString:@""];
 		// Contract
-		HTMLNode *button = [contract findChildTag:@"button"];
+		HTMLNode *button = [contract findChildWithAttribute:@"class" matchingName:@"new" allowPartial:NO];
 		if (!button) {
 			// Cannot build this
 			
@@ -316,8 +345,6 @@
 			[self setFinishedLoading:YES];
 		}
 	}
-	
 }
-
 
 @end

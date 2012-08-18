@@ -14,7 +14,6 @@
 #import "MBProgressHUD.h"
 
 @interface PHReportsViewController () {
-	AppDelegate *appDelegate;
 	Storage *storage;
 	MBProgressHUD *HUD;
 	UIAlertView *deleteAllAlert;
@@ -42,8 +41,7 @@
 {
     [super viewDidLoad];
 	
-	appDelegate = [UIApplication sharedApplication].delegate;
-	storage = [appDelegate storage];
+	storage = [Storage sharedStorage];
 }
 
 - (void)viewDidUnload
@@ -59,6 +57,8 @@
 	[self.tabBarController.navigationItem setRightBarButtonItem:nil];
 	[self.tabBarController.navigationItem setLeftBarButtonItems:nil];
 	[self.tabBarController.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editButtonClicked:)] animated:NO];
+	
+	[self.tableView reloadData];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -91,7 +91,7 @@
     cell.textLabel.text = [r name];
 	cell.detailTextLabel.text = @"";
     
-	[appDelegate setCellAppearance:cell forIndexPath:indexPath];
+	[AppDelegate setCellAppearance:cell forIndexPath:indexPath];
 	
     return cell;
 }

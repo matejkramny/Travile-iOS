@@ -8,13 +8,12 @@
 
 #import "PHAccountsViewController.h"
 #import "Storage.h"
-#import "AppDelegate.h"
 #import "Account.h"
 #import "PHAccountDetailsViewController.h"
 #import "MBProgressHUD.h"
+#import "AppDelegate.h"
 
 @interface PHAccountsViewController () {
-	AppDelegate *delegate;
 	Storage *storage;
 	Account *selectedAccount;
 	UIAlertView *passwordPromptView;
@@ -78,10 +77,9 @@
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
+	storage = [Storage sharedStorage];
 	
-	delegate = [UIApplication sharedApplication].delegate;
-	storage = [delegate storage];
+    [super viewDidLoad];
 }
 
 - (void)viewDidUnload
@@ -129,7 +127,7 @@
 	[cell setOpaque:YES];
 	[cell setAlpha:1];
 	
-	[delegate setCellAppearance:cell forIndexPath:indexPath];
+	[AppDelegate setCellAppearance:cell forIndexPath:indexPath];
 	
     return cell;
 }

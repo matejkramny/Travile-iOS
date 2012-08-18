@@ -9,11 +9,13 @@
 #import <Foundation/Foundation.h>
 
 @class Account;
+@class AppDelegate;
 
 @interface Storage : NSObject {
 	NSString *savePath;
 }
 
+@property (nonatomic, weak) AppDelegate *delegate;
 @property (nonatomic, strong) NSArray *accounts; // List of accounts
 @property (nonatomic, weak) Account *account; // Active account
 // game settings?
@@ -24,5 +26,7 @@
 - (void)setActiveAccount:(Account *)a;
 - (void)setActiveAccount:(Account *)a withPassword:(NSString *)password;
 - (void)deactivateActiveAccount;
+
++ (Storage *)sharedStorage;
 
 @end

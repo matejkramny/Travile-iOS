@@ -39,9 +39,7 @@
 		4F28C74115BB358500C976E3 /* PHAccountDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F28C74015BB358500C976E3 /* PHAccountDetailsViewController.m */; };
 		4F2D975A15D68925007E589D /* SelectedCell.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F2D975815D68925007E589D /* SelectedCell.png */; };
 		4F2D975B15D68925007E589D /* SelectedCell@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F2D975915D68925007E589D /* SelectedCell@2x.png */; };
-		4F4A52B515C96B0E005F3708 /* PHVBuildingListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4A52B415C96B0E005F3708 /* PHVBuildingListViewController.m */; };
 		4F4A52B915C96B20005F3708 /* PHVOpenBuildingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4A52B815C96B20005F3708 /* PHVOpenBuildingViewController.m */; };
-		4F4A52C615CC76FA005F3708 /* PHVBuildingDescriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4A52C515CC76FA005F3708 /* PHVBuildingDescriptionViewController.m */; };
 		4F509F5A15C5A64C00A15924 /* PHVResourcesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F509F5915C5A64C00A15924 /* PHVResourcesViewController.m */; };
 		4F509F5E15C5BC9300A15924 /* PHVTroopsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F509F5D15C5BC9300A15924 /* PHVTroopsViewController.m */; };
 		4F509F6115C5C08600A15924 /* PHVBuildingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F509F6015C5C08600A15924 /* PHVBuildingsViewController.m */; };
@@ -129,6 +127,8 @@
 		4FCA3750156B96DF0071BAD5 /* Building.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FCA374F156B96DF0071BAD5 /* Building.m */; };
 		4FD480FD15724B5C00BECE24 /* Report.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD480FC15724B5C00BECE24 /* Report.m */; };
 		4FD4810115724B6500BECE24 /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD4810015724B6500BECE24 /* Message.m */; };
+		4FD64FCB15DAAD57002FAFFC /* BuildingMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD64FCA15DAAD57002FAFFC /* BuildingMap.m */; };
+		4FD64FD015DAE795002FAFFC /* Coordinate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD64FCF15DAE795002FAFFC /* Coordinate.m */; };
 		4FDA07851563189200E9C6C2 /* ResourcesProduction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FDA07841563189100E9C6C2 /* ResourcesProduction.m */; };
 		4FE58E9315C43C12004825EF /* PHSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE58E9215C43C12004825EF /* PHSettingsViewController.m */; };
 		4FE58E9B15C59B55004825EF /* PHVOverviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE58E9A15C59B55004825EF /* PHVOverviewViewController.m */; };
@@ -188,12 +188,8 @@
 		4F2D975915D68925007E589D /* SelectedCell@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SelectedCell@2x.png"; sourceTree = "<group>"; };
 		4F38F938156008FE00AF2E82 /* TravianPages.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TravianPages.h; sourceTree = "<group>"; };
 		4F38F93A15600B6700AF2E82 /* TravianPageParsingProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TravianPageParsingProtocol.h; sourceTree = "<group>"; };
-		4F4A52B315C96B0E005F3708 /* PHVBuildingListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHVBuildingListViewController.h; sourceTree = "<group>"; };
-		4F4A52B415C96B0E005F3708 /* PHVBuildingListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHVBuildingListViewController.m; sourceTree = "<group>"; };
 		4F4A52B715C96B1F005F3708 /* PHVOpenBuildingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHVOpenBuildingViewController.h; sourceTree = "<group>"; };
 		4F4A52B815C96B20005F3708 /* PHVOpenBuildingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHVOpenBuildingViewController.m; sourceTree = "<group>"; };
-		4F4A52C415CC76FA005F3708 /* PHVBuildingDescriptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHVBuildingDescriptionViewController.h; sourceTree = "<group>"; };
-		4F4A52C515CC76FA005F3708 /* PHVBuildingDescriptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHVBuildingDescriptionViewController.m; sourceTree = "<group>"; };
 		4F509F5815C5A64C00A15924 /* PHVResourcesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHVResourcesViewController.h; sourceTree = "<group>"; };
 		4F509F5915C5A64C00A15924 /* PHVResourcesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHVResourcesViewController.m; sourceTree = "<group>"; };
 		4F509F5C15C5BC9300A15924 /* PHVTroopsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHVTroopsViewController.h; sourceTree = "<group>"; };
@@ -300,6 +296,10 @@
 		4FD480FC15724B5C00BECE24 /* Report.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Report.m; sourceTree = "<group>"; };
 		4FD480FF15724B6500BECE24 /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Message.h; sourceTree = "<group>"; };
 		4FD4810015724B6500BECE24 /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Message.m; sourceTree = "<group>"; };
+		4FD64FC915DAAD57002FAFFC /* BuildingMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuildingMap.h; sourceTree = "<group>"; };
+		4FD64FCA15DAAD57002FAFFC /* BuildingMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuildingMap.m; sourceTree = "<group>"; };
+		4FD64FCE15DAE795002FAFFC /* Coordinate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Coordinate.h; sourceTree = "<group>"; };
+		4FD64FCF15DAE795002FAFFC /* Coordinate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Coordinate.m; sourceTree = "<group>"; };
 		4FDA07831563189100E9C6C2 /* ResourcesProduction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResourcesProduction.h; sourceTree = "<group>"; };
 		4FDA07841563189100E9C6C2 /* ResourcesProduction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResourcesProduction.m; sourceTree = "<group>"; };
 		4FE58E9115C43C12004825EF /* PHSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHSettingsViewController.h; sourceTree = "<group>"; };
@@ -375,6 +375,9 @@
 				4F8A48A615C1FEDF00EC1564 /* NSString+HTML.m */,
 				4F8A48A815C1FFB000EC1564 /* GTMNSString+HTML.h */,
 				4F8A48A915C1FFB000EC1564 /* GTMNSString+HTML.m */,
+				4FD64FCE15DAE795002FAFFC /* Coordinate.h */,
+				4FD64FCF15DAE795002FAFFC /* Coordinate.m */,
+				4FD64FCD15DAAF24002FAFFC /* BuildingMap */,
 				4FBACE5215D71E2E0092A8F3 /* ODRefreshControl */,
 				4FC6F11915BC39B6006F583D /* HUD */,
 				4F095239155C7C6300C15D6E /* HTMLParser */,
@@ -422,12 +425,8 @@
 				4F509F5D15C5BC9300A15924 /* PHVTroopsViewController.m */,
 				4F509F5F15C5C08600A15924 /* PHVBuildingsViewController.h */,
 				4F509F6015C5C08600A15924 /* PHVBuildingsViewController.m */,
-				4F4A52B315C96B0E005F3708 /* PHVBuildingListViewController.h */,
-				4F4A52B415C96B0E005F3708 /* PHVBuildingListViewController.m */,
 				4F4A52B715C96B1F005F3708 /* PHVOpenBuildingViewController.h */,
 				4F4A52B815C96B20005F3708 /* PHVOpenBuildingViewController.m */,
-				4F4A52C415CC76FA005F3708 /* PHVBuildingDescriptionViewController.h */,
-				4F4A52C515CC76FA005F3708 /* PHVBuildingDescriptionViewController.m */,
 				4FC6F11D15BC4AC0006F583D /* PHReportsViewController.h */,
 				4FC6F11E15BC4AC0006F583D /* PHReportsViewController.m */,
 				4FC6F12015BCA0FD006F583D /* PHMessagesViewController.h */,
@@ -597,6 +596,15 @@
 				4FC6F11715BC3989006F583D /* MBProgressHUD.m */,
 			);
 			name = HUD;
+			sourceTree = "<group>";
+		};
+		4FD64FCD15DAAF24002FAFFC /* BuildingMap */ = {
+			isa = PBXGroup;
+			children = (
+				4FD64FC915DAAD57002FAFFC /* BuildingMap.h */,
+				4FD64FCA15DAAD57002FAFFC /* BuildingMap.m */,
+			);
+			name = BuildingMap;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -796,10 +804,10 @@
 				4F509F5A15C5A64C00A15924 /* PHVResourcesViewController.m in Sources */,
 				4F509F5E15C5BC9300A15924 /* PHVTroopsViewController.m in Sources */,
 				4F509F6115C5C08600A15924 /* PHVBuildingsViewController.m in Sources */,
-				4F4A52B515C96B0E005F3708 /* PHVBuildingListViewController.m in Sources */,
 				4F4A52B915C96B20005F3708 /* PHVOpenBuildingViewController.m in Sources */,
-				4F4A52C615CC76FA005F3708 /* PHVBuildingDescriptionViewController.m in Sources */,
 				4FBACE5515D71E2E0092A8F3 /* ODRefreshControl.m in Sources */,
+				4FD64FCB15DAAD57002FAFFC /* BuildingMap.m in Sources */,
+				4FD64FD015DAE795002FAFFC /* Coordinate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,27 +7,24 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BuildingMap.h"
+#import "ODRefreshControl/ODRefreshControl.h"
 
 @class PHVOpenBuildingViewController;
 @class Building;
 
-@protocol PHVOpenBuildingDelegate <NSObject, UITableViewDataSource>
+@protocol PHVOpenBuildingDelegate <NSObject>
 
 - (void)phvOpenBuildingViewController:(PHVOpenBuildingViewController *)controller didCloseBuilding:(Building *)building;
 - (void)phvOpenBuildingViewController:(PHVOpenBuildingViewController *)controller didBuildBuilding:(Building *)building;
 
 @end
 
-@interface PHVOpenBuildingViewController : UITableViewController
-
+@interface PHVOpenBuildingViewController : UITableViewController <BuildingMapProtocol, UITableViewDataSource>
 
 @property (nonatomic, weak) id<PHVOpenBuildingDelegate> delegate;
 @property (nonatomic, weak) Building *building;
-
-@property (weak, nonatomic) IBOutlet UILabel *level;
-@property (weak, nonatomic) IBOutlet UILabel *wood;
-@property (weak, nonatomic) IBOutlet UILabel *clay;
-@property (weak, nonatomic) IBOutlet UILabel *iron;
-@property (weak, nonatomic) IBOutlet UILabel *wheat;
+@property (nonatomic, strong) NSArray *buildings;
+@property (nonatomic, weak) NSArray *otherBuildings;
 
 @end

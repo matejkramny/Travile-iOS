@@ -13,14 +13,16 @@
 #import "Village.h"
 #import "Building.h"
 #import "MBProgressHUD.h"
+#import "Coordinate.h"
 
 @interface PHVBuildingsViewController () {
-	AppDelegate *appDelegate;
 	Account *account;
-	Building *selectedBuilding;
+	NSArray *selectedBuildings;
+	NSArray *otherBuildings;
 	MBProgressHUD *HUD;
 	NSArray *sections;
 	UIActionSheet *buildConfirm;
+	bool openBuilding;
 }
 
 - (void)loadBuildingsToSections;
@@ -46,8 +48,7 @@
 {
     [super viewDidLoad];
 	
-	appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-	account = [[appDelegate storage] account];
+	account = [[Storage sharedStorage] account];
 	
 	[self loadBuildingsToSections];
 	
@@ -69,6 +70,7 @@
 	
 	[self.tabBarController setTitle:[NSString stringWithFormat:@"Buildings"]];
 	
+	[self loadBuildingsToSections];
 	[self.tableView reloadData];
 }
 
@@ -79,41 +81,76 @@
 
 - (void)loadBuildingsToSections {
 	NSArray *buildings = [[account village] buildings];
-	NSMutableArray *sec1 = [[NSMutableArray alloc] init];
-	NSMutableArray *sec2 = [[NSMutableArray alloc] init];
+	NSMutableDictionary *sec1 = [[NSMutableDictionary alloc] init];
+	NSMutableDictionary *sec2 = [[NSMutableDictionary alloc] init];
 	NSMutableArray *sec3 = [[NSMutableArray alloc] init]; // secX = sectionX
 	
 	for (int i = 0; i < [buildings count]; i++) {
 		Building *b = [buildings objectAtIndex:i];
 		
-		NSMutableArray *sec __weak; // temporary secX holder
-		
 		if (([b page] & TPResources) != 0) {
 			// Add to section 1
-			sec = sec1;
+			if ([sec1 objectForKey:b.name])
+				[[sec1 objectForKey:b.name] addObject:b];
+			else
+				[sec1 setObject:[[NSMutableArray alloc] initWithObjects:b, nil] forKey:b.name];
+			
+			continue;
 		} else {
 			// Add to section 2 or 3
-			sec = sec2;
 			if ([b level] == 0) {
 				// Add to section 3
-				sec = sec3;
+				[sec3 addObject:b];
+				continue;
 			}
+			
+			if ([sec2 objectForKey:b.name])
+				[[sec2 objectForKey:b.name] addObject:b];
+			else
+				[sec2 setObject:[[NSMutableArray alloc] initWithObjects:b, nil] forKey:b.name];
+		}
+	}
+	
+	NSMutableArray *(^convertDictionaryToArray)(NSDictionary *) = ^(NSDictionary *dict) {
+		NSMutableArray *ar = [[NSMutableArray alloc] init];
+		for (NSString *key in dict) {
+			NSMutableArray *ma = [dict objectForKey:key];
+			
+			if ([ma count] > 1) {
+				// Leave the array
+				[ar addObject:ma];
+			} else
+				[ar addObject:[ma objectAtIndex:0]];
 		}
 		
-		[sec addObject:b];
-	}
+		return ar;
+	};
+	
+	NSMutableArray *sec1s = convertDictionaryToArray(sec1);
+	NSMutableArray *sec2s = convertDictionaryToArray(sec2);
 	
 	// Sort the buildings by name
 	NSComparisonResult (^compareBuildings)(id a, id b) = ^NSComparisonResult(id a, id b) {
-		NSString *first = [(Building *)a name];
-		NSString *second = [(Building *)b name];
+		NSString *first;
+		NSString *second;
+		
+		if ([a isKindOfClass:[NSArray class]])
+			first = [(Building *)[(NSArray *)a objectAtIndex:0] name];
+		else
+			first = [(Building *)a name];
+		
+		if ([b isKindOfClass:[NSArray class]])
+			second = [(Building *)[(NSArray *)b objectAtIndex:0] name];
+		else
+			second = [(Building *)b name];
+		
 		return [first compare:second];
 	};
 	
-	sec1 = [[sec1 sortedArrayUsingComparator:compareBuildings] mutableCopy];
-	sec2 = [[sec2 sortedArrayUsingComparator:compareBuildings] mutableCopy];
+	sec1s = [[sec1s sortedArrayUsingComparator:compareBuildings] mutableCopy];
+	sec2s = [[sec2s sortedArrayUsingComparator:compareBuildings] mutableCopy];
 	
-	sections = @[ sec1, sec2, sec3 ];
+	sections = @[ sec1s, sec2s, [[NSMutableArray alloc] initWithObjects:sec3, nil] ];
 }
 
 - (Building *)getBuildingUsingIndexPath:(NSIndexPath *)indexPath {
@@ -124,6 +161,10 @@
 	[account addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:NULL];
 	
 	[account refreshAccountWithMap:ARVillage];
+}
+
+- (void)accessoryButtonTapped:(UIControl *)button withEvent:(UIEvent *)event {
+	NSLog(@"Accessory button tapped?");
 }
 
 #pragma mark - Table view data source
@@ -140,35 +181,24 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	Building *b = [self getBuildingUsingIndexPath:indexPath];
-	
-	static NSString *RightDetailCellID = @"RightDetail";
 	static NSString *BuildingSiteCellID = @"RightDetailBuildingSite";
-	UITableViewCell *cell;
 	
-	if (indexPath.section == 0 || indexPath.section == 1) {
-		cell = [tableView dequeueReusableCellWithIdentifier:RightDetailCellID];
-		cell.textLabel.text = [b name];
-		cell.detailTextLabel.text = [NSString stringWithFormat:@"level %d", [b level]];
+	UITableViewCell *cell;
+	if ([[[sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] isKindOfClass:[NSArray class]]) {
+		NSArray *arr = [[sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
 		
-		cell.accessoryView = [appDelegate setDetailAccessoryViewForTarget:self action:@selector(accessoryButtonTapped:withEvent:)];
+		cell = [tableView dequeueReusableCellWithIdentifier:BuildingSiteCellID];
+		cell.textLabel.text = [NSString stringWithFormat:@"%@s", [[arr objectAtIndex:0] name]];
 	} else {
+		Building *b = [self getBuildingUsingIndexPath:indexPath];
+		
 		cell = [tableView dequeueReusableCellWithIdentifier:BuildingSiteCellID];
 		cell.textLabel.text = [b name];
 	}
 	
-	[appDelegate setCellAppearance:cell forIndexPath:indexPath];
+	[AppDelegate setCellAppearance:cell forIndexPath:indexPath];
 	
-    return cell;
-}
-
-- (void)accessoryButtonTapped:(UIControl *)button withEvent:(UIEvent *)event
-{
-    NSIndexPath * indexPath = [self.tableView indexPathForRowAtPoint: [[[event touchesForView: button] anyObject] locationInView: self.tableView]];
-    if ( indexPath == nil )
-        return;
-	
-    [self.tableView.delegate tableView: self.tableView accessoryButtonTappedForRowWithIndexPath: indexPath];
+	return cell;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -187,38 +217,53 @@
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	// Build
-	selectedBuilding = [self getBuildingUsingIndexPath:indexPath];
-	[selectedBuilding addObserver:self forKeyPath:@"finishedLoading" options:NSKeyValueObservingOptionNew context:nil];
+	void (^setOtherBuildings)(void) = ^ {
+		NSMutableArray *otherBuildings_temp = [[sections objectAtIndex:indexPath.section] mutableCopy];
+		[otherBuildings_temp removeObjectAtIndex:indexPath.row];
+		otherBuildings = (NSArray *)otherBuildings_temp;
+		if (indexPath.section == 1) {
+			// Section 2. merge section 3 here too
+			otherBuildings = [otherBuildings arrayByAddingObjectsFromArray:[sections objectAtIndex:indexPath.section+1]];
+		} else if (indexPath.section == 2) {
+			// Section 3. Merge section 2
+			otherBuildings = [otherBuildings arrayByAddingObjectsFromArray:[sections objectAtIndex:indexPath.section-1]];
+		}
+	};
 	
-	if (indexPath.section < 2) {
-		buildConfirm = [[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat:@"Build %@ to level %d", selectedBuilding.name, selectedBuilding.level+1] delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Build", @"Add to construction queue", nil];
-		[self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
-		[buildConfirm showFromTabBar:self.tabBarController.tabBar];
+	if ([[[sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] isKindOfClass:[NSArray class]]) {
+		selectedBuildings = [[sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
 	} else {
-		[selectedBuilding buildFromAccount:account];
+		selectedBuildings = @[ [[sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] ];
+	}
+	
+	setOtherBuildings();
+	Building *b = [selectedBuildings objectAtIndex:0];
+	// Check if we need to load the building
+	bool buildingSite = b.level == 0 && b.page & TPVillage;
+	if ((!b.description && !buildingSite) || (buildingSite && !b.availableBuildings)) {
+		openBuilding = true;
+		[b addObserver:self forKeyPath:@"finishedLoading" options:NSKeyValueObservingOptionNew context:nil];
+		[b fetchDescription];
 		HUD = [MBProgressHUD showHUDAddedTo:self.tabBarController.navigationController.view animated:YES];
 		HUD.labelText = @"Loading";
+	} else {
+		// Continue
+		[self performSegueWithIdentifier:@"OpenBuilding" sender:self];
 	}
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if (object == selectedBuilding && [keyPath isEqualToString:@"finishedLoading"]) {
-		// Show modal view of available buildings
+	if ([keyPath isEqualToString:@"finishedLoading"]) {
 		if ([[change objectForKey:NSKeyValueChangeNewKey] boolValue]) {
-			[selectedBuilding removeObserver:self forKeyPath:@"finishedLoading"];
+			[[selectedBuildings objectAtIndex:0] removeObserver:self forKeyPath:@"finishedLoading"];
+			
 			[HUD hide:YES];
 			
-			[[self tableView] deselectRowAtIndexPath:[[self tableView] indexPathForSelectedRow] animated:YES];
-			
-			if ([selectedBuilding availableBuildings]) {
-				NSLog(@"Available buildings: %d", [[selectedBuilding availableBuildings] count]);
-				[self performSegueWithIdentifier:@"BuildingList" sender:self];
-			}
+			if (openBuilding)
+				[self performSegueWithIdentifier:@"OpenBuilding" sender:self];
+			else
+				[[self tableView] deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
 		}
-	} else if (object == selectedBuilding && [keyPath isEqualToString:@"description"]) {
-		[HUD hide:YES];
-		[self performSegueWithIdentifier:@"OpenBuilding" sender:self];
 	} else if (object == account && [keyPath isEqualToString:@"status"]) {
 		if (([[change objectForKey:NSKeyValueChangeNewKey] intValue] & ARefreshed) != 0) {
 			// Refreshed
@@ -229,36 +274,18 @@
 	}
 }
 
-- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
-	// View Building in detail
-	selectedBuilding = [self getBuildingUsingIndexPath:indexPath];
-	if ([selectedBuilding description] == nil && !([selectedBuilding level] == 0 && (([selectedBuilding page] & TPVillage) != 0))) {
-		[selectedBuilding addObserver:self forKeyPath:@"description" options:NSKeyValueObservingOptionNew context:nil];
-		HUD = [MBProgressHUD showHUDAddedTo:self.tabBarController.navigationController.view animated:YES];
-		HUD.labelText = @"Fetching Description";
-		
-		[selectedBuilding fetchDescription];
-	} else {
-		[self performSegueWithIdentifier:@"OpenBuilding" sender:self];
-	}
-}
-
 #pragma mark Prepare for segue
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 	NSString *iden = [segue identifier];
 	
-	if ([iden isEqualToString:@"BuildingList"]) {
-		UINavigationController *nc = [segue destinationViewController];
-		PHVBuildingListViewController *vc = [[nc viewControllers] objectAtIndex:0];
-		
-		vc.delegate = self;
-		vc.buildings = [selectedBuilding availableBuildings];
-	} else if ([iden isEqualToString:@"OpenBuilding"]) {
+	if ([iden isEqualToString:@"OpenBuilding"]) {
 		PHVOpenBuildingViewController *vc = [segue destinationViewController];
 		
 		vc.delegate = self;
-		vc.building = selectedBuilding;
+		vc.buildings = selectedBuildings;
+		
+		vc.otherBuildings = otherBuildings;
 	}
 }
 
@@ -272,22 +299,13 @@
 	NSLog(@"Built building %@ to level %d", [building name], [building level]);
 	[controller.navigationController popViewControllerAnimated:YES];
 	
-	selectedBuilding = building;
-	[selectedBuilding addObserver:self forKeyPath:@"finishedLoading" options:NSKeyValueObservingOptionNew context:nil];
-	[selectedBuilding buildFromAccount:account];
+	selectedBuildings = @[ building ];
+	[[selectedBuildings objectAtIndex:0] addObserver:self forKeyPath:@"finishedLoading" options:NSKeyValueObservingOptionNew context:nil];
+	openBuilding = false;
+	[[selectedBuildings objectAtIndex:0] buildFromAccount:account];
+	
 	HUD = [MBProgressHUD showHUDAddedTo:self.tabBarController.navigationController.view animated:YES];
 	HUD.labelText = @"Building";
-}
-
-#pragma mark - PHVBuildingListDelegate
-
-- (void)phvBuildingListViewController:(PHVBuildingListViewController *)controller didSelectBuilding:(Building *)building {
-	if ([building upgradeURLString] == nil) {
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Cannot build" message:[NSString stringWithFormat:@"Cannot build %@ because %@", [building name], [building cannotBuildReason]] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-		[alert show];
-	}
-	else
-		[selectedBuilding buildFromURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@.travian.%@/%@", account.world, account.server, [building upgradeURLString]]]];
 }
 
 #pragma mark - UIActionSheetDelegate
@@ -297,7 +315,7 @@
 		switch (buttonIndex) {
 			case 0:
 				// Build button
-				[selectedBuilding buildFromAccount:account];
+				[[selectedBuildings objectAtIndex:0] buildFromAccount:account];
 				HUD = [MBProgressHUD showHUDAddedTo:self.tabBarController.navigationController.view animated:YES];
 				HUD.labelText = @"Building";
 				break;
@@ -305,7 +323,7 @@
 				// Construction queue
 			case 2:
 				// Cancel
-				selectedBuilding = nil;
+				selectedBuildings = nil;
 				break;
 		}
 		

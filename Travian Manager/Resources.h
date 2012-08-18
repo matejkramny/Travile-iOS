@@ -20,4 +20,6 @@
 
 - (void)updateResourcesFromProduction:(ResourcesProduction *)production warehouse:(unsigned int)warehouse granary:(unsigned int)granary;
 
+- (bool)hasMoreResourcesThanResource:(Resources *)res;
+
 @end

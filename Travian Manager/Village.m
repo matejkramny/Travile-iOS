@@ -11,7 +11,6 @@
 #import "HTMLNode.h"
 #import "Resources.h"
 #import "ResourcesProduction.h"
-#import "AppDelegate.h"
 #import "Storage.h"
 #import "Account.h"
 #import "TPIdentifier.h"
@@ -20,11 +19,14 @@
 #import "Hero.h"
 #import "Building.h"
 #import "Movement.h"
+#import "Coordinate.h"
 
 @interface Village () {
 	NSURLConnection *villageConnection; // Village connection
 	NSMutableData *villageData; // Village data
 }
+
+- (void)validateConstructions;
 
 @end
 
@@ -59,7 +61,7 @@
 
 - (void)downloadAndParse
 {
-	Account *account = [[(AppDelegate *)[UIApplication sharedApplication].delegate storage] account]; // This village's owner
+	Account *account = [[Storage sharedStorage] account]; // This village's owner
 	
 	// Start a request containing Resources, ResourceProduction, and troops
 	NSURL *url = [account urlForString:[Account resources]];
@@ -110,6 +112,10 @@
 	if (villageName) {
 		NSString *span = [[[villageName findChildWithAttribute:@"class" matchingName:@"loyalty" allowPartial:YES] contents] stringByTrimmingCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]];
 		loyalty = [span intValue];
+	}
+	
+	if (page & TPVillage) {
+		[self validateConstructions];
 	}
 }
 
@@ -212,11 +218,13 @@
 	if (!idContent) { NSLog(@"Cannot find id#content"); return; }
 	
 	NSArray *areas = [idContent findChildTags:@"area"];
+	NSArray *vmap = [[idContent findChildWithAttribute:@"id" matchingName:@"village_map" allowPartial:NO] findChildTags:((page & TPVillage) != 0) ? @"img" : @"div"];
 	if (!areas) { NSLog(@"No areas in id#content!"); return; }
 	
 	if (!buildings)
 		buildings = [[NSMutableArray alloc] init];
 	
+	int i = 0;
 	for (HTMLNode *area in areas) {
 		
 		if ([[area getAttributeNamed:@"href"] isEqualToString:[Account village]]) continue; // Village Centre
@@ -257,22 +265,81 @@
 				[spansParsed addObject:[NSNumber numberWithInt:[[[[[p body] findChildTag:@"span"] contents] stringByTrimmingCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]] intValue]]];
 			}
 			
-			res.wood = [[spansParsed objectAtIndex:0] intValue];
-			res.clay = [[spansParsed objectAtIndex:1] intValue];
-			res.iron = [[spansParsed objectAtIndex:2] intValue];
-			res.wheat = [[spansParsed objectAtIndex:3] intValue];
+			res.wood = [[spansParsed objectAtIndex:0] intValue];// Wood
+			res.clay = [[spansParsed objectAtIndex:1] intValue];// Clay
+			res.iron = [[spansParsed objectAtIndex:2] intValue];// Iron
+			res.wheat = [[spansParsed objectAtIndex:3] intValue];// Wheat
 			
 			building.resources = res;
 		}
 		
+		// being upgraded notification for Village buildings
+		if ([body findChildWithAttribute:@"class" matchingName:@"notice" allowPartial:NO] && page & TPVillage) {
+			building.isBeingUpgraded = true;
+		}
+		
+		// Level
 		building.level = [[[[[body findChildTag:@"p"] findChildTag:@"span"] contents] stringByTrimmingCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]] intValue];
+		// Building name
 		building.name = [[body findChildTag:@"p"] contents];
+		// Remove trailing space
 		if ([building.name hasSuffix:@" "])
 			building.name = [building.name substringToIndex:[building.name length]-1];
 		
+		// Set page
 		building.page = page;
+		// Village this building belongs to
 		building.parent = self;
 		
+		// Coordinates
+		Coordinate *coords = [[Coordinate alloc] init];
+		NSString *style = [[vmap objectAtIndex:i] getAttributeNamed:@"style"];
+		NSString *raw = [[[style stringByReplacingOccurrencesOfString:((page & TPVillage) != 0) ? @"left:" : @"left: " withString:@""] stringByReplacingOccurrencesOfString:@"px; top:" withString:@":"] stringByReplacingOccurrencesOfString:@"px;" withString:@":"];
+		NSArray *split = [raw componentsSeparatedByString:@":"];
+		coords.x = [[split objectAtIndex:0] intValue];
+		coords.y = [[split objectAtIndex:1] intValue];
+		
+		// GID
+		if ((page & TPVillage) != 0) {
+			// Adjust coordinates for village
+			coords.x += 51;
+			coords.y += 51;
+			
+			// Parse Building Identifier
+			NSString *class = [[vmap objectAtIndex:i] getAttributeNamed:@"class"];
+			
+			int gid = 0;
+			// Test if building site..
+			if ([class rangeOfString:@"building iso"].location != NSNotFound) {
+				// It is building site
+				gid = TBList; // list = buildingsite
+			} else {
+				gid = [[class stringByTrimmingCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]] intValue]; // class="building g10"
+				// Test if wall. Walls don't have coordinates
+				if (gid == TBCityWall || gid == TBEarthWall || gid == TBPalisade) {
+					coords.x = 0;
+					coords.y = 0;
+				}
+			}
+			// Set building gid
+			building.gid = gid;
+		} else {
+			building.gid = TBNotKnown;
+		}
+		
+		// Set coordinates
+		building.coordinates = coords;
+		
+		// is being upgraded? (resource fields are 100%, village buildings have span class="notice" that contains the notification of being built)
+		if (page & TPResources) {
+			NSString *class = [[vmap objectAtIndex:i] getAttributeNamed:@"class"];
+			if ([class rangeOfString:@"underConstruction"].location != NSNotFound) {
+				building.isBeingUpgraded = true;
+			}
+		}
+		
+		// Finish
+		// Finds existing buildings with same id and replaces them.
 		bool foundExistingBuilding = false;
 		for (int i = 0; i < [buildings count]; i++) {
 			Building *exBu = [buildings objectAtIndex:i];
@@ -292,15 +359,23 @@
 		if (!foundExistingBuilding) {
 			[buildings addObject:building];
 		}
+		
+		i++;
 	}
 }
 
 - (void)parseConstructions:(HTMLNode *)node {
-	
 	// get construction list
 	
+	if (!constructions) {
+		constructions = [[NSArray alloc] init];
+	}
+	
 	HTMLNode *building_contract = [node findChildWithAttribute:@"id" matchingName:@"building_contract" allowPartial:NO];
+	// Temporary mutable place for construction
 	NSMutableArray *tempConstructions = [[NSMutableArray alloc] init];
+	
+	// Test if any constructions
 	if (building_contract) {
 		NSArray *trs = [[building_contract findChildTag:@"tbody"] findChildTags:@"tr"];
 		
@@ -312,6 +387,7 @@
 			NSString *conLevel = [[[tds objectAtIndex:1] findChildTag:@"span"] contents];
 			NSString *finishTime = [[[tds objectAtIndex:2] findChildTag:@"span"] contents];
 			
+			// Parse time from (hh:mm:ss) to NSDate
 			NSArray *timeSplit = [finishTime componentsSeparatedByString:@":"];
 			int hour = 0, minute = 0, second = 0;
 			hour = [[timeSplit objectAtIndex:0] intValue];
@@ -321,6 +397,7 @@
 			timestamp += hour * 60 * 60 + minute * 60 + second; // Now date + hour:minute:second
 			construction.finishTime = [NSDate dateWithTimeIntervalSince1970:timestamp]; // Future date
 			
+			// Set name. Level is inside the name label
 			construction.name = [conName stringByReplacingOccurrencesOfString:conLevel withString:@""];
 			if ([construction.name hasSuffix:@" "])
 				construction.name = [construction.name substringToIndex:[construction.name length] -1];
@@ -330,13 +407,38 @@
 		}
 		
 		constructions = tempConstructions;
-	} else
-		constructions = [[NSArray alloc] init];
+	}
+}
+
+- (void)validateConstructions {
+	// Checks constructions if they match each building's isBeingUpgraded state
+	if (!buildings || !constructions)
+		return;
 	
+	for (int i = 0; i < buildings.count; i++) {
+		Building *b = [buildings objectAtIndex:i];
+		
+		if (b.isBeingUpgraded) {
+			Construction *match;
+			for (int ii = 0; ii < constructions.count; ii++) {
+				Construction *c = [constructions objectAtIndex:ii];
+				
+				if ([c.name isEqualToString:b.name] && b.level+1 == c.level) {
+					match = c;
+					break;
+				}
+			}
+			
+			if (!match) {
+				b.isBeingUpgraded = false;
+			}
+		}
+	}
 }
 
 #pragma mark - Coders
 
+// Loads objects from NSCoder
 - (id)initWithCoder:(NSCoder *)coder {
     self = [super init];
     
@@ -365,6 +467,7 @@
 	return self;
 }
 
+// Saves objects to NSCoder
 - (void)encodeWithCoder:(NSCoder *)coder {
 	[coder encodeObject:resources forKey:@"resources"];
 	[coder encodeObject:resourceProduction forKey:@"resourceProduction"];
