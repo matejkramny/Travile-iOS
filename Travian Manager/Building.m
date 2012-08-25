@@ -12,6 +12,8 @@
 #import "HTMLNode.h"
 #import "TPIdentifier.h"
 #import "Village.h"
+#import "Resources.h"
+#import "BuildingAction.h"
 
 @interface Building () {
 	NSURLConnection *buildConnection;
@@ -31,10 +33,9 @@
 
 @implementation Building
 
-@synthesize bid, name, page, resources, level, parent, availableBuildings, description, finishedLoading, cannotBuildReason, coordinates;
+@synthesize bid, name, page, resources, level, parent, availableBuildings, description, finishedLoading, cannotBuildReason, coordinates, buildConditionsDone, buildConditionsError, isBeingUpgraded, upgradeURLString, gid, properties, actions;
 
 - (void)buildFromAccount:(Account *)account {
-	NSLog(@"Starting build connection");
 	wantsToBuild = true;
 	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[account urlForArguments:@"build.php?id=", bid, nil] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
 	
@@ -57,7 +58,7 @@
 }
 
 - (void)fetchDescriptionFromNode:(HTMLNode *)node {
-	HTMLNode *buildID = [node findChildWithAttribute:@"id" matchingName:@"build"allowPartial:NO];
+	HTMLNode *buildID = [node findChildWithAttribute:@"id" matchingName:@"build" allowPartial:NO];
 	if (!buildID) return;
 	
 	HTMLNode *build_desc = [buildID findChildWithAttribute:@"class" matchingName:@"build_desc" allowPartial:NO];
@@ -89,12 +90,23 @@
 	[self setProperties:[props copy]];
 	[self setDescription:desc];
 	
+	HTMLNode *contract = [buildID findChildWithAttribute:@"id" matchingName:@"contract" allowPartial:NO];
+	[self fetchContractConditionsFromContractID:contract];
+	[self fetchResourcesFromContract:contract];
+	
+	bool gid0 = [[buildID getAttributeNamed:@"class"] isEqualToString:@"gid0"];
+	if (gid0 && availableBuildings)
+		availableBuildings = nil;
+	
+	if (gid == TBAcademy || gid == TBForge) {
+		// Parse research
+		[self fetchActionsFromIDBuild:buildID];
+	}
+	
 	[self parsePage:page fromHTMLNode:node];
 }
 
 - (void)parsePage:(TravianPages)page fromHTMLNode:(HTMLNode *)node {
-	NSLog(@"Parsing build");
-	
 	HTMLNode *build = [node findChildWithAttribute:@"id" matchingName:@"build" allowPartial:NO];
 	if ([[build getAttributeNamed:@"class"] isEqualToString:@"gid0"]) {
 		// Nothing built on this location
@@ -187,6 +199,8 @@
 		
 		// Title
 		b.name = [title contents];
+		// Resources
+		[b fetchResourcesFromContract:contract];
 		// Description
 		NSString *aTagRaw = [[desc findChildTag:@"a"] rawContents];
 		b.description = [[[[[[desc rawContents] stringByReplacingOccurrencesOfString:aTagRaw withString:@""] stringByReplacingOccurrencesOfString:@"<div class=\"build_desc\">" withString:@""] stringByReplacingOccurrencesOfString:@"</div>" withString:@""] stringByReplacingOccurrencesOfString:@"\n" withString:@""] stringByReplacingOccurrencesOfString:@"\t" withString:@""];
@@ -195,28 +209,11 @@
 		if (!button) {
 			// Cannot build this
 			
-			// Reason
-			HTMLNode *spanNone = [contract findChildOfClass:@"none"];
-			
-			if (!spanNone) {
-				// Check if there are Build conditions
-				NSArray *conditions = [contract findChildrenWithAttribute:@"class" matchingName:@"buildingCondition" allowPartial:YES];
-				NSMutableArray *conditions_strings = [[NSMutableArray alloc] initWithCapacity:[conditions count]];
-				for (HTMLNode *n in conditions) {
-					HTMLNode *a = [n findChildTag:@"a"];
-					HTMLNode *span = [n findChildTag:@"span"];
-					
-					if ([[n getAttributeNamed:@"class"] rangeOfString:@"error"].location != NSNotFound) {
-						// Unfulfilled condition
-						NSString *s = [NSString stringWithFormat:@"%@ %@", [a contents], [span contents]];
-						
-						[conditions_strings addObject:s];
-					}
-				}
-			} else
-				cannotBuildReason = [spanNone contents];
+			[b fetchContractConditionsFromContractID:contract];
 		} else
 			b.upgradeURLString = [[[button getAttributeNamed:@"onclick"] stringByReplacingOccurrencesOfString:@"window.location.href = '" withString:@""] stringByReplacingOccurrencesOfString:@"'; return false;" withString:@""];
+		
+		b.parent = self.parent;
 		
 		[bs addObject:b];
 	}
@@ -225,6 +222,94 @@
 		availableBuildings = [availableBuildings arrayByAddingObjectsFromArray:bs];
 	else
 		availableBuildings = [bs copy];
+}
+
+- (void)fetchContractConditionsFromContractID:(HTMLNode *)contract {
+	// Reason
+	HTMLNode *spanNone = [contract findChildOfClass:@"none"];
+	
+	if (!spanNone) {
+		// Check if there are Build conditions
+		NSArray *conditions = [contract findChildrenWithAttribute:@"class" matchingName:@"buildingCondition" allowPartial:YES];
+		NSMutableArray *undone_conditions = [[NSMutableArray alloc] init];
+		NSMutableArray *done_conditions = [[NSMutableArray alloc] init];
+		for (HTMLNode *n in conditions) {
+			HTMLNode *a = [n findChildTag:@"a"];
+			HTMLNode *span = [n findChildTag:@"span"];
+			
+			if (!span || !a)
+				// continue - not enough details
+				continue;
+			
+			NSString *s = [NSString stringWithFormat:@"%@ %@", [a contents], [span contents]];
+			
+			if ([[n getAttributeNamed:@"class"] rangeOfString:@"error"].location != NSNotFound) {
+				// Unfulfilled condition
+				[undone_conditions addObject:s];
+			} else {
+				// Completed condition
+				[done_conditions addObject:s];
+			}
+		}
+		
+		buildConditionsDone = [done_conditions copy];
+		buildConditionsError = [undone_conditions copy];
+	} else
+		cannotBuildReason = [spanNone contents];
+}
+
+- (void)fetchResourcesFromContract:(HTMLNode *)contract {
+	Resources *res = [[Resources alloc] init];
+	
+	HTMLNode *div;
+	if ([[contract getAttributeNamed:@"id"] isEqualToString:@"contract"]) {
+		div = [[contract findChildWithAttribute:@"class" matchingName:@"contractCosts" allowPartial:NO] findChildWithAttribute:@"class" matchingName:@"showCosts" allowPartial:NO];
+	} else {
+		div = contract;
+	}
+	
+	NSArray *spans = [div findChildTags:@"span"];
+	NSMutableArray *spansParsed = [[NSMutableArray alloc] initWithCapacity:[spans count]];
+	for (int i = 0; i < [spans count]; i++) {
+		HTMLNode *span = [spans objectAtIndex:i];
+		
+		NSString *img = [[span findChildTag:@"img"] rawContents];
+		NSString *raw = [span rawContents];
+		
+		raw = [raw stringByReplacingOccurrencesOfString:img withString:@""];
+		
+		NSError *error;
+		HTMLParser *p = [[HTMLParser alloc] initWithString:raw error:&error];
+		if (error) {
+			NSLog(@"Cannot parse resource %@ %@", [error localizedDescription], [error localizedRecoverySuggestion]);
+			continue;
+		}
+		
+		[spansParsed addObject:[NSNumber numberWithInt:[[[[[p body] findChildTag:@"span"] contents] stringByTrimmingCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]] intValue]]];
+	}
+	
+	res.wood = [[spansParsed objectAtIndex:0] intValue];// Wood
+	res.clay = [[spansParsed objectAtIndex:1] intValue];// Clay
+	res.iron = [[spansParsed objectAtIndex:2] intValue];// Iron
+	res.wheat = [[spansParsed objectAtIndex:3] intValue];// Wheat
+	
+	resources = res;
+}
+
+- (void)fetchActionsFromIDBuild:(HTMLNode *)buildID {
+	HTMLNode *build_details = [buildID findChildOfClass:@"build_details researches"];
+	if (!build_details)
+		return;
+	
+	NSArray *researches = [build_details findChildrenOfClass:@"research"];
+	NSMutableArray *actions_raw = [[NSMutableArray alloc] initWithCapacity:[researches count]];
+	
+	for (HTMLNode *research in researches) {
+		[actions_raw addObject:[[BuildingAction alloc] initWithResearchDiv:research]];
+	}
+	
+	actions = [actions_raw copy];
+	actions_raw = nil;
 }
 
 #pragma mark - Coders
@@ -341,7 +426,6 @@
 		
 		if (connection == cat3Connection) {
 			// Finished loading list of buildings
-			NSLog(@"Finished loading list of buildings");
 			[self setFinishedLoading:YES];
 		}
 	}

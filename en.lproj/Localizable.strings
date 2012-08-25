@@ -7,6 +7,20 @@
 */
 
 "Logging In" = "Logging in";
+/* Shown when loading account */
+"Found notification" = "Found notification";
+/* Shown when loading account - cannot load */
+"Cannot load" = "Cannot load";
+/* Shown when loading account - villages */
+"Loading villages" = "Loading villages";
+/* Shown when loading account - reports */
+"Loading reports" = "Loading reports";
+/* Shown when loading account - messages */
+"Loading messages" = "Loading messages";
+/* Shown when loading account - hero */
+"Loading hero" = "Loading hero";
+/* Connection failed */
+"Connection failed" = "Connection failed";
 "Village" = "Village";
 "Movements" = "Movements";
 "Constructions" = "Constructions";
@@ -23,8 +37,14 @@
 /* Timers suffix (seconds remaining) */
 "sec" = "sec";
 /* Timer has reached < 0 seconds */
-"Event Happened" = "Done";
+"Event Happened" = "Finished";
 /* Overall string is too long in cranny building. This is a short-text like 'All Resoruces Hidden' */
 "Cranny Overall" = "Total resources hidden";
 /* Resources required to upgrade building to next level */
 "Resources required" = "Resources required for upgrade";
+/* Resources required to build */
+"Resources required build" = "Resources required for build";
+/* Shown on Progress HUD */
+"Tap to cancel" = "Tap to cancel";
+/* Build building site object */
+"Build" = "Build %@";

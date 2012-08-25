@@ -20,11 +20,12 @@
 
 @end
 
-@interface PHVOpenBuildingViewController : UITableViewController <BuildingMapProtocol, UITableViewDataSource>
+@interface PHVOpenBuildingViewController : UITableViewController <BuildingMapProtocol, UITableViewDataSource, PHVOpenBuildingDelegate>
 
 @property (nonatomic, weak) id<PHVOpenBuildingDelegate> delegate;
 @property (nonatomic, weak) Building *building;
 @property (nonatomic, strong) NSArray *buildings;
-@property (nonatomic, weak) NSArray *otherBuildings;
+@property (nonatomic, strong) NSArray *otherBuildings;
+@property (assign) bool isBuildingSiteAvailableBuilding;
 
 @end

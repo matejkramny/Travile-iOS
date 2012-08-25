@@ -10,6 +10,7 @@
 #import "TravianPages.h"
 #import "TravianPageParsingProtocol.h"
 
+@class BuildingAction;
 @class Village;
 @class Resources;
 @class Account;
@@ -29,9 +30,11 @@
 @property (assign) bool finishedLoading;
 @property (nonatomic, strong) NSString *upgradeURLString; // Serves as container for contract link
 @property (nonatomic, strong) NSString *cannotBuildReason; // Reason we cannot build
-@property (nonatomic, strong) NSArray *buildConditions; // List of build conditions
-@property (nonatomic, strong) Coordinate *coordinates; // Where the building is on a visual map
+@property (nonatomic, strong) NSArray *buildConditionsDone; // List of build conditions
+@property (nonatomic, strong) NSArray *buildConditionsError; // Errorneous build conditons (unfulfilled)
+@property (assign) CGPoint coordinates; // Where the building is on a visual map
 @property (assign) bool isBeingUpgraded; // Indicates whether this building is being currently upgraded.
+@property (nonatomic, strong) NSArray *actions; // Building Actions - such as Research a troop
 
 @property (nonatomic, weak) Village *parent;
 
@@ -39,5 +42,8 @@
 - (void)fetchDescription;
 - (void)fetchDescriptionFromNode:(HTMLNode *)node;
 - (void)buildFromURL:(NSURL *)url;
+- (void)fetchContractConditionsFromContractID:(HTMLNode *)contract;
+- (void)fetchResourcesFromContract:(HTMLNode *)contract;
+- (void)fetchActionsFromIDBuild:(HTMLNode *)buildID;
 
 @end

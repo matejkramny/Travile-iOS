@@ -81,6 +81,7 @@ typedef enum {
 	TBHeroMansion = 37, // Hero's mansion
 	TBGreatWarehouse = 38, // Great Warehouse
 	TBGreatGranary = 39, // Great Granary
+	TBWonderOfTheWorld = 40, // The Wonder of the World
 	
 	TBNotFound = -1, /// Building not found
 	TBNotKnown = -2, /// Uknown

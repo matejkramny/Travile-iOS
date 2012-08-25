@@ -203,7 +203,7 @@ static NSString *village = @"dorf2.php";
 	// Parses the HTML Body of the Page, and adds data to villages, messages etc
 	if ((page & TPNotification) != 0) {
 		// Notification pending view
-		[self setProgressIndicator:@"Found notification"];
+		[self setProgressIndicator:NSLocalizedString(@"Found notification", @"Shown when loading account")];
 		//[self setHasFinishedLoading:YES];
 		
 		[self setNotificationPending:YES];
@@ -212,7 +212,7 @@ static NSString *village = @"dorf2.php";
 	}
 	
 	if ((page & TPMaskUnparseable) != 0 || ![[node tagName] isEqualToString:@"body"]) {
-		[self setProgressIndicator:@"Cannot load!"];
+		[self setProgressIndicator:NSLocalizedString(@"Cannot load", @"Shown when loading account - canot load")];
 		
 		[self setStatus:ACannotLogIn | ARefreshed];
 		
@@ -222,24 +222,24 @@ static NSString *village = @"dorf2.php";
 	// Villages
 	if ((page & TPProfile) != 0) {
 		
-		[self setProgressIndicator:@"Loading villages"];
+		[self setProgressIndicator:NSLocalizedString(@"Loading villages", @"Shown when loading account - villages")];
 		[self parseVillages:node];
 		
 	} else if ((page & (TPHero | TPAdventures | TPAuction)) != 0) {
 		if (!hero)
 			hero = [[Hero alloc] init];
 		
-		[self setProgressIndicator:@"Loading Hero"];
+		[self setProgressIndicator:NSLocalizedString(@"Loading hero", @"Shown when loading account - hero")];
 		[hero parsePage:page fromHTMLNode:node];
 		
 	} else if ((page & TPReports) != 0) {
 		
-		[self setProgressIndicator:@"Loading Reports"];
+		[self setProgressIndicator:NSLocalizedString(@"Loading reports", @"Shown when loading account - reports")];
 		[self parseReports:node];
 		
 	} else if ((page & TPMessages) != 0) {
 		
-		[self setProgressIndicator:@"Loading Messages"];
+		[self setProgressIndicator:NSLocalizedString(@"Loading messages", @"Shown when loading account - messages")];
 		[self parseMessages:node];
 		
 		// Finished

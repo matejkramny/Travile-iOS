@@ -20,9 +20,11 @@
 	UIAlertView *passwordRetryView;
 	Account *passwordRetryAccount;
 	MBProgressHUD *hud;
+	UITapGestureRecognizer *tapGestureRecognizer;
 }
 
 - (void)logIn:(Account *)a withPasword:(NSString *)password;
+- (void)handleTapGestureRecognizer:(UITapGestureRecognizer *)recognizer;
 
 @end
 
@@ -156,6 +158,14 @@
 	
 	hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
 	hud.labelText = NSLocalizedString(@"Logging In", @"");
+	hud.detailsLabelText = NSLocalizedString(@"Tap to cancel", @"Shown on Progress HUD");
+	hud.dimBackground = YES;
+	
+	// Cancel tap Gesture recognizer
+	tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGestureRecognizer:)];
+	[tapGestureRecognizer setNumberOfTapsRequired:1];
+	[tapGestureRecognizer setNumberOfTouchesRequired:1];
+	[hud addGestureRecognizer:tapGestureRecognizer];
 }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -164,6 +174,19 @@
 
 - (BOOL)tableView:(UITableView *)tableview shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath {
     return NO;
+}
+
+- (void)handleTapGestureRecognizer:(UITapGestureRecognizer *)recognizer {
+	[hud hide:YES];
+	[hud removeGestureRecognizer:tapGestureRecognizer];
+	tapGestureRecognizer = nil;
+	[storage.account removeObserver:self forKeyPath:@"notificationPending"];
+	[storage.account removeObserver:self forKeyPath:@"progressIndicator"];
+	[storage.account removeObserver:self forKeyPath:@"status"];
+	
+	[storage deactivateActiveAccount];
+	
+	[self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
 }
 
 #pragma mark - Table view delegate
@@ -217,6 +240,8 @@
 			[storage.account removeObserver:self forKeyPath:@"progressIndicator"];
 			[storage.account removeObserver:self forKeyPath:@"status"];
 			[hud hide:YES];
+			[hud removeGestureRecognizer:tapGestureRecognizer];
+			tapGestureRecognizer = nil;
 			
 			passwordRetryAccount = storage.account;
 			passwordRetryView = [[UIAlertView alloc] initWithTitle:@"Cannot log in" message:@"TM cannot log in. Enter your password to retry." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Retry", nil];
@@ -224,7 +249,11 @@
 			[passwordRetryView show];
 		} else if ((stat & ARefreshed) != 0) {
 			[hud setLabelText:@"Done"];
-			[hud hide:YES afterDelay:0.3];
+			[hud setCustomView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"37x-Checkmark.png"]]];
+			[hud setMode:MBProgressHUDModeCustomView];
+			[hud hide:YES afterDelay:0.6];
+			[hud removeGestureRecognizer:tapGestureRecognizer];
+			tapGestureRecognizer = nil;
 			
 			[storage.account removeObserver:self forKeyPath:@"notificationPending"];
 			[storage.account removeObserver:self forKeyPath:@"progressIndicator"];
@@ -232,7 +261,7 @@
 			
 			[[self tableView] deselectRowAtIndexPath:[[self tableView] indexPathForSelectedRow] animated:YES];
 			
-			[self performSelector:@selector(dismissView) withObject:self afterDelay:0.7];
+			[self performSelector:@selector(dismissView) withObject:self afterDelay:0.6];
 		}
 	}
 }

@@ -939,7 +939,6 @@
                     <tabBarItem key="tabBarItem" title="Buildings" image="177-building.png" id="Nj6-Yf-vS1"/>
                     <connections>
                         <segue destination="g4d-Vw-uZO" kind="push" identifier="OpenBuilding" id="nCO-tW-m1I"/>
-                        <segue destination="CBK-3w-wkp" kind="modal" identifier="BuildingList" id="yhS-EJ-2YO"/>
                     </connections>
                 </tableViewController>
             </objects>
@@ -949,7 +948,7 @@
         <scene sceneID="TCI-h5-TNx">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="geN-x5-EHz" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tableViewController id="g4d-Vw-uZO" customClass="PHVOpenBuildingViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="openBuildingView" id="g4d-Vw-uZO" customClass="PHVOpenBuildingViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="pdn-vV-ywm">
                         <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -980,7 +979,7 @@
                                     <rect key="frame" x="10" y="0.0" width="300" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Level" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="J9V-qG-6Xf">
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Level" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" id="J9V-qG-6Xf">
                                             <rect key="frame" x="10" y="0.0" width="280" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
@@ -1049,50 +1048,34 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="yEA-lN-QCW"/>
+                    <connections>
+                        <segue destination="HSD-yj-ptJ" kind="push" identifier="OpenResearch" id="SBg-v0-Eya"/>
+                    </connections>
                 </tableViewController>
             </objects>
             <point key="canvasLocation" x="2579" y="-1313"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="OY8-HB-FdB">
+        <!--Research View Controller-->
+        <scene sceneID="FXM-8l-3oL">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="I6K-yh-VZT" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <navigationController definesPresentationContext="YES" id="CBK-3w-wkp" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="a2X-gi-EEA">
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="msd-Tl-bnI">
-                        <rect key="frame" x="0.0" y="416" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </toolbar>
-                    <connections>
-                        <segue destination="uwe-gk-iSL" kind="relationship" relationship="rootViewController" id="Hk5-nr-olm"/>
-                    </connections>
-                </navigationController>
-            </objects>
-            <point key="canvasLocation" x="2579" y="-730"/>
-        </scene>
-        <!--Building List View Controller - Select building-->
-        <scene sceneID="DaD-Xa-rdv">
-            <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="woh-r9-3GN" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tableViewController id="uwe-gk-iSL" customClass="PHVBuildingListViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="p3I-Ry-Zrh">
-                        <rect key="frame" x="0.0" y="94" width="320" height="386"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vzM-Oc-zfC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tableViewController id="HSD-yj-ptJ" customClass="PHVResearchViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="ke6-ja-b0E">
+                        <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="detailDisclosureButton" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Build" textLabel="9RX-3n-MMS" style="IBUITableViewCellStyleDefault" id="2TA-sN-I6p">
-                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Basic" textLabel="9iM-Ek-n45" style="IBUITableViewCellStyleDefault" id="Cok-vN-uUJ">
+                                <rect key="frame" x="0.0" y="46" width="320" height="45"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
+                                    <rect key="frame" x="10" y="1" width="300" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="9RX-3n-MMS">
-                                            <rect key="frame" x="10" y="0.0" width="267" height="43"/>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="9iM-Ek-n45">
+                                            <rect key="frame" x="10" y="0.0" width="280" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </label>
@@ -1100,17 +1083,42 @@
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="detailDisclosureButton" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="NonUpBuild" textLabel="ubh-gN-7PI" style="IBUITableViewCellStyleDefault" id="kHe-iG-k82">
-                                <rect key="frame" x="0.0" y="66" width="320" height="44"/>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Selectable" textLabel="gUa-wb-fFo" style="IBUITableViewCellStyleDefault" id="yMn-e7-XYu">
+                                <rect key="frame" x="0.0" y="91" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
+                                    <rect key="frame" x="10" y="0.0" width="280" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ubh-gN-7PI">
-                                            <rect key="frame" x="10" y="0.0" width="267" height="43"/>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="gUa-wb-fFo">
+                                            <rect key="frame" x="10" y="0.0" width="260" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Resource" textLabel="qda-wS-e9p" detailTextLabel="mWR-2F-Z3A" style="IBUITableViewCellStyleValue2" id="ywd-dX-hcp">
+                                <rect key="frame" x="0.0" y="135" width="320" height="45"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="10" y="0.0" width="300" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qda-wS-e9p">
+                                            <rect key="frame" x="10" y="15" width="67" height="15"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                            <color key="textColor" red="0.32156862745098042" green="0.40000000000000002" blue="0.56862745098039214" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Detail" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="mWR-2F-Z3A">
+                                            <rect key="frame" x="83" y="12" width="41" height="19"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </label>
@@ -1119,24 +1127,16 @@
                                 </view>
                             </tableViewCell>
                         </prototypes>
+                        <sections/>
                         <connections>
-                            <outlet property="dataSource" destination="uwe-gk-iSL" id="xKK-KG-bwZ"/>
-                            <outlet property="delegate" destination="uwe-gk-iSL" id="cGF-uJ-5lS"/>
+                            <outlet property="dataSource" destination="HSD-yj-ptJ" id="oZi-eI-W7z"/>
+                            <outlet property="delegate" destination="HSD-yj-ptJ" id="CiR-iV-jLN"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Select building" prompt="Nothing built on this location" id="aSi-CN-PJy">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Xbe-g5-eiF">
-                            <connections>
-                                <action selector="cancel:" destination="uwe-gk-iSL" id="8Ms-DU-mna"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <segue destination="g4d-Vw-uZO" kind="push" identifier="OpenBuilding" id="1RD-Hg-XaK"/>
-                    </connections>
+                    <navigationItem key="navigationItem" id="IPz-oh-Aah"/>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="3010" y="-730"/>
+            <point key="canvasLocation" x="3005" y="-1313"/>
         </scene>
         <!--Settings View Controller - Settings-->
         <scene sceneID="KSd-gl-cUs">
@@ -1769,13 +1769,115 @@ matejkramny@gmail.com</string>
         <image name="53-house.png" width="22" height="22"/>
         <image name="60-signpost.png" width="22" height="28"/>
     </resources>
+    <classes>
+        <class className="PHAccountDetailsViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PHAccountDetailsViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="cancel:"/>
+                <relationship kind="action" name="done:"/>
+                <relationship kind="action" name="hideKeyboard:"/>
+                <relationship kind="outlet" name="accountNameTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="domainTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="passwordTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="usernameTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="worldTextField" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="PHAccountsViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PHAccountsViewController.h"/>
+        </class>
+        <class className="PHHeroViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PHHeroViewController.h"/>
+        </class>
+        <class className="PHMessagesViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PHMessagesViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="deleteAll:"/>
+                <relationship kind="action" name="deleteAll:userDidConfirm:"/>
+                <relationship kind="action" name="deleteTask:"/>
+                <relationship kind="action" name="editButtonClicked:"/>
+                <relationship kind="action" name="newMessage:"/>
+                <relationship kind="action" name="segmentedControlValueChanged:"/>
+                <relationship kind="outlet" name="segmentedControl" candidateClass="UISegmentedControl"/>
+            </relationships>
+        </class>
+        <class className="PHNewMessageViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PHNewMessageViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="closeView:"/>
+                <relationship kind="action" name="sendButtonPressed:"/>
+                <relationship kind="outlet" name="content" candidateClass="UITextView"/>
+                <relationship kind="outlet" name="contentCell" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="recipient" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="sendButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="subject" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="PHOpenMessageViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PHOpenMessageViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="delete:"/>
+                <relationship kind="action" name="reply:"/>
+                <relationship kind="action" name="return:"/>
+                <relationship kind="outlet" name="content" candidateClass="UITextView"/>
+                <relationship kind="outlet" name="sentBy" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="subject" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="time" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="PHReportsViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PHReportsViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="deleteAll:"/>
+                <relationship kind="action" name="deleteAll:userDidConfirm:"/>
+                <relationship kind="action" name="deleteTask:"/>
+                <relationship kind="action" name="editButtonClicked:"/>
+            </relationships>
+        </class>
+        <class className="PHSettingsViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PHSettingsViewController.h"/>
+        </class>
+        <class className="PHVBuildingsViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PHVBuildingsViewController.h"/>
+        </class>
+        <class className="PHVOpenBuildingViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PHVOpenBuildingViewController.h"/>
+        </class>
+        <class className="PHVOverviewViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PHVOverviewViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="secondTimerFired:"/>
+            </relationships>
+        </class>
+        <class className="PHVResearchViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PHVResearchViewController.h"/>
+        </class>
+        <class className="PHVResourcesViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PHVResourcesViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="clay" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="consuming" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="granary" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="iron" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="producing" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="warehouse" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="wheat" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="wood" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="PHVTroopsViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PHVTroopsViewController.h"/>
+        </class>
+        <class className="PHVillagesViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PHVillagesViewController.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="nCO-tW-m1I"/>
         <segue reference="VfB-b5-cHY"/>
     </inferredMetricsTieBreakers>
 </document>

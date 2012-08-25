@@ -13,7 +13,6 @@
 #import "Village.h"
 #import "Building.h"
 #import "MBProgressHUD.h"
-#import "Coordinate.h"
 
 @interface PHVBuildingsViewController () {
 	Account *account;
@@ -98,7 +97,7 @@
 			continue;
 		} else {
 			// Add to section 2 or 3
-			if ([b level] == 0) {
+			if ([b level] == 0 && !b.isBeingUpgraded) {
 				// Add to section 3
 				[sec3 addObject:b];
 				continue;
@@ -239,7 +238,7 @@
 	setOtherBuildings();
 	Building *b = [selectedBuildings objectAtIndex:0];
 	// Check if we need to load the building
-	bool buildingSite = b.level == 0 && b.page & TPVillage;
+	bool buildingSite = b.level == 0 && b.page & TPVillage && !b.isBeingUpgraded;
 	if ((!b.description && !buildingSite) || (buildingSite && !b.availableBuildings)) {
 		openBuilding = true;
 		[b addObserver:self forKeyPath:@"finishedLoading" options:NSKeyValueObservingOptionNew context:nil];

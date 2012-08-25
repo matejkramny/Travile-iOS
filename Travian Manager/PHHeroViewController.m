@@ -35,10 +35,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	
-	Account *a = [[Storage sharedStorage] account];
-	hero = [a hero];
-	viewingMoreQuests = false;
 }
 
 - (void)viewDidUnload
@@ -49,6 +45,9 @@
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
+	
+	hero = [[Storage sharedStorage] account].hero;
+	viewingMoreQuests = false;
 	
 	[self.tabBarController.navigationItem setRightBarButtonItems:nil];
 	[self.tabBarController.navigationItem setLeftBarButtonItems:nil];
@@ -192,19 +191,19 @@
 			switch (indexPath.row) {
 				case 0:
 					tL = @"Wood";
-					dL = [NSString stringWithFormat:@"%f", r.wood];
+					dL = [NSString stringWithFormat:@"%.0f", r.wood];
 					break;
 				case 1:
 					tL = @"Clay";
-					dL = [NSString stringWithFormat:@"%f", r.clay];
+					dL = [NSString stringWithFormat:@"%.0f", r.clay];
 					break;
 				case 2:
 					tL = @"Iron";
-					dL = [NSString stringWithFormat:@"%f", r.iron];
+					dL = [NSString stringWithFormat:@"%.0f", r.iron];
 					break;
 				case 3:
 					tL = @"Wheat";
-					dL = [NSString stringWithFormat:@"%f", r.wheat];
+					dL = [NSString stringWithFormat:@"%.0f", r.wheat];
 					break;
 			}
 			

@@ -9,7 +9,6 @@
 #import "BuildingMap.h"
 #import <QuartzCore/QuartzCore.h>
 #import "Building.h"
-#import "Coordinate.h"
 
 @interface BuildingMap () {
 	__weak NSArray *bs; // Buildings alias
@@ -87,15 +86,15 @@ const float vilHeight = 534.0f;
 	
 	void (^drawBuilding)(Building *, bool) = ^(Building *building, bool inactive) {
 		// Draw a square in whereabouts of building b
-		Coordinate *coords = [building coordinates];
+		CGPoint coord = building.coordinates;
 		
 		int x, y, w = 26, h = 26;
 		if ([building page] & TPResources) {
-			x = computeCoordinateX(coords.x, true); // Resize the coordinate according to view width and height
-			y = computeCoordinateY(coords.y, true);
+			x = computeCoordinateX(coord.x, true); // Resize the coordinate according to view width and height
+			y = computeCoordinateY(coord.y, true);
 		} else {
-			x = computeCoordinateX(coords.x, false); //320
-			y = computeCoordinateY(coords.y, false); // 185
+			x = computeCoordinateX(coord.x, false); //320
+			y = computeCoordinateY(coord.y, false); // 185
 		}
 		
 		// Check if Rally Point. Rally points don't have coordinates

@@ -19,7 +19,6 @@
 #import "Hero.h"
 #import "Building.h"
 #import "Movement.h"
-#import "Coordinate.h"
 
 @interface Village () {
 	NSURLConnection *villageConnection; // Village connection
@@ -243,34 +242,7 @@
 		// check if body contains costs required to upgrade
 		HTMLNode *div;
 		if ((div = [body findChildTag:@"div"])) {
-			Resources *res = [[Resources alloc] init];
-			
-			NSArray *spans = [div findChildTags:@"span"];
-			NSMutableArray *spansParsed = [[NSMutableArray alloc] initWithCapacity:[spans count]];
-			for (int i = 0; i < [spans count]; i++) {
-				HTMLNode *span = [spans objectAtIndex:i];
-				
-				NSString *img = [[span findChildTag:@"img"] rawContents];
-				NSString *raw = [span rawContents];
-				
-				raw = [raw stringByReplacingOccurrencesOfString:img withString:@""];
-				
-				NSError *error;
-				HTMLParser *p = [[HTMLParser alloc] initWithString:raw error:&error];
-				if (error) {
-					NSLog(@"Cannot parse resource %@ %@", [error localizedDescription], [error localizedRecoverySuggestion]);
-					continue;
-				}
-				
-				[spansParsed addObject:[NSNumber numberWithInt:[[[[[p body] findChildTag:@"span"] contents] stringByTrimmingCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]] intValue]]];
-			}
-			
-			res.wood = [[spansParsed objectAtIndex:0] intValue];// Wood
-			res.clay = [[spansParsed objectAtIndex:1] intValue];// Clay
-			res.iron = [[spansParsed objectAtIndex:2] intValue];// Iron
-			res.wheat = [[spansParsed objectAtIndex:3] intValue];// Wheat
-			
-			building.resources = res;
+			[building fetchResourcesFromContract:div];
 		}
 		
 		// being upgraded notification for Village buildings
@@ -292,18 +264,18 @@
 		building.parent = self;
 		
 		// Coordinates
-		Coordinate *coords = [[Coordinate alloc] init];
+		CGPoint coord;
 		NSString *style = [[vmap objectAtIndex:i] getAttributeNamed:@"style"];
 		NSString *raw = [[[style stringByReplacingOccurrencesOfString:((page & TPVillage) != 0) ? @"left:" : @"left: " withString:@""] stringByReplacingOccurrencesOfString:@"px; top:" withString:@":"] stringByReplacingOccurrencesOfString:@"px;" withString:@":"];
 		NSArray *split = [raw componentsSeparatedByString:@":"];
-		coords.x = [[split objectAtIndex:0] intValue];
-		coords.y = [[split objectAtIndex:1] intValue];
+		coord.x = [[split objectAtIndex:0] intValue];
+		coord.y = [[split objectAtIndex:1] intValue];
 		
 		// GID
 		if ((page & TPVillage) != 0) {
 			// Adjust coordinates for village
-			coords.x += 51;
-			coords.y += 51;
+			coord.x += 51;
+			coord.y += 51;
 			
 			// Parse Building Identifier
 			NSString *class = [[vmap objectAtIndex:i] getAttributeNamed:@"class"];
@@ -317,8 +289,8 @@
 				gid = [[class stringByTrimmingCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]] intValue]; // class="building g10"
 				// Test if wall. Walls don't have coordinates
 				if (gid == TBCityWall || gid == TBEarthWall || gid == TBPalisade) {
-					coords.x = 0;
-					coords.y = 0;
+					coord.x = 0;
+					coord.y = 0;
 				}
 			}
 			// Set building gid
@@ -328,7 +300,7 @@
 		}
 		
 		// Set coordinates
-		building.coordinates = coords;
+		building.coordinates = coord;
 		
 		// is being upgraded? (resource fields are 100%, village buildings have span class="notice" that contains the notification of being built)
 		if (page & TPResources) {
@@ -366,10 +338,7 @@
 
 - (void)parseConstructions:(HTMLNode *)node {
 	// get construction list
-	
-	if (!constructions) {
-		constructions = [[NSArray alloc] init];
-	}
+	constructions = [[NSArray alloc] init];
 	
 	HTMLNode *building_contract = [node findChildWithAttribute:@"id" matchingName:@"building_contract" allowPartial:NO];
 	// Temporary mutable place for construction
