@@ -119,6 +119,7 @@
 		4F928DA915D41A65008AC6DB /* UINavigationBarLandscape.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F928DA515D41A65008AC6DB /* UINavigationBarLandscape.png */; };
 		4F928DAA15D41A65008AC6DB /* UINavigationBarLandscape@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F928DA615D41A65008AC6DB /* UINavigationBarLandscape@2x.png */; };
 		4F99267515644E7200C6AFFC /* Construction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F99267415644E7200C6AFFC /* Construction.m */; };
+		4FB1A75115EA539200C1FE4C /* Barracks.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FB1A75015EA539200C1FE4C /* Barracks.m */; };
 		4FBACE5515D71E2E0092A8F3 /* ODRefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FBACE5415D71E2E0092A8F3 /* ODRefreshControl.m */; };
 		4FBACE5815D71FCF0092A8F3 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FBACE5715D71FCF0092A8F3 /* QuartzCore.framework */; };
 		4FBAE09D15D50D8800089365 /* TMBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FBAE09C15D50D8800089365 /* TMBackground.png */; };
@@ -283,6 +284,8 @@
 		4F928DA615D41A65008AC6DB /* UINavigationBarLandscape@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UINavigationBarLandscape@2x.png"; sourceTree = "<group>"; };
 		4F99267315644E7200C6AFFC /* Construction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Construction.h; sourceTree = "<group>"; };
 		4F99267415644E7200C6AFFC /* Construction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Construction.m; sourceTree = "<group>"; };
+		4FB1A74F15EA539200C1FE4C /* Barracks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Barracks.h; sourceTree = "<group>"; };
+		4FB1A75015EA539200C1FE4C /* Barracks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Barracks.m; sourceTree = "<group>"; };
 		4FBACE5315D71E2E0092A8F3 /* ODRefreshControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODRefreshControl.h; sourceTree = "<group>"; };
 		4FBACE5415D71E2E0092A8F3 /* ODRefreshControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODRefreshControl.m; sourceTree = "<group>"; };
 		4FBACE5715D71FCF0092A8F3 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -458,6 +461,8 @@
 				4F095241155C7F6300C15D6E /* Village.m */,
 				4FCA374E156B96DF0071BAD5 /* Building.h */,
 				4FCA374F156B96DF0071BAD5 /* Building.m */,
+				4FB1A74F15EA539200C1FE4C /* Barracks.h */,
+				4FB1A75015EA539200C1FE4C /* Barracks.m */,
 				4F6E222D15E51B84002EC13F /* BuildingAction.h */,
 				4F6E222E15E51B85002EC13F /* BuildingAction.m */,
 				4F09523D155C7DE400C15D6E /* Resources.h */,
@@ -830,6 +835,7 @@
 				4FD64FCB15DAAD57002FAFFC /* BuildingMap.m in Sources */,
 				4F6E222F15E51B85002EC13F /* BuildingAction.m in Sources */,
 				4FC706AE15E825BB0081372E /* PHVResearchViewController.m in Sources */,
+				4FB1A75115EA539200C1FE4C /* Barracks.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

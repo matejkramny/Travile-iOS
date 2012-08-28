@@ -101,7 +101,7 @@ const float vilHeight = 534.0f;
 		if ([building gid] == TBRallyPoint) {
 			x = computeCoordinateX(395.0f, false); // 356 origin
 			y = computeCoordinateY(200.0f, false); // 171 origin
-		} else if ([building gid] == TBCityWall || [building gid] == TBPalisade || [building gid] == TBEarthWall) {
+		} else if ([building gid] == TBCityWall || [building gid] == TBPalisade || [building gid] == TBEarthWall || ([[building bid] isEqualToString:@"40"] && [building level] == 0)) {
 			// Walls should be around left-top corner of map
 			x = 64;
 			y = 7;

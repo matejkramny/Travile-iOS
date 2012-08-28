@@ -15,6 +15,7 @@
 @class Resources;
 @class Account;
 @class Coordinate;
+@class HTMLNode;
 
 @interface Building : NSObject <NSCoding, NSURLConnectionDataDelegate, NSURLConnectionDelegate, TravianPageParsingProtocol>
 
@@ -35,7 +36,9 @@
 @property (assign) CGPoint coordinates; // Where the building is on a visual map
 @property (assign) bool isBeingUpgraded; // Indicates whether this building is being currently upgraded.
 @property (nonatomic, strong) NSArray *actions; // Building Actions - such as Research a troop
+@property (nonatomic, strong) HTMLNode *buildDiv; // Contract HTMLNode
 
+// Building in what village?
 @property (nonatomic, weak) Village *parent;
 
 - (void)buildFromAccount:(Account *)account;

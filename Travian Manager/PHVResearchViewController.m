@@ -138,13 +138,14 @@ static NSString *resourceCellID = @"Resource";
 	// Research
 	[action research];
 	
-	HUD = [MBProgressHUD showHUDAddedTo:self.tabBarController.navigationController.view animated:NO];
+	[self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
+	HUD = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:NO];
 	[HUD setMode:MBProgressHUDModeCustomView];
 	[HUD setCustomView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"37x-Checkmark.png"]]];
 	[HUD setLabelText:@"Done"];
-	[HUD hide:YES afterDelay:1];
+	[HUD hide:YES afterDelay:0.7];
 	
-	[self performSelector:@selector(closeView:) withObject:self afterDelay:1.5];
+	[self performSelector:@selector(closeView:) withObject:self afterDelay:1.2];
 }
 
 - (void)closeView:(id)sender {

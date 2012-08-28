@@ -20,13 +20,16 @@
 	NSArray *otherBuildings;
 	MBProgressHUD *HUD;
 	NSArray *sections;
-	UIActionSheet *buildConfirm;
 	bool openBuilding;
+	UITapGestureRecognizer *tapToCancel;
+	UITapGestureRecognizer *tapToHide;
 }
 
 - (void)loadBuildingsToSections;
 - (Building *)getBuildingUsingIndexPath:(NSIndexPath *)indexPath;
 - (void)accessoryButtonTapped:(UIControl *)button withEvent:(UIEvent *)event;
+- (void)tappedToCancel:(id)sender;
+- (void)tappedToHide:(id)sender;
 
 @end
 
@@ -166,6 +169,26 @@
 	NSLog(@"Accessory button tapped?");
 }
 
+- (void)tappedToCancel:(id)sender {
+	[HUD hide:YES];
+	[HUD removeGestureRecognizer:tapToCancel];
+	tapToCancel = nil;
+	
+	[[selectedBuildings objectAtIndex:0] removeObserver:self forKeyPath:@"finishedLoading"];
+	
+	NSIndexPath *selectedPath = [self.tableView indexPathForSelectedRow];
+	if (selectedPath)
+		[self.tableView deselectRowAtIndexPath:selectedPath animated:YES];
+}
+
+- (void)tappedToHide:(id)sender {
+	[HUD hide:YES];
+	[HUD removeGestureRecognizer:tapToHide];
+	tapToHide = nil;
+	
+	[[selectedBuildings objectAtIndex:0] removeObserver:self forKeyPath:@"finishedLoading"];
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -245,6 +268,9 @@
 		[b fetchDescription];
 		HUD = [MBProgressHUD showHUDAddedTo:self.tabBarController.navigationController.view animated:YES];
 		HUD.labelText = @"Loading";
+		HUD.detailsLabelText = @"Tap to cancel";
+		tapToCancel = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedToCancel:)];
+		[HUD addGestureRecognizer:tapToCancel];
 	} else {
 		// Continue
 		[self performSegueWithIdentifier:@"OpenBuilding" sender:self];
@@ -257,6 +283,8 @@
 			[[selectedBuildings objectAtIndex:0] removeObserver:self forKeyPath:@"finishedLoading"];
 			
 			[HUD hide:YES];
+			[HUD removeGestureRecognizer:tapToCancel];
+			tapToCancel = nil;
 			
 			if (openBuilding)
 				[self performSegueWithIdentifier:@"OpenBuilding" sender:self];
@@ -305,29 +333,9 @@
 	
 	HUD = [MBProgressHUD showHUDAddedTo:self.tabBarController.navigationController.view animated:YES];
 	HUD.labelText = @"Building";
-}
-
-#pragma mark - UIActionSheetDelegate
-
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-	if (actionSheet == buildConfirm) {
-		switch (buttonIndex) {
-			case 0:
-				// Build button
-				[[selectedBuildings objectAtIndex:0] buildFromAccount:account];
-				HUD = [MBProgressHUD showHUDAddedTo:self.tabBarController.navigationController.view animated:YES];
-				HUD.labelText = @"Building";
-				break;
-			case 1:
-				// Construction queue
-			case 2:
-				// Cancel
-				selectedBuildings = nil;
-				break;
-		}
-		
-		[[self tableView] deselectRowAtIndexPath:[[self tableView] indexPathForSelectedRow] animated:YES];
-	}
+	HUD.detailsLabelText = @"Tap to hide";
+	tapToHide = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedToHide:)];
+	[HUD addGestureRecognizer:tapToHide];
 }
 
 @end

@@ -33,7 +33,7 @@
 
 @implementation Building
 
-@synthesize bid, name, page, resources, level, parent, availableBuildings, description, finishedLoading, cannotBuildReason, coordinates, buildConditionsDone, buildConditionsError, isBeingUpgraded, upgradeURLString, gid, properties, actions;
+@synthesize bid, name, page, resources, level, parent, availableBuildings, description, finishedLoading, cannotBuildReason, coordinates, buildConditionsDone, buildConditionsError, isBeingUpgraded, upgradeURLString, gid, properties, actions, buildDiv;
 
 - (void)buildFromAccount:(Account *)account {
 	wantsToBuild = true;
@@ -91,6 +91,7 @@
 	[self setDescription:desc];
 	
 	HTMLNode *contract = [buildID findChildWithAttribute:@"id" matchingName:@"contract" allowPartial:NO];
+	
 	[self fetchContractConditionsFromContractID:contract];
 	[self fetchResourcesFromContract:contract];
 	
@@ -102,6 +103,8 @@
 		// Parse research
 		[self fetchActionsFromIDBuild:buildID];
 	}
+	
+	[self setBuildDiv:buildID];
 	
 	[self parsePage:page fromHTMLNode:node];
 }
@@ -204,6 +207,9 @@
 		// Description
 		NSString *aTagRaw = [[desc findChildTag:@"a"] rawContents];
 		b.description = [[[[[[desc rawContents] stringByReplacingOccurrencesOfString:aTagRaw withString:@""] stringByReplacingOccurrencesOfString:@"<div class=\"build_desc\">" withString:@""] stringByReplacingOccurrencesOfString:@"</div>" withString:@""] stringByReplacingOccurrencesOfString:@"\n" withString:@""] stringByReplacingOccurrencesOfString:@"\t" withString:@""];
+		
+		// GID?
+		
 		// Contract
 		HTMLNode *button = [contract findChildWithAttribute:@"class" matchingName:@"new" allowPartial:NO];
 		if (!button) {
@@ -214,6 +220,10 @@
 			b.upgradeURLString = [[[button getAttributeNamed:@"onclick"] stringByReplacingOccurrencesOfString:@"window.location.href = '" withString:@""] stringByReplacingOccurrencesOfString:@"'; return false;" withString:@""];
 		
 		b.parent = self.parent;
+		
+		// Inherits some properties from this building
+		b.page = self.page;
+		b.bid = self.bid;
 		
 		[bs addObject:b];
 	}
@@ -228,7 +238,7 @@
 	// Reason
 	HTMLNode *spanNone = [contract findChildOfClass:@"none"];
 	
-	if (!spanNone) {
+	if ([contract findChildTag:@"button"] || !spanNone) {
 		// Check if there are Build conditions
 		NSArray *conditions = [contract findChildrenWithAttribute:@"class" matchingName:@"buildingCondition" allowPartial:YES];
 		NSMutableArray *undone_conditions = [[NSMutableArray alloc] init];

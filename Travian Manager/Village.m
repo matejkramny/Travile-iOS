@@ -19,6 +19,7 @@
 #import "Hero.h"
 #import "Building.h"
 #import "Movement.h"
+#import "Barracks.h"
 
 @interface Village () {
 	NSURLConnection *villageConnection; // Village connection
@@ -228,7 +229,52 @@
 		
 		if ([[area getAttributeNamed:@"href"] isEqualToString:[Account village]]) continue; // Village Centre
 		
-		Building *building = [[Building alloc] init];
+		int gid;
+		
+		// Coordinates
+		CGPoint coord;
+		NSString *style = [[vmap objectAtIndex:i] getAttributeNamed:@"style"];
+		NSString *raw = [[[style stringByReplacingOccurrencesOfString:((page & TPVillage) != 0) ? @"left:" : @"left: " withString:@""] stringByReplacingOccurrencesOfString:@"px; top:" withString:@":"] stringByReplacingOccurrencesOfString:@"px;" withString:@":"];
+		NSArray *split = [raw componentsSeparatedByString:@":"];
+		coord.x = [[split objectAtIndex:0] intValue];
+		coord.y = [[split objectAtIndex:1] intValue];
+		
+		// GID
+		if ((page & TPVillage) != 0) {
+			// Adjust coordinates for village
+			coord.x += 51;
+			coord.y += 51;
+			
+			// Parse Building Identifier
+			NSString *class = [[vmap objectAtIndex:i] getAttributeNamed:@"class"];
+			
+			gid = 0;
+			// Test if building site..
+			if ([class rangeOfString:@"building iso"].location != NSNotFound) {
+				// It is building site
+				gid = TBList; // list = buildingsite
+			} else {
+				gid = [[class stringByTrimmingCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]] intValue]; // class="building g10"
+				// Test if wall. Walls don't have coordinates
+				if (gid == TBCityWall || gid == TBEarthWall || gid == TBPalisade) {
+					coord.x = 0;
+					coord.y = 0;
+				}
+			}
+			// Set building gid
+			gid = gid;
+		} else {
+			gid = TBNotKnown;
+		}
+		
+		Building *building;
+		if (gid == TBBarracks) {
+			building = [[Barracks alloc] init]; // can check if is barracks by calling isKindOfClass: on the building
+		} else { // Do marketplace and main building tooo
+			building = [[Building alloc] init];
+		}
+		
+		building.gid = gid;
 		
 		NSString *title = [area getAttributeNamed:@"title"];
 		building.bid = [[area getAttributeNamed:@"href"] stringByReplacingOccurrencesOfString:@"build.php?id=" withString:@""];
@@ -262,42 +308,6 @@
 		building.page = page;
 		// Village this building belongs to
 		building.parent = self;
-		
-		// Coordinates
-		CGPoint coord;
-		NSString *style = [[vmap objectAtIndex:i] getAttributeNamed:@"style"];
-		NSString *raw = [[[style stringByReplacingOccurrencesOfString:((page & TPVillage) != 0) ? @"left:" : @"left: " withString:@""] stringByReplacingOccurrencesOfString:@"px; top:" withString:@":"] stringByReplacingOccurrencesOfString:@"px;" withString:@":"];
-		NSArray *split = [raw componentsSeparatedByString:@":"];
-		coord.x = [[split objectAtIndex:0] intValue];
-		coord.y = [[split objectAtIndex:1] intValue];
-		
-		// GID
-		if ((page & TPVillage) != 0) {
-			// Adjust coordinates for village
-			coord.x += 51;
-			coord.y += 51;
-			
-			// Parse Building Identifier
-			NSString *class = [[vmap objectAtIndex:i] getAttributeNamed:@"class"];
-			
-			int gid = 0;
-			// Test if building site..
-			if ([class rangeOfString:@"building iso"].location != NSNotFound) {
-				// It is building site
-				gid = TBList; // list = buildingsite
-			} else {
-				gid = [[class stringByTrimmingCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]] intValue]; // class="building g10"
-				// Test if wall. Walls don't have coordinates
-				if (gid == TBCityWall || gid == TBEarthWall || gid == TBPalisade) {
-					coord.x = 0;
-					coord.y = 0;
-				}
-			}
-			// Set building gid
-			building.gid = gid;
-		} else {
-			building.gid = TBNotKnown;
-		}
 		
 		// Set coordinates
 		building.coordinates = coord;

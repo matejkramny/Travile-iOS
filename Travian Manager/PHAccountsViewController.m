@@ -249,11 +249,13 @@
 			[passwordRetryView show];
 		} else if ((stat & ARefreshed) != 0) {
 			[hud setLabelText:@"Done"];
-			[hud setCustomView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"37x-Checkmark.png"]]];
-			[hud setMode:MBProgressHUDModeCustomView];
-			[hud hide:YES afterDelay:0.6];
+			[hud setDetailsLabelText:@""];
 			[hud removeGestureRecognizer:tapGestureRecognizer];
 			tapGestureRecognizer = nil;
+			[hud setCustomView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"37x-Checkmark.png"]]];
+			[hud setMode:MBProgressHUDModeCustomView];
+			
+			[hud hide:YES afterDelay:0.6];
 			
 			[storage.account removeObserver:self forKeyPath:@"notificationPending"];
 			[storage.account removeObserver:self forKeyPath:@"progressIndicator"];

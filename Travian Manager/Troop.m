@@ -10,7 +10,7 @@
 
 @implementation Troop
 
-@synthesize name, count;
+@synthesize name, count, researchTime, resources, formIdentifier, maxTroops;
 
 #pragma mark - Coders
 

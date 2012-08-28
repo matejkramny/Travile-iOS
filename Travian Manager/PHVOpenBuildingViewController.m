@@ -31,10 +31,12 @@
 	int researchActionSection;
 	MBProgressHUD *HUD;
 	ODRefreshControl *refreshControl;
+	UITapGestureRecognizer *tapToHide;
 }
 
 - (void)buildSections;
 - (void)reloadSelectedBuilding;
+- (void)tappedToHide:(id)sender;
 
 @end
 
@@ -64,9 +66,12 @@ static NSString *basicCellID = @"Basic";
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	
-	selectedBuilding = [buildings objectAtIndex:0];
-	[self buildSections];
-	[self.tableView reloadData];
+	if (!selectedBuilding) {
+		selectedBuilding = [buildings objectAtIndex:0];
+		[self buildSections];
+		[self.tableView reloadData];
+	}
+	
 	[[self navigationItem] setTitle:[selectedBuilding name]];
 	
 	if (!isBuildingSiteAvailableBuilding)
@@ -235,6 +240,9 @@ static NSString *basicCellID = @"Basic";
 	
 	HUD = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
 	HUD.labelText = @"Loading";
+	HUD.detailsLabelText = @"Tap to hide";
+	tapToHide = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedToHide:)];
+	[HUD addGestureRecognizer:tapToHide];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -242,6 +250,14 @@ static NSString *basicCellID = @"Basic";
 		PHVResearchViewController *rvc = segue.destinationViewController;
 		rvc.action = selectedAction;
 	}
+}
+
+- (void)tappedToHide:(id)sender {
+	[HUD hide:YES];
+	[HUD removeGestureRecognizer:tapToHide];
+	tapToHide = nil;
+	
+	[selectedBuilding removeObserver:self forKeyPath:@"finishedLoading"];
 }
 
 #pragma mark refreshControl did begin refreshing
@@ -393,6 +409,8 @@ static NSString *basicCellID = @"Basic";
 		[self buildSections];
 		[self.tableView reloadData];
 		[HUD hide:YES];
+		[HUD removeGestureRecognizer:tapToHide];
+		tapToHide = nil;
 	}
 }
 
