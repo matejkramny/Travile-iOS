@@ -56,7 +56,6 @@
 @end
 
 @implementation PHMessagesViewController
-@synthesize segmentedControl;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -87,8 +86,6 @@
 	
 	[self.tabBarController setTitle:[NSString stringWithFormat:@"Messages"]];
 	
-	[segmentedControl setSegmentedControlStyle:7];
-	
 	messages = [self retrieveMessages];
 	[[self tableView] reloadData];
 }
@@ -99,13 +96,12 @@
 
 - (void)viewDidUnload
 {
-	[self setSegmentedControl:nil];
     [super viewDidUnload];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    return (interfaceOrientation == UIInterfaceOrientationPortrait || interfaceOrientation == UIInterfaceOrientationLandscapeLeft || interfaceOrientation == UIInterfaceOrientationLandscapeRight);
+    return interfaceOrientation == UIInterfaceOrientationPortrait;
 }
 
 - (IBAction)segmentedControlValueChanged:(id)sender {
@@ -116,14 +112,14 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    return [[messages objectForKey:@"unread"] count] > 0 ? 2 : 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-	if (section == 0) // Unread
+	if (section == 0 && [[messages objectForKey:@"unread"] count] > 0) // Unread
 		return [[messages objectForKey:@"unread"] count];
-	else if (section == 1) // Read
+	else
 		return [[messages objectForKey:@"read"] count];
 	
     return 0;
@@ -134,10 +130,12 @@
     static NSString *CellIdentifier = @"MessageCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
-	NSArray *ms = [messages objectForKey:indexPath.section == 0 ? @"unread" : @"read"];
+	NSString *key = indexPath.section == 0 && [[messages objectForKey:@"unread"] count] > 0 ? @"unread" : @"read";
+	NSArray *ms = [messages objectForKey:key];
 	Message *m = [ms objectAtIndex:indexPath.row];
 	
     cell.textLabel.text = [m title];
+	cell.detailTextLabel.text = [NSString stringWithFormat:@"from %@ received %@", m.sender, m.when];
 	
 	[AppDelegate setCellAppearance:cell forIndexPath:indexPath];
 	
@@ -145,7 +143,7 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-	return section == 0 ? @"Unread messages" : @"Read messages";
+	return section == 0 && [[messages objectForKey:@"unread"] count] > 0 ? @"Unread messages" : @"Read messages";
 }
 
 - (IBAction)editButtonClicked:(id)sender {

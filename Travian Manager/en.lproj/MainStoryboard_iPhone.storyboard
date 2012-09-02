@@ -829,32 +829,26 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <segmentedControl key="tableHeaderView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" segmentControlStyle="bar" selectedSegmentIndex="0" id="ncb-7p-GEK">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="45"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <segments>
-                                <segment title="Inbox">
-                                    <size key="contentOffset" width="0.0" height="50"/>
-                                </segment>
-                                <segment title="Outbox"/>
-                            </segments>
-                            <connections>
-                                <action selector="segmentedControlValueChanged:" destination="Pw0-nn-OmU" eventType="valueChanged" id="PnR-gb-q89"/>
-                            </connections>
-                        </segmentedControl>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MessageCell" textLabel="ZMi-p7-pwy" style="IBUITableViewCellStyleDefault" id="GIJ-gf-3vq">
-                                <rect key="frame" x="0.0" y="67" width="320" height="44"/>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MessageCell" textLabel="ZMi-p7-pwy" detailTextLabel="ULl-C0-r8N" style="IBUITableViewCellStyleSubtitle" id="GIJ-gf-3vq">
+                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="300" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ZMi-p7-pwy">
-                                            <rect key="frame" x="10" y="0.0" width="280" height="43"/>
+                                            <rect key="frame" x="10" y="2" width="38" height="22"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ULl-C0-r8N">
+                                            <rect key="frame" x="10" y="24" width="47" height="18"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <color key="textColor" red="0.50196078431372548" green="0.50196078431372548" blue="0.50196078431372548" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </label>
                                     </subviews>
@@ -869,7 +863,6 @@
                     </tableView>
                     <tabBarItem key="tabBarItem" title="Messages" image="18-envelope.png" id="i6N-mQ-ssy"/>
                     <connections>
-                        <outlet property="segmentedControl" destination="ncb-7p-GEK" id="hRF-QK-VBS"/>
                         <segue destination="joa-Xf-HHi" kind="modal" identifier="NewMessage" id="VfB-b5-cHY"/>
                         <segue destination="HFp-7r-2We" kind="modal" identifier="OpenMessage" id="wFk-ZL-51y"/>
                     </connections>

@@ -160,7 +160,7 @@ static NSString *village = @"dorf2.php";
 	reloadMap = map;
 	
 	if ((map & ARVillage) != 0)
-		mapUrl = [Account resources];
+		mapUrl = [[Account resources] stringByAppendingFormat:@"&%@", village.urlPart];
 	else if ((map & ARVillages) != 0)
 		mapUrl = [Account profilePage];
 	else if ((map & ARReports) != 0)
@@ -523,6 +523,7 @@ static NSString *village = @"dorf2.php";
 	// 'Merge' the arrays
 	reports = [reports arrayByAddingObjectsFromArray:tempReports];
 	
+	/*
 	HTMLNode *nextPage = [paginator findChildWithAttribute:@"class" matchingName:@"next" allowPartial:NO];
 	if (nextPage && ![paginator findChildWithAttribute:@"class" matchingName:@"next disabled" allowPartial:NO]) {
 		// There is another page
@@ -534,7 +535,7 @@ static NSString *village = @"dorf2.php";
 		[request setHTTPShouldHandleCookies:YES];
 		
 		reportsConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
-	}
+	}*/
 	
 	NSLog(@"Parsed reports page");
 }
@@ -600,6 +601,7 @@ static NSString *village = @"dorf2.php";
 	// 'Merge' the arrays
 	messages = [messages arrayByAddingObjectsFromArray:tempMessages];
 	
+	/*
 	HTMLNode *nextPage = [paginator findChildWithAttribute:@"class" matchingName:@"next" allowPartial:NO];
 	if (nextPage && ![paginator findChildWithAttribute:@"class" matchingName:@"next disabled" allowPartial:NO]) {
 		// There is another page
@@ -611,7 +613,7 @@ static NSString *village = @"dorf2.php";
 		[request setHTTPShouldHandleCookies:YES];
 		
 		reportsConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
-	}
+	}*/
 	
 	NSLog(@"Parsed messages page");
 }
