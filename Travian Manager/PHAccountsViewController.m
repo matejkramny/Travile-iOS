@@ -332,27 +332,19 @@
 	selectedAccount = nil;
 	[self setEditing:NO];
 	
+	[self.tableView reloadData];
+	
 	[storage saveData];
 }
-- (void)accountDetailsViewController:(PHAccountDetailsViewController *)controller didEditAccount:(Account *)oldAccount newAccount:(Account *)newAccount
+- (void)accountDetailsViewController:(PHAccountDetailsViewController *)controller didEditAccount:(Account *)oldAccount
 {
-	int location = [storage.accounts indexOfObjectIdenticalTo:oldAccount];
-	if(location != NSNotFound)
-	{
-		// Replace old account with new
-		NSMutableArray *arr = [storage.accounts mutableCopy];
-		[arr replaceObjectAtIndex:location withObject:newAccount];
-		storage.accounts = [arr copy];
-		
-		// Reload table source
-		[self.tableView reloadData];
-	}
-	
 	// Dismiss view
 	[self dismissViewControllerAnimated:YES completion:nil];
 	
 	selectedAccount = nil;
 	[self setEditing:NO];
+	
+	[self.tableView reloadData];
 	
 	[storage saveData];
 }
@@ -361,6 +353,27 @@
 	[self dismissViewControllerAnimated:YES completion:nil];
 	selectedAccount = nil;
 	[self setEditing:NO];
+}
+- (void)accountDetailsViewController:(PHAccountDetailsViewController *)controller didDeleteAccount:(Account *)account {
+	int location = [storage.accounts indexOfObjectIdenticalTo:account];
+	if(location != NSNotFound)
+	{
+		// Replace old account with new
+		NSMutableArray *arr = [storage.accounts mutableCopy];
+		[arr removeObjectAtIndex:location];
+		storage.accounts = [arr copy];
+		
+		// Reload table source
+		[self.tableView reloadData];
+	}
+	
+	[self dismissViewControllerAnimated:YES completion:nil];
+	[self setEditing:NO];
+	selectedAccount = nil;
+	
+	[self.tableView reloadData];
+	
+	[storage saveData];
 }
 
 @end

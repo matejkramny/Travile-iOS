@@ -10,6 +10,8 @@
 #import "HTMLNode.h"
 #import "Troop.h"
 #import "Resources.h"
+#import "Storage.h"
+#import "Account.h"
 
 @interface Barracks () {
 	NSString *postData; // Starts with hidden values from the form
@@ -20,6 +22,8 @@
 @end
 
 @implementation Barracks
+
+@synthesize troops, researching;
 
 - (void)fetchDescription {
 	[super fetchDescription];
@@ -46,6 +50,10 @@
 	HTMLNode *div = [form findChildOfClass:@"buildActionOverview trainUnits"];
 	NSArray *actions = [div findChildrenWithAttribute:@"class" matchingName:@"action" allowPartial:YES];
 	
+	// Temporary holder for troops array
+	NSMutableArray *mtroops = [[NSMutableArray alloc] initWithCapacity:actions.count];
+	
+	// Loop through html to retrieve troops
 	for (HTMLNode *action in actions) {
 		Troop *troop = [[Troop alloc] init];
 		
@@ -94,8 +102,55 @@
 		troop.resources.wheat = [[spansParsed objectAtIndex:3] intValue];// Wheat
 		
 		// Research time..
-		troop.researchTime = [spansParsed lastObject];
+		// Parse time from (hh:mm:ss) to seconds
+		NSArray *timeSplit = [[spansParsed lastObject] componentsSeparatedByString:@":"];
+		int hour = 0, minute = 0, second = 0;
+		hour = [[timeSplit objectAtIndex:0] intValue];
+		minute = [[timeSplit objectAtIndex:1] intValue];
+		second = [[timeSplit objectAtIndex:2] intValue];
+		troop.researchTime = hour * 60 * 60 + minute * 60 + second;
+		
+		[mtroops addObject:troop];
 	}
+	
+	troops = [mtroops copy];
+	
+	// Troops being trained.
+	HTMLNode *table = [build findChildOfClass:@"under_progress"];
+	NSMutableDictionary *mresearching = [[NSMutableDictionary alloc] init];
+	
+	if (table) {
+		NSArray *trs = [[table findChildTag:@"tbody"] findChildTags:@"tr"];
+		for (HTMLNode *tr in trs) {
+			if ([[tr getAttributeNamed:@"class"] isEqualToString:@"next"]) continue;
+			
+			HTMLNode *desc = [tr findChildOfClass:@"desc"]; // description contains image and text afterwards. HTMLParser cannot retrieve text after the image so we have to do it manually
+			
+			NSString *img = [[desc findChildTag:@"img"] rawContents];
+			NSString *raw = [desc rawContents];
+			
+			raw = [raw stringByReplacingOccurrencesOfString:img withString:@""];
+			
+			NSError *error;
+			HTMLParser *p = [[HTMLParser alloc] initWithString:raw error:&error];
+			if (error) {
+				NSLog(@"Cannot parse Existing troop (barracks) %@ %@", [error localizedDescription], [error localizedRecoverySuggestion]);
+				continue;
+			}
+			
+			// Name of troop (e.g. '1 clubswinger')
+			NSString *name = [[[[[p body] findChildTag:@"td"] contents] stringByReplacingOccurrencesOfString:@"\r\n" withString:@""] stringByReplacingOccurrencesOfString:@"\t" withString:@""];
+			
+			// Finish time
+			HTMLNode *fin = [tr findChildOfClass:@"fin"];
+			NSArray *spans = [fin findChildTags:@"span"];
+			NSString *finishTime = [[spans objectAtIndex:0] contents];
+			
+			[mresearching setObject:finishTime forKey:name];
+		}
+	}
+	
+	self.researching = [mresearching copy];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
@@ -106,6 +161,45 @@
 			HTMLNode *build = [super buildDiv];
 			[self fetchTroopsFromBuildDiv:build];
 		}
+	}
+}
+
+- (bool)train {
+	@autoreleasepool {
+		// Check if there is anything to be trained
+		NSURL *url = [[Storage sharedStorage].account urlForString:@"build.php"];
+		NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60.0f];
+		
+		// Preserve any cookies received
+		[request setHTTPShouldHandleCookies:YES];
+		
+		NSMutableString *tempPostData = [[NSMutableString alloc] init];
+		bool atLeastOneTroop = false;
+		for (Troop *t in troops) {
+			if (t.count > 0) atLeastOneTroop = true;
+			
+			[tempPostData appendFormat:@"%@=%d&", t.formIdentifier, t.count];
+		}
+		
+		if (!atLeastOneTroop)
+			return NO;
+		
+		tempPostData = [NSString stringWithFormat:@"%@%@", postData, tempPostData];
+		
+		NSData *myRequestData = [NSData dataWithBytes:[tempPostData UTF8String] length:tempPostData.length];
+		
+		// Set POST HTTP Headers if necessary
+		[request setHTTPMethod: @"POST"];
+		[request setHTTPBody: myRequestData];
+		[request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"content-type"];
+		
+		for (Troop *t in troops) {
+			[t setCount:0];
+		}
+		
+		__unused NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:nil startImmediately:YES];
+		
+		return YES;
 	}
 }
 

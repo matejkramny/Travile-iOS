@@ -16,27 +16,17 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+	// Sets appearance for UI
 	[self customizeAppearance];
 	
+	// Initialize storage
 	[Storage sharedStorage].delegate = self;
 	
 	return YES;
 }
 							
 - (void)applicationWillResignActive:(UIApplication *)application {}
-- (void)applicationDidEnterBackground:(UIApplication *)application
-{
-	[[Storage sharedStorage] saveData];
-	
-	/*//As we are going into the background, I want to start a background task to clean up the disk caches
-	if ([[UIDevice currentDevice] respondsToSelector:@selector(isMultitaskingSupported)]) { //Check if our iOS version supports multitasking I.E iOS 4
-		if ([[UIDevice currentDevice] isMultitaskingSupported]) { //Check if device supports mulitasking
-			[application beginBackgroundTaskWithExpirationHandler:^ {
-				NSLog(@"Went to background");
-			}];
-		}
-	}*/
-}
+- (void)applicationDidEnterBackground:(UIApplication *)application {}
 - (void)applicationWillEnterForeground:(UIApplication *)application {}
 - (void)applicationDidBecomeActive:(UIApplication *)application {}
 - (void)applicationWillTerminate:(UIApplication *)application {}
@@ -85,14 +75,17 @@
 static UIImageView *tableCellSelectedBackground;
 static UIImage *detailAccessoryViewImage;
 
+// Set appearance of cell based on indexPath
 + (void)setCellAppearance:(UITableViewCell *)cell forIndexPath:(NSIndexPath *)indexPath {
 	UIView *bg = [[UIView alloc] init];
 	
+	// Odd vs even row
 	if (indexPath.row % 2)
 		[bg setBackgroundColor:[UIColor colorWithWhite:0.98 alpha:0.8]];
 	else
 		[bg setBackgroundColor:[UIColor colorWithWhite:1.0 alpha:0.8]];
 	
+	// Background
 	cell.backgroundView = bg;
 	cell.textLabel.backgroundColor = [UIColor clearColor];
 	cell.detailTextLabel.backgroundColor = [UIColor clearColor];
@@ -100,6 +93,7 @@ static UIImage *detailAccessoryViewImage;
 	if (!tableCellSelectedBackground)
 		tableCellSelectedBackground = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"SelectedCell.png"] stretchableImageWithLeftCapWidth:0 topCapHeight:0]];
 	
+	// Selected background
 	cell.selectedBackgroundView = tableCellSelectedBackground;
 	cell.textLabel.highlightedTextColor = [UIColor whiteColor];
 	cell.detailTextLabel.highlightedTextColor = [UIColor whiteColor];
@@ -121,6 +115,7 @@ static UIImage *detailAccessoryViewImage;
 	return button;
 }
 
+// Adds refreshControl to a view. Also sets background color of the control
 + (ODRefreshControl *)addRefreshControlTo:(UIScrollView *)scrollView target:(id)target action:(SEL)selector {
 	ODRefreshControl *refreshControl = [[ODRefreshControl alloc] initInScrollView:scrollView];
 	[refreshControl setTintColor:[UIColor colorWithRed:81.0/255.0 green:81.0/255.0 blue:81.0/255.0 alpha:0.75]];

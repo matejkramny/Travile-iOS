@@ -37,7 +37,7 @@
 
 - (void)buildFromAccount:(Account *)account {
 	wantsToBuild = true;
-	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[account urlForArguments:@"build.php?id=", bid, nil] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
+	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[account urlForArguments:@"build.php?id=", bid, @"&", parent.urlPart, nil] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
 	
 	// Preserve any cookies received
 	[request setHTTPShouldHandleCookies:YES];
@@ -50,7 +50,7 @@
 	
 	Account *a = [parent getParent];
 	
-	NSMutableURLRequest *req = [[NSMutableURLRequest alloc] initWithURL:[a urlForArguments:@"build.php?id=", bid, nil] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
+	NSMutableURLRequest *req = [[NSMutableURLRequest alloc] initWithURL:[a urlForArguments:@"build.php?t=0&tt=0&s=0&id=", bid, @"&", parent.urlPart nil] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
 	
 	[req setHTTPShouldHandleCookies:YES];
 	
@@ -104,7 +104,7 @@
 		[self fetchActionsFromIDBuild:buildID];
 	}
 	
-	[self setBuildDiv:buildID];
+	[self setBuildDiv:buildID]; // Allow objects that inherit from Building to fetch properties
 	
 	[self parsePage:page fromHTMLNode:node];
 }
@@ -119,7 +119,7 @@
 			
 			Account *a = [parent getParent];
 			
-			NSMutableURLRequest *req = [[NSMutableURLRequest alloc] initWithURL:[a urlForArguments:@"build.php?id=", bid, @"&category=2", nil] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
+			NSMutableURLRequest *req = [[NSMutableURLRequest alloc] initWithURL:[a urlForArguments:@"build.php?id=", bid, @"&category=2", @"&", parent.urlPart nil] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
 			[req setHTTPShouldHandleCookies:YES];
 			cat2Connection = [[NSURLConnection alloc] initWithRequest:req delegate:self startImmediately:YES];
 		}
@@ -298,12 +298,14 @@
 		[spansParsed addObject:[NSNumber numberWithInt:[[[[[p body] findChildTag:@"span"] contents] stringByTrimmingCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]] intValue]]];
 	}
 	
-	res.wood = [[spansParsed objectAtIndex:0] intValue];// Wood
-	res.clay = [[spansParsed objectAtIndex:1] intValue];// Clay
-	res.iron = [[spansParsed objectAtIndex:2] intValue];// Iron
-	res.wheat = [[spansParsed objectAtIndex:3] intValue];// Wheat
-	
-	resources = res;
+	if ([spansParsed count] >= 4) {
+		res.wood = [[spansParsed objectAtIndex:0] intValue];// Wood
+		res.clay = [[spansParsed objectAtIndex:1] intValue];// Clay
+		res.iron = [[spansParsed objectAtIndex:2] intValue];// Iron
+		res.wheat = [[spansParsed objectAtIndex:3] intValue];// Wheat
+		
+		resources = res;
+	}
 }
 
 - (void)fetchActionsFromIDBuild:(HTMLNode *)buildID {
@@ -413,7 +415,7 @@
 			
 			Account *a = [parent getParent];
 			
-			NSMutableURLRequest *req = [[NSMutableURLRequest alloc] initWithURL:[a urlForArguments:@"build.php?id=", bid, @"&category=3", nil] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
+			NSMutableURLRequest *req = [[NSMutableURLRequest alloc] initWithURL:[a urlForArguments:@"build.php?id=", bid, @"&category=3", @"&", parent.urlPart, nil] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
 			[req setHTTPShouldHandleCookies:YES];
 			cat3Connection = [[NSURLConnection alloc] initWithRequest:req delegate:self startImmediately:YES];
 		}

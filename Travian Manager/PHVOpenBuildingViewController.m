@@ -18,6 +18,9 @@
 #import "AppDelegate.h"
 #import "BuildingAction.h"
 #import "PHVResearchViewController.h"
+#import "Barracks.h"
+#import "Troop.h"
+#import "PHVBarracksCell.h"
 
 @interface PHVOpenBuildingViewController () {
 	BuildingMap *buildingMap;
@@ -29,14 +32,17 @@
 	NSArray *sectionCellTypes; // Section types
 	NSIndexPath *buildActionIndexPath;
 	int researchActionSection;
+	int barracksSection;
 	MBProgressHUD *HUD;
 	ODRefreshControl *refreshControl;
 	UITapGestureRecognizer *tapToHide;
+	UITapGestureRecognizer *tapToHideKeyboard;
 }
 
 - (void)buildSections;
 - (void)reloadSelectedBuilding;
 - (void)tappedToHide:(id)sender;
+- (void)tappedToHideKeyboard:(id)sender;
 
 @end
 
@@ -48,6 +54,7 @@
 static NSString *rightDetailCellID = @"RightDetail";
 static NSString *basicSelectableCellID = @"BasicSelectable";
 static NSString *basicCellID = @"Basic";
+static NSString *barracksCellID = @"Barracks";
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -76,6 +83,12 @@ static NSString *basicCellID = @"Basic";
 	
 	if (!isBuildingSiteAvailableBuilding)
 		refreshControl = [AppDelegate addRefreshControlTo:self.tableView target:self action:@selector(didBeginRefreshing:)];
+	
+	tapToHideKeyboard = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedToHideKeyboard:)];
+	[self.tableView addGestureRecognizer:tapToHideKeyboard];
+	[tapToHideKeyboard setNumberOfTapsRequired:1];
+	[tapToHideKeyboard setNumberOfTouchesRequired:1];
+	[tapToHideKeyboard setCancelsTouchesInView:NO];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -83,6 +96,8 @@ static NSString *basicCellID = @"Basic";
 	
 	refreshControl = nil;
 	[[self delegate] phvOpenBuildingViewController:self didCloseBuilding:selectedBuilding];
+	
+	tapToHideKeyboard = nil;
 }
 
 - (void)viewDidUnload
@@ -101,7 +116,7 @@ static NSString *basicCellID = @"Basic";
 	[footers addObject:@""]; // no footer..
 	[types addObject:[NSNull null]]; // Never used
 	
-	bool buildingSite = [selectedBuilding level] == 0 && (([selectedBuilding page] & TPVillage) != 0) && !selectedBuilding.isBeingUpgraded;
+	bool buildingSite = [selectedBuilding level] == 0 && (([selectedBuilding page] & TPVillage) != 0) && !selectedBuilding.isBeingUpgraded && !isBuildingSiteAvailableBuilding;
 	
 	if (buildingSite) {
 		// List available buildings
@@ -172,6 +187,49 @@ static NSString *basicCellID = @"Basic";
 			[types addObject:rightDetailCellID];
 		}
 		
+		// Actions
+		if ([[selectedBuilding actions] count] > 0) {
+			NSMutableArray *strings = [[NSMutableArray alloc] initWithCapacity:[selectedBuilding.actions count]];
+			for (BuildingAction *action in selectedBuilding.actions) {
+				[strings addObject:action.name];
+			}
+			
+			[secs addObject:strings];
+			[titles addObject:@"Research"];
+			[footers addObject:@""];
+			[types addObject:basicSelectableCellID];
+			
+			researchActionSection = [secs count]-1;
+		}
+		
+		// Special building actions
+		// Barracks
+		if ([selectedBuilding isKindOfClass:[Barracks class]]) {
+			Barracks *barracks = (Barracks *)selectedBuilding;
+			
+			if (barracks.researching && barracks.researching.count > 0) {
+				[secs addObject:barracks.researching];
+				[titles addObject:@"Training"];
+				[footers addObject:@"These troops are being trained"];
+				[types addObject:rightDetailCellID];
+			}
+			
+			if (barracks.troops && barracks.troops.count > 0) {
+				NSMutableArray *sec = [[NSMutableArray alloc] initWithCapacity:barracks.troops.count+1]; // +1 for 'Train' button
+				for (Troop *troop in barracks.troops) {
+					[sec addObject:troop];
+				}
+				[sec addObject:@"Train"];
+				
+				[secs addObject:[sec copy]];
+				[titles addObject:@"Train troops"];
+				[footers addObject:@""];
+				[types addObject:barracksCellID];
+				
+				barracksSection = [secs count]-1;
+			}
+		}
+		
 		// Conditions
 		if ([[selectedBuilding buildConditionsDone] count] > 0) {
 			[secs addObject:selectedBuilding.buildConditionsDone];
@@ -190,21 +248,6 @@ static NSString *basicCellID = @"Basic";
 			[titles addObject:@"Cannot build"];
 			[footers addObject:@""];
 			[types addObject:basicCellID];
-		}
-		
-		// Actions
-		if ([[selectedBuilding actions] count] > 0) {
-			NSMutableArray *strings = [[NSMutableArray alloc] initWithCapacity:[selectedBuilding.actions count]];
-			for (BuildingAction *action in selectedBuilding.actions) {
-				[strings addObject:action.name];
-			}
-			
-			[secs addObject:strings];
-			[titles addObject:@"Research"];
-			[footers addObject:@""];
-			[types addObject:basicSelectableCellID];
-			
-			researchActionSection = [secs count]-1;
 		}
 		
 		// Buttons
@@ -260,6 +303,14 @@ static NSString *basicCellID = @"Basic";
 	[selectedBuilding removeObserver:self forKeyPath:@"finishedLoading"];
 }
 
+- (void)tappedToHideKeyboard:(id)sender {
+	[self.view endEditing:YES];
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+	[self.view endEditing:YES];
+}
+
 #pragma mark refreshControl did begin refreshing
 
 - (void)didBeginRefreshing:(id)sender {
@@ -292,6 +343,27 @@ static NSString *basicCellID = @"Basic";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	id sec = [sections objectAtIndex:indexPath.section];
+
+	if (indexPath.section == barracksSection && [selectedBuilding isKindOfClass:[Barracks class]]) {
+		if ([[sec objectAtIndex:indexPath.row] isKindOfClass:[NSString class]]) {
+			// Train button
+			UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:basicSelectableCellID];
+			cell.textLabel.text = @"Train";
+			return cell;
+		} else {
+			PHVBarracksCell *cell = [tableView dequeueReusableCellWithIdentifier:barracksCellID];
+			Troop *troop = [sec objectAtIndex:indexPath.row];
+			if (cell == nil) {
+				cell = [[PHVBarracksCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:barracksCellID];
+			}
+			cell.troop = troop;
+			
+			[cell configure];
+			
+			return cell;
+		}
+	}
+	
 	
 	UITableViewCell *cell;
 	if ([sec isKindOfClass:[NSString class]]) {
@@ -340,6 +412,14 @@ static NSString *basicCellID = @"Basic";
 	return 44.0f;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+	if (indexPath.section == barracksSection && [selectedBuilding isKindOfClass:[Barracks class]] && [[[sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] isKindOfClass:[Troop class]]) {
+		return 90.0f;
+	}
+	
+	return 44.0f;
+}
+
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -382,6 +462,13 @@ static NSString *basicCellID = @"Basic";
 		// Push view controller for research
 		selectedAction = [[selectedBuilding actions] objectAtIndex:indexPath.row];
 		[self performSegueWithIdentifier:@"OpenResearch" sender:self];
+	} else if (barracksSection == indexPath.section && [[[sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] isKindOfClass:[NSString class]]) {
+		// Train button
+		if ([(Barracks *)selectedBuilding train]) {
+			[self reloadSelectedBuilding];
+		}
+		
+		[self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
 	}
 }
 

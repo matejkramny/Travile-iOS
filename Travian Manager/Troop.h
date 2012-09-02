@@ -17,8 +17,9 @@
 
 // Used with Barracks to research troops
 @property (strong, nonatomic) Resources *resources; // Resources required to build one troop
-@property (strong, nonatomic) NSString *researchTime; // Time it takes to research one troop
+@property (assign) int researchTime; // Time it takes to research one troop
 @property (strong, nonatomic) NSString *formIdentifier; // This troop's name=value in post request
 @property (assign) int maxTroops; // Maximum number of troops that can be trained (taken from html not calculated)
+@property (strong, nonatomic) NSDate *researchDone; // Future date
 
 @end

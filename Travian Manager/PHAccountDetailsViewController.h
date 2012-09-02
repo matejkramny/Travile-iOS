@@ -14,21 +14,17 @@
 @protocol PHAccountDetailsViewControllerDelegate <NSObject>
 - (void)accountDetailsViewControllerDidCancel:(PHAccountDetailsViewController *)controller;
 - (void)accountDetailsViewController:(PHAccountDetailsViewController *)controller didAddAccount:(Account *)account;
-- (void)accountDetailsViewController:(PHAccountDetailsViewController *)controller didEditAccount:(Account *)oldAccount newAccount:(Account *)newAccount;
+- (void)accountDetailsViewController:(PHAccountDetailsViewController *)controller didEditAccount:(Account *)oldAccount;
+- (void)accountDetailsViewController:(PHAccountDetailsViewController *)controller didDeleteAccount:(Account *)account;
 @end
 
-@interface PHAccountDetailsViewController : UITableViewController
+@interface PHAccountDetailsViewController : UITableViewController <UIActionSheetDelegate>
 
 @property (nonatomic, weak) id <PHAccountDetailsViewControllerDelegate> delegate;
 @property (nonatomic, weak) Account *editingAccount;
-@property (strong, nonatomic) IBOutlet UITextField *usernameTextField;
-@property (strong, nonatomic) IBOutlet UITextField *passwordTextField;
-@property (strong, nonatomic) IBOutlet UITextField *accountNameTextField;
-@property (strong, nonatomic) IBOutlet UITextField *worldTextField;
-@property (strong, nonatomic) IBOutlet UITextField *domainTextField;
 
 - (IBAction)done:(id)sender;
 - (IBAction)cancel:(id)sender;
-- (IBAction)hideKeyboard:(id)sender;
+- (IBAction)delete:(id)sender;
 
 @end

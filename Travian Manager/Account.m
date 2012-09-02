@@ -444,7 +444,16 @@ static NSString *village = @"dorf2.php";
 		
 		tempVillage = [tempVillages objectAtIndex:index];
 		
-		tempVillage.urlPart = [[li findChildTag:@"a"] getAttributeNamed:@"href"];
+		// Removes junk after & in the url
+		NSString *identifier = [[li findChildTag:@"a"] getAttributeNamed:@"href"];
+		NSRange location = [identifier rangeOfString:@"&"];
+		if (location.location != NSNotFound)
+			identifier = [identifier substringToIndex:location.location];
+		
+		// Remove ? from url
+		identifier = [identifier substringFromIndex:1];
+		
+		tempVillage.urlPart = identifier;
 		
 		[tempVillage setAccountParent:self];
 	}
@@ -453,7 +462,7 @@ static NSString *village = @"dorf2.php";
 	villages = tempVillages;
 	
 	for (Village *vil in villages) {
-		NSLog(@"Village named: %@ has %d population and is accessed by this url: %@", vil.name, vil.population, vil.urlPart);
+		NSLog(@"Village %@ has %d population and is accessed by url: %@", vil.name, vil.population, vil.urlPart);
 		[vil downloadAndParse]; // Tell each village to download its data
 	}
 	

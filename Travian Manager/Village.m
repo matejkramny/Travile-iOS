@@ -64,7 +64,7 @@
 	Account *account = [[Storage sharedStorage] account]; // This village's owner
 	
 	// Start a request containing Resources, ResourceProduction, and troops
-	NSURL *url = [account urlForString:[Account resources]];
+	NSURL *url = [account urlForArguments:[Account resources], @"?", urlPart, nil];
 	
 	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: url cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
 	
@@ -500,7 +500,7 @@
 		if ((page & TPResources) != 0) {
 			// Village overview
 			
-			NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[parent urlForString:[Account village]] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
+			NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[parent urlForArguments:[Account village], @"?", urlPart, nil] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
 			[request setHTTPShouldHandleCookies:YES];
 			
 			villageConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];

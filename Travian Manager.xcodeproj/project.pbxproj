@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		4F0261D115612EA300DF545F /* TPIdentifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F0261D015612EA300DF545F /* TPIdentifier.m */; };
+		4F04DA2915ED632700DAF6E7 /* PHVBarracksCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F04DA2815ED632700DAF6E7 /* PHVBarracksCell.m */; };
+		4F04DA2D15EEDFDE00DAF6E7 /* PHAccountTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F04DA2C15EEDFDE00DAF6E7 /* PHAccountTextFieldCell.m */; };
+		4F04DA3015EEE02300DAF6E7 /* PHAccountTextFieldRightCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F04DA2F15EEE02300DAF6E7 /* PHAccountTextFieldRightCell.m */; };
 		4F09520D155C767800C15D6E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F09520C155C767800C15D6E /* UIKit.framework */; };
 		4F09520F155C767800C15D6E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F09520E155C767800C15D6E /* Foundation.framework */; };
 		4F095211155C767800C15D6E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F095210155C767800C15D6E /* CoreGraphics.framework */; };
@@ -119,6 +122,8 @@
 		4F928DA915D41A65008AC6DB /* UINavigationBarLandscape.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F928DA515D41A65008AC6DB /* UINavigationBarLandscape.png */; };
 		4F928DAA15D41A65008AC6DB /* UINavigationBarLandscape@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F928DA615D41A65008AC6DB /* UINavigationBarLandscape@2x.png */; };
 		4F99267515644E7200C6AFFC /* Construction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F99267415644E7200C6AFFC /* Construction.m */; };
+		4FA88B6D15F160D9001D9713 /* PHDeleteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA88B6C15F160D9001D9713 /* PHDeleteCell.m */; };
+		4FA88B6F15F1632A001D9713 /* redButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FA88B6E15F1632A001D9713 /* redButton.png */; };
 		4FB1A75115EA539200C1FE4C /* Barracks.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FB1A75015EA539200C1FE4C /* Barracks.m */; };
 		4FBACE5515D71E2E0092A8F3 /* ODRefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FBACE5415D71E2E0092A8F3 /* ODRefreshControl.m */; };
 		4FBACE5815D71FCF0092A8F3 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FBACE5715D71FCF0092A8F3 /* QuartzCore.framework */; };
@@ -143,6 +148,12 @@
 /* Begin PBXFileReference section */
 		4F0261CF15612EA300DF545F /* TPIdentifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPIdentifier.h; sourceTree = "<group>"; };
 		4F0261D015612EA300DF545F /* TPIdentifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPIdentifier.m; sourceTree = "<group>"; };
+		4F04DA2715ED632700DAF6E7 /* PHVBarracksCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHVBarracksCell.h; sourceTree = "<group>"; };
+		4F04DA2815ED632700DAF6E7 /* PHVBarracksCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHVBarracksCell.m; sourceTree = "<group>"; };
+		4F04DA2B15EEDFDE00DAF6E7 /* PHAccountTextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHAccountTextFieldCell.h; sourceTree = "<group>"; };
+		4F04DA2C15EEDFDE00DAF6E7 /* PHAccountTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHAccountTextFieldCell.m; sourceTree = "<group>"; };
+		4F04DA2E15EEE02300DAF6E7 /* PHAccountTextFieldRightCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHAccountTextFieldRightCell.h; sourceTree = "<group>"; };
+		4F04DA2F15EEE02300DAF6E7 /* PHAccountTextFieldRightCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHAccountTextFieldRightCell.m; sourceTree = "<group>"; };
 		4F095208155C767800C15D6E /* Travian Manager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Travian Manager.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F09520C155C767800C15D6E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		4F09520E155C767800C15D6E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -284,6 +295,9 @@
 		4F928DA615D41A65008AC6DB /* UINavigationBarLandscape@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UINavigationBarLandscape@2x.png"; sourceTree = "<group>"; };
 		4F99267315644E7200C6AFFC /* Construction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Construction.h; sourceTree = "<group>"; };
 		4F99267415644E7200C6AFFC /* Construction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Construction.m; sourceTree = "<group>"; };
+		4FA88B6B15F160D9001D9713 /* PHDeleteCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHDeleteCell.h; sourceTree = "<group>"; };
+		4FA88B6C15F160D9001D9713 /* PHDeleteCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHDeleteCell.m; sourceTree = "<group>"; };
+		4FA88B6E15F1632A001D9713 /* redButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = redButton.png; path = ../redButton.png; sourceTree = "<group>"; };
 		4FB1A74F15EA539200C1FE4C /* Barracks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Barracks.h; sourceTree = "<group>"; };
 		4FB1A75015EA539200C1FE4C /* Barracks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Barracks.m; sourceTree = "<group>"; };
 		4FBACE5315D71E2E0092A8F3 /* ODRefreshControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODRefreshControl.h; sourceTree = "<group>"; };
@@ -420,6 +434,12 @@
 				4F28C73A15BB1A9500C976E3 /* PHAccountsViewController.m */,
 				4F28C73F15BB358500C976E3 /* PHAccountDetailsViewController.h */,
 				4F28C74015BB358500C976E3 /* PHAccountDetailsViewController.m */,
+				4F04DA2B15EEDFDE00DAF6E7 /* PHAccountTextFieldCell.h */,
+				4F04DA2C15EEDFDE00DAF6E7 /* PHAccountTextFieldCell.m */,
+				4F04DA2E15EEE02300DAF6E7 /* PHAccountTextFieldRightCell.h */,
+				4F04DA2F15EEE02300DAF6E7 /* PHAccountTextFieldRightCell.m */,
+				4FA88B6B15F160D9001D9713 /* PHDeleteCell.h */,
+				4FA88B6C15F160D9001D9713 /* PHDeleteCell.m */,
 				4FC6F11A15BC4107006F583D /* PHVillagesViewController.h */,
 				4FC6F11B15BC4107006F583D /* PHVillagesViewController.m */,
 				4FE58E9915C59B55004825EF /* PHVOverviewViewController.h */,
@@ -432,6 +452,8 @@
 				4F509F6015C5C08600A15924 /* PHVBuildingsViewController.m */,
 				4F4A52B715C96B1F005F3708 /* PHVOpenBuildingViewController.h */,
 				4F4A52B815C96B20005F3708 /* PHVOpenBuildingViewController.m */,
+				4F04DA2715ED632700DAF6E7 /* PHVBarracksCell.h */,
+				4F04DA2815ED632700DAF6E7 /* PHVBarracksCell.m */,
 				4FC706AC15E825BB0081372E /* PHVResearchViewController.h */,
 				4FC706AD15E825BB0081372E /* PHVResearchViewController.m */,
 				4FC6F11D15BC4AC0006F583D /* PHReportsViewController.h */,
@@ -504,6 +526,7 @@
 		4F5704C515CEE72A001614AC /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				4FA88B6E15F1632A001D9713 /* redButton.png */,
 				4F6E222915E15BFF002EC13F /* 37x-Checkmark.png */,
 				4F6E222A15E15BFF002EC13F /* 37x-Checkmark@2x.png */,
 				4F57044815CEE126001614AC /* 102-walk.png */,
@@ -770,6 +793,7 @@
 				4F2D975B15D68925007E589D /* SelectedCell@2x.png in Resources */,
 				4F6E222B15E15BFF002EC13F /* 37x-Checkmark.png in Resources */,
 				4F6E222C15E15BFF002EC13F /* 37x-Checkmark@2x.png in Resources */,
+				4FA88B6F15F1632A001D9713 /* redButton.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -836,6 +860,10 @@
 				4F6E222F15E51B85002EC13F /* BuildingAction.m in Sources */,
 				4FC706AE15E825BB0081372E /* PHVResearchViewController.m in Sources */,
 				4FB1A75115EA539200C1FE4C /* Barracks.m in Sources */,
+				4F04DA2915ED632700DAF6E7 /* PHVBarracksCell.m in Sources */,
+				4F04DA2D15EEDFDE00DAF6E7 /* PHAccountTextFieldCell.m in Sources */,
+				4F04DA3015EEE02300DAF6E7 /* PHAccountTextFieldRightCell.m in Sources */,
+				4FA88B6D15F160D9001D9713 /* PHDeleteCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

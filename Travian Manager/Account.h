@@ -47,12 +47,10 @@ typedef enum {
 @property (nonatomic, strong) NSArray *reports; // Reports
 @property (nonatomic, strong) NSArray *messages; // Messages
 @property (nonatomic, strong) NSArray *contacts; // Contact list
-//@property (nonatomic, strong) Profile *profile;
 @property (nonatomic, strong) Hero *hero; // Hero
 
 @property (assign) AccountStatus status; // Tells other objects the status of this account
 @property (assign) bool notificationPending; // There is a notification. Notify user to either skipNotification or view it in safari.
-//@property (assign) bool hasFinishedLoading; // When NO, HUD should be up stating the account is loading..
 @property (nonatomic, strong) NSString *progressIndicator; // Label on HUD
 
 - (void)activateAccount;

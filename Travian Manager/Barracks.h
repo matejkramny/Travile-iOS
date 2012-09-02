@@ -10,4 +10,9 @@
 
 @interface Barracks : Building
 
+@property (nonatomic, strong) NSArray *troops;
+@property (nonatomic, strong) NSDictionary *researching;
+
+- (bool)train;
+
 @end
