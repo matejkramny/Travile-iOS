@@ -50,7 +50,7 @@
 	
 	Account *a = [parent getParent];
 	
-	NSMutableURLRequest *req = [[NSMutableURLRequest alloc] initWithURL:[a urlForArguments:@"build.php?t=0&tt=0&s=0&id=", bid, @"&", parent.urlPart nil] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
+	NSMutableURLRequest *req = [[NSMutableURLRequest alloc] initWithURL:[a urlForArguments:@"build.php?t=0&tt=0&s=0&id=", bid, @"&", parent.urlPart, nil] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
 	
 	[req setHTTPShouldHandleCookies:YES];
 	
@@ -119,7 +119,7 @@
 			
 			Account *a = [parent getParent];
 			
-			NSMutableURLRequest *req = [[NSMutableURLRequest alloc] initWithURL:[a urlForArguments:@"build.php?id=", bid, @"&category=2", @"&", parent.urlPart nil] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
+			NSMutableURLRequest *req = [[NSMutableURLRequest alloc] initWithURL:[a urlForArguments:@"build.php?id=", bid, @"&category=2", @"&", parent.urlPart, nil] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
 			[req setHTTPShouldHandleCookies:YES];
 			cat2Connection = [[NSURLConnection alloc] initWithRequest:req delegate:self startImmediately:YES];
 		}
