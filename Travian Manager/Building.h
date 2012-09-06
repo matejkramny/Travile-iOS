@@ -41,6 +41,8 @@
 // Building in what village?
 @property (nonatomic, weak) Village *parent;
 
+@property (nonatomic, strong) NSString *finishedLoadingKVOIdentifier; // Holds value that tells other objects what key to observe if they want to check whether the object has finished loading
+
 - (void)buildFromAccount:(Account *)account;
 - (void)fetchDescription;
 - (void)fetchDescriptionFromNode:(HTMLNode *)node;

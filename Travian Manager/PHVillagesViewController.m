@@ -133,17 +133,17 @@
 		[self removeOverlayAfterDelay:0.8];
 	}
 	
-	int c = [[[storage account] villages] count];
-	[self.tabBarController setTitle:[NSString stringWithFormat:@"Village%@", c == 1 ? @"" : @"s"]];
-	
-	[[self tableView] reloadData];
-	
 	if (oVillageVC) {
 		for (id <ODRefreshControlDelegate>vc in oVillageVC) {
 			[vc setRefreshControl:nil];
 		}
 		
 		oVillageVC = nil;
+	} else {
+		int c = [[[storage account] villages] count];
+		[self.tabBarController setTitle:[NSString stringWithFormat:@"Village%@", c == 1 ? @"" : @"s"]];
+		
+		[[self tableView] reloadData];
 	}
 }
 

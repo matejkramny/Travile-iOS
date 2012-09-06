@@ -134,6 +134,7 @@
 		4FC6F12215BCA0FD006F583D /* PHMessagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FC6F12115BCA0FD006F583D /* PHMessagesViewController.m */; };
 		4FC6F12815BDDD5A006F583D /* PHNewMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FC6F12715BDDD59006F583D /* PHNewMessageViewController.m */; };
 		4FC706AE15E825BB0081372E /* PHVResearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FC706AD15E825BB0081372E /* PHVResearchViewController.m */; };
+		4FC8E56515F6B3AA0035D296 /* NonGenericBuilding.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FC8E56415F6B3AA0035D296 /* NonGenericBuilding.m */; };
 		4FCA3750156B96DF0071BAD5 /* Building.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FCA374F156B96DF0071BAD5 /* Building.m */; };
 		4FD480FD15724B5C00BECE24 /* Report.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD480FC15724B5C00BECE24 /* Report.m */; };
 		4FD4810115724B6500BECE24 /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD4810015724B6500BECE24 /* Message.m */; };
@@ -316,6 +317,8 @@
 		4FC6F12715BDDD59006F583D /* PHNewMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHNewMessageViewController.m; sourceTree = "<group>"; };
 		4FC706AC15E825BB0081372E /* PHVResearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHVResearchViewController.h; sourceTree = "<group>"; };
 		4FC706AD15E825BB0081372E /* PHVResearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHVResearchViewController.m; sourceTree = "<group>"; };
+		4FC8E56315F6B3AA0035D296 /* NonGenericBuilding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NonGenericBuilding.h; sourceTree = "<group>"; };
+		4FC8E56415F6B3AA0035D296 /* NonGenericBuilding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NonGenericBuilding.m; sourceTree = "<group>"; };
 		4FCA374E156B96DF0071BAD5 /* Building.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Building.h; sourceTree = "<group>"; };
 		4FCA374F156B96DF0071BAD5 /* Building.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Building.m; sourceTree = "<group>"; };
 		4FD480FB15724B5C00BECE24 /* Report.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Report.h; sourceTree = "<group>"; };
@@ -395,6 +398,7 @@
 				4F095221155C767800C15D6E /* MainStoryboard_iPad.storyboard */,
 				4F28C73D15BB1ACB00C976E3 /* Models */,
 				4F28C73C15BB1A9F00C976E3 /* View Controllers */,
+				4FC8E56615F6B70A0035D296 /* Cells */,
 				4F6E222015E1557E002EC13F /* NSString category extensions */,
 				4FD64FCD15DAAF24002FAFFC /* BuildingMap */,
 				4FBACE5215D71E2E0092A8F3 /* ODRefreshControl */,
@@ -434,12 +438,6 @@
 				4F28C73A15BB1A9500C976E3 /* PHAccountsViewController.m */,
 				4F28C73F15BB358500C976E3 /* PHAccountDetailsViewController.h */,
 				4F28C74015BB358500C976E3 /* PHAccountDetailsViewController.m */,
-				4F04DA2B15EEDFDE00DAF6E7 /* PHAccountTextFieldCell.h */,
-				4F04DA2C15EEDFDE00DAF6E7 /* PHAccountTextFieldCell.m */,
-				4F04DA2E15EEE02300DAF6E7 /* PHAccountTextFieldRightCell.h */,
-				4F04DA2F15EEE02300DAF6E7 /* PHAccountTextFieldRightCell.m */,
-				4FA88B6B15F160D9001D9713 /* PHDeleteCell.h */,
-				4FA88B6C15F160D9001D9713 /* PHDeleteCell.m */,
 				4FC6F11A15BC4107006F583D /* PHVillagesViewController.h */,
 				4FC6F11B15BC4107006F583D /* PHVillagesViewController.m */,
 				4FE58E9915C59B55004825EF /* PHVOverviewViewController.h */,
@@ -452,8 +450,6 @@
 				4F509F6015C5C08600A15924 /* PHVBuildingsViewController.m */,
 				4F4A52B715C96B1F005F3708 /* PHVOpenBuildingViewController.h */,
 				4F4A52B815C96B20005F3708 /* PHVOpenBuildingViewController.m */,
-				4F04DA2715ED632700DAF6E7 /* PHVBarracksCell.h */,
-				4F04DA2815ED632700DAF6E7 /* PHVBarracksCell.m */,
 				4FC706AC15E825BB0081372E /* PHVResearchViewController.h */,
 				4FC706AD15E825BB0081372E /* PHVResearchViewController.m */,
 				4FC6F11D15BC4AC0006F583D /* PHReportsViewController.h */,
@@ -481,12 +477,7 @@
 				4F095244155C804400C15D6E /* Account.m */,
 				4F095240155C7F6300C15D6E /* Village.h */,
 				4F095241155C7F6300C15D6E /* Village.m */,
-				4FCA374E156B96DF0071BAD5 /* Building.h */,
-				4FCA374F156B96DF0071BAD5 /* Building.m */,
-				4FB1A74F15EA539200C1FE4C /* Barracks.h */,
-				4FB1A75015EA539200C1FE4C /* Barracks.m */,
-				4F6E222D15E51B84002EC13F /* BuildingAction.h */,
-				4F6E222E15E51B85002EC13F /* BuildingAction.m */,
+				4FA88B7915F3E6F8001D9713 /* Buildings */,
 				4F09523D155C7DE400C15D6E /* Resources.h */,
 				4F09523E155C7DE400C15D6E /* Resources.m */,
 				4FDA07831563189100E9C6C2 /* ResourcesProduction.h */,
@@ -627,6 +618,21 @@
 			path = ../Design;
 			sourceTree = "<group>";
 		};
+		4FA88B7915F3E6F8001D9713 /* Buildings */ = {
+			isa = PBXGroup;
+			children = (
+				4FCA374E156B96DF0071BAD5 /* Building.h */,
+				4FCA374F156B96DF0071BAD5 /* Building.m */,
+				4FC8E56315F6B3AA0035D296 /* NonGenericBuilding.h */,
+				4FC8E56415F6B3AA0035D296 /* NonGenericBuilding.m */,
+				4FB1A74F15EA539200C1FE4C /* Barracks.h */,
+				4FB1A75015EA539200C1FE4C /* Barracks.m */,
+				4F6E222D15E51B84002EC13F /* BuildingAction.h */,
+				4F6E222E15E51B85002EC13F /* BuildingAction.m */,
+			);
+			name = Buildings;
+			sourceTree = "<group>";
+		};
 		4FBACE5215D71E2E0092A8F3 /* ODRefreshControl */ = {
 			isa = PBXGroup;
 			children = (
@@ -643,6 +649,21 @@
 				4FC6F11715BC3989006F583D /* MBProgressHUD.m */,
 			);
 			name = HUD;
+			sourceTree = "<group>";
+		};
+		4FC8E56615F6B70A0035D296 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				4F04DA2B15EEDFDE00DAF6E7 /* PHAccountTextFieldCell.h */,
+				4F04DA2C15EEDFDE00DAF6E7 /* PHAccountTextFieldCell.m */,
+				4F04DA2E15EEE02300DAF6E7 /* PHAccountTextFieldRightCell.h */,
+				4F04DA2F15EEE02300DAF6E7 /* PHAccountTextFieldRightCell.m */,
+				4FA88B6B15F160D9001D9713 /* PHDeleteCell.h */,
+				4FA88B6C15F160D9001D9713 /* PHDeleteCell.m */,
+				4F04DA2715ED632700DAF6E7 /* PHVBarracksCell.h */,
+				4F04DA2815ED632700DAF6E7 /* PHVBarracksCell.m */,
+			);
+			name = Cells;
 			sourceTree = "<group>";
 		};
 		4FD64FCD15DAAF24002FAFFC /* BuildingMap */ = {
@@ -864,6 +885,7 @@
 				4F04DA2D15EEDFDE00DAF6E7 /* PHAccountTextFieldCell.m in Sources */,
 				4F04DA3015EEE02300DAF6E7 /* PHAccountTextFieldRightCell.m in Sources */,
 				4FA88B6D15F160D9001D9713 /* PHDeleteCell.m in Sources */,
+				4FC8E56515F6B3AA0035D296 /* NonGenericBuilding.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

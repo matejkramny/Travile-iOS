@@ -364,17 +364,25 @@
 			
 			NSString *conName = [[tds objectAtIndex:1] contents];
 			NSString *conLevel = [[[tds objectAtIndex:1] findChildTag:@"span"] contents];
-			NSString *finishTime = [[[tds objectAtIndex:2] findChildTag:@"span"] contents];
+			if ([[tds objectAtIndex:1] findChildOfClass:@"inactive"] != nil) {
+				conName = [[[tds objectAtIndex:1] findChildOfClass:@"inactive"] contents];
+				conLevel = [[[tds objectAtIndex:1] findChildOfClass:@"lvl inactive"] contents];
+			}
+			NSString *finishTime = @"";
+			if ([tds count] >= 3)
+				finishTime = [[[tds objectAtIndex:2] findChildTag:@"span"] contents];
 			
-			// Parse time from (hh:mm:ss) to NSDate
-			NSArray *timeSplit = [finishTime componentsSeparatedByString:@":"];
-			int hour = 0, minute = 0, second = 0;
-			hour = [[timeSplit objectAtIndex:0] intValue];
-			minute = [[timeSplit objectAtIndex:1] intValue];
-			second = [[timeSplit objectAtIndex:2] intValue];
-			int timestamp = [[NSDate date] timeIntervalSince1970]; // Now date
-			timestamp += hour * 60 * 60 + minute * 60 + second; // Now date + hour:minute:second
-			construction.finishTime = [NSDate dateWithTimeIntervalSince1970:timestamp]; // Future date
+			if ([finishTime length] != 0) {
+				// Parse time from (hh:mm:ss) to NSDate
+				NSArray *timeSplit = [finishTime componentsSeparatedByString:@":"];
+				int hour = 0, minute = 0, second = 0;
+				hour = [[timeSplit objectAtIndex:0] intValue];
+				minute = [[timeSplit objectAtIndex:1] intValue];
+				second = [[timeSplit objectAtIndex:2] intValue];
+				int timestamp = [[NSDate date] timeIntervalSince1970]; // Now date
+				timestamp += hour * 60 * 60 + minute * 60 + second; // Now date + hour:minute:second
+				construction.finishTime = [NSDate dateWithTimeIntervalSince1970:timestamp]; // Future date
+			}
 			
 			// Set name. Level is inside the name label
 			construction.name = [conName stringByReplacingOccurrencesOfString:conLevel withString:@""];

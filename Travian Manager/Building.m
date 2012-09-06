@@ -33,7 +33,17 @@
 
 @implementation Building
 
-@synthesize bid, name, page, resources, level, parent, availableBuildings, description, finishedLoading, cannotBuildReason, coordinates, buildConditionsDone, buildConditionsError, isBeingUpgraded, upgradeURLString, gid, properties, actions, buildDiv;
+@synthesize bid, name, page, resources, level, parent, availableBuildings, description, finishedLoading, cannotBuildReason, coordinates, buildConditionsDone, buildConditionsError, isBeingUpgraded, upgradeURLString, gid, properties, actions, buildDiv, finishedLoadingKVOIdentifier;
+
+- (id)init {
+	self = [super init];
+	
+	if (self) {
+		finishedLoadingKVOIdentifier = @"finishedLoading";
+	}
+	
+	return self;
+}
 
 - (void)buildFromAccount:(Account *)account {
 	wantsToBuild = true;

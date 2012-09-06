@@ -160,6 +160,7 @@
 			
 			HTMLNode *build = [super buildDiv];
 			[self fetchTroopsFromBuildDiv:build];
+			[self setSuperFinishedLoading:YES];
 		}
 	}
 }

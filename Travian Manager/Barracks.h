@@ -6,9 +6,9 @@
 //
 //
 
-#import "Building.h"
+#import "NonGenericBuilding.h"
 
-@interface Barracks : Building
+@interface Barracks : NonGenericBuilding
 
 @property (nonatomic, strong) NSArray *troops;
 @property (nonatomic, strong) NSDictionary *researching;

@@ -107,8 +107,11 @@
 	int badgeCount = 0;
 	badgeCount += [[village movements] count];
 	badgeCount += [[village constructions] count];
+	
 	if (badgeCount > 0)
 		[[self tabBarItem] setBadgeValue:[NSString stringWithFormat:@"%d", badgeCount]];
+	else
+		[[self tabBarItem] setBadgeValue:[NSString stringWithFormat:@""]];
 }
 
 #pragma mark - Table view data source
@@ -138,9 +141,12 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	NSString *(^calculateRemainingTimeFromDate)(NSDate *) = ^(NSDate *date) {
+		if (date == nil)
+			return [NSString stringWithString:NSLocalizedString(@"Event Pending", @"Pending event message")];
+		
 		int diff = [date timeIntervalSince1970] - [[NSDate date] timeIntervalSince1970];
 		
-		if (diff < 0) {
+		if (diff <= 0) {
 			// Event happened..
 			return [NSString stringWithString:NSLocalizedString(@"Event Happened", @"Timer has reached < 0 seconds")];
 		}

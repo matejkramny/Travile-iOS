@@ -20,9 +20,11 @@
 	NSArray *otherBuildings;
 	MBProgressHUD *HUD;
 	NSArray *sections;
+	NSMutableArray *sectionsWithCells;
 	bool openBuilding;
 	UITapGestureRecognizer *tapToCancel;
 	UITapGestureRecognizer *tapToHide;
+	long last_update;
 }
 
 - (void)loadBuildingsToSections;
@@ -72,8 +74,10 @@
 	
 	[self.tabBarController setTitle:[NSString stringWithFormat:@"Buildings"]];
 	
-	[self loadBuildingsToSections];
-	[self.tableView reloadData];
+	if (sections == nil || last_update == 0 || account.last_updated < last_update) {
+		[self loadBuildingsToSections];
+		[self.tableView reloadData];
+	}
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -82,6 +86,7 @@
 }
 
 - (void)loadBuildingsToSections {
+	sectionsWithCells = [[NSMutableArray alloc] init]; // Forces reallocation
 	NSArray *buildings = [[account village] buildings];
 	NSMutableDictionary *sec1 = [[NSMutableDictionary alloc] init];
 	NSMutableDictionary *sec2 = [[NSMutableDictionary alloc] init];
@@ -153,6 +158,36 @@
 	sec2s = [[sec2s sortedArrayUsingComparator:compareBuildings] mutableCopy];
 	
 	sections = @[ sec1s, sec2s, [[NSMutableArray alloc] initWithObjects:sec3, nil] ];
+	
+	// Now allocates cells
+	for (int i = 0; i < sections.count; i++) {
+		[sectionsWithCells insertObject:[[NSMutableArray alloc] init] atIndex:i];
+		
+		for (int ii = 0; ii < [[sections objectAtIndex:i] count]; ii++) {
+			[[sectionsWithCells objectAtIndex:i] insertObject:[self cellForIndexPath:[NSIndexPath indexPathForRow:ii inSection:i]] atIndex:ii];
+		}
+	}
+}
+
+- (UITableViewCell *)cellForIndexPath:(NSIndexPath *)indexPath {
+	static NSString *BuildingSiteCellID = @"RightDetailBuildingSite";
+	
+	UITableViewCell *cell;
+	if ([[[sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] isKindOfClass:[NSArray class]]) {
+		NSArray *arr = [[sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+		
+		cell = [self.tableView dequeueReusableCellWithIdentifier:BuildingSiteCellID];
+		cell.textLabel.text = [NSString stringWithFormat:@"%@s", [[arr objectAtIndex:0] name]];
+	} else {
+		Building *b = [self getBuildingUsingIndexPath:indexPath];
+		
+		cell = [self.tableView dequeueReusableCellWithIdentifier:BuildingSiteCellID];
+		cell.textLabel.text = [b name];
+	}
+	
+	[AppDelegate setCellAppearance:cell forIndexPath:indexPath];
+	
+	return cell;
 }
 
 - (Building *)getBuildingUsingIndexPath:(NSIndexPath *)indexPath {
@@ -174,7 +209,7 @@
 	[HUD removeGestureRecognizer:tapToCancel];
 	tapToCancel = nil;
 	
-	[[selectedBuildings objectAtIndex:0] removeObserver:self forKeyPath:@"finishedLoading"];
+	[[selectedBuildings objectAtIndex:0] removeObserver:self forKeyPath:[[selectedBuildings objectAtIndex:0] finishedLoadingKVOIdentifier]];
 	
 	NSIndexPath *selectedPath = [self.tableView indexPathForSelectedRow];
 	if (selectedPath)
@@ -186,7 +221,7 @@
 	[HUD removeGestureRecognizer:tapToHide];
 	tapToHide = nil;
 	
-	[[selectedBuildings objectAtIndex:0] removeObserver:self forKeyPath:@"finishedLoading"];
+	[[selectedBuildings objectAtIndex:0] removeObserver:self forKeyPath:[[selectedBuildings objectAtIndex:0] finishedLoadingKVOIdentifier]];
 }
 
 #pragma mark - Table view data source
@@ -203,24 +238,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	static NSString *BuildingSiteCellID = @"RightDetailBuildingSite";
-	
-	UITableViewCell *cell;
-	if ([[[sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] isKindOfClass:[NSArray class]]) {
-		NSArray *arr = [[sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-		
-		cell = [tableView dequeueReusableCellWithIdentifier:BuildingSiteCellID];
-		cell.textLabel.text = [NSString stringWithFormat:@"%@s", [[arr objectAtIndex:0] name]];
-	} else {
-		Building *b = [self getBuildingUsingIndexPath:indexPath];
-		
-		cell = [tableView dequeueReusableCellWithIdentifier:BuildingSiteCellID];
-		cell.textLabel.text = [b name];
-	}
-	
-	[AppDelegate setCellAppearance:cell forIndexPath:indexPath];
-	
-	return cell;
+	return [[sectionsWithCells objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -264,7 +282,7 @@
 	bool buildingSite = b.level == 0 && b.page & TPVillage && !b.isBeingUpgraded;
 	if ((!b.description && !buildingSite) || (buildingSite && !b.availableBuildings)) {
 		openBuilding = true;
-		[b addObserver:self forKeyPath:@"finishedLoading" options:NSKeyValueObservingOptionNew context:nil];
+		[b addObserver:self forKeyPath:[[selectedBuildings objectAtIndex:0] finishedLoadingKVOIdentifier] options:NSKeyValueObservingOptionNew context:nil];
 		[b fetchDescription];
 		HUD = [MBProgressHUD showHUDAddedTo:self.tabBarController.navigationController.view animated:YES];
 		HUD.labelText = @"Loading";
@@ -278,9 +296,9 @@
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if ([keyPath isEqualToString:@"finishedLoading"]) {
+	if ([object isKindOfClass:[Building class]] && [keyPath isEqualToString:[(Building *)object finishedLoadingKVOIdentifier]]) {
 		if ([[change objectForKey:NSKeyValueChangeNewKey] boolValue]) {
-			[[selectedBuildings objectAtIndex:0] removeObserver:self forKeyPath:@"finishedLoading"];
+			[[selectedBuildings objectAtIndex:0] removeObserver:self forKeyPath:[[selectedBuildings objectAtIndex:0] finishedLoadingKVOIdentifier]];
 			
 			[HUD hide:YES];
 			[HUD removeGestureRecognizer:tapToCancel];
@@ -296,6 +314,7 @@
 			// Refreshed
 			[account removeObserver:self forKeyPath:@"status"];
 			[refreshControl endRefreshing];
+			[self loadBuildingsToSections];
 			[[self tableView] reloadData];
 		}
 	}
@@ -327,7 +346,7 @@
 	[controller.navigationController popViewControllerAnimated:YES];
 	
 	selectedBuildings = @[ building ];
-	[[selectedBuildings objectAtIndex:0] addObserver:self forKeyPath:@"finishedLoading" options:NSKeyValueObservingOptionNew context:nil];
+	[[selectedBuildings objectAtIndex:0] addObserver:self forKeyPath:[[selectedBuildings objectAtIndex:0] finishedLoadingKVOIdentifier] options:NSKeyValueObservingOptionNew context:nil];
 	openBuilding = false;
 	[[selectedBuildings objectAtIndex:0] buildFromAccount:account];
 	

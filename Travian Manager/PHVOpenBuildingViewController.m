@@ -278,7 +278,7 @@ static NSString *barracksCellID = @"Barracks";
 }
 
 - (void)reloadSelectedBuilding {
-	[selectedBuilding addObserver:self forKeyPath:@"finishedLoading" options:NSKeyValueObservingOptionNew context:nil];
+	[selectedBuilding addObserver:self forKeyPath:[selectedBuilding finishedLoadingKVOIdentifier] options:NSKeyValueObservingOptionNew context:nil];
 	[selectedBuilding fetchDescription];
 	
 	HUD = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
@@ -300,7 +300,7 @@ static NSString *barracksCellID = @"Barracks";
 	[HUD removeGestureRecognizer:tapToHide];
 	tapToHide = nil;
 	
-	[selectedBuilding removeObserver:self forKeyPath:@"finishedLoading"];
+	[selectedBuilding removeObserver:self forKeyPath:[selectedBuilding finishedLoadingKVOIdentifier]];
 }
 
 - (void)tappedToHideKeyboard:(id)sender {
@@ -491,8 +491,8 @@ static NSString *barracksCellID = @"Barracks";
 #pragma mark - KVO
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if (object == selectedBuilding && [keyPath isEqualToString:@"finishedLoading"]) {
-		[selectedBuilding removeObserver:self forKeyPath:@"finishedLoading"];
+	if (object == selectedBuilding && [keyPath isEqualToString:[selectedBuilding finishedLoadingKVOIdentifier]]) {
+		[selectedBuilding removeObserver:self forKeyPath:[selectedBuilding finishedLoadingKVOIdentifier]];
 		[self buildSections];
 		[self.tableView reloadData];
 		[HUD hide:YES];

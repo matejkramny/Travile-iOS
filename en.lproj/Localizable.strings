@@ -38,6 +38,8 @@
 "sec" = "sec";
 /* Timer has reached < 0 seconds */
 "Event Happened" = "Finished";
+/* Pending event message */
+"Event Pending" = "Pending";
 /* Overall string is too long in cranny building. This is a short-text like 'All Resoruces Hidden' */
 "Cranny Overall" = "Total resources hidden";
 /* Resources required to upgrade building to next level */

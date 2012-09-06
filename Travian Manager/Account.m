@@ -59,7 +59,7 @@ static NSString *village = @"dorf2.php";
 
 @implementation Account
 
-@synthesize name, username, password, world, server, baseURL, villages, reports, messages, contacts, hero, status, notificationPending, progressIndicator, village;
+@synthesize name, username, password, world, server, baseURL, villages, reports, messages, contacts, hero, status, notificationPending, progressIndicator, village, last_updated;
 
 - (bool)isComplete {
 	if ([name length] < 2 || username.length < 2 || world.length < 2 || server.length < 1)
@@ -160,7 +160,7 @@ static NSString *village = @"dorf2.php";
 	reloadMap = map;
 	
 	if ((map & ARVillage) != 0)
-		mapUrl = [[Account resources] stringByAppendingFormat:@"&%@", village.urlPart];
+		mapUrl = [[Account resources] stringByAppendingFormat:@"?%@", village.urlPart];
 	else if ((map & ARVillages) != 0)
 		mapUrl = [Account profilePage];
 	else if ((map & ARReports) != 0)
@@ -192,6 +192,8 @@ static NSString *village = @"dorf2.php";
 	[request setHTTPShouldHandleCookies:YES];
 	
 	[self setStatus:ANotLoggedIn];
+	
+	last_updated = [[NSDate date] timeIntervalSince1970];
 	
 	NSURLConnection *conn __unused = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
 }
@@ -355,6 +357,7 @@ static NSString *village = @"dorf2.php";
 			// Tell other objects that loading is finished.
 			[self setStatus:ALoggedIn | ARefreshed];
 			
+			last_updated = [[NSDate date] timeIntervalSince1970];
 		}
 		
 	} else if (connection == reportsConnection) {
@@ -382,12 +385,17 @@ static NSString *village = @"dorf2.php";
 			[[self village] parsePage:page fromHTMLNode:body];
 			
 			if ((page & TPResources) != 0)
-				reloadConnection = urlConnectionForURL([Account village]); // Loaded resources, now load village
-			else
+				reloadConnection = urlConnectionForURL([NSString stringWithFormat:@"%@?%@", [Account village], [village urlPart]]); // Loaded resources, now load village
+			else {
 				[self setStatus:ARefreshed];
+				
+				last_updated = [[NSDate date] timeIntervalSince1970];
+			}
 		} else {
 			[self parsePage:page fromHTMLNode:body];
 			[self setStatus:ARefreshed];
+			
+			last_updated = [[NSDate date] timeIntervalSince1970];
 		}
 	}
 }
