@@ -52,6 +52,8 @@
 	account = [[Storage sharedStorage] account];
 	
 	refreshControl = [AppDelegate addRefreshControlTo:self.tableView target:self action:@selector(didBeginRefreshing:)];
+	
+	[[self tableView] setBackgroundView:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

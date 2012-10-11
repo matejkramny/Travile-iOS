@@ -320,6 +320,8 @@
 - (void)accountDetailsViewController:(PHAccountDetailsViewController *)controller didAddAccount:(Account *)account
 {
 	// Add the account
+	if (storage.accounts == nil)
+		storage.accounts = [[NSArray alloc] init];
 	storage.accounts = [storage.accounts arrayByAddingObject:account];
 	
 	// Tell table to add row

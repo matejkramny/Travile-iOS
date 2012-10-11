@@ -29,6 +29,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+	
+	[[self tableView] setBackgroundView:nil];
 }
 
 - (void)viewDidUnload

@@ -65,6 +65,8 @@
 	NSData *data = [NSData dataWithContentsOfFile:savePath];
 	if (data) {
 		accounts = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+		if (accounts == nil)
+			accounts = [[NSArray alloc] init];
 		account = nil;
 		
 		NSLog(@"Data loaded");

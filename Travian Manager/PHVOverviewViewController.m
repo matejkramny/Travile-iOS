@@ -47,6 +47,8 @@
 	
 	[self reloadBadgeCount];
 	
+	[[self tableView] setBackgroundView:nil];
+	
 	[super viewDidLoad];
 }
 

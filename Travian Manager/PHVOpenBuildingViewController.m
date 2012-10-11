@@ -68,6 +68,8 @@ static NSString *barracksCellID = @"Barracks";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+	
+	[[self tableView] setBackgroundView:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
