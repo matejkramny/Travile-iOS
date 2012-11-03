@@ -7,9 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ODRefreshControl/ODRefreshControl.h"
 
-@interface PHVResourcesViewController : UITableViewController <ODRefreshControlDelegate>
+@interface PHVResourcesViewController : UITableViewController
 
 @property (weak, nonatomic) IBOutlet UILabel *wood;
 @property (weak, nonatomic) IBOutlet UILabel *clay;
@@ -19,8 +18,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *granary;
 @property (weak, nonatomic) IBOutlet UILabel *consuming;
 @property (weak, nonatomic) IBOutlet UILabel *producing;
-
-@property (strong, nonatomic) ODRefreshControl *refreshControl;
 
 - (void)refreshResources;
 

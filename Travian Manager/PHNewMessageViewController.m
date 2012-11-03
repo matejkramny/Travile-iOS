@@ -129,7 +129,8 @@
 
 - (IBAction)closeView:(id)sender {
 	[self closeKeyboard];
-	[self dismissModalViewControllerAnimated:YES];
+//	[self dismissModalViewControllerAnimated:YES];
+	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)closeKeyboard {

@@ -37,8 +37,6 @@
 
 @implementation PHVBuildingsViewController
 
-@synthesize refreshControl;
-
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -56,7 +54,8 @@
 	
 	[self loadBuildingsToSections];
 	
-	refreshControl = [AppDelegate addRefreshControlTo:self.tableView target:self action:@selector(didBeginRefreshing:)];
+	[self setRefreshControl:[[UIRefreshControl alloc] init]];
+	[[self refreshControl] addTarget:self action:@selector(didBeginRefreshing:) forControlEvents:UIControlEventValueChanged];
 }
 
 - (void)viewDidUnload
@@ -171,13 +170,19 @@
 
 - (UITableViewCell *)cellForIndexPath:(NSIndexPath *)indexPath {
 	static NSString *BuildingSiteCellID = @"RightDetailBuildingSite";
+	static NSString *NoticeCellID = @"NoticeCell";
 	
 	UITableViewCell *cell;
 	if ([[[sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] isKindOfClass:[NSArray class]]) {
 		NSArray *arr = [[sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
 		
 		cell = [self.tableView dequeueReusableCellWithIdentifier:BuildingSiteCellID];
-		cell.textLabel.text = [NSString stringWithFormat:@"%@s", [[arr objectAtIndex:0] name]];
+		if ([arr count] == 0) {
+			cell = [self.tableView dequeueReusableCellWithIdentifier:NoticeCellID];
+			cell.textLabel.text = NSLocalizedString(@"No Buildings", @"");
+		}
+		else
+			cell.textLabel.text = [NSString stringWithFormat:@"%@s", [[arr objectAtIndex:0] name]];
 	} else {
 		Building *b = [self getBuildingUsingIndexPath:indexPath];
 		
@@ -272,8 +277,16 @@
 	
 	if ([[[sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] isKindOfClass:[NSArray class]]) {
 		selectedBuildings = [[sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+		if ([selectedBuildings count] == 0) {
+			selectedBuildings = nil;
+			return;
+		}
 	} else {
 		selectedBuildings = @[ [[sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] ];
+		if ([selectedBuildings objectAtIndex:0] == nil) {
+			selectedBuildings = nil;
+			return;
+		}
 	}
 	
 	setOtherBuildings();
@@ -313,7 +326,7 @@
 		if (([[change objectForKey:NSKeyValueChangeNewKey] intValue] & ARefreshed) != 0) {
 			// Refreshed
 			[account removeObserver:self forKeyPath:@"status"];
-			[refreshControl endRefreshing];
+			[self.refreshControl endRefreshing];
 			[self loadBuildingsToSections];
 			[[self tableView] reloadData];
 		}

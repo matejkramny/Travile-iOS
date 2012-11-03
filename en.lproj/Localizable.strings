@@ -26,6 +26,7 @@
 "Constructions" = "Constructions";
 "No Movements" = "No Movements";
 "No Constructions" = "No Constructions";
+"No Buildings" = "No Buildings";
 /* Construction name lvl X */
 "construction lvl to" = "%@ lvl %d";
 /* Village contains no troops - shown inside table as a cell */

@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Test.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
 		<key>Travian Manager.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -13,6 +18,11 @@
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>4F095207155C767700C15D6E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4F4B1328164491D2002D3149</key>
 		<dict>
 			<key>primary</key>
 			<true/>

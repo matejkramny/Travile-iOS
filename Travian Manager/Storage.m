@@ -52,11 +52,13 @@
 	NSLog(@"Saving Data");
 	
 	// Write the data
-	if ([data writeToFile:savePath atomically:YES])
+	NSError *error;
+	if ([data writeToFile:savePath options:NSDataWritingAtomic error:&error])
 		return true;
-	else
-		NSLog(@"Failed saving data.");
+	else {
+		NSLog(@"Failed saving data. %@ - %@", [error localizedFailureReason], [error localizedDescription]);
 	
+	}
 	return false;
 	
 }
@@ -77,6 +79,10 @@
 	NSLog(@"No data loaded");
 	
 	return false;
+}
+
+- (NSString *)getSavePath {
+	return savePath;
 }
 
 #pragma mark - Active Account

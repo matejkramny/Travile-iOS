@@ -40,6 +40,8 @@
 		
 	}
 	
+	[[self tableView] setBackgroundView:nil];
+	
     [super viewDidLoad];
 }
 

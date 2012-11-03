@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "BuildingMap.h"
-#import "ODRefreshControl/ODRefreshControl.h"
 
 @class PHVOpenBuildingViewController;
 @class Building;

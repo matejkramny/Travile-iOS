@@ -8,7 +8,6 @@
 
 #import "AppDelegate.h"
 #import "Storage.h"
-#import "ODRefreshControl/ODRefreshControl.h"
 
 @implementation AppDelegate
 
@@ -113,15 +112,6 @@ static UIImage *detailAccessoryViewImage;
 	[button addTarget:target action:selector forControlEvents:UIControlEventTouchUpInside];
 	
 	return button;
-}
-
-// Adds refreshControl to a view. Also sets background color of the control
-+ (ODRefreshControl *)addRefreshControlTo:(UIScrollView *)scrollView target:(id)target action:(SEL)selector {
-	ODRefreshControl *refreshControl = [[ODRefreshControl alloc] initInScrollView:scrollView];
-	[refreshControl setTintColor:[UIColor colorWithRed:81.0/255.0 green:81.0/255.0 blue:81.0/255.0 alpha:0.75]];
-	[refreshControl addTarget:target action:selector forControlEvents:UIControlEventValueChanged];
-	
-	return refreshControl;
 }
 
 @end

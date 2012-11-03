@@ -13,7 +13,6 @@
 #import "Account.h"
 #import "Movement.h"
 #import "Construction.h"
-#import "ODRefreshControl/ODRefreshControl.h"
 
 @interface PHVOverviewViewController () {
 	Storage *storage;
@@ -26,8 +25,6 @@
 @end
 
 @implementation PHVOverviewViewController
-
-@synthesize refreshControl;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -43,7 +40,8 @@
 	storage = [Storage sharedStorage];
 	village = [[storage account] village];
 	
-	refreshControl = [AppDelegate addRefreshControlTo:self.tableView target:self action:@selector(didBeginRefreshing:)];
+	[self setRefreshControl:[[UIRefreshControl alloc] init]];
+	[[self refreshControl] addTarget:self action:@selector(didBeginRefreshing:) forControlEvents:UIControlEventValueChanged];
 	
 	[self reloadBadgeCount];
 	
@@ -53,9 +51,7 @@
 }
 
 - (void)viewDidUnload
-{
-	refreshControl = nil;
-	
+{	
     [super viewDidUnload];
 }
 
@@ -97,7 +93,7 @@
 		if (([[change objectForKey:NSKeyValueChangeNewKey] intValue] & ARefreshed) != 0) {
 			// Refreshed
 			[[storage account] removeObserver:self forKeyPath:@"status"];
-			[refreshControl endRefreshing];
+			[self.refreshControl endRefreshing];
 			// Reload data
 			[[self tableView] reloadData];
 			[self reloadBadgeCount];
@@ -113,7 +109,7 @@
 	if (badgeCount > 0)
 		[[self tabBarItem] setBadgeValue:[NSString stringWithFormat:@"%d", badgeCount]];
 	else
-		[[self tabBarItem] setBadgeValue:[NSString stringWithFormat:@""]];
+		[[self tabBarItem] setBadgeValue:NULL];
 }
 
 #pragma mark - Table view data source

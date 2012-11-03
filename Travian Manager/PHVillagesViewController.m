@@ -11,14 +11,12 @@
 #import "Storage.h"
 #import "Account.h"
 #import "Village.h"
-#import "ODRefreshControl/ODRefreshControl.h"
+//#import "ODRefreshControl/ODRefreshControl.h"
 #import "PHVOverviewViewController.h"
 
 @interface PHVillagesViewController () {
 	Storage *storage;
 	UIView *overlay;
-	ODRefreshControl *refreshControl;
-	NSArray *oVillageVC;
 }
 
 - (void)didBeginRefreshing:(id)sender;
@@ -102,12 +100,14 @@
     [super viewDidLoad];
 	
 	storage = [Storage sharedStorage];
-	refreshControl = [AppDelegate addRefreshControlTo:self.tableView target:self action:@selector(didBeginRefreshing:)];
+	//refreshControl = [AppDelegate addRefreshControlTo:self.tableView target:self action:@selector(didBeginRefreshing:)];
+	[self setRefreshControl:[[UIRefreshControl alloc] init]];
+	[self.refreshControl addTarget:self action:@selector(didBeginRefreshing:) forControlEvents:UIControlEventValueChanged];
 }
 
 - (void)viewDidUnload
 {
-	refreshControl = nil;
+	//refreshControl = nil;
 	
     [super viewDidUnload];
 }
@@ -133,18 +133,9 @@
 		[self removeOverlayAfterDelay:0.8];
 	}
 	
-	if (oVillageVC) {
-		for (id <ODRefreshControlDelegate>vc in oVillageVC) {
-			[vc setRefreshControl:nil];
-		}
-		
-		oVillageVC = nil;
-	} else {
-		int c = [[[storage account] villages] count];
-		[self.tabBarController setTitle:[NSString stringWithFormat:@"Village%@", c == 1 ? @"" : @"s"]];
-		
-		[[self tableView] reloadData];
-	}
+	int c = [[[storage account] villages] count];
+	[self.tabBarController setTitle:[NSString stringWithFormat:@"Village%@", c == 1 ? @"" : @"s"]];
+	[[self tableView] reloadData];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -168,8 +159,6 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 	if ([segue.identifier isEqualToString:@"OpenVillage"]) {
-		UITabBarController *tbc = [segue destinationViewController];
-		oVillageVC = [tbc viewControllers];
 	}
 }
 
@@ -184,7 +173,8 @@
 		if (([[change objectForKey:NSKeyValueChangeNewKey] intValue] & ARefreshed) != 0) {
 			// Done refreshing
 			[storage.account removeObserver:self forKeyPath:@"status"];
-			[refreshControl endRefreshing];
+			//[refreshControl endRefreshing];
+			[self.refreshControl endRefreshing];
 			[self.tableView reloadData];
 		}
 	}

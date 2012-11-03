@@ -34,8 +34,6 @@
 @synthesize consuming;
 @synthesize producing;
 
-@synthesize refreshControl;
-
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -51,7 +49,10 @@
 	
 	account = [[Storage sharedStorage] account];
 	
-	refreshControl = [AppDelegate addRefreshControlTo:self.tableView target:self action:@selector(didBeginRefreshing:)];
+	[self setRefreshControl:[[UIRefreshControl alloc] init]];
+	[[self refreshControl] addTarget:self action:@selector(didBeginRefreshing:) forControlEvents:UIControlEventValueChanged];
+	
+	[self reloadBadgeCount];
 	
 	[[self tableView] setBackgroundView:nil];
 }
@@ -70,7 +71,11 @@
 		[secondTimer invalidate];
 	
 	secondTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timerFired:) userInfo:nil repeats:YES];
+	[self timerFired:nil];
+	
 	[self.tableView reloadData];
+	
+	[self reloadBadgeCount];
 	
 	[self timerFired:self];
 }
@@ -98,6 +103,17 @@
 	
 	if (secondTimer)
 		[secondTimer invalidate];
+}
+
+- (void)reloadBadgeCount {
+	Village *v = [account village];
+	Resources *r = [v resources];
+	
+	unsigned int whouse = v.warehouse;
+	unsigned int gran = v.granary;
+	if ([r wood] > whouse || [r clay] > whouse || [r iron] > whouse || [r wheat] > gran) {
+		[[self tabBarItem] setBadgeValue:@"!"];
+	}
 }
 
 - (void)timerFired:(id)sender {
@@ -147,7 +163,7 @@
 		if (([[change objectForKey:NSKeyValueChangeNewKey] intValue] & ARefreshed) != 0) {
 			// Refreshed
 			[account removeObserver:self forKeyPath:@"status"];
-			[refreshControl endRefreshing];
+			[self.refreshControl endRefreshing];
 			[[self tableView] reloadData];
 		}
 	}

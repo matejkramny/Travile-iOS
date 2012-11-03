@@ -14,11 +14,11 @@
 #import "Account.h"
 #import "Village.h"
 #import "MBProgressHUD.h"
-#import "ODRefreshControl/ODRefreshControl.h"
 #import "AppDelegate.h"
 #import "BuildingAction.h"
 #import "PHVResearchViewController.h"
 #import "Barracks.h"
+#import "Stable.h"
 #import "Troop.h"
 #import "PHVBarracksCell.h"
 
@@ -34,7 +34,6 @@
 	int researchActionSection;
 	int barracksSection;
 	MBProgressHUD *HUD;
-	ODRefreshControl *refreshControl;
 	UITapGestureRecognizer *tapToHide;
 	UITapGestureRecognizer *tapToHideKeyboard;
 }
@@ -83,8 +82,10 @@ static NSString *barracksCellID = @"Barracks";
 	
 	[[self navigationItem] setTitle:[selectedBuilding name]];
 	
-	if (!isBuildingSiteAvailableBuilding)
-		refreshControl = [AppDelegate addRefreshControlTo:self.tableView target:self action:@selector(didBeginRefreshing:)];
+	if (!isBuildingSiteAvailableBuilding) {
+		[self setRefreshControl:[[UIRefreshControl alloc] init]];
+		[[self refreshControl] addTarget:self action:@selector(didBeginRefreshing:) forControlEvents:UIControlEventValueChanged];
+	}
 	
 	tapToHideKeyboard = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedToHideKeyboard:)];
 	[self.tableView addGestureRecognizer:tapToHideKeyboard];
@@ -96,9 +97,8 @@ static NSString *barracksCellID = @"Barracks";
 - (void)viewWillDisappear:(BOOL)animated {
 	[super viewWillDisappear:animated];
 	
-	refreshControl = nil;
 	[[self delegate] phvOpenBuildingViewController:self didCloseBuilding:selectedBuilding];
-	
+		
 	tapToHideKeyboard = nil;
 }
 
@@ -317,7 +317,7 @@ static NSString *barracksCellID = @"Barracks";
 
 - (void)didBeginRefreshing:(id)sender {
 	[self reloadSelectedBuilding];
-	[refreshControl endRefreshing];
+	[[self refreshControl] endRefreshing];
 }
 
 #pragma mark - Table view data source
@@ -365,7 +365,6 @@ static NSString *barracksCellID = @"Barracks";
 			return cell;
 		}
 	}
-	
 	
 	UITableViewCell *cell;
 	if ([sec isKindOfClass:[NSString class]]) {

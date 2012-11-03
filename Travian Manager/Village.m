@@ -20,6 +20,8 @@
 #import "Building.h"
 #import "Movement.h"
 #import "Barracks.h"
+#import "Stable.h"
+#import "Workshop.h"
 
 @interface Village () {
 	NSURLConnection *villageConnection; // Village connection
@@ -270,6 +272,10 @@
 		Building *building;
 		if (gid == TBBarracks) {
 			building = [[Barracks alloc] init]; // can check if is barracks by calling isKindOfClass: on the building
+		} else if (gid == TBStable) {
+			building = [[Stable alloc] init];
+		} else if (gid == TBWorkshop) {
+			building = [[Workshop alloc] init];
 		} else { // Do marketplace and main building tooo
 			building = [[Building alloc] init];
 		}

@@ -38,7 +38,8 @@
 	
 	account = [[Storage sharedStorage] account];
 	
-	refreshControl = [AppDelegate addRefreshControlTo:self.tableView target:self action:@selector(didBeginRefreshing:)];
+	[self setRefreshControl:[[UIRefreshControl alloc] init]];
+	[[self refreshControl] addTarget:self action:@selector(didBeginRefreshing:) forControlEvents:UIControlEventValueChanged];
 }
 
 - (void)viewDidUnload

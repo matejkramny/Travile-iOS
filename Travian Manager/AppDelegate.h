@@ -23,6 +23,5 @@
 - (void)customizeAppearance;
 + (void)setCellAppearance:(UITableViewCell *)cell forIndexPath:(NSIndexPath *)indexPath;
 + (UIView *)setDetailAccessoryViewForTarget:(id)target action:(SEL)selector;
-+ (ODRefreshControl *)addRefreshControlTo:(UIScrollView *)scrollView target:(id)target action:(SEL)selector;
 
 @end

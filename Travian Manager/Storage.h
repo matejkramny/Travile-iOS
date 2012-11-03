@@ -27,6 +27,8 @@
 - (void)setActiveAccount:(Account *)a withPassword:(NSString *)password;
 - (void)deactivateActiveAccount;
 
+- (NSString *)getSavePath;
+
 + (Storage *)sharedStorage;
 
 @end

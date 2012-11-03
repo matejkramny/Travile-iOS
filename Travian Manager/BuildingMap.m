@@ -123,7 +123,7 @@ const float vilHeight = 534.0f;
 			[label setFont:[UIFont systemFontOfSize:13]];
 			[label setAlpha:(inactive) ? 0.5f : 1.0f];
 			[label setFrame:CGRectMake(x, y, w, h)];
-			[label setTextAlignment:UITextAlignmentCenter];
+			[label setTextAlignment:NSTextAlignmentCenter];
 			[label setText:[NSString stringWithFormat:@"%d", building.level]];
 			[label setTextColor:[UIColor redColor]];
 			[label setShadowColor:[UIColor blackColor]];

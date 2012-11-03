@@ -139,7 +139,12 @@
 			}
 			
 			// Name of troop (e.g. '1 clubswinger')
-			NSString *name = [[[[[p body] findChildTag:@"td"] contents] stringByReplacingOccurrencesOfString:@"\r\n" withString:@""] stringByReplacingOccurrencesOfString:@"\t" withString:@""];
+			NSString *name = [[[[[p body] findChildTag:@"td"] contents] stringByReplacingOccurrencesOfString:@"\r\n" withString:@" "] stringByReplacingOccurrencesOfString:@"\t" withString:@""];
+			
+			// Removes double spaces
+			while ([name rangeOfString:@"  "].location != NSNotFound) {
+				name = [name stringByReplacingOccurrencesOfString:@"  " withString:@" "];
+			}
 			
 			// Finish time
 			HTMLNode *fin = [tr findChildOfClass:@"fin"];

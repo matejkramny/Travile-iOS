@@ -109,7 +109,7 @@
 	if (gid0 && availableBuildings)
 		availableBuildings = nil;
 	
-	if (gid == TBAcademy || gid == TBForge) {
+	if (gid == TBAcademy || gid == TBForge || gid == TBCityHall) {
 		// Parse research
 		[self fetchActionsFromIDBuild:buildID];
 	}

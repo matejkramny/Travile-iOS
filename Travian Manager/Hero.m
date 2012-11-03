@@ -132,6 +132,10 @@
 	
 	for (HTMLNode *tr in trs) {
 		
+		if ([tr findChildOfClass:@"noData"]) {
+			continue;
+		}
+		
 		HeroQuest *adventure = [[HeroQuest alloc] init];
 		
 		// ID & URL
