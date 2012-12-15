@@ -11,6 +11,7 @@
 #import "PHAccountTextFieldCell.h"
 #import "PHAccountTextFieldRightCell.h"
 #import "PHDeleteCell.h"
+#import "Storage.h"
 
 @interface PHAccountDetailsViewController () {
 	UITableViewCell __weak *usernameCell, __weak *passwordCell, __weak *nameCell, __weak *serverCell, __weak *worldCell; // Text Cells
@@ -24,11 +25,11 @@
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
+	self = [super initWithStyle:style];
+	if (self) {
+		// Custom initialization
+	}
+	return self;
 }
 
 - (void)viewDidLoad
@@ -37,22 +38,21 @@
 	{
 		// Editing mode
 		[[self navigationItem] setTitle:@"Edit account"];
-		
 	}
 	
 	[[self tableView] setBackgroundView:nil];
 	
-    [super viewDidLoad];
+	[super viewDidLoad];
 }
 
 - (void)viewDidUnload
 {
-    [super viewDidUnload];
+	[super viewDidUnload];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    return interfaceOrientation == UIInterfaceOrientationPortrait;
+	return interfaceOrientation == UIInterfaceOrientationPortrait;
 }
 
 #pragma mark - TableView Data source methods

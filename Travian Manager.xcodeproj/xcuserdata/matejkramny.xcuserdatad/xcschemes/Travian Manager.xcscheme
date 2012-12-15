@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4F095207155C767700C15D6E"
-               BuildableName = "TravianManager.app"
-               BlueprintName = "TravianManager"
-               ReferencedContainer = "container:TravianManager.xcodeproj">
+               BuildableName = "Travian Manager.app"
+               BlueprintName = "Travian Manager"
+               ReferencedContainer = "container:Travian Manager.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4F095207155C767700C15D6E"
-            BuildableName = "TravianManager.app"
-            BlueprintName = "TravianManager"
-            ReferencedContainer = "container:TravianManager.xcodeproj">
+            BuildableName = "Travian Manager.app"
+            BlueprintName = "Travian Manager"
+            ReferencedContainer = "container:Travian Manager.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -52,9 +52,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4F095207155C767700C15D6E"
-            BuildableName = "TravianManager.app"
-            BlueprintName = "TravianManager"
-            ReferencedContainer = "container:TravianManager.xcodeproj">
+            BuildableName = "Travian Manager.app"
+            BlueprintName = "Travian Manager"
+            ReferencedContainer = "container:Travian Manager.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -70,9 +70,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4F095207155C767700C15D6E"
-            BuildableName = "TravianManager.app"
-            BlueprintName = "TravianManager"
-            ReferencedContainer = "container:TravianManager.xcodeproj">
+            BuildableName = "Travian Manager.app"
+            BlueprintName = "Travian Manager"
+            ReferencedContainer = "container:Travian Manager.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

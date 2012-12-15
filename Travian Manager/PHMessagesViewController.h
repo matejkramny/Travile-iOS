@@ -12,4 +12,6 @@
 
 @interface PHMessagesViewController : UITableViewController <UIAlertViewDelegate, MBProgressHUDDelegate, PHOpenMessageViewControllerDelegate>
 
+- (void)reloadBadgeCount;
+
 @end

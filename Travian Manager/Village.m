@@ -229,7 +229,7 @@
 	int i = 0;
 	for (HTMLNode *area in areas) {
 		
-		if ([[area getAttributeNamed:@"href"] isEqualToString:[Account village]]) continue; // Village Centre
+		if ([[area getAttributeNamed:@"href"] isEqualToString:[Account village]]) continue; // Village Centre area
 		
 		int gid;
 		

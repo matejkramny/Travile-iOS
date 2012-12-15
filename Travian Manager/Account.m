@@ -86,15 +86,15 @@ static NSString *village = @"dorf2.php";
 	password = [coder decodeObjectForKey:@"password"];
 	world = [coder decodeObjectForKey:@"world"];
 	server = [coder decodeObjectForKey:@"server"];
-	villages = [coder decodeObjectForKey:@"villages"];
-	reports = [coder decodeObjectForKey:@"reports"];
-	messages = [coder decodeObjectForKey:@"messages"];
-	contacts = [coder decodeObjectForKey:@"contacts"];
-	hero = [coder decodeObjectForKey:@"hero"];
+//	villages = [coder decodeObjectForKey:@"villages"];
+//	reports = [coder decodeObjectForKey:@"reports"];
+//	messages = [coder decodeObjectForKey:@"messages"];
+//	contacts = [coder decodeObjectForKey:@"contacts"];
+//	hero = [coder decodeObjectForKey:@"hero"];
 	
-	for (Village *vil in villages) {
-		[vil setAccountParent:self];
-	}
+//	for (Village *vil in villages) {
+//		[vil setAccountParent:self];
+//	}
 	
 	return self;
 }
@@ -105,11 +105,11 @@ static NSString *village = @"dorf2.php";
 	[coder encodeObject:password forKey:@"password"];
 	[coder encodeObject:world forKey:@"world"];
 	[coder encodeObject:server forKey:@"server"];
-	[coder encodeObject:villages forKey:@"villages"];
-	[coder encodeObject:reports forKey:@"reports"];
-	[coder encodeObject:messages forKey:@"messages"];
-	[coder encodeObject:contacts forKey:@"contacts"];
-	[coder encodeObject:hero forKey:@"hero"];
+//	[coder encodeObject:villages forKey:@"villages"];
+//	[coder encodeObject:reports forKey:@"reports"];
+//	[coder encodeObject:messages forKey:@"messages"];
+//	[coder encodeObject:contacts forKey:@"contacts"];
+//	[coder encodeObject:hero forKey:@"hero"];
 }
 
 - (void)activateAccount {
@@ -319,7 +319,7 @@ static NSString *village = @"dorf2.php";
 			// load profile
 			loginConnection = urlConnectionForURL([Account profilePage]);
 			
-			NSLog(@"Loaded TPResources");
+			//NSLog(@"Loaded TPResources");
 			
 		} else if ((page & TPProfile) != 0) {
 			// load hero
@@ -327,32 +327,32 @@ static NSString *village = @"dorf2.php";
 			
 			loginConnection = urlConnectionForURL([Account heroInventory]);
 			
-			NSLog(@"Loaded TPProfile");
+			//NSLog(@"Loaded TPProfile");
 			
 		} else if ((page & TPHero) != 0) {
 			// Next download adventures
 			
 			loginConnection = urlConnectionForURL([Account heroAdventure]);
 			
-			NSLog(@"Loaded TPHero");
+			//NSLog(@"Loaded TPHero");
 			
 		} else if ((page & TPAdventures) != 0) {
 			// Load Reports
 			
 			loginConnection = urlConnectionForURL([Account reports]);
 			
-			NSLog(@"Loaded TPAdventures");
+			//NSLog(@"Loaded TPAdventures");
 			
 		} else if ((page & TPReports) != 0) {
 			// Load Messages
 			
 			loginConnection = urlConnectionForURL([Account messages]);
 			
-			NSLog(@"Loaded TPReports");
+			//NSLog(@"Loaded TPReports");
 			
 		} else if ((page & TPMessages) != 0) {
 			
-			NSLog(@"Loaded TPMessages");
+			//NSLog(@"Loaded TPMessages");
 			
 			// Tell other objects that loading is finished.
 			[self setStatus:ALoggedIn | ARefreshed];
@@ -470,7 +470,7 @@ static NSString *village = @"dorf2.php";
 	villages = tempVillages;
 	
 	for (Village *vil in villages) {
-		NSLog(@"Village %@ has %d population and is accessed by url: %@", vil.name, vil.population, vil.urlPart);
+		//NSLog(@"Village %@ has %d population and is accessed by url: %@", vil.name, vil.population, vil.urlPart);
 		[vil downloadAndParse]; // Tell each village to download its data
 	}
 	
@@ -545,7 +545,7 @@ static NSString *village = @"dorf2.php";
 		reportsConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
 	}*/
 	
-	NSLog(@"Parsed reports page");
+	//NSLog(@"Parsed reports page");
 }
 
 - (void)parseMessages:(HTMLNode *)node {
@@ -623,7 +623,7 @@ static NSString *village = @"dorf2.php";
 		reportsConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
 	}*/
 	
-	NSLog(@"Parsed messages page");
+	//NSLog(@"Parsed messages page");
 }
 
 @end

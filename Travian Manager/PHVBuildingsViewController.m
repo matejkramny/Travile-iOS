@@ -187,7 +187,7 @@
 		Building *b = [self getBuildingUsingIndexPath:indexPath];
 		
 		cell = [self.tableView dequeueReusableCellWithIdentifier:BuildingSiteCellID];
-		cell.textLabel.text = [b name];
+		cell.textLabel.text = [NSString stringWithFormat:@"%@", [b name]];
 	}
 	
 	[AppDelegate setCellAppearance:cell forIndexPath:indexPath];

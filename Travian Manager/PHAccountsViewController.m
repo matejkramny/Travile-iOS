@@ -39,7 +39,8 @@
 @implementation PHAccountsViewController (ActionButtons)
 
 - (void)editButtonClicked:(id)sender {
-	[self setEditing:![self isEditing] animated:YES];
+	if ([storage.accounts count] > 0 || [self isEditing])
+		[self setEditing:![self isEditing] animated:YES];
 }
 
 - (void)addAccount:(id)sender {
@@ -71,68 +72,84 @@
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
+	self = [super initWithStyle:style];
+	if (self) {
+		// Custom initialization
+	}
+	return self;
 }
 
 - (void)viewDidLoad
 {
 	storage = [Storage sharedStorage];
 	
-    [super viewDidLoad];
+	[super viewDidLoad];
 }
 
 - (void)viewDidUnload
 {
-    [super viewDidUnload];
+	[super viewDidUnload];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
 	[self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editButtonClicked:)]];
+	
 	[self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addAccount:)]];
 	
 	[super viewWillAppear:animated];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+	[super viewDidAppear:animated];
+}
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
 	// Normal || Landscape-left || Landscape-right
-    return (interfaceOrientation == UIInterfaceOrientationPortrait || interfaceOrientation == UIInterfaceOrientationLandscapeLeft || interfaceOrientation == UIInterfaceOrientationLandscapeRight);
+	return (interfaceOrientation == UIInterfaceOrientationPortrait || interfaceOrientation == UIInterfaceOrientationLandscapeLeft || interfaceOrientation == UIInterfaceOrientationLandscapeRight);
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    // Return the number of sections.
-    return 1;
+	// Return the number of sections.
+	return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    // Return the number of rows in the section.
-    return [[storage accounts] count];
+	// Return the number of rows in the section.
+	return [[storage accounts] count] == 0 ? 1 : [[storage accounts] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"AccountCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    
-    // Configure the cell...
-	Account *a = [[storage accounts] objectAtIndex:indexPath.row];
-    cell.textLabel.text = [a name];
-	cell.detailTextLabel.text = [a username];
+	static NSString *CellIdentifier = @"AccountCell";
+	static NSString *AddAccountImageIndicatorCell = @"AddAccountImage";
 	
-	[cell setOpaque:YES];
-	[cell setAlpha:1];
+	UITableViewCell *cell;
+	if ([[storage accounts] count] == 0) {
+		cell = [tableView dequeueReusableCellWithIdentifier:AddAccountImageIndicatorCell];
+		[cell setOpaque:YES];
+		[cell setAlpha:1];
+		
+		[AppDelegate setCellAppearance:cell forIndexPath:indexPath];
+	} else {
+		cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+
+		// Configure the cell...
+		Account *a = [[storage accounts] objectAtIndex:indexPath.row];
+		cell.textLabel.text = [a name];
+		cell.detailTextLabel.text = [a username];
+
+		[cell setOpaque:YES];
+		[cell setAlpha:1];
+
+		[AppDelegate setCellAppearance:cell forIndexPath:indexPath];
+	}
 	
-	[AppDelegate setCellAppearance:cell forIndexPath:indexPath];
-	
-    return cell;
+	return cell;
 }
 
 // Override to support rearranging the table view.
@@ -174,7 +191,7 @@
 }
 
 - (BOOL)tableView:(UITableView *)tableview shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath {
-    return NO;
+	return NO;
 }
 
 - (void)handleTapGestureRecognizer:(UITapGestureRecognizer *)recognizer {
@@ -194,9 +211,14 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    selectedAccount = [storage.accounts objectAtIndex:indexPath.row];
+	if ([storage.accounts count] == 0) {
+		[self performSegueWithIdentifier:@"NewAccount" sender:self];
+		return;
+	}
 	
-    if ([self isEditing])
+	selectedAccount = [storage.accounts objectAtIndex:indexPath.row];
+	
+	if ([self isEditing])
 	{
 		// Editing account
 		[self performSegueWithIdentifier:@"NewAccount" sender:self];
@@ -296,6 +318,14 @@
 		// View
 		NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@.travian.%@/dorf1.php", [[storage account] world], [[storage account] server]]];
 		[[UIApplication sharedApplication] openURL:url];
+		// Cancel log in
+		[hud hide:YES];
+		
+		[storage.account removeObserver:self forKeyPath:@"notificationPending"];
+		[storage.account removeObserver:self forKeyPath:@"progressIndicator"];
+		[storage.account removeObserver:self forKeyPath:@"status"];
+		
+		[[self tableView] deselectRowAtIndexPath:[[self tableView] indexPathForSelectedRow] animated:YES];
 	} else if (buttonIndex == 0) {
 		// Proceed
 		[[storage account] skipNotification];
@@ -325,17 +355,20 @@
 		storage.accounts = [[NSArray alloc] init];
 	storage.accounts = [storage.accounts arrayByAddingObject:account];
 	
-	// Tell table to add row
-	NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[storage.accounts count] - 1 inSection:0];
-	[self.tableView insertRowsAtIndexPaths: [NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-	
-	// Remove the view
+	// Dismiss the view
 	[self dismissViewControllerAnimated:YES completion:nil];
+	
+	if ([storage.accounts count]-1 == 0) {
+		// First account created..
+		[self.tableView reloadData];
+	} else {
+		// Tell table to add row
+		NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[storage.accounts count] - 1 inSection:0];
+		[self.tableView insertRowsAtIndexPaths: [NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationBottom];
+	}
 	
 	selectedAccount = nil;
 	[self setEditing:NO];
-	
-	[self.tableView reloadData];
 	
 	[storage saveData];
 }

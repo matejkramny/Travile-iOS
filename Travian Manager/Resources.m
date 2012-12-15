@@ -88,4 +88,12 @@
 	return m;
 }
 
+- (int)getPercentageForResource:(float)resource warehouse:(int)warehouse {
+	// Calculate time left for this resource
+	if (resource >= warehouse)
+		return 100;
+	
+	return (resource / (float)warehouse) * 100;
+}
+
 @end

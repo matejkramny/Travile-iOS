@@ -15,6 +15,7 @@
 @property (assign) int strengthPoints; // Attribute - Strength
 @property (assign) int offBonusPercentage; // Attribute - Offence bonus (%)
 @property (assign) int defBonusPercentage; // Attribute - Defence bonus (%)
+@property (assign) int resourceProductionPoints;
 @property (strong, nonatomic) Resources *resourceProductionBoost; // Defines what resources are being boosted by hero
 @property (assign) int experience; // Hero experience
 @property (assign) int health; // Health of the hero (%)

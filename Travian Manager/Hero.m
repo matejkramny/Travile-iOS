@@ -13,7 +13,7 @@
 
 @implementation Hero
 
-@synthesize strengthPoints, offBonusPercentage, defBonusPercentage, experience, health, speed, quests, isHidden, resourceProductionBoost, isAlive;
+@synthesize strengthPoints, offBonusPercentage, defBonusPercentage, resourceProductionPoints, experience, health, speed, quests, isHidden, resourceProductionBoost, isAlive;
 
 #pragma mark - Page Parsing protocol
 
@@ -49,6 +49,10 @@
 	attribute = [node findChildWithAttribute:@"id" matchingName:@"attributedefBonus" allowPartial:NO];
 	attributeString = [[attribute findChildWithAttribute:@"class" matchingName:@"value" allowPartial:NO] contents];
 	defBonusPercentage = [attributeString intValue];
+	
+	attribute = [node findChildWithAttribute:@"id" matchingName:@"attributeproductionPoints" allowPartial:NO];
+	attributeString = [[attribute findChildWithAttribute:@"class" matchingName:@"value" allowPartial:NO] contents];
+	resourceProductionPoints = [attributeString intValue];
 	
 	// resouceProductionBoost
 	attribute = [node findChildWithAttribute:@"id" matchingName:@"setResource" allowPartial:NO];

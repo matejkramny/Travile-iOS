@@ -17,6 +17,7 @@
 @interface PHVillagesViewController () {
 	Storage *storage;
 	UIView *overlay;
+	BOOL beenPushed;
 }
 
 - (void)didBeginRefreshing:(id)sender;
@@ -100,9 +101,10 @@
     [super viewDidLoad];
 	
 	storage = [Storage sharedStorage];
-	//refreshControl = [AppDelegate addRefreshControlTo:self.tableView target:self action:@selector(didBeginRefreshing:)];
+	
 	[self setRefreshControl:[[UIRefreshControl alloc] init]];
 	[self.refreshControl addTarget:self action:@selector(didBeginRefreshing:) forControlEvents:UIControlEventValueChanged];
+	beenPushed = false;
 }
 
 - (void)viewDidUnload
@@ -135,7 +137,11 @@
 	
 	int c = [[[storage account] villages] count];
 	[self.tabBarController setTitle:[NSString stringWithFormat:@"Village%@", c == 1 ? @"" : @"s"]];
-	[[self tableView] reloadData];
+
+	if (!beenPushed) {
+		[[self tableView] reloadData];
+	}
+	beenPushed = false;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -213,6 +219,8 @@
     [[storage account] setVillage:[[storage account].villages objectAtIndex:indexPath.row]];
 	
 	[self performSegueWithIdentifier:@"OpenVillage" sender:self];
+	
+	beenPushed = true;
 }
 
 @end

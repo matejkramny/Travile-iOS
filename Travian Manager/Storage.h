@@ -10,14 +10,17 @@
 
 @class Account;
 @class AppDelegate;
+@class Settings;
 
 @interface Storage : NSObject {
 	NSString *savePath;
+	NSString *settingsSavePath;
 }
 
 @property (nonatomic, weak) AppDelegate *delegate;
 @property (nonatomic, strong) NSArray *accounts; // List of accounts
 @property (nonatomic, weak) Account *account; // Active account
+@property (nonatomic, strong) Settings *settings;
 // game settings?
 
 - (BOOL)saveData;

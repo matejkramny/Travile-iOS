@@ -9,7 +9,9 @@
 #import "AppDelegate.h"
 #import "Storage.h"
 
-@implementation AppDelegate
+@implementation AppDelegate {
+	unsigned int timeAtGoingToInactiveState; // States the time when the app resignsActive
+}
 
 @synthesize window = _window;
 
@@ -23,10 +25,25 @@
 	
 	return YES;
 }
-							
-- (void)applicationWillResignActive:(UIApplication *)application {}
+
+- (void)applicationWillResignActive:(UIApplication *)application {
+	//NSLog(@"Resigning active state");
+	timeAtGoingToInactiveState = [[NSDate date] timeIntervalSince1970];
+	//NSLog(@"%d", timeAtGoingToInactiveState);
+}
 - (void)applicationDidEnterBackground:(UIApplication *)application {}
-- (void)applicationWillEnterForeground:(UIApplication *)application {}
+- (void)applicationWillEnterForeground:(UIApplication *)application {
+	//NSLog(@"Not in background anymore.. Entering foreground");
+	if (timeAtGoingToInactiveState != 0) {
+		
+		unsigned int now = [[NSDate date] timeIntervalSince1970];
+		NSLog(@"%d", now);
+		if (timeAtGoingToInactiveState - now > 5) {
+			// 50 second
+			[Storage sharedStorage].account = nil;
+		}
+	}
+}
 - (void)applicationDidBecomeActive:(UIApplication *)application {}
 - (void)applicationWillTerminate:(UIApplication *)application {}
 

@@ -29,6 +29,7 @@
 		4F095245155C804400C15D6E /* Account.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F095244155C804400C15D6E /* Account.m */; };
 		4F095293155DD2CB00C15D6E /* Hero.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F095292155DD2CB00C15D6E /* Hero.m */; };
 		4F095296155DD53300C15D6E /* HeroQuest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F095295155DD53300C15D6E /* HeroQuest.m */; };
+		4F0C318C167B931200D28AE9 /* PHMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F0C318B167B931200D28AE9 /* PHMessageCell.m */; };
 		4F0D502F156D36CA005065AE /* Movement.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F0D502E156D36CA005065AE /* Movement.m */; };
 		4F15441D15D47E5E00EA58EC /* BackButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F15441915D47E5E00EA58EC /* BackButton.png */; };
 		4F15441E15D47E5E00EA58EC /* BackButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F15441A15D47E5E00EA58EC /* BackButton@2x.png */; };
@@ -41,6 +42,12 @@
 		4F2440C01645C31100EEBC93 /* Stable.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F2440BF1645C31100EEBC93 /* Stable.m */; };
 		4F2440C31645C71B00EEBC93 /* Workshop.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F2440C21645C71B00EEBC93 /* Workshop.m */; };
 		4F2440C61645C85C00EEBC93 /* TownHall.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F2440C51645C85C00EEBC93 /* TownHall.m */; };
+		4F24E90C167BA7ED002367B7 /* unreadNotification.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F24E90A167BA7ED002367B7 /* unreadNotification.png */; };
+		4F24E90D167BA7ED002367B7 /* unreadNotification@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F24E90B167BA7ED002367B7 /* unreadNotification@2x.png */; };
+		4F24E912167BC077002367B7 /* checkBoxBlank.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F24E90E167BC077002367B7 /* checkBoxBlank.png */; };
+		4F24E913167BC077002367B7 /* checkBoxBlank@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F24E90F167BC077002367B7 /* checkBoxBlank@2x.png */; };
+		4F24E914167BC077002367B7 /* checkBoxDelete.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F24E910167BC077002367B7 /* checkBoxDelete.png */; };
+		4F24E915167BC077002367B7 /* checkBoxDelete@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F24E911167BC077002367B7 /* checkBoxDelete@2x.png */; };
 		4F28C73B15BB1A9500C976E3 /* PHAccountsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F28C73A15BB1A9500C976E3 /* PHAccountsViewController.m */; };
 		4F28C74115BB358500C976E3 /* PHAccountDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F28C74015BB358500C976E3 /* PHAccountDetailsViewController.m */; };
 		4F2D975A15D68925007E589D /* SelectedCell.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F2D975815D68925007E589D /* SelectedCell.png */; };
@@ -116,6 +123,7 @@
 		4F6E222B15E15BFF002EC13F /* 37x-Checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F6E222915E15BFF002EC13F /* 37x-Checkmark.png */; };
 		4F6E222C15E15BFF002EC13F /* 37x-Checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F6E222A15E15BFF002EC13F /* 37x-Checkmark@2x.png */; };
 		4F6E222F15E51B85002EC13F /* BuildingAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F6E222E15E51B85002EC13F /* BuildingAction.m */; };
+		4F81DFDC164F1CFE00523CF4 /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F81DFDB164F1CFD00523CF4 /* Settings.m */; };
 		4F895F1615C2C19A007525D9 /* PHHeroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F895F1515C2C19A007525D9 /* PHHeroViewController.m */; };
 		4F8A48A715C1FEDF00EC1564 /* NSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8A48A615C1FEDF00EC1564 /* NSString+HTML.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		4F8A48AA15C1FFB000EC1564 /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8A48A915C1FFB000EC1564 /* GTMNSString+HTML.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -157,14 +165,14 @@
 		4F04DA2C15EEDFDE00DAF6E7 /* PHAccountTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHAccountTextFieldCell.m; sourceTree = "<group>"; };
 		4F04DA2E15EEE02300DAF6E7 /* PHAccountTextFieldRightCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHAccountTextFieldRightCell.h; sourceTree = "<group>"; };
 		4F04DA2F15EEE02300DAF6E7 /* PHAccountTextFieldRightCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHAccountTextFieldRightCell.m; sourceTree = "<group>"; };
-		4F095208155C767800C15D6E /* TravianManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TravianManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4F095208155C767800C15D6E /* Travian Manager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Travian Manager.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F09520C155C767800C15D6E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		4F09520E155C767800C15D6E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		4F095210155C767800C15D6E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		4F095214155C767800C15D6E /* TravianManager-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TravianManager-Info.plist"; sourceTree = "<group>"; };
+		4F095214155C767800C15D6E /* Travian Manager-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Travian Manager-Info.plist"; sourceTree = "<group>"; };
 		4F095216155C767800C15D6E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4F095218155C767800C15D6E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		4F09521A155C767800C15D6E /* TravianManager-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TravianManager-Prefix.pch"; sourceTree = "<group>"; };
+		4F09521A155C767800C15D6E /* Travian Manager-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Travian Manager-Prefix.pch"; sourceTree = "<group>"; };
 		4F09521B155C767800C15D6E /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		4F09521C155C767800C15D6E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		4F09521F155C767800C15D6E /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
@@ -188,6 +196,8 @@
 		4F095292155DD2CB00C15D6E /* Hero.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Hero.m; sourceTree = "<group>"; };
 		4F095294155DD53300C15D6E /* HeroQuest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeroQuest.h; sourceTree = "<group>"; };
 		4F095295155DD53300C15D6E /* HeroQuest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeroQuest.m; sourceTree = "<group>"; };
+		4F0C318A167B931200D28AE9 /* PHMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHMessageCell.h; sourceTree = "<group>"; };
+		4F0C318B167B931200D28AE9 /* PHMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHMessageCell.m; sourceTree = "<group>"; };
 		4F0D502D156D36CA005065AE /* Movement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Movement.h; sourceTree = "<group>"; };
 		4F0D502E156D36CA005065AE /* Movement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Movement.m; sourceTree = "<group>"; };
 		4F15441915D47E5E00EA58EC /* BackButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BackButton.png; sourceTree = "<group>"; };
@@ -204,6 +214,12 @@
 		4F2440C21645C71B00EEBC93 /* Workshop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Workshop.m; sourceTree = "<group>"; };
 		4F2440C41645C85C00EEBC93 /* TownHall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TownHall.h; sourceTree = "<group>"; };
 		4F2440C51645C85C00EEBC93 /* TownHall.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TownHall.m; sourceTree = "<group>"; };
+		4F24E90A167BA7ED002367B7 /* unreadNotification.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unreadNotification.png; sourceTree = "<group>"; };
+		4F24E90B167BA7ED002367B7 /* unreadNotification@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "unreadNotification@2x.png"; sourceTree = "<group>"; };
+		4F24E90E167BC077002367B7 /* checkBoxBlank.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkBoxBlank.png; sourceTree = "<group>"; };
+		4F24E90F167BC077002367B7 /* checkBoxBlank@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkBoxBlank@2x.png"; sourceTree = "<group>"; };
+		4F24E910167BC077002367B7 /* checkBoxDelete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkBoxDelete.png; sourceTree = "<group>"; };
+		4F24E911167BC077002367B7 /* checkBoxDelete@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkBoxDelete@2x.png"; sourceTree = "<group>"; };
 		4F28C73915BB1A9500C976E3 /* PHAccountsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHAccountsViewController.h; sourceTree = "<group>"; };
 		4F28C73A15BB1A9500C976E3 /* PHAccountsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHAccountsViewController.m; sourceTree = "<group>"; };
 		4F28C73F15BB358500C976E3 /* PHAccountDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHAccountDetailsViewController.h; sourceTree = "<group>"; };
@@ -293,6 +309,8 @@
 		4F6E222A15E15BFF002EC13F /* 37x-Checkmark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "37x-Checkmark@2x.png"; sourceTree = "<group>"; };
 		4F6E222D15E51B84002EC13F /* BuildingAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuildingAction.h; sourceTree = "<group>"; };
 		4F6E222E15E51B85002EC13F /* BuildingAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuildingAction.m; sourceTree = "<group>"; };
+		4F81DFDA164F1CFD00523CF4 /* Settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Settings.h; sourceTree = "<group>"; };
+		4F81DFDB164F1CFD00523CF4 /* Settings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Settings.m; sourceTree = "<group>"; };
 		4F895F1415C2C19A007525D9 /* PHHeroViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHHeroViewController.h; sourceTree = "<group>"; };
 		4F895F1515C2C19A007525D9 /* PHHeroViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHHeroViewController.m; sourceTree = "<group>"; };
 		4F8A48A515C1FEDF00EC1564 /* NSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+HTML.h"; sourceTree = "<group>"; };
@@ -379,7 +397,7 @@
 		4F095209155C767800C15D6E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4F095208155C767800C15D6E /* TravianManager.app */,
+				4F095208155C767800C15D6E /* Travian Manager.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -421,10 +439,10 @@
 		4F095213155C767800C15D6E /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				4F095214155C767800C15D6E /* TravianManager-Info.plist */,
+				4F095214155C767800C15D6E /* Travian Manager-Info.plist */,
 				4F095215155C767800C15D6E /* InfoPlist.strings */,
 				4F095218155C767800C15D6E /* main.m */,
-				4F09521A155C767800C15D6E /* TravianManager-Prefix.pch */,
+				4F09521A155C767800C15D6E /* Travian Manager-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -482,6 +500,8 @@
 			children = (
 				4F09522C155C76D800C15D6E /* Storage.h */,
 				4F09522D155C76D800C15D6E /* Storage.m */,
+				4F81DFDA164F1CFD00523CF4 /* Settings.h */,
+				4F81DFDB164F1CFD00523CF4 /* Settings.m */,
 				4F095243155C804400C15D6E /* Account.h */,
 				4F095244155C804400C15D6E /* Account.m */,
 				4F095240155C7F6300C15D6E /* Village.h */,
@@ -605,6 +625,12 @@
 		4F928D8715D400A8008AC6DB /* Design */ = {
 			isa = PBXGroup;
 			children = (
+				4F24E90A167BA7ED002367B7 /* unreadNotification.png */,
+				4F24E90B167BA7ED002367B7 /* unreadNotification@2x.png */,
+				4F24E90E167BC077002367B7 /* checkBoxBlank.png */,
+				4F24E90F167BC077002367B7 /* checkBoxBlank@2x.png */,
+				4F24E910167BC077002367B7 /* checkBoxDelete.png */,
+				4F24E911167BC077002367B7 /* checkBoxDelete@2x.png */,
 				4F928DA315D41A65008AC6DB /* UINavigationBar.png */,
 				4F928DA415D41A65008AC6DB /* UINavigationBar@2x.png */,
 				4F928DA515D41A65008AC6DB /* UINavigationBarLandscape.png */,
@@ -664,6 +690,8 @@
 				4F04DA2C15EEDFDE00DAF6E7 /* PHAccountTextFieldCell.m */,
 				4F04DA2E15EEE02300DAF6E7 /* PHAccountTextFieldRightCell.h */,
 				4F04DA2F15EEE02300DAF6E7 /* PHAccountTextFieldRightCell.m */,
+				4F0C318A167B931200D28AE9 /* PHMessageCell.h */,
+				4F0C318B167B931200D28AE9 /* PHMessageCell.m */,
 				4FA88B6B15F160D9001D9713 /* PHDeleteCell.h */,
 				4FA88B6C15F160D9001D9713 /* PHDeleteCell.m */,
 				4F04DA2715ED632700DAF6E7 /* PHVBarracksCell.h */,
@@ -684,21 +712,22 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		4F095207155C767700C15D6E /* TravianManager */ = {
+		4F095207155C767700C15D6E /* Travian Manager */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4F095229155C767800C15D6E /* Build configuration list for PBXNativeTarget "TravianManager" */;
+			buildConfigurationList = 4F095229155C767800C15D6E /* Build configuration list for PBXNativeTarget "Travian Manager" */;
 			buildPhases = (
 				4F095204155C767700C15D6E /* Sources */,
 				4F095205155C767700C15D6E /* Frameworks */,
 				4F095206155C767700C15D6E /* Resources */,
+				50524F424C454D533F /* ShellScript */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = TravianManager;
+			name = "Travian Manager";
 			productName = "Travian Manager";
-			productReference = 4F095208155C767800C15D6E /* TravianManager.app */;
+			productReference = 4F095208155C767800C15D6E /* Travian Manager.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -709,7 +738,7 @@
 			attributes = {
 				LastUpgradeCheck = 0450;
 			};
-			buildConfigurationList = 4F095202155C767700C15D6E /* Build configuration list for PBXProject "TravianManager" */;
+			buildConfigurationList = 4F095202155C767700C15D6E /* Build configuration list for PBXProject "Travian Manager" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -723,7 +752,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				4F095207155C767700C15D6E /* TravianManager */,
+				4F095207155C767700C15D6E /* Travian Manager */,
 			);
 		};
 /* End PBXProject section */
@@ -820,10 +849,32 @@
 				4F6E222C15E15BFF002EC13F /* 37x-Checkmark@2x.png in Resources */,
 				4FA88B6F15F1632A001D9713 /* redButton.png in Resources */,
 				4FFEA46C1628C23A0015D5C3 /* Default-568h@2x.png in Resources */,
+				4F24E90C167BA7ED002367B7 /* unreadNotification.png in Resources */,
+				4F24E90D167BA7ED002367B7 /* unreadNotification@2x.png in Resources */,
+				4F24E912167BC077002367B7 /* checkBoxBlank.png in Resources */,
+				4F24E913167BC077002367B7 /* checkBoxBlank@2x.png in Resources */,
+				4F24E914167BC077002367B7 /* checkBoxDelete.png in Resources */,
+				4F24E915167BC077002367B7 /* checkBoxDelete@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		50524F424C454D533F /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export CODESIGN_ALLOCATE=/Library/JailCoder/codesign_allocate\nif [ \"${PLATFORM_NAME}\" == \"iphoneos\" ]; then\n/Library/JailCoder/Entitlements/Entitlements.py \"my.company.${PROJECT_NAME}\" \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/${PROJECT_NAME}.xcent\";\ncodesign -f -s \"iPhone Developer\" --entitlements \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/${PROJECT_NAME}.xcent\" \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/\"\nfi";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		4F095204155C767700C15D6E /* Sources */ = {
@@ -877,6 +928,8 @@
 				4F2440C01645C31100EEBC93 /* Stable.m in Sources */,
 				4F2440C31645C71B00EEBC93 /* Workshop.m in Sources */,
 				4F2440C61645C85C00EEBC93 /* TownHall.m in Sources */,
+				4F81DFDC164F1CFE00523CF4 /* Settings.m in Sources */,
+				4F0C318C167B931200D28AE9 /* PHMessageCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -975,19 +1028,21 @@
 		4F09522A155C767800C15D6E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "Travian Manager/Travian Manager.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Travian Manager/TravianManager-Prefix.pch";
+				GCC_PREFIX_HEADER = "Travian Manager/Travian Manager-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
 					"/usr/include/libxml2/**",
 					"$(SDKROOT)/usr/include/libxml2",
 				);
-				INFOPLIST_FILE = "Travian Manager/TravianManager-Info.plist";
+				INFOPLIST_FILE = "Travian Manager/Travian Manager-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				PRODUCT_NAME = TravianManager;
-				TARGETED_DEVICE_FAMILY = 1;
+				PRODUCT_NAME = "Travian Manager";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -995,19 +1050,21 @@
 		4F09522B155C767800C15D6E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "Travian Manager/Travian Manager.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Travian Manager/TravianManager-Prefix.pch";
+				GCC_PREFIX_HEADER = "Travian Manager/Travian Manager-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
 					"/usr/include/libxml2/**",
 					"$(SDKROOT)/usr/include/libxml2",
 				);
-				INFOPLIST_FILE = "Travian Manager/TravianManager-Info.plist";
+				INFOPLIST_FILE = "Travian Manager/Travian Manager-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				PRODUCT_NAME = TravianManager;
-				TARGETED_DEVICE_FAMILY = 1;
+				PRODUCT_NAME = "Travian Manager";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -1015,7 +1072,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		4F095202155C767700C15D6E /* Build configuration list for PBXProject "TravianManager" */ = {
+		4F095202155C767700C15D6E /* Build configuration list for PBXProject "Travian Manager" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4F095227155C767800C15D6E /* Debug */,
@@ -1024,7 +1081,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4F095229155C767800C15D6E /* Build configuration list for PBXNativeTarget "TravianManager" */ = {
+		4F095229155C767800C15D6E /* Build configuration list for PBXNativeTarget "Travian Manager" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4F09522A155C767800C15D6E /* Debug */,

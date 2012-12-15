@@ -8,6 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+@class Settings;
+
 @interface PHSettingsViewController : UITableViewController
+
+@property (nonatomic, weak) Settings *settings;
+@property (nonatomic, weak) IBOutlet UISwitch *decimalResources;
+@property (nonatomic, weak) IBOutlet UISwitch *warehouseIndicator;
+
+- (IBAction)changedDecimalResources:(id)sender;
+- (IBAction)changedWarehouseIndicator:(id)sender;
 
 @end

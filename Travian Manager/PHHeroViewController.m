@@ -75,7 +75,8 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-	int qsc;
+	int qsc = 0;
+	Resources *rpb; // ResourceProductionBoost [hero]
 	switch (section) {
 		case 0:
 			// Facts
@@ -101,7 +102,18 @@
 				return qsc+1;
 		case 3:
 			// Resources
-			return 4;
+			rpb = [hero resourceProductionBoost];
+			
+			if (rpb.wood != 0.0f)
+				qsc++;
+			if (rpb.clay != 0.0f)
+				qsc++;
+			if (rpb.iron != 0.0f)
+				qsc++;
+			if (rpb.wheat != 0.0f)
+				qsc++;
+			
+			return qsc;
 	}
 	
     return 0;
@@ -111,7 +123,7 @@
 {
 	UITableViewCell *cell;
 	
-	int qsc;
+	int qsc = 0;
 	switch (indexPath.section) {
 		case 0:
 			// Facts
@@ -159,7 +171,7 @@
 				case 3:
 					cell = [tableView dequeueReusableCellWithIdentifier:@"RightDetailCell"];
 					cell.textLabel.text = @"Resource Bonus pts";
-					cell.detailTextLabel.text = @"?";
+					cell.detailTextLabel.text = [NSString stringWithFormat:@"%d", [hero resourceProductionPoints]];
 					break;
 			}
 			break;
@@ -190,23 +202,33 @@
 			cell = [tableView dequeueReusableCellWithIdentifier:@"RightDetailCell"];
 			NSString *tL = @"", *dL = @""; // textLabel, detailLabel
 			Resources *r = [hero resourceProductionBoost];
+			
+			// Beware tricky fall-through switch logic in place
 			switch (indexPath.row) {
 				case 0:
-					tL = @"Wood";
-					dL = [NSString stringWithFormat:@"%.0f", r.wood];
-					break;
+					if (r.wood != 0.0f) {
+						tL = @"Wood";
+						dL = [NSString stringWithFormat:@"%.0f", r.wood];
+						break;
+					}
 				case 1:
-					tL = @"Clay";
-					dL = [NSString stringWithFormat:@"%.0f", r.clay];
-					break;
+					if (r.clay != 0.0f) {
+						tL = @"Clay";
+						dL = [NSString stringWithFormat:@"%.0f", r.clay];
+						break;
+					}
 				case 2:
-					tL = @"Iron";
-					dL = [NSString stringWithFormat:@"%.0f", r.iron];
-					break;
+					if (r.iron != 0.0f) {
+						tL = @"Iron";
+						dL = [NSString stringWithFormat:@"%.0f", r.iron];
+						break;
+					}
 				case 3:
-					tL = @"Wheat";
-					dL = [NSString stringWithFormat:@"%.0f", r.wheat];
-					break;
+					if (r.wheat != 0.0f) {
+						tL = @"Wheat";
+						dL = [NSString stringWithFormat:@"%.0f", r.wheat];
+						break;
+					}
 			}
 			
 			cell.textLabel.text = tL;

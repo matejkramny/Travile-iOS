@@ -13,6 +13,7 @@
 #import "Account.h"
 #import "Resources.h"
 #import "ResourcesProduction.h"
+#import "Settings.h"
 
 @interface PHVResourcesViewController () {
 	Account *account;
@@ -132,18 +133,28 @@
 	Village *v = [account village];
 	Resources *r = [v resources];
 	ResourcesProduction *rp = [v resourceProduction];
+	bool indicatePercentage = [Storage sharedStorage].settings.showsResourceProgress;
+	bool decimalResources = [Storage sharedStorage].settings.showsDecimalResources;
 	
-	void (^setFormatToResource)(UILabel *, float, int) = ^(UILabel *l, float rv, int rpv) {
-		[l setText:[NSString stringWithFormat:@"%.01f (%d)", rv, rpv]];
+	void (^setFormatToResource)(UILabel *, float, int, int) = ^(UILabel *l, float rv, int rpv, int percentage) {
+		if (decimalResources)
+			[l setText:[NSString stringWithFormat:@"%.01f", rv]];
+		else
+			[l setText:[NSString stringWithFormat:@"%d", (int)rv]];
+		
+		[l setText:[[l text] stringByAppendingFormat:@" (%d) ", rpv]];
+		
+		if (indicatePercentage)
+			[l setText:[[l text] stringByAppendingFormat:@"%d%% full", percentage]];
 	};
 	void (^setSimpleFormatToResource)(UILabel *, int) = ^(UILabel *l, int rv) {
 		[l setText:[NSString stringWithFormat:@"%d", rv]];
 	};
 	
-	setFormatToResource(wood, r.wood, rp.wood);
-	setFormatToResource(clay, r.clay, rp.clay);
-	setFormatToResource(iron, r.iron, rp.iron);
-	setFormatToResource(wheat, r.wheat, rp.wheat);
+	setFormatToResource(wood, r.wood, rp.wood, [r getPercentageForResource:r.wood warehouse:v.warehouse]);
+	setFormatToResource(clay, r.clay, rp.clay, [r getPercentageForResource:r.clay warehouse:v.warehouse]);
+	setFormatToResource(iron, r.iron, rp.iron, [r getPercentageForResource:r.iron warehouse:v.warehouse]);
+	setFormatToResource(wheat, r.wheat, rp.wheat, [r getPercentageForResource:r.wheat warehouse:v.granary]);
 	
 	setSimpleFormatToResource(warehouse, v.warehouse);
 	setSimpleFormatToResource(granary, v.granary);

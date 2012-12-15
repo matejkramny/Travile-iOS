@@ -8,10 +8,11 @@
 
 #import "Storage.h"
 #import "Account.h"
+#import "Settings.h"
 
 @implementation Storage
 
-@synthesize accounts, account;
+@synthesize accounts, account, settings;
 
 // Singleton
 + (Storage *)sharedStorage {
@@ -35,6 +36,7 @@
 		NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 		NSString *documentsDirectory = [paths objectAtIndex:0];
 		savePath = [documentsDirectory stringByAppendingPathComponent:@"Accounts.plist"];
+		settingsSavePath = [documentsDirectory stringByAppendingPathComponent:@"Settings.plist"];
 		
 		[self loadData];
 	}
@@ -48,37 +50,49 @@
 	
 	// Data
 	NSData *data = [NSKeyedArchiver archivedDataWithRootObject:accounts];
-	
-	NSLog(@"Saving Data");
+	NSData *settingsData = [NSKeyedArchiver archivedDataWithRootObject:settings];
 	
 	// Write the data
 	NSError *error;
-	if ([data writeToFile:savePath options:NSDataWritingAtomic error:&error])
+	NSError *errorSettings;
+	if ([data writeToFile:savePath options:NSDataWritingAtomic error:&error] &&
+		[settingsData writeToFile:settingsSavePath options:NSDataWritingAtomic error:&errorSettings]) {
+		NSLog(@"Data and Settings saved");
 		return true;
-	else {
-		NSLog(@"Failed saving data. %@ - %@", [error localizedFailureReason], [error localizedDescription]);
-	
+	} else {
+		if (error)
+			NSLog(@"Failed saving data. %@ - %@", [error localizedFailureReason], [error localizedDescription]);
+		if (errorSettings)
+			NSLog(@"Failed saving settings. %@ - %@", [error localizedFailureReason], [error localizedDescription]);
 	}
+	
 	return false;
 	
 }
 
 - (BOOL)loadData {
 	NSData *data = [NSData dataWithContentsOfFile:savePath];
-	if (data) {
-		accounts = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-		if (accounts == nil)
-			accounts = [[NSArray alloc] init];
-		account = nil;
-		
-		NSLog(@"Data loaded");
-		
-		return true;
+	NSData *settingsData = [NSData dataWithContentsOfFile:settingsSavePath];
+	
+	bool result = false;
+	
+	accounts = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+	if (accounts == nil)
+		accounts = [[NSArray alloc] init];
+	else
+		result = true;
+	
+	account = nil;
+	
+	settings = [NSKeyedUnarchiver unarchiveObjectWithData:settingsData];
+	if (settings == nil) {
+		settings = [[Settings alloc] init];
+		result = false;
+	} else {
+		result = true;
 	}
 	
-	NSLog(@"No data loaded");
-	
-	return false;
+	return result;
 }
 
 - (NSString *)getSavePath {
