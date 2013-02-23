@@ -60,7 +60,7 @@
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	
-	hero = [[Storage sharedStorage] account].hero;
+	hero = [[TMStorage sharedStorage] account].hero;
 	viewingMoreQuests = false;
 	
 	[self.tabBarController.navigationItem setRightBarButtonItems:nil];

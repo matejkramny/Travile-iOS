@@ -20,7 +20,7 @@
 
 #import "TMHero.h"
 #import "HTMLNode.h"
-#import "TravianPages.h"
+#import "TMPages.h"
 #import "TMHeroQuest.h"
 
 @implementation TMHero

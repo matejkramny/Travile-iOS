@@ -19,7 +19,7 @@
  */
 
 #import "TMReport.h"
-#import "TravianPages.h"
+#import "TMPages.h"
 #import "TMResources.h"
 #import "TMVillage.h"
 #import "TMAccount.h"

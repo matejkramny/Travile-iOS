@@ -499,7 +499,7 @@ static NSString *noMessagesCellIdentifier = @"NoMessagesCell";
 		[vc configure];
 	} else if ([[segue identifier] isEqualToString:@"NewMessage"]) {
 		UINavigationController *nc = [segue destinationViewController];
-		PHNewMessageViewController *vc = [[nc viewControllers] objectAtIndex:0];
+		TMNewMessageViewController *vc = [[nc viewControllers] objectAtIndex:0];
 		
 		if (selectedMessage != nil) {
 			if (openMessageAction == ReplyAction) {

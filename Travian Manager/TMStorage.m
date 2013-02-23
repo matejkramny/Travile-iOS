@@ -33,7 +33,7 @@
 	@synchronized(self)
 	{
 		if (!sharedStorage)
-			sharedStorage = [[Storage alloc] init];
+			sharedStorage = [[TMStorage alloc] init];
 		
 		return sharedStorage;
 	}

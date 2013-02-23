@@ -215,11 +215,11 @@ static NSString *deleteButtonCellID = @"DeleteButton";
 	else
 		account = [[TMAccount alloc] init];
 	
-	account.name = [(PHAccountTextFieldCell *)nameCell textField].text;
-	account.password = [(PHAccountTextFieldCell *)passwordCell textField].text;
-	account.username = [(PHAccountTextFieldCell *)usernameCell textField].text;
-	account.world = [(PHAccountTextFieldRightCell *)worldCell textField].text;
-	account.server = [(PHAccountTextFieldRightCell *)serverCell textField].text;
+	account.name = [(TMAccountTextFieldCell *)nameCell textField].text;
+	account.password = [(TMAccountTextFieldCell *)passwordCell textField].text;
+	account.username = [(TMAccountTextFieldCell *)usernameCell textField].text;
+	account.world = [(TMAccountTextFieldRightCell *)worldCell textField].text;
+	account.server = [(TMAccountTextFieldRightCell *)serverCell textField].text;
 	
 	if (![account isComplete])
 	{

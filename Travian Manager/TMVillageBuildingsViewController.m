@@ -153,14 +153,14 @@
 		NSString *second;
 		
 		if ([a isKindOfClass:[NSArray class]])
-			first = [(Building *)[(NSArray *)a objectAtIndex:0] name];
+			first = [(TMBuilding *)[(NSArray *)a objectAtIndex:0] name];
 		else
-			first = [(Building *)a name];
+			first = [(TMBuilding *)a name];
 		
 		if ([b isKindOfClass:[NSArray class]])
-			second = [(Building *)[(NSArray *)b objectAtIndex:0] name];
+			second = [(TMBuilding *)[(NSArray *)b objectAtIndex:0] name];
 		else
-			second = [(Building *)b name];
+			second = [(TMBuilding *)b name];
 		
 		return [first compare:second];
 	};

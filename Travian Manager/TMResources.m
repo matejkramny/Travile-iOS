@@ -21,7 +21,7 @@
 #import "TMResources.h"
 #import "HTMLParser.h"
 #import "HTMLNode.h"
-#import "ResourcesProduction.h"
+#import "TMResourcesProduction.h"
 
 @interface TMResources () {
 	int last_update;
@@ -58,7 +58,7 @@
 	[coder encodeObject:[NSNumber numberWithFloat:wheat] forKey:@"wheat"];
 }
 
-- (void)updateResourcesFromProduction:(ResourcesProduction *)production warehouse:(unsigned int)warehouse granary:(unsigned int)granary {
+- (void)updateResourcesFromProduction:(TMResourcesProduction *)production warehouse:(unsigned int)warehouse granary:(unsigned int)granary {
 	if (!last_update) {
 		last_update = [[NSDate date] timeIntervalSince1970];
 		return;

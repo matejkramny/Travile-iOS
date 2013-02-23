@@ -19,7 +19,7 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "TravianPages.h"
+#import "TMPages.h"
 #import "TravianPageParsingProtocol.h"
 
 @class TMBuildingAction;
