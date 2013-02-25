@@ -610,6 +610,10 @@ static NSString *village = @"dorf2.php";
 		if ([senderHyperlink findChildTag:@"u"])
 			senderHyperlink = [senderHyperlink findChildTag:@"u"];
 		message.sender = [senderHyperlink contents];
+		if ([message.sender length] == 0) {
+			// Blank message sender
+			message.sender = @"Uknown sender?";
+		}
 		
 		[tempMessages addObject:message];
 	}
