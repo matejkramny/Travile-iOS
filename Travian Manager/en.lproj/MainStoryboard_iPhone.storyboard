@@ -1232,7 +1232,7 @@
                         <sections>
                             <tableViewSection headerTitle="Account actions" id="xdi-AU-f5t">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="4KW-f6-8Wy" style="IBUITableViewCellStyleDefault" id="qUo-bg-Nqm">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="4KW-f6-8Wy" style="IBUITableViewCellStyleDefault" id="qUo-bg-Nqm">
                                         <rect key="frame" x="0.0" y="46" width="320" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -1347,7 +1347,7 @@
                                         </view>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="gray" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="oqK-Rj-4TF" style="IBUITableViewCellStyleDefault" id="RKZ-TJ-NMe">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="oqK-Rj-4TF" style="IBUITableViewCellStyleDefault" id="RKZ-TJ-NMe">
                                         <rect key="frame" x="0.0" y="315" width="320" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -1503,18 +1503,8 @@
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Lhw-ie-mIK">
-                                        <rect key="frame" x="20" y="78" width="280" height="67"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <string key="text">Developers:
-
- - Matej Kramny</string>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" id="29H-cs-beE">
-                                        <rect key="frame" x="20" y="318" width="280" height="51"/>
+                                        <rect key="frame" x="20" y="189" width="280" height="51"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <string key="text">Please report all bugs to
 matejkramny@gmail.com</string>
@@ -1522,10 +1512,24 @@ matejkramny@gmail.com</string>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="This app is property of Matej Kramny, and is not affiliated to Travian Games GmbH in any way." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="2" adjustsFontSizeToFit="NO" id="tgg-3N-lm4">
-                                        <rect key="frame" x="20" y="377" width="280" height="19"/>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Developed and maintaned by:" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="NCJ-Ej-wd3">
+                                        <rect key="frame" x="20" y="78" width="280" height="26"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="6"/>
+                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Matej Kramny" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="W7O-vn-X9K">
+                                        <rect key="frame" x="186" y="112" width="114" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Many thanks to Travian Gmbh for creating such a great game" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="SlP-IS-ANm">
+                                        <rect key="frame" x="20" y="355" width="280" height="41"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -1849,6 +1853,162 @@ matejkramny@gmail.com</string>
         <image name="redButton.png" width="602" height="86"/>
         <image name="unreadNotification.png" width="10" height="10"/>
     </resources>
+    <classes>
+        <class className="TMAccountDetailsViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TMAccountDetailsViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="cancel:"/>
+                <relationship kind="action" name="delete:"/>
+                <relationship kind="action" name="done:"/>
+            </relationships>
+        </class>
+        <class className="TMAccountTextFieldCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TMAccountTextFieldCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="textField" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="TMAccountTextFieldRightCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TMAccountTextFieldRightCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="label" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="textField" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="TMAccountsViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TMAccountsViewController.h"/>
+        </class>
+        <class className="TMDeleteCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TMDeleteCell.h"/>
+            <relationships>
+                <relationship kind="action" name="buttonTouched:"/>
+                <relationship kind="outlet" name="button" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="TMHeroViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TMHeroViewController.h"/>
+        </class>
+        <class className="TMLabelAndTextFieldCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TMLabelAndTextFieldCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="field" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="label" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="TMMessageCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TMMessageCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="dateLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="deleteCheckboxImage" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="senderLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="subjectLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="unreadImage" candidateClass="UIImageView"/>
+            </relationships>
+        </class>
+        <class className="TMMessageContentCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TMMessageContentCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="messageContent" candidateClass="TMMessageContentTextView"/>
+            </relationships>
+        </class>
+        <class className="TMMessageContentTextView" superclassName="UITextView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TMMessageContentTextView.h"/>
+        </class>
+        <class className="TMMessagesViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TMMessagesViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="delete:"/>
+                <relationship kind="action" name="delete:userDidConfirm:"/>
+                <relationship kind="action" name="deleteTask:"/>
+                <relationship kind="action" name="editButtonClicked:"/>
+                <relationship kind="action" name="newMessage:"/>
+            </relationships>
+        </class>
+        <class className="TMNewMessageViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TMNewMessageViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="closeView:"/>
+                <relationship kind="action" name="sendButtonPressed:"/>
+                <relationship kind="outlet" name="sendButton" candidateClass="UIBarButtonItem"/>
+            </relationships>
+        </class>
+        <class className="TMOpenMessageViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TMOpenMessageViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="delete:"/>
+                <relationship kind="action" name="menuBarPressed:"/>
+                <relationship kind="action" name="reply:"/>
+            </relationships>
+        </class>
+        <class className="TMReportsViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TMReportsViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="deleteAll:"/>
+                <relationship kind="action" name="deleteAll:userDidConfirm:"/>
+                <relationship kind="action" name="deleteTask:"/>
+                <relationship kind="action" name="editButtonClicked:"/>
+            </relationships>
+        </class>
+        <class className="TMSettingsViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TMSettingsViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="changedDecimalResources:"/>
+                <relationship kind="action" name="changedWarehouseIndicator:"/>
+                <relationship kind="outlet" name="decimalResources" candidateClass="UISwitch"/>
+                <relationship kind="outlet" name="warehouseIndicator" candidateClass="UISwitch"/>
+            </relationships>
+        </class>
+        <class className="TMTextViewCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TMTextViewCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="textView" candidateClass="TMMessageContentTextView"/>
+            </relationships>
+        </class>
+        <class className="TMVillageBarracksCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TMVillageBarracksCell.h"/>
+            <relationships>
+                <relationship kind="action" name="manyEditingChanged:"/>
+                <relationship kind="outlet" name="many" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="name" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="otherDetails" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="resources" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="TMVillageBuildingsViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TMVillageBuildingsViewController.h"/>
+        </class>
+        <class className="TMVillageOpenBuildingViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TMVillageOpenBuildingViewController.h"/>
+        </class>
+        <class className="TMVillageOverviewViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TMVillageOverviewViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="secondTimerFired:"/>
+            </relationships>
+        </class>
+        <class className="TMVillageResearchViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TMVillageResearchViewController.h"/>
+        </class>
+        <class className="TMVillageResourcesViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TMVillageResourcesViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="clay" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="consuming" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="granary" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="iron" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="producing" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="warehouse" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="wheat" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="wood" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="TMVillageTroopsViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TMVillageTroopsViewController.h"/>
+        </class>
+        <class className="TMVillagesViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TMVillagesViewController.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

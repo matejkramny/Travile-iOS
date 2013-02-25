@@ -83,8 +83,8 @@
 - (void)updateOverlay {
 	CGRect bounds = [[UIScreen mainScreen] bounds];
 	
-	UIInterfaceOrientation orientation = [[UIDevice currentDevice] orientation];
-	if (orientation == UIInterfaceOrientationLandscapeLeft || orientation == UIInterfaceOrientationLandscapeRight) {
+	UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
+	if (orientation == UIDeviceOrientationLandscapeLeft || orientation == UIDeviceOrientationLandscapeRight) {
 		CGFloat h = bounds.size.height;
 		CGFloat w = bounds.size.width;
 		// Swap width with height to tell overlay orientation is landscape

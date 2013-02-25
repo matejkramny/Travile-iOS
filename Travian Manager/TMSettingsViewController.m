@@ -86,7 +86,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 0 && indexPath.row == 1) {
+	if (indexPath.section == 0 && indexPath.row == 0) {
+		// Reload data
+		
+	} else if (indexPath.section == 0 && indexPath.row == 1) {
 		// Logout
 		[[TMStorage sharedStorage].account deactivateAccount];
 		[self.tabBarController setSelectedIndex:0];

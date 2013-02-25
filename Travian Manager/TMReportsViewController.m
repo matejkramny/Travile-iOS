@@ -226,6 +226,9 @@
      // Pass the selected object to the new view controller.
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
+	[tableView deselectRowAtIndexPath:indexPath animated:YES];
+	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Not supported" message:@"Reports are not supported yet." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+	[alert show];
 }
 
 #pragma mark - MBProgressHUDDelegate
