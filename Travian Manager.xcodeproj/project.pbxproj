@@ -126,6 +126,13 @@
 		4F6E222B15E15BFF002EC13F /* 37x-Checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F6E222915E15BFF002EC13F /* 37x-Checkmark.png */; };
 		4F6E222C15E15BFF002EC13F /* 37x-Checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F6E222A15E15BFF002EC13F /* 37x-Checkmark@2x.png */; };
 		4F6E222F15E51B85002EC13F /* TMBuildingAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F6E222E15E51B85002EC13F /* TMBuildingAction.m */; };
+		4F724F1C16E159F0005E5CA2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F09520C155C767800C15D6E /* UIKit.framework */; };
+		4F724F1D16E159F0005E5CA2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F09520E155C767800C15D6E /* Foundation.framework */; };
+		4F724F1E16E159F0005E5CA2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F095210155C767800C15D6E /* CoreGraphics.framework */; };
+		4F724F2416E159F0005E5CA2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4F724F2216E159F0005E5CA2 /* InfoPlist.strings */; };
+		4F724F2616E159F0005E5CA2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F724F2516E159F0005E5CA2 /* main.m */; };
+		4F724F3516E15ED2005E5CA2 /* GHUnitIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F724F3416E15ED2005E5CA2 /* GHUnitIOS.framework */; };
+		4F724F3816E16086005E5CA2 /* TTTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F724F3716E16086005E5CA2 /* TTTest.m */; };
 		4F81DFDC164F1CFE00523CF4 /* TMSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F81DFDB164F1CFD00523CF4 /* TMSettings.m */; };
 		4F895F1615C2C19A007525D9 /* TMHeroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F895F1515C2C19A007525D9 /* TMHeroViewController.m */; };
 		4F8A48A715C1FEDF00EC1564 /* NSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8A48A615C1FEDF00EC1564 /* NSString+HTML.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -321,6 +328,14 @@
 		4F6E222A15E15BFF002EC13F /* 37x-Checkmark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "37x-Checkmark@2x.png"; sourceTree = "<group>"; };
 		4F6E222D15E51B84002EC13F /* TMBuildingAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMBuildingAction.h; sourceTree = "<group>"; };
 		4F6E222E15E51B85002EC13F /* TMBuildingAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMBuildingAction.m; sourceTree = "<group>"; };
+		4F724F1B16E159F0005E5CA2 /* Tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tests.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4F724F2116E159F0005E5CA2 /* Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Tests-Info.plist"; sourceTree = "<group>"; };
+		4F724F2316E159F0005E5CA2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		4F724F2516E159F0005E5CA2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		4F724F2716E159F0005E5CA2 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
+		4F724F3416E15ED2005E5CA2 /* GHUnitIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GHUnitIOS.framework; sourceTree = "<group>"; };
+		4F724F3616E16086005E5CA2 /* TTTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTest.h; sourceTree = "<group>"; };
+		4F724F3716E16086005E5CA2 /* TTTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTest.m; sourceTree = "<group>"; };
 		4F81DFDA164F1CFD00523CF4 /* TMSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMSettings.h; sourceTree = "<group>"; };
 		4F81DFDB164F1CFD00523CF4 /* TMSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMSettings.m; sourceTree = "<group>"; };
 		4F895F1415C2C19A007525D9 /* TMHeroViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMHeroViewController.h; sourceTree = "<group>"; };
@@ -396,12 +411,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		4F724F1816E159F0005E5CA2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4F724F1C16E159F0005E5CA2 /* UIKit.framework in Frameworks */,
+				4F724F1D16E159F0005E5CA2 /* Foundation.framework in Frameworks */,
+				4F724F1E16E159F0005E5CA2 /* CoreGraphics.framework in Frameworks */,
+				4F724F3516E15ED2005E5CA2 /* GHUnitIOS.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		4F0951FD155C767700C15D6E = {
 			isa = PBXGroup;
 			children = (
+				4F724F3416E15ED2005E5CA2 /* GHUnitIOS.framework */,
 				4FFEA46B1628C23A0015D5C3 /* Default-568h@2x.png */,
 				4F5704CC15CEE775001614AC /* Default@2x.png */,
 				4F5704CA15CEE770001614AC /* Default.png */,
@@ -409,6 +436,7 @@
 				4F5704C615CEE762001614AC /* Logo.png */,
 				4F57044715CEE126001614AC /* Resources */,
 				4F095212155C767800C15D6E /* Travian Manager */,
+				4F724F1F16E159F0005E5CA2 /* Tests */,
 				4F09520B155C767800C15D6E /* Frameworks */,
 				4F095209155C767800C15D6E /* Products */,
 			);
@@ -418,6 +446,7 @@
 			isa = PBXGroup;
 			children = (
 				4F095208155C767800C15D6E /* Travian Manager.app */,
+				4F724F1B16E159F0005E5CA2 /* Tests.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -425,12 +454,12 @@
 		4F09520B155C767800C15D6E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4F4B132A164491D2002D3149 /* SenTestingKit.framework */,
 				4FBACE5715D71FCF0092A8F3 /* QuartzCore.framework */,
 				4F095237155C7B6100C15D6E /* libxml2.2.dylib */,
 				4F09520C155C767800C15D6E /* UIKit.framework */,
 				4F09520E155C767800C15D6E /* Foundation.framework */,
 				4F095210155C767800C15D6E /* CoreGraphics.framework */,
-				4F4B132A164491D2002D3149 /* SenTestingKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -628,6 +657,27 @@
 			name = "NSString category extensions";
 			sourceTree = "<group>";
 		};
+		4F724F1F16E159F0005E5CA2 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				4F724F2016E159F0005E5CA2 /* Supporting Files */,
+				4F724F3616E16086005E5CA2 /* TTTest.h */,
+				4F724F3716E16086005E5CA2 /* TTTest.m */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		4F724F2016E159F0005E5CA2 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				4F724F2116E159F0005E5CA2 /* Tests-Info.plist */,
+				4F724F2216E159F0005E5CA2 /* InfoPlist.strings */,
+				4F724F2516E159F0005E5CA2 /* main.m */,
+				4F724F2716E159F0005E5CA2 /* Tests-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		4F928D8715D400A8008AC6DB /* Design */ = {
 			isa = PBXGroup;
 			children = (
@@ -771,6 +821,23 @@
 			productReference = 4F095208155C767800C15D6E /* Travian Manager.app */;
 			productType = "com.apple.product-type.application";
 		};
+		4F724F1A16E159F0005E5CA2 /* Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4F724F3316E159F1005E5CA2 /* Build configuration list for PBXNativeTarget "Tests" */;
+			buildPhases = (
+				4F724F1716E159F0005E5CA2 /* Sources */,
+				4F724F1816E159F0005E5CA2 /* Frameworks */,
+				4F724F1916E159F0005E5CA2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Tests;
+			productName = Tests;
+			productReference = 4F724F1B16E159F0005E5CA2 /* Tests.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -794,6 +861,7 @@
 			projectRoot = "";
 			targets = (
 				4F095207155C767700C15D6E /* Travian Manager */,
+				4F724F1A16E159F0005E5CA2 /* Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -900,6 +968,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		4F724F1916E159F0005E5CA2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4F724F2416E159F0005E5CA2 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -981,6 +1057,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		4F724F1716E159F0005E5CA2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4F724F2616E159F0005E5CA2 /* main.m in Sources */,
+				4F724F3816E16086005E5CA2 /* TTTest.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
@@ -1009,6 +1094,14 @@
 			);
 			name = Localizable.strings;
 			path = ..;
+			sourceTree = "<group>";
+		};
+		4F724F2216E159F0005E5CA2 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4F724F2316E159F0005E5CA2 /* en */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -1079,6 +1172,10 @@
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Travian Manager/Travian Manager-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -1099,6 +1196,10 @@
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Travian Manager/Travian Manager-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -1109,6 +1210,57 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "Travian Manager";
 				TARGETED_DEVICE_FAMILY = 1;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		4F724F3116E159F1005E5CA2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_WARN_EMPTY_BODY = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Tests/Tests-Prefix.pch";
+				INFOPLIST_FILE = "Tests/Tests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-ObjC",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		4F724F3216E159F1005E5CA2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_WARN_EMPTY_BODY = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Tests/Tests-Prefix.pch";
+				INFOPLIST_FILE = "Tests/Tests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-ObjC",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -1133,6 +1285,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		4F724F3316E159F1005E5CA2 /* Build configuration list for PBXNativeTarget "Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4F724F3116E159F1005E5CA2 /* Debug */,
+				4F724F3216E159F1005E5CA2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
