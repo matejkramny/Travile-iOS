@@ -73,11 +73,6 @@
     [super viewDidUnload];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-
 - (void)configure {
 	[self buildCells];
 	[self.tableView reloadData];
@@ -168,7 +163,7 @@ static NSString *subjectCellIdentifier = @"SubjectCell";
 
 #pragma mark - IBAction
 
-- (IBAction)delete:(id)sender {
+- (IBAction)deleteMessage:(id)sender {
 	[[self message] delete];
 	TMAccount *a = [[TMStorage sharedStorage] account];
 	NSMutableArray *ar = [[a messages] mutableCopy];

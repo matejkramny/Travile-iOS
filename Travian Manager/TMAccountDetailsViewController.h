@@ -37,6 +37,6 @@
 
 - (IBAction)done:(id)sender;
 - (IBAction)cancel:(id)sender;
-- (IBAction)delete:(id)sender;
+- (IBAction)deleteAccount:(id)sender;
 
 @end

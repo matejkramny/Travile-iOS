@@ -1430,53 +1430,6 @@
             </objects>
             <point key="canvasLocation" x="1356" y="1085"/>
         </scene>
-        <!--Table View Controller - Automatic Tasks-->
-        <scene sceneID="v06-bS-FKA">
-            <objects>
-                <tableViewController id="Ydc-tm-3M8" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="hth-5j-Mdi">
-                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                        <sections>
-                            <tableViewSection headerTitle="Hero" footerTitle="Toggle sends hero on adventures automatically" id="zAP-92-aEO">
-                                <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="xQX-ok-j73">
-                                        <rect key="frame" x="0.0" y="46" width="320" height="46"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="10" y="1" width="300" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Adventures" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="2si-j4-aYa">
-                                                    <rect key="frame" x="10" y="0.0" width="94" height="43"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                </label>
-                                                <switch opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="RIJ-z0-Utp">
-                                                    <rect key="frame" x="214" y="8" width="79" height="27"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                </switch>
-                                            </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </view>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                        </sections>
-                        <connections>
-                            <outlet property="dataSource" destination="Ydc-tm-3M8" id="el0-PX-MgU"/>
-                            <outlet property="delegate" destination="Ydc-tm-3M8" id="Ekm-27-PZn"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" title="Automatic Tasks" id="Vgu-t9-4Uy"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="L1W-BT-arY" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1406" y="1651"/>
-        </scene>
         <!--View Controller - About-->
         <scene sceneID="Tce-yH-aed">
             <objects>
@@ -1774,7 +1727,7 @@ matejkramny@gmail.com</string>
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                             <connections>
-                                                <action selector="delete:" destination="nU6-nv-4bM" eventType="touchUpInside" id="Qva-jn-Dod"/>
+                                                <action selector="deleteAccount:" destination="nU6-nv-4bM" eventType="touchUpInside" id="j1B-d3-OnY"/>
                                             </connections>
                                         </button>
                                     </subviews>
@@ -1858,7 +1811,7 @@ matejkramny@gmail.com</string>
             <source key="sourceIdentifier" type="project" relativePath="./Classes/TMAccountDetailsViewController.h"/>
             <relationships>
                 <relationship kind="action" name="cancel:"/>
-                <relationship kind="action" name="delete:"/>
+                <relationship kind="action" name="deleteAccount:"/>
                 <relationship kind="action" name="done:"/>
             </relationships>
         </class>
@@ -1917,8 +1870,8 @@ matejkramny@gmail.com</string>
         <class className="TMMessagesViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/TMMessagesViewController.h"/>
             <relationships>
-                <relationship kind="action" name="delete:"/>
                 <relationship kind="action" name="delete:userDidConfirm:"/>
+                <relationship kind="action" name="deleteMessage:"/>
                 <relationship kind="action" name="deleteTask:"/>
                 <relationship kind="action" name="editButtonClicked:"/>
                 <relationship kind="action" name="newMessage:"/>
@@ -1935,7 +1888,7 @@ matejkramny@gmail.com</string>
         <class className="TMOpenMessageViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/TMOpenMessageViewController.h"/>
             <relationships>
-                <relationship kind="action" name="delete:"/>
+                <relationship kind="action" name="deleteMessage:"/>
                 <relationship kind="action" name="menuBarPressed:"/>
                 <relationship kind="action" name="reply:"/>
             </relationships>

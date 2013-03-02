@@ -428,7 +428,6 @@
 		4F0951FD155C767700C15D6E = {
 			isa = PBXGroup;
 			children = (
-				4F724F3416E15ED2005E5CA2 /* GHUnitIOS.framework */,
 				4FFEA46B1628C23A0015D5C3 /* Default-568h@2x.png */,
 				4F5704CC15CEE775001614AC /* Default@2x.png */,
 				4F5704CA15CEE770001614AC /* Default.png */,
@@ -454,6 +453,7 @@
 		4F09520B155C767800C15D6E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4F724F3416E15ED2005E5CA2 /* GHUnitIOS.framework */,
 				4F4B132A164491D2002D3149 /* SenTestingKit.framework */,
 				4FBACE5715D71FCF0092A8F3 /* QuartzCore.framework */,
 				4F095237155C7B6100C15D6E /* libxml2.2.dylib */,
@@ -660,9 +660,9 @@
 		4F724F1F16E159F0005E5CA2 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				4F724F2016E159F0005E5CA2 /* Supporting Files */,
 				4F724F3616E16086005E5CA2 /* TTTest.h */,
 				4F724F3716E16086005E5CA2 /* TTTest.m */,
+				4F724F2016E159F0005E5CA2 /* Supporting Files */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -1293,6 +1293,7 @@
 				4F724F3216E159F1005E5CA2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

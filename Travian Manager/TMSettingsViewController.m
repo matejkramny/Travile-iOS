@@ -68,11 +68,6 @@
 	[warehouseIndicator setOn:settings.showsResourceProgress];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (interfaceOrientation == UIInterfaceOrientationPortrait || interfaceOrientation == UIInterfaceOrientationLandscapeLeft || interfaceOrientation == UIInterfaceOrientationLandscapeRight);
-}
-
 - (IBAction)changedDecimalResources:(id)sender {
 	[settings setShowsDecimalResources:[decimalResources isOn]];
 	[[TMStorage sharedStorage] saveData];

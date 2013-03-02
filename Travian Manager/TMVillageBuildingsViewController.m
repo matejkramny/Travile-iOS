@@ -91,11 +91,6 @@
 	}
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-
 - (void)loadBuildingsToSections {
 	sectionsWithCells = [[NSMutableArray alloc] init]; // Forces reallocation
 	NSArray *buildings = [[account village] buildings];

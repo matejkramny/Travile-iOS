@@ -43,10 +43,12 @@
 	
 	NSMutableArray *deleteArray;
 	bool forceZeroRows;
+	
+	__weak TMAccount *account;
 }
 
 - (IBAction)editButtonClicked:(id)sender;
-- (IBAction)delete:(id)sender;
+- (IBAction)deleteMessage:(id)sender;
 - (IBAction)delete:(id)sender userDidConfirm:(bool)confirmed;
 - (IBAction)deleteTask:(id)sender;
 - (IBAction)newMessage:(id)sender;
@@ -74,6 +76,8 @@
 
 @implementation TMMessagesViewController
 
+static NSString *viewTitle = @"Messages";
+
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -91,6 +95,7 @@
 	[self.refreshControl addTarget:self action:@selector(didBeginRefreshing:) forControlEvents:UIControlEventValueChanged];
 	
 	storage = [TMStorage sharedStorage];
+	account = [storage account];
 	[[self tableView] setAllowsSelectionDuringEditing:YES];
 	newMessageButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(newMessage:)];
 	editButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editButtonClicked:)];
@@ -104,6 +109,11 @@
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
+	
+	if (!account || ![account isEqual:[storage account]]) {
+		account = [storage account];
+		cells = nil;
+	}
 	
 	if (selectedMessage != nil) {
 		if (openMessageAction == 0)
@@ -119,7 +129,7 @@
 	
 	[self setNavigationItems:false animated:false];
 	
-	[self.tabBarController setTitle:[NSString stringWithFormat:@"Messages"]];
+	[self.tabBarController setTitle:viewTitle];
 	
 	[self reloadBadgeCount];
 }
@@ -149,11 +159,6 @@
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return interfaceOrientation == UIInterfaceOrientationPortrait;
 }
 
 - (void)setNavigationItems:(BOOL)editing {
@@ -257,7 +262,7 @@ static NSString *noMessagesCellIdentifier = @"NoMessagesCell";
 	[self setEditing:![self isEditing] animated:YES];
 }
 
-- (IBAction)delete:(id)sender {
+- (IBAction)deleteMessage:(id)sender {
 	deleteArray = [[NSMutableArray alloc] initWithCapacity:[cells count]]; // Empty array
 	for (TMMessageCell *cell in cells) {
 		if ([cell isMarkedForDelete]) {
@@ -277,7 +282,7 @@ static NSString *noMessagesCellIdentifier = @"NoMessagesCell";
 
 - (IBAction)delete:(id)sender userDidConfirm:(bool)confirmed {
 	if (!confirmed) {
-		[self delete:sender];
+		[self deleteMessage:sender];
 		return;
 	}
 	

@@ -52,7 +52,7 @@ typedef enum {
 @property (nonatomic, strong) NSString *password; // Login - password
 @property (nonatomic, strong) NSString *world; // Login - world (e.g. 'ts7')
 @property (nonatomic, strong) NSString *server; // Login - server (e.g. 'co.uk')
-@property (strong, nonatomic) NSString *baseURL; // e.g. http://world.travian.co.uk
+@property (nonatomic, strong) NSString *baseURL; // e.g. http://world.travian.co.uk
 
 @property (nonatomic, weak) TMVillage *village; // Village being viewed (viewed by viewcontrollers)
 @property (nonatomic, strong) NSArray *villages; // List of villages

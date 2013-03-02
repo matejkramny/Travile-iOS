@@ -136,11 +136,6 @@
 	[self.tableView reloadData];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (interfaceOrientation == (UIInterfaceOrientationPortrait | UIInterfaceOrientationLandscapeLeft | UIInterfaceOrientationLandscapeRight));
-}
-
 - (void)refreshResources {
 	TMVillage *v = [account village];
 	TMResources *r = [v resources];

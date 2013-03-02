@@ -46,7 +46,7 @@ typedef enum {
 @property (weak, nonatomic) id<TMOpenMessageViewControllerDelegate> delegate;
 @property (weak, nonatomic) TMMessage *message;
 
-- (IBAction)delete:(id)sender;
+- (IBAction)deleteMessage:(id)sender;
 - (IBAction)reply:(id)sender;
 - (void)configure;
 - (IBAction)menuBarPressed:(id)sender;

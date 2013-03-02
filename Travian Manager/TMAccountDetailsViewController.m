@@ -62,11 +62,6 @@
 	[super viewDidUnload];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-	return interfaceOrientation == UIInterfaceOrientationPortrait;
-}
-
 #pragma mark - TableView Data source methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -200,7 +195,7 @@ static NSString *deleteButtonCellID = @"DeleteButton";
 	[self.delegate accountDetailsViewControllerDidCancel:self];
 }
 
-- (IBAction)delete:(id)sender {
+- (IBAction)deleteAccount:(id)sender {
 	// Add method to delegate
 	
 	UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"Are you sure you want to delete this account?" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Delete" otherButtonTitles: nil];

@@ -51,7 +51,7 @@
 		unsigned int now = [[NSDate date] timeIntervalSince1970];
 		NSLog(@"%d", now);
 		if (timeAtGoingToInactiveState - now > 5) {
-			// 50 second
+			// 5 second
 			// TODO Ask to log back in
 		}
 	}
@@ -97,6 +97,7 @@
 	[[UIBarButtonItem appearance] setBackButtonBackgroundImage:backButton forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
 	[[UIBarButtonItem appearance] setBackButtonBackgroundImage:backButtonLandscape forState:UIControlStateNormal barMetrics:UIBarMetricsLandscapePhone];
 	
+	// Table background
 	[[UITableView appearance] setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"TMBackground.png"]]];
 }
 

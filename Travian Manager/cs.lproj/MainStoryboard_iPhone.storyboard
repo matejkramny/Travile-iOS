@@ -772,7 +772,7 @@
                     <toolbarItems>
                         <barButtonItem systemItem="trash" id="VGZ-WX-EBL">
                             <connections>
-                                <action selector="delete:" destination="xUF-Y9-IYt" id="CLI-Ar-Lhf"/>
+                                <action selector="deleteMessage:" destination="xUF-Y9-IYt" id="CqB-uh-svb"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="I85-Jj-1Ua"/>

@@ -349,11 +349,6 @@ static NSString *barracksCellID = @"Barracks";
     return [sec count];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	id sec = [sections objectAtIndex:indexPath.section];

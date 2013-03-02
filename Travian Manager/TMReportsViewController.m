@@ -29,6 +29,7 @@
 	TMStorage *storage;
 	MBProgressHUD *HUD;
 	UIAlertView *deleteAllAlert;
+	UIBarButtonItem *editButton;
 }
 
 - (IBAction)deleteAll:(id)sender;
@@ -39,6 +40,8 @@
 @end
 
 @implementation TMReportsViewController
+
+static NSString *viewTitle = @"Reports";
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -64,22 +67,21 @@
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	
-	[self.tabBarController setTitle:@"Reports"];
+	if (!editButton) {
+		editButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editButtonClicked:)];
+	}
+	
+	[self.tabBarController setTitle:viewTitle];
 	[self.tabBarController.navigationItem setRightBarButtonItems:nil];
 	[self.tabBarController.navigationItem setRightBarButtonItem:nil];
 	[self.tabBarController.navigationItem setLeftBarButtonItems:nil];
-	[self.tabBarController.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editButtonClicked:)] animated:NO];
+	[self.tabBarController.navigationItem setLeftBarButtonItem:editButton animated:NO];
 	
 	[self.tableView reloadData];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
 	[super setEditing:NO animated:animated];
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (interfaceOrientation == UIInterfaceOrientationPortrait || interfaceOrientation == UIInterfaceOrientationLandscapeLeft || interfaceOrientation == UIInterfaceOrientationLandscapeRight);
 }
 
 #pragma mark - Table view data source

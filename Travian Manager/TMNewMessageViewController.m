@@ -144,11 +144,6 @@ static NSString *contentCellIdentifier = @"ContentCell";
 	[super viewDidAppear:animated];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (interfaceOrientation == UIInterfaceOrientationPortrait || interfaceOrientation == UIInterfaceOrientationLandscapeLeft || interfaceOrientation == UIInterfaceOrientationLandscapeRight);
-}
-
 #pragma mark - Table view delegate
 
 - (int)numberOfSectionsInTableView:(UITableView *)tableView {

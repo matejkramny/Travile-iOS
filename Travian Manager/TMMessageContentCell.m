@@ -46,8 +46,8 @@
 	[messageContent setText:[message content]];
 	[messageContent setFrame:CGRectMake(0, 0, messageContent.contentSize.width, messageContent.contentSize.height)];
 }
-- (void)configure:(TMMessage *)message {
-	[self setMessage:message];
+- (void)configure:(TMMessage *)theMessage {
+	[self setMessage:theMessage];
 	
 	[self configure];
 }

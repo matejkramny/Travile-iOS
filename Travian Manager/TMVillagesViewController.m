@@ -23,7 +23,6 @@
 #import "TMStorage.h"
 #import "TMAccount.h"
 #import "TMVillage.h"
-//#import "ODRefreshControl/ODRefreshControl.h"
 #import "TMVillageOverviewViewController.h"
 
 @interface TMVillagesViewController () {
@@ -161,11 +160,6 @@
 		[self performSegueWithIdentifier:@"SelectAccount" sender:self];
 	
 	[super viewDidAppear:animated];
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (interfaceOrientation == UIInterfaceOrientationPortrait || interfaceOrientation == UIInterfaceOrientationLandscapeLeft || interfaceOrientation == UIInterfaceOrientationLandscapeRight);
 }
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
