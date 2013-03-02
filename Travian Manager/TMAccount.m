@@ -136,6 +136,8 @@ static NSString *village = @"dorf2.php";
 	NSString *builtString = [baseURL stringByAppendingString:append];
 	
 	NSString *eachObject;
+	
+	// va_list puts the arguments from elipsis into argList
 	va_list argList;
 	va_start(argList, append);
 	while ((eachObject = va_arg(argList, NSString *)))
@@ -265,7 +267,10 @@ static NSString *village = @"dorf2.php";
 
 - (void)connection:(NSURLConnection *)connection willSendRequestForAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {  }
 - (BOOL)connectionShouldUseCredentialStorage:(NSURLConnection *)connection	{	return NO;	}
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error { NSLog(@"Connection failed with error: %@. Fix error by: %@", [error localizedFailureReason], [error localizedRecoverySuggestion]); }
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
+	NSLog(@"Connection failed with error: %@. Fix error by: %@", [error localizedFailureReason], [error localizedRecoverySuggestion]);
+	[self setStatus:(AConnectionFailed | ANotLoggedIn | ACannotLogIn)];
+}
 
 #pragma mark NSURLConnectionDataDelegate
 

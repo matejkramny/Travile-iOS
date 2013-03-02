@@ -27,7 +27,8 @@ typedef enum {
 	ACannotLogIn = 1 << 2,
 	ANotLoggedIn = 1 << 3,
 	ARefreshing = 1 << 4,
-	ARefreshed = 1 << 5
+	ARefreshed = 1 << 5,
+	AConnectionFailed = 1 << 6
 } AccountStatus;
 
 typedef enum {

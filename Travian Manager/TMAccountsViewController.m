@@ -208,6 +208,7 @@
 	[hud hide:YES];
 	[hud removeGestureRecognizer:tapGestureRecognizer];
 	tapGestureRecognizer = nil;
+	
 	[storage.account removeObserver:self forKeyPath:@"notificationPending"];
 	[storage.account removeObserver:self forKeyPath:@"progressIndicator"];
 	[storage.account removeObserver:self forKeyPath:@"status"];
@@ -265,7 +266,12 @@
 	} else if ([keyPath isEqualToString:@"status"]) {
 		// Checks for change of account status
 		AccountStatus stat = [[change objectForKey:NSKeyValueChangeNewKey] intValue];
-		if ((stat & (ACannotLogIn)) != 0) {
+		if ((stat & AConnectionFailed) != 0) {
+			// The connection failed
+			hud.labelText = @"Connection failed"; // TODO localise this
+			hud.detailsLabelText = @"Tap to dismiss.";
+			/// TODO Show big X (image)
+		} else if ((stat & (ACannotLogIn)) != 0) {
 			// Cannot log in.
 			// Display Alert - Cancel - Retry with new password
 			

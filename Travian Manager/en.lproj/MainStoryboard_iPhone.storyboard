@@ -1785,7 +1785,7 @@ matejkramny@gmail.com</string>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="nU6-nv-4bM" kind="relationship" relationship="rootViewController" id="QcF-63-1ux"/>
+                        <segue destination="nU6-nv-4bM" kind="relationship" relationship="rootViewController" id="d9C-vC-STq"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kbf-rL-vdQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
