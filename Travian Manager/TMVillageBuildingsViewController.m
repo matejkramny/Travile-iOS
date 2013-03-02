@@ -49,6 +49,8 @@
 
 @implementation TMVillageBuildingsViewController
 
+static NSString *viewTitle = @"Buildings";
+
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -83,7 +85,7 @@
 	[self.tabBarController.navigationItem setRightBarButtonItem:nil];
 	[self.tabBarController.navigationItem setLeftBarButtonItem:nil];
 	
-	[self.tabBarController setTitle:[NSString stringWithFormat:@"Buildings"]];
+	[self.tabBarController setTitle:viewTitle];
 	
 	if (sections == nil || last_update == 0 || account.last_updated < last_update) {
 		[self loadBuildingsToSections];

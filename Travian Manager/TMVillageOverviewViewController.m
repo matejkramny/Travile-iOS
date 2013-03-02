@@ -38,6 +38,8 @@
 
 @implementation TMVillageOverviewViewController
 
+static NSString *viewTitle = @"Overview";
+
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -73,7 +75,7 @@
 	[self.tabBarController.navigationItem setRightBarButtonItem:nil];
 	[self.tabBarController.navigationItem setLeftBarButtonItem:nil];
 	
-	[self.tabBarController setTitle:[NSString stringWithFormat:@"Overview"]];
+	[self.tabBarController setTitle:viewTitle];
 	
 	secondTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(secondTimerFired:) userInfo:nil repeats:YES];
 	[[self tableView] reloadData];

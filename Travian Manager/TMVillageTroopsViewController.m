@@ -33,7 +33,7 @@
 
 @implementation TMVillageTroopsViewController
 
-@synthesize refreshControl;
+static NSString *viewTitle = @"Troops";
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -67,7 +67,7 @@
 	[self.tabBarController.navigationItem setRightBarButtonItem:nil];
 	[self.tabBarController.navigationItem setLeftBarButtonItem:nil];
 	
-	[self.tabBarController setTitle:[NSString stringWithFormat:@"Troops"]];
+	[self.tabBarController setTitle:viewTitle];
 	
 	[self.tableView reloadData];
 }
@@ -120,7 +120,7 @@ static NSString *NoTroopsCellID = @"NoTroops";
 		if (([[change objectForKey:NSKeyValueChangeNewKey] intValue] & ARefreshed) != 0) {
 			// Refreshed
 			[account removeObserver:self forKeyPath:@"status"];
-			[refreshControl endRefreshing];
+			[self.refreshControl endRefreshing];
 			[[self tableView] reloadData];
 		}
 	}

@@ -32,6 +32,8 @@
 
 @synthesize settings, decimalResources, warehouseIndicator;
 
+static NSString *viewTitle = @"Settings";
+
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -62,7 +64,7 @@
 	[self.tabBarController.navigationItem setRightBarButtonItem:nil];
 	[self.tabBarController.navigationItem setLeftBarButtonItem:nil];
 	
-	[self.tabBarController setTitle:[NSString stringWithFormat:@"Settings"]];
+	[self.tabBarController setTitle:viewTitle];
 	
 	[decimalResources setOn:settings.showsDecimalResources];
 	[warehouseIndicator setOn:settings.showsResourceProgress];

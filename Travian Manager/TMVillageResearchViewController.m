@@ -35,6 +35,8 @@
 
 @synthesize action;
 
+static NSString *viewTitle = @"Research";
+
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -59,7 +61,7 @@
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	
-	[self.navigationItem setTitle:@"Research"];
+	[self.navigationItem setTitle:viewTitle];
 }
 
 #pragma mark - Table view data source

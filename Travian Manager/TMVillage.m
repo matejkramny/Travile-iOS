@@ -498,7 +498,10 @@
 
 - (void)connection:(NSURLConnection *)connection willSendRequestForAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {  }
 - (BOOL)connectionShouldUseCredentialStorage:(NSURLConnection *)connection	{	return NO;	}
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error { NSLog(@"Connection failed with error: %@. Fix error by: %@", [error localizedFailureReason], [error localizedRecoverySuggestion]); }
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
+	NSLog(@"Connection failed with error: %@. Fix error by: %@", [error localizedFailureReason], [error localizedRecoverySuggestion]);
+	// failed - do semething clever
+}
 
 #pragma mark NSURLConnectionDataDelegate
 

@@ -189,6 +189,7 @@
 			[self.refreshControl endRefreshing];
 			[self.tableView reloadData];
 		}
+		// implement other scenarios - cannot log in, connection failure.
 	}
 }
 

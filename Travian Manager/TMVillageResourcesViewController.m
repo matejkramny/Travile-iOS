@@ -47,6 +47,8 @@
 @synthesize consuming;
 @synthesize producing;
 
+static NSString *viewTitle = @"Resources";
+
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -78,7 +80,7 @@
 	[self.tabBarController.navigationItem setRightBarButtonItem:nil];
 	[self.tabBarController.navigationItem setLeftBarButtonItem:nil];
 	
-	[self.tabBarController setTitle:[NSString stringWithFormat:@"Resources"]];
+	[self.tabBarController setTitle:viewTitle];
 	
 	if (secondTimer)
 		[secondTimer invalidate];
