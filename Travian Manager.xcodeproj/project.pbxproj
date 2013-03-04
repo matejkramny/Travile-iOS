@@ -130,9 +130,9 @@
 		4F724F1D16E159F0005E5CA2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F09520E155C767800C15D6E /* Foundation.framework */; };
 		4F724F1E16E159F0005E5CA2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F095210155C767800C15D6E /* CoreGraphics.framework */; };
 		4F724F2416E159F0005E5CA2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4F724F2216E159F0005E5CA2 /* InfoPlist.strings */; };
-		4F724F2616E159F0005E5CA2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F724F2516E159F0005E5CA2 /* main.m */; };
 		4F724F3516E15ED2005E5CA2 /* GHUnitIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F724F3416E15ED2005E5CA2 /* GHUnitIOS.framework */; };
-		4F724F3816E16086005E5CA2 /* TTTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F724F3716E16086005E5CA2 /* TTTest.m */; };
+		4F792EE416E4C9B30076C0EE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F724F2516E159F0005E5CA2 /* main.m */; };
+		4F792EE716E4CA030076C0EE /* TTStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F792EAD16E4BD710076C0EE /* TTStorage.m */; };
 		4F81DFDC164F1CFE00523CF4 /* TMSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F81DFDB164F1CFD00523CF4 /* TMSettings.m */; };
 		4F895F1615C2C19A007525D9 /* TMHeroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F895F1515C2C19A007525D9 /* TMHeroViewController.m */; };
 		4F8A48A715C1FEDF00EC1564 /* NSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8A48A615C1FEDF00EC1564 /* NSString+HTML.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -142,6 +142,61 @@
 		4F928DA915D41A65008AC6DB /* UINavigationBarLandscape.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F928DA515D41A65008AC6DB /* UINavigationBarLandscape.png */; };
 		4F928DAA15D41A65008AC6DB /* UINavigationBarLandscape@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F928DA615D41A65008AC6DB /* UINavigationBarLandscape@2x.png */; };
 		4F99267515644E7200C6AFFC /* TMConstruction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F99267415644E7200C6AFFC /* TMConstruction.m */; };
+		4FA67B2816E4E29D00B4CD18 /* TMStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F09522D155C76D800C15D6E /* TMStorage.m */; };
+		4FA67B2916E4E29D00B4CD18 /* TMSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F81DFDB164F1CFD00523CF4 /* TMSettings.m */; };
+		4FA67B2A16E4E29D00B4CD18 /* TMAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F095244155C804400C15D6E /* TMAccount.m */; };
+		4FA67B2B16E4E29D00B4CD18 /* TMVillage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F095241155C7F6300C15D6E /* TMVillage.m */; };
+		4FA67B2C16E4E29D00B4CD18 /* TMBuilding.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FCA374F156B96DF0071BAD5 /* TMBuilding.m */; };
+		4FA67B2D16E4E29D00B4CD18 /* TMNonGenericBuilding.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FC8E56415F6B3AA0035D296 /* TMNonGenericBuilding.m */; };
+		4FA67B2E16E4E29D00B4CD18 /* TMBarracks.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FB1A75015EA539200C1FE4C /* TMBarracks.m */; };
+		4FA67B2F16E4E29D00B4CD18 /* TMBuildingAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F6E222E15E51B85002EC13F /* TMBuildingAction.m */; };
+		4FA67B3016E4E29D00B4CD18 /* TMStable.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F2440BF1645C31100EEBC93 /* TMStable.m */; };
+		4FA67B3116E4E29D00B4CD18 /* TMWorkshop.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F2440C21645C71B00EEBC93 /* TMWorkshop.m */; };
+		4FA67B3216E4E29D00B4CD18 /* TMTownHall.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F2440C51645C85C00EEBC93 /* TMTownHall.m */; };
+		4FA67B3316E4E29D00B4CD18 /* TMTrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FAF00DD16D792B4001E04C9 /* TMTrapper.m */; };
+		4FA67B3416E4E29D00B4CD18 /* TMResidence.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FAF00E016D79450001E04C9 /* TMResidence.m */; };
+		4FA67B3516E4E29D00B4CD18 /* TMResources.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F09523E155C7DE400C15D6E /* TMResources.m */; };
+		4FA67B3616E4E29D00B4CD18 /* TMResourcesProduction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FDA07841563189100E9C6C2 /* TMResourcesProduction.m */; };
+		4FA67B3716E4E29D00B4CD18 /* TMConstruction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F99267415644E7200C6AFFC /* TMConstruction.m */; };
+		4FA67B3816E4E29D00B4CD18 /* TMTroop.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F09523B155C7CB200C15D6E /* TMTroop.m */; };
+		4FA67B3916E4E29D00B4CD18 /* TMHero.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F095292155DD2CB00C15D6E /* TMHero.m */; };
+		4FA67B3A16E4E29D00B4CD18 /* TMHeroQuest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F095295155DD53300C15D6E /* TMHeroQuest.m */; };
+		4FA67B3B16E4E29D00B4CD18 /* TMMovement.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F0D502E156D36CA005065AE /* TMMovement.m */; };
+		4FA67B3C16E4E29D00B4CD18 /* TMReport.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD480FC15724B5C00BECE24 /* TMReport.m */; };
+		4FA67B3D16E4E29D00B4CD18 /* TMMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD4810015724B6500BECE24 /* TMMessage.m */; };
+		4FA67B3E16E4E29D00B4CD18 /* TPIdentifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F0261D015612EA300DF545F /* TPIdentifier.m */; };
+		4FA67B3F16E4E29D00B4CD18 /* TMAccountsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F28C73A15BB1A9500C976E3 /* TMAccountsViewController.m */; };
+		4FA67B4016E4E29D00B4CD18 /* TMAccountDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F28C74015BB358500C976E3 /* TMAccountDetailsViewController.m */; };
+		4FA67B4116E4E29D00B4CD18 /* TMVillagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FC6F11B15BC4107006F583D /* TMVillagesViewController.m */; };
+		4FA67B4216E4E29D00B4CD18 /* TMVillageOverviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE58E9A15C59B55004825EF /* TMVillageOverviewViewController.m */; };
+		4FA67B4316E4E29D00B4CD18 /* TMVillageResourcesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F509F5915C5A64C00A15924 /* TMVillageResourcesViewController.m */; };
+		4FA67B4416E4E29D00B4CD18 /* TMVillageTroopsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F509F5D15C5BC9300A15924 /* TMVillageTroopsViewController.m */; };
+		4FA67B4516E4E29D00B4CD18 /* TMVillageBuildingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F509F6015C5C08600A15924 /* TMVillageBuildingsViewController.m */; };
+		4FA67B4616E4E29D00B4CD18 /* TMVillageOpenBuildingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4A52B815C96B20005F3708 /* TMVillageOpenBuildingViewController.m */; };
+		4FA67B4716E4E29D00B4CD18 /* TMVillageResearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FC706AD15E825BB0081372E /* TMVillageResearchViewController.m */; };
+		4FA67B4816E4E29D00B4CD18 /* TMReportsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FC6F11E15BC4AC0006F583D /* TMReportsViewController.m */; };
+		4FA67B4916E4E29D00B4CD18 /* TMMessagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FC6F12115BCA0FD006F583D /* TMMessagesViewController.m */; };
+		4FA67B4A16E4E29D00B4CD18 /* TMNewMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FC6F12715BDDD59006F583D /* TMNewMessageViewController.m */; };
+		4FA67B4B16E4E29D00B4CD18 /* TMOpenMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F5F0A9315C0153400757356 /* TMOpenMessageViewController.m */; };
+		4FA67B4C16E4E29D00B4CD18 /* TMHeroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F895F1515C2C19A007525D9 /* TMHeroViewController.m */; };
+		4FA67B4D16E4E29D00B4CD18 /* TMSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE58E9215C43C12004825EF /* TMSettingsViewController.m */; };
+		4FA67B4E16E4E29D00B4CD18 /* TMAccountTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F04DA2C15EEDFDE00DAF6E7 /* TMAccountTextFieldCell.m */; };
+		4FA67B4F16E4E29D00B4CD18 /* TMAccountTextFieldRightCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F04DA2F15EEE02300DAF6E7 /* TMAccountTextFieldRightCell.m */; };
+		4FA67B5016E4E29D00B4CD18 /* TMMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F0C318B167B931200D28AE9 /* TMMessageCell.m */; };
+		4FA67B5116E4E29D00B4CD18 /* TMDeleteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA88B6C15F160D9001D9713 /* TMDeleteCell.m */; };
+		4FA67B5216E4E29D00B4CD18 /* TMVillageBarracksCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F04DA2815ED632700DAF6E7 /* TMVillageBarracksCell.m */; };
+		4FA67B5316E4E29D00B4CD18 /* TMMessageContentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FB4E3D6167F5C3600922886 /* TMMessageContentCell.m */; };
+		4FA67B5416E4E29D00B4CD18 /* TMLabelAndTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F578C47168235CF00DC9FB6 /* TMLabelAndTextFieldCell.m */; };
+		4FA67B5516E4E29D00B4CD18 /* TMTextViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F578C4B168236B600DC9FB6 /* TMTextViewCell.m */; };
+		4FA67B5616E4E29D00B4CD18 /* TMMessageContentTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FB4E3DA167F5CEC00922886 /* TMMessageContentTextView.m */; };
+		4FA67B5716E4E29D00B4CD18 /* NSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8A48A615C1FEDF00EC1564 /* NSString+HTML.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4FA67B5816E4E29D00B4CD18 /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8A48A915C1FFB000EC1564 /* GTMNSString+HTML.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4FA67B5916E4E29D00B4CD18 /* TMBuildingMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD64FCA15DAAD57002FAFFC /* TMBuildingMap.m */; };
+		4FA67B5A16E4E29D00B4CD18 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FC6F11715BC3989006F583D /* MBProgressHUD.m */; };
+		4FA67B5B16E4E29D00B4CD18 /* HTMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F095230155C7AA900C15D6E /* HTMLParser.m */; };
+		4FA67B5C16E4E29D00B4CD18 /* HTMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F095235155C7B0100C15D6E /* HTMLNode.m */; };
+		4FA67B5D16E4E35100B4CD18 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F09521C155C767800C15D6E /* AppDelegate.m */; };
+		4FA67B5E16E4E3A800B4CD18 /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F095237155C7B6100C15D6E /* libxml2.2.dylib */; };
 		4FA88B6D15F160D9001D9713 /* TMDeleteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA88B6C15F160D9001D9713 /* TMDeleteCell.m */; };
 		4FA88B6F15F1632A001D9713 /* redButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FA88B6E15F1632A001D9713 /* redButton.png */; };
 		4FAF00DE16D792B4001E04C9 /* TMTrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FAF00DD16D792B4001E04C9 /* TMTrapper.m */; };
@@ -334,8 +389,8 @@
 		4F724F2516E159F0005E5CA2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		4F724F2716E159F0005E5CA2 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
 		4F724F3416E15ED2005E5CA2 /* GHUnitIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GHUnitIOS.framework; sourceTree = "<group>"; };
-		4F724F3616E16086005E5CA2 /* TTTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTest.h; sourceTree = "<group>"; };
-		4F724F3716E16086005E5CA2 /* TTTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTest.m; sourceTree = "<group>"; };
+		4F792EAC16E4BD710076C0EE /* TTStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTStorage.h; sourceTree = "<group>"; };
+		4F792EAD16E4BD710076C0EE /* TTStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTStorage.m; sourceTree = "<group>"; };
 		4F81DFDA164F1CFD00523CF4 /* TMSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMSettings.h; sourceTree = "<group>"; };
 		4F81DFDB164F1CFD00523CF4 /* TMSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMSettings.m; sourceTree = "<group>"; };
 		4F895F1415C2C19A007525D9 /* TMHeroViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMHeroViewController.h; sourceTree = "<group>"; };
@@ -418,6 +473,7 @@
 				4F724F1C16E159F0005E5CA2 /* UIKit.framework in Frameworks */,
 				4F724F1D16E159F0005E5CA2 /* Foundation.framework in Frameworks */,
 				4F724F1E16E159F0005E5CA2 /* CoreGraphics.framework in Frameworks */,
+				4FA67B5E16E4E3A800B4CD18 /* libxml2.2.dylib in Frameworks */,
 				4F724F3516E15ED2005E5CA2 /* GHUnitIOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -660,8 +716,8 @@
 		4F724F1F16E159F0005E5CA2 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				4F724F3616E16086005E5CA2 /* TTTest.h */,
-				4F724F3716E16086005E5CA2 /* TTTest.m */,
+				4F792EAC16E4BD710076C0EE /* TTStorage.h */,
+				4F792EAD16E4BD710076C0EE /* TTStorage.m */,
 				4F724F2016E159F0005E5CA2 /* Supporting Files */,
 			);
 			path = Tests;
@@ -1061,8 +1117,62 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4F724F2616E159F0005E5CA2 /* main.m in Sources */,
-				4F724F3816E16086005E5CA2 /* TTTest.m in Sources */,
+				4FA67B5D16E4E35100B4CD18 /* AppDelegate.m in Sources */,
+				4F792EE416E4C9B30076C0EE /* main.m in Sources */,
+				4F792EE716E4CA030076C0EE /* TTStorage.m in Sources */,
+				4FA67B2816E4E29D00B4CD18 /* TMStorage.m in Sources */,
+				4FA67B2916E4E29D00B4CD18 /* TMSettings.m in Sources */,
+				4FA67B2A16E4E29D00B4CD18 /* TMAccount.m in Sources */,
+				4FA67B2B16E4E29D00B4CD18 /* TMVillage.m in Sources */,
+				4FA67B2C16E4E29D00B4CD18 /* TMBuilding.m in Sources */,
+				4FA67B2D16E4E29D00B4CD18 /* TMNonGenericBuilding.m in Sources */,
+				4FA67B2E16E4E29D00B4CD18 /* TMBarracks.m in Sources */,
+				4FA67B2F16E4E29D00B4CD18 /* TMBuildingAction.m in Sources */,
+				4FA67B3016E4E29D00B4CD18 /* TMStable.m in Sources */,
+				4FA67B3116E4E29D00B4CD18 /* TMWorkshop.m in Sources */,
+				4FA67B3216E4E29D00B4CD18 /* TMTownHall.m in Sources */,
+				4FA67B3316E4E29D00B4CD18 /* TMTrapper.m in Sources */,
+				4FA67B3416E4E29D00B4CD18 /* TMResidence.m in Sources */,
+				4FA67B3516E4E29D00B4CD18 /* TMResources.m in Sources */,
+				4FA67B3616E4E29D00B4CD18 /* TMResourcesProduction.m in Sources */,
+				4FA67B3716E4E29D00B4CD18 /* TMConstruction.m in Sources */,
+				4FA67B3816E4E29D00B4CD18 /* TMTroop.m in Sources */,
+				4FA67B3916E4E29D00B4CD18 /* TMHero.m in Sources */,
+				4FA67B3A16E4E29D00B4CD18 /* TMHeroQuest.m in Sources */,
+				4FA67B3B16E4E29D00B4CD18 /* TMMovement.m in Sources */,
+				4FA67B3C16E4E29D00B4CD18 /* TMReport.m in Sources */,
+				4FA67B3D16E4E29D00B4CD18 /* TMMessage.m in Sources */,
+				4FA67B3E16E4E29D00B4CD18 /* TPIdentifier.m in Sources */,
+				4FA67B3F16E4E29D00B4CD18 /* TMAccountsViewController.m in Sources */,
+				4FA67B4016E4E29D00B4CD18 /* TMAccountDetailsViewController.m in Sources */,
+				4FA67B4116E4E29D00B4CD18 /* TMVillagesViewController.m in Sources */,
+				4FA67B4216E4E29D00B4CD18 /* TMVillageOverviewViewController.m in Sources */,
+				4FA67B4316E4E29D00B4CD18 /* TMVillageResourcesViewController.m in Sources */,
+				4FA67B4416E4E29D00B4CD18 /* TMVillageTroopsViewController.m in Sources */,
+				4FA67B4516E4E29D00B4CD18 /* TMVillageBuildingsViewController.m in Sources */,
+				4FA67B4616E4E29D00B4CD18 /* TMVillageOpenBuildingViewController.m in Sources */,
+				4FA67B4716E4E29D00B4CD18 /* TMVillageResearchViewController.m in Sources */,
+				4FA67B4816E4E29D00B4CD18 /* TMReportsViewController.m in Sources */,
+				4FA67B4916E4E29D00B4CD18 /* TMMessagesViewController.m in Sources */,
+				4FA67B4A16E4E29D00B4CD18 /* TMNewMessageViewController.m in Sources */,
+				4FA67B4B16E4E29D00B4CD18 /* TMOpenMessageViewController.m in Sources */,
+				4FA67B4C16E4E29D00B4CD18 /* TMHeroViewController.m in Sources */,
+				4FA67B4D16E4E29D00B4CD18 /* TMSettingsViewController.m in Sources */,
+				4FA67B4E16E4E29D00B4CD18 /* TMAccountTextFieldCell.m in Sources */,
+				4FA67B4F16E4E29D00B4CD18 /* TMAccountTextFieldRightCell.m in Sources */,
+				4FA67B5016E4E29D00B4CD18 /* TMMessageCell.m in Sources */,
+				4FA67B5116E4E29D00B4CD18 /* TMDeleteCell.m in Sources */,
+				4FA67B5216E4E29D00B4CD18 /* TMVillageBarracksCell.m in Sources */,
+				4FA67B5316E4E29D00B4CD18 /* TMMessageContentCell.m in Sources */,
+				4FA67B5416E4E29D00B4CD18 /* TMLabelAndTextFieldCell.m in Sources */,
+				4FA67B5516E4E29D00B4CD18 /* TMTextViewCell.m in Sources */,
+				4FA67B5616E4E29D00B4CD18 /* TMMessageContentTextView.m in Sources */,
+				4FA67B5716E4E29D00B4CD18 /* NSString+HTML.m in Sources */,
+				4FA67B5816E4E29D00B4CD18 /* GTMNSString+HTML.m in Sources */,
+				4FA67B5916E4E29D00B4CD18 /* TMBuildingMap.m in Sources */,
+				4FA67B5A16E4E29D00B4CD18 /* MBProgressHUD.m in Sources */,
+				4FA67B5B16E4E29D00B4CD18 /* HTMLParser.m in Sources */,
+				4FA67B5C16E4E29D00B4CD18 /* HTMLNode.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1217,9 +1327,10 @@
 		4F724F3116E159F1005E5CA2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				BUNDLE_LOADER = "";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1236,6 +1347,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1243,9 +1355,10 @@
 		4F724F3216E159F1005E5CA2 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				BUNDLE_LOADER = "";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1254,6 +1367,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Tests/Tests-Prefix.pch";
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				INFOPLIST_FILE = "Tests/Tests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				OTHER_LDFLAGS = (
@@ -1261,6 +1375,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
