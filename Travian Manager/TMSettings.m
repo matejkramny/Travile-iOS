@@ -49,4 +49,8 @@
 	[aCoder encodeBool:showsResourceProgress forKey:@"resourceProgress"];
 }
 
+- (NSString *)description {
+	return [NSString stringWithFormat:@"Decimal resources: %d \nResource progress: %d", showsDecimalResources, showsResourceProgress];
+}
+
 @end

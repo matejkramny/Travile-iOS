@@ -8,6 +8,7 @@
 
 #import "TTStorage.h"
 #import "TMStorage.h"
+#import "TMSettings.h"
 
 @interface TTStorage () {
 	TMStorage *storage;
@@ -26,8 +27,15 @@
 }
 
 - (void)testLoading {
+	// Test if loads data from file
 	bool loaded = [storage loadData];
 	GHAssertTrue(loaded, @"Failed to load data");
+}
+
+- (void)testData {
+	// Test settings - should be auto-generated if not present
+	GHAssertNotNil(storage.settings, @"Settings is NULL");
+	GHTestLog([storage.settings description]);
 }
 
 - (void)testSaving {

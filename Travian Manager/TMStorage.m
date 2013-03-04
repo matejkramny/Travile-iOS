@@ -40,6 +40,9 @@
 }
 
 - (id)init {
+	static NSString *accountsPath = @"Accounts.plist";
+	static NSString *settingsPath = @"Settings.plist";
+	
 	self = [super init];
 	
 	if (self)
@@ -47,8 +50,8 @@
 		// Get the paths
 		NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 		NSString *documentsDirectory = [paths objectAtIndex:0];
-		savePath = [documentsDirectory stringByAppendingPathComponent:@"Accounts.plist"];
-		settingsSavePath = [documentsDirectory stringByAppendingPathComponent:@"Settings.plist"];
+		savePath = [documentsDirectory stringByAppendingPathComponent:accountsPath];
+		settingsSavePath = [documentsDirectory stringByAppendingPathComponent:settingsPath];
 		
 		[self loadData];
 	}
