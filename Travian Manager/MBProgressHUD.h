@@ -50,7 +50,9 @@ typedef enum {
 	/** Opacity animation */
 	MBProgressHUDAnimationFade,
 	/** Opacity + scale animation */
-	MBProgressHUDAnimationZoom
+	MBProgressHUDAnimationZoom,
+	MBProgressHUDAnimationZoomOut = MBProgressHUDAnimationZoom,
+	MBProgressHUDAnimationZoomIn
 } MBProgressHUDAnimation;
 
 
@@ -70,6 +72,12 @@ typedef enum {
 #else
 #define MB_WEAK assign
 #endif
+#endif
+
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= 60000
+#define MBLabelAlignmentCenter NSTextAlignmentCenter
+#else
+#define MBLabelAlignmentCenter UITextAlignmentCenter
 #endif
 
 #if NS_BLOCKS_AVAILABLE
@@ -202,7 +210,7 @@ typedef void (^MBProgressHUDCompletionBlock)();
  *
  * @param animated If set to YES the HUD will disappear using the current animationType. If set to NO the HUD will not use
  * animations while disappearing.
- * @param delay Delay in secons until the HUD is hidden.
+ * @param delay Delay in seconds until the HUD is hidden.
  *
  * @see animationType
  */
@@ -251,7 +259,7 @@ typedef void (^MBProgressHUDCompletionBlock)();
  * @param animated If set to YES the HUD will (dis)appear using the current animationType. If set to NO the HUD will
  * not use animations while (dis)appearing.
  * @param block The block to be executed while the HUD is shown.
- * @param queue The dispatch queue on which the block should be execouted.
+ * @param queue The dispatch queue on which the block should be executed.
  * @param completion The block to be executed on completion.
  *
  * @see completionBlock
@@ -260,7 +268,7 @@ typedef void (^MBProgressHUDCompletionBlock)();
 	 completionBlock:(MBProgressHUDCompletionBlock)completion;
 
 /**
- * A block that gets called after the HUD was completely hiden.
+ * A block that gets called after the HUD was completely hidden.
  */
 @property (copy) MBProgressHUDCompletionBlock completionBlock;
 
@@ -329,7 +337,7 @@ typedef void (^MBProgressHUDCompletionBlock)();
 @property (assign) float yOffset;
 
 /**
- * The amounth of space between the HUD edge and the HUD elements (labels, indicators or custom views).
+ * The amount of space between the HUD edge and the HUD elements (labels, indicators or custom views).
  * Defaults to 20.0
  */
 @property (assign) float margin;
@@ -422,6 +430,18 @@ typedef void (^MBProgressHUDCompletionBlock)();
  * Progress (0.0 to 1.0)
  */
 @property (nonatomic, assign) float progress;
+
+/**
+ * Indicator progress color.
+ * Defaults to white [UIColor whiteColor]
+ */
+@property (nonatomic, MB_STRONG) UIColor *progressTintColor;
+
+/**
+ * Indicator background (non-progress) color.
+ * Defaults to translucent white (alpha 0.1)
+ */
+@property (nonatomic, MB_STRONG) UIColor *backgroundTintColor;
 
 /*
  * Display mode - NO = round or YES = annular. Defaults to round.
