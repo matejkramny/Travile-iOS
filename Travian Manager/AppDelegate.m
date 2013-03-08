@@ -39,17 +39,14 @@
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
-	//NSLog(@"Resigning active state");
 	timeAtGoingToInactiveState = [[NSDate date] timeIntervalSince1970];
-	//NSLog(@"%d", timeAtGoingToInactiveState);
 }
 - (void)applicationDidEnterBackground:(UIApplication *)application {}
 - (void)applicationWillEnterForeground:(UIApplication *)application {
-	//NSLog(@"Not in background anymore.. Entering foreground");
 	if (timeAtGoingToInactiveState != 0) {
 		
 		unsigned int now = [[NSDate date] timeIntervalSince1970];
-		NSLog(@"%d", now);
+		
 		if (timeAtGoingToInactiveState - now > 5) {
 			// 5 second
 			// TODO Ask to log back in

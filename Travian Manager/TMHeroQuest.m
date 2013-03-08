@@ -95,7 +95,8 @@
 
 - (void)connection:(NSURLConnection *)connection willSendRequestForAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {  }
 - (BOOL)connectionShouldUseCredentialStorage:(NSURLConnection *)connection	{	return NO;	}
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error { NSLog(@"Connection failed with error: %@. Fix error by: %@", [error localizedFailureReason], [error localizedRecoverySuggestion]); }
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
+}
 
 #pragma mark NSURLConnectionDelegate
 
@@ -113,7 +114,6 @@
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
-	//NSLog(@"Finished loading adventure");
 }
 
 

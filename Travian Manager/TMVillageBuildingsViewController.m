@@ -215,7 +215,6 @@ static NSString *viewTitle = @"Buildings";
 }
 
 - (void)accessoryButtonTapped:(UIControl *)button withEvent:(UIEvent *)event {
-	NSLog(@"Accessory button tapped?");
 }
 
 - (void)tappedToCancel:(id)sender {
@@ -360,11 +359,9 @@ static NSString *viewTitle = @"Buildings";
 #pragma mark - PHVOpenBuildingDelegate
 
 - (void)phvOpenBuildingViewController:(TMVillageOpenBuildingViewController *)controller didCloseBuilding:(TMBuilding *)building {
-	NSLog(@"Closed building %@", [building name]);
 }
 
 - (void)phvOpenBuildingViewController:(TMVillageOpenBuildingViewController *)controller didBuildBuilding:(TMBuilding *)building {
-	NSLog(@"Built building %@ to level %d", [building name], [building level]);
 	[controller.navigationController popViewControllerAnimated:YES];
 	
 	selectedBuildings = @[ building ];

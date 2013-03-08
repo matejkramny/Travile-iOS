@@ -268,7 +268,6 @@ static NSString *village = @"dorf2.php";
 - (void)connection:(NSURLConnection *)connection willSendRequestForAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {  }
 - (BOOL)connectionShouldUseCredentialStorage:(NSURLConnection *)connection	{	return NO;	}
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-	NSLog(@"Connection failed with error: %@. Fix error by: %@", [error localizedFailureReason], [error localizedRecoverySuggestion]);
 	[self setStatus:(AConnectionFailed | ANotLoggedIn | ACannotLogIn)];
 }
 
@@ -313,7 +312,6 @@ static NSString *village = @"dorf2.php";
 		HTMLParser *parser = [[HTMLParser alloc] initWithData:connection == loginConnection ? loginData : reloadData error:&error];
 		
 		if (error) {
-			NSLog(@"Error parsing html! %@\n\n%@", [error localizedDescription], [error localizedRecoverySuggestion]);
 			return;
 		}
 		
@@ -336,41 +334,24 @@ static NSString *village = @"dorf2.php";
 			// load profile
 			loginConnection = urlConnectionForURL([TMAccount profilePage]);
 			
-			//NSLog(@"Loaded TPResources");
-			
 		} else if ((page & TPProfile) != 0) {
 			// load hero
 			// Make another request for hero
 			
 			loginConnection = urlConnectionForURL([TMAccount heroInventory]);
-			
-			//NSLog(@"Loaded TPProfile");
-			
 		} else if ((page & TPHero) != 0) {
 			// Next download adventures
 			
 			loginConnection = urlConnectionForURL([TMAccount heroAdventure]);
-			
-			//NSLog(@"Loaded TPHero");
-			
 		} else if ((page & TPAdventures) != 0) {
 			// Load Reports
 			
 			loginConnection = urlConnectionForURL([TMAccount reports]);
-			
-			//NSLog(@"Loaded TPAdventures");
-			
 		} else if ((page & TPReports) != 0) {
 			// Load Messages
 			
 			loginConnection = urlConnectionForURL([TMAccount messages]);
-			
-			//NSLog(@"Loaded TPReports");
-			
 		} else if ((page & TPMessages) != 0) {
-			
-			//NSLog(@"Loaded TPMessages");
-			
 			// Tell other objects that loading is finished.
 			[self setStatus:ALoggedIn | ARefreshed];
 			
@@ -425,7 +406,9 @@ static NSString *village = @"dorf2.php";
 	
 	// Find each village's population & x, y coordinates
 	HTMLNode *idVillages = [node findChildWithAttribute:@"id" matchingName:@"villages" allowPartial:NO];
-	if (!idVillages) { NSLog (@"Did not find div#villages"); return; }
+	if (!idVillages) {
+		return;
+	}
 	// Table > tr (village)
 	NSArray *villageList = [[idVillages findChildTag:@"tbody"] findChildTags:@"tr"];
 	NSMutableArray *tempVillages = [[NSMutableArray alloc] initWithCapacity:[villageList count]];
@@ -444,10 +427,14 @@ static NSString *village = @"dorf2.php";
 	// Now find their urlPart
 	// Get div with ID 'villageList'
 	HTMLNode *villagesList = [node findChildWithAttribute:@"id" matchingName:@"villageList" allowPartial:NO];
-	if (!villagesList) { NSLog(@"Did not get div#villageList"); return; }
+	if (!villagesList) {
+		return;
+	}
 	// Get div#villageList div.list
 	HTMLNode *villageList_div_List = [villagesList findChildWithAttribute:@"class" matchingName:@"list" allowPartial:NO];
-	if (!villageList_div_List) { NSLog(@"No div#villageList div.list"); return; }
+	if (!villageList_div_List) {
+		return;
+	}
 	
 	// List of villages in <li> tags
 	NSArray *divList_li = [villageList_div_List findChildTags:@"li"];
@@ -487,7 +474,6 @@ static NSString *village = @"dorf2.php";
 	villages = tempVillages;
 	
 	for (TMVillage *vil in villages) {
-		//NSLog(@"Village %@ has %d population and is accessed by url: %@", vil.name, vil.population, vil.urlPart);
 		[vil downloadAndParse]; // Tell each village to download its data
 	}
 	
@@ -497,7 +483,6 @@ static NSString *village = @"dorf2.php";
 	
 	HTMLNode *table = [node findChildWithAttribute:@"id" matchingName:@"overview" allowPartial:NO];
 	if (!table) {
-		NSLog(@"No Reports form..");
 		return;
 	}
 	
@@ -561,15 +546,12 @@ static NSString *village = @"dorf2.php";
 		
 		reportsConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
 	}*/
-	
-	//NSLog(@"Parsed reports page");
 }
 
 - (void)parseMessages:(HTMLNode *)node {
 	
 	HTMLNode *table = [node findChildWithAttribute:@"id" matchingName:@"overview" allowPartial:NO];
 	if (!table) {
-		NSLog(@"No messages form..");
 		return;
 	}
 	
@@ -646,8 +628,6 @@ static NSString *village = @"dorf2.php";
 		
 		reportsConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
 	}*/
-	
-	//NSLog(@"Parsed messages page");
 }
 
 @end

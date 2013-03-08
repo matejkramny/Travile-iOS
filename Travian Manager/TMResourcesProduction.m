@@ -38,7 +38,6 @@
 	
 	HTMLNode *tableProduction = [node findChildWithAttribute:@"id" matchingName:@"production" allowPartial:NO];
 	if (!tableProduction) {
-		NSLog(@"Cannot find table#production");
 		return;
 	}
 	

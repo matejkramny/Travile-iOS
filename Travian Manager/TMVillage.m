@@ -142,7 +142,6 @@
 	
 	HTMLNode *tableTroops = [node findChildWithAttribute:@"id" matchingName:@"troops" allowPartial:NO];
 	if (!tableTroops) {
-		NSLog(@"Did not find table#troops");
 		return;
 	}
 	
@@ -231,11 +230,15 @@
 - (void)parseBuildingsPage:(TravianPages)page fromNode:(HTMLNode *)node {
 	
 	HTMLNode *idContent = [node findChildWithAttribute:@"id" matchingName:@"content" allowPartial:NO];
-	if (!idContent) { NSLog(@"Cannot find id#content"); return; }
+	if (!idContent) {
+		return;
+	}
 	
 	NSArray *areas = [idContent findChildTags:@"area"];
 	NSArray *vmap = [[idContent findChildWithAttribute:@"id" matchingName:@"village_map" allowPartial:NO] findChildTags:((page & TPVillage) != 0) ? @"img" : @"div"];
-	if (!areas) { NSLog(@"No areas in id#content!"); return; }
+	if (!areas) {
+		return;
+	}
 	
 	if (!buildings)
 		buildings = [[NSMutableArray alloc] init];
@@ -305,7 +308,9 @@
 		
 		NSError *error;
 		HTMLParser *p = [[HTMLParser alloc] initWithString:title error:&error];
-		if (error) { NSLog(@"Unparseable HTMLParser error %@ %@", [error localizedDescription], [error localizedRecoverySuggestion]); return; }
+		if (error) {
+			return;
+		}
 		
 		HTMLNode *body = [p body];
 		
@@ -499,7 +504,6 @@
 - (void)connection:(NSURLConnection *)connection willSendRequestForAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {  }
 - (BOOL)connectionShouldUseCredentialStorage:(NSURLConnection *)connection	{	return NO;	}
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-	NSLog(@"Connection failed with error: %@. Fix error by: %@", [error localizedFailureReason], [error localizedRecoverySuggestion]);
 	// failed - do semething clever
 }
 
@@ -526,7 +530,6 @@
 		HTMLNode *body = [parser body];
 		
 		if (!parser) {
-			NSLog(@"Cannot parse village data. Reason: %@, recovery options: %@", [error localizedDescription], [error localizedRecoveryOptions]);
 			return;
 		}
 		

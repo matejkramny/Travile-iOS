@@ -40,7 +40,6 @@
 	// TODO test this
 	HTMLNode *divMessage = [node findChildWithAttribute:@"id" matchingName:@"message" allowPartial:NO];
 	if (!divMessage) {
-		NSLog(@"No div#message present");
 		return;
 	}
 	
@@ -158,7 +157,8 @@
 
 - (void)connection:(NSURLConnection *)connection willSendRequestForAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {  }
 - (BOOL)connectionShouldUseCredentialStorage:(NSURLConnection *)connection	{	return NO;	}
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error { NSLog(@"Message Connection failed %@ - %@ - %@ - %@", [error localizedDescription], [error localizedFailureReason], [error localizedRecoveryOptions], [error localizedRecoverySuggestion]); }
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
+}
 
 #pragma mark NSURLConnectionDataDelegate
 
@@ -195,7 +195,6 @@
 		HTMLNode *body = [parser body];
 		
 		if (!parser) {
-			NSLog(@"Cannot parse message data. Reason: %@, recovery options: %@", [error localizedDescription], [error localizedRecoveryOptions]);
 			return;
 		}
 		

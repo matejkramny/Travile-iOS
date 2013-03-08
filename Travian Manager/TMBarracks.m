@@ -96,7 +96,6 @@
 			NSError *error;
 			HTMLParser *p = [[HTMLParser alloc] initWithString:raw error:&error];
 			if (error) {
-				NSLog(@"Cannot parse resource %@ %@", [error localizedDescription], [error localizedRecoverySuggestion]);
 				continue;
 			}
 			
@@ -146,7 +145,6 @@
 			NSError *error;
 			HTMLParser *p = [[HTMLParser alloc] initWithString:raw error:&error];
 			if (error) {
-				NSLog(@"Cannot parse Existing troop (barracks) %@ %@", [error localizedDescription], [error localizedRecoverySuggestion]);
 				continue;
 			}
 			

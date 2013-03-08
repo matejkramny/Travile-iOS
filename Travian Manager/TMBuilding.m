@@ -157,14 +157,11 @@
 	
 	HTMLNode *idContract = [node findChildWithAttribute:@"id" matchingName:@"contract" allowPartial:NO];
 	if (!idContract) {
-		NSLog(@"Cannot find div#contract");
 		return;
 	}
 	
 	HTMLNode *button = [idContract findChildWithAttribute:@"class" matchingName:@"build" allowPartial:NO];
 	if (!button) {
-		NSLog(@"Cannot build/upgrade");
-		
 		HTMLNode *contractLink = [idContract findChildWithAttribute:@"class" matchingName:@"contractLink" allowPartial:NO];
 		HTMLNode *messageSpan = [contractLink findChildTag:@"span"];
 		
@@ -313,7 +310,6 @@
 		NSError *error;
 		HTMLParser *p = [[HTMLParser alloc] initWithString:raw error:&error];
 		if (error) {
-			NSLog(@"Cannot parse resource %@ %@", [error localizedDescription], [error localizedRecoverySuggestion]);
 			continue;
 		}
 		
@@ -376,7 +372,8 @@
 
 - (void)connection:(NSURLConnection *)connection willSendRequestForAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {  }
 - (BOOL)connectionShouldUseCredentialStorage:(NSURLConnection *)connection	{	return NO;	}
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error { NSLog(@"Building Connection failed with error: %@. Fix error by: %@", [error localizedFailureReason], [error localizedRecoverySuggestion]); }
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
+}
 
 #pragma mark NSURLConnectionDataDelegate
 
@@ -411,7 +408,6 @@
 		HTMLParser *parser = [[HTMLParser alloc] initWithData:descriptionData error:&error];
 		
 		if (error) {
-			NSLog(@"HTML Parser error");
 			return;
 		}
 		
@@ -449,7 +445,6 @@
 		HTMLNode *body = [parser body];
 		
 		if (!parser) {
-			NSLog(@"Cannot parse build data. Reason: %@, recovery options: %@", [error localizedDescription], [error localizedRecoveryOptions]);
 			return;
 		}
 		

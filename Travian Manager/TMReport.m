@@ -46,7 +46,6 @@
 	
 	HTMLNode *report_surround = [node findChildWithAttribute:@"id" matchingName:@"report_surround" allowPartial:NO];
 	if (!report_surround) {
-		NSLog(@"table#report_surround not found");
 		return;
 	}
 	
@@ -127,7 +126,8 @@
 
 - (void)connection:(NSURLConnection *)connection willSendRequestForAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {  }
 - (BOOL)connectionShouldUseCredentialStorage:(NSURLConnection *)connection	{	return NO;	}
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error { NSLog(@"Report Connection failed %@ - %@ - %@ - %@", [error localizedDescription], [error localizedFailureReason], [error localizedRecoveryOptions], [error localizedRecoverySuggestion]); }
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
+}
 
 #pragma mark NSURLConnectionDataDelegate
 
@@ -152,7 +152,6 @@
 		HTMLNode *body = [parser body];
 		
 		if (!parser) {
-			NSLog(@"Cannot parse report data. Reason: %@, recovery options: %@", [error localizedDescription], [error localizedRecoveryOptions]);
 			return;
 		}
 		

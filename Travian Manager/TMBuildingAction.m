@@ -62,7 +62,6 @@
 		NSError *error;
 		HTMLParser *p = [[HTMLParser alloc] initWithString:raw error:&error];
 		if (error) {
-			NSLog(@"Cannot parse resource %@ %@", [error localizedDescription], [error localizedRecoverySuggestion]);
 			continue;
 		}
 		

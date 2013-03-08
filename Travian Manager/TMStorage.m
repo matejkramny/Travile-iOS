@@ -72,17 +72,11 @@
 	NSError *errorSettings;
 	if ([data writeToFile:savePath options:NSDataWritingAtomic error:&error] &&
 		[settingsData writeToFile:settingsSavePath options:NSDataWritingAtomic error:&errorSettings]) {
-		NSLog(@"Data and Settings saved");
 		return true;
 	} else {
-		if (error)
-			NSLog(@"Failed saving data. %@ - %@", [error localizedFailureReason], [error localizedDescription]);
-		if (errorSettings)
-			NSLog(@"Failed saving settings. %@ - %@", [error localizedFailureReason], [error localizedDescription]);
+		
+		return false;
 	}
-	
-	return false;
-	
 }
 
 - (BOOL)loadData {
