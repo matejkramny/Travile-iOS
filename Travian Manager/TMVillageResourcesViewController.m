@@ -70,17 +70,11 @@ static NSString *viewTitle = @"Resources";
 	[self reloadBadgeCount];
 	
 	[[self tableView] setBackgroundView:nil];
+	[self.navigationItem setTitle:viewTitle];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-	
-	[self.tabBarController.navigationItem setRightBarButtonItems:nil];
-	[self.tabBarController.navigationItem setLeftBarButtonItems:nil];
-	[self.tabBarController.navigationItem setRightBarButtonItem:nil];
-	[self.tabBarController.navigationItem setLeftBarButtonItem:nil];
-	
-	[self.tabBarController setTitle:viewTitle];
 	
 	if (secondTimer)
 		[secondTimer invalidate];

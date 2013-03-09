@@ -52,6 +52,8 @@ static NSString *viewTitle = @"Troops";
 	
 	[self setRefreshControl:[[UIRefreshControl alloc] init]];
 	[[self refreshControl] addTarget:self action:@selector(didBeginRefreshing:) forControlEvents:UIControlEventValueChanged];
+	
+	[self.navigationItem setTitle:viewTitle];
 }
 
 - (void)viewDidUnload
@@ -61,13 +63,6 @@ static NSString *viewTitle = @"Troops";
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-	
-	[self.tabBarController.navigationItem setRightBarButtonItems:nil];
-	[self.tabBarController.navigationItem setLeftBarButtonItems:nil];
-	[self.tabBarController.navigationItem setRightBarButtonItem:nil];
-	[self.tabBarController.navigationItem setLeftBarButtonItem:nil];
-	
-	[self.tabBarController setTitle:viewTitle];
 	
 	[self.tableView reloadData];
 }

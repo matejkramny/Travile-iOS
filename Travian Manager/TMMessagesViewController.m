@@ -129,7 +129,7 @@ static NSString *viewTitle = @"Messages";
 	
 	[self setNavigationItems:false animated:false];
 	
-	[self.tabBarController setTitle:viewTitle];
+	[self.navigationItem setTitle:viewTitle];
 	
 	[self reloadBadgeCount];
 }
@@ -166,16 +166,16 @@ static NSString *viewTitle = @"Messages";
 }
 - (void)setNavigationItems:(BOOL)editing animated:(BOOL)animated {
 	if (editing) {
-		[self.tabBarController.navigationItem setLeftBarButtonItem:editDoneButtonItem animated:animated];
-		[self.tabBarController.navigationItem setRightBarButtonItem:deleteButtonItem animated:animated];
+		[self.navigationItem setLeftBarButtonItem:editDoneButtonItem animated:animated];
+		[self.navigationItem setRightBarButtonItem:deleteButtonItem animated:animated];
 	} else {
-		[self.tabBarController.navigationItem setRightBarButtonItems:nil animated:animated];
-		[self.tabBarController.navigationItem setLeftBarButtonItems:nil animated:animated];
-		[self.tabBarController.navigationItem setRightBarButtonItem:newMessageButtonItem animated:animated];
+		[self.navigationItem setRightBarButtonItems:nil animated:animated];
+		[self.navigationItem setLeftBarButtonItems:nil animated:animated];
+		[self.navigationItem setRightBarButtonItem:newMessageButtonItem animated:animated];
 		if ([cells count] != 0) {
-			[self.tabBarController.navigationItem setLeftBarButtonItem:editButtonItem animated:animated];
+			[self.navigationItem setLeftBarButtonItem:editButtonItem animated:animated];
 		} else {
-			[self.tabBarController.navigationItem setLeftBarButtonItem:nil animated:animated];
+			[self.navigationItem setLeftBarButtonItem:nil animated:animated];
 		}
 	}
 }
@@ -187,9 +187,9 @@ static NSString *viewTitle = @"Messages";
 	}
 	
 	if (unread != 0) {
-		[[self tabBarItem] setBadgeValue:[NSString stringWithFormat:@"%d", unread]];
+		[[self.navigationController tabBarItem] setBadgeValue:[NSString stringWithFormat:@"%d", unread]];
 	} else {
-		[[self tabBarItem] setBadgeValue:nil];
+		[[self.navigationController tabBarItem] setBadgeValue:nil];
 	}
 }
 

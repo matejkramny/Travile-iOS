@@ -20,6 +20,10 @@
 
 #import <UIKit/UIKit.h>
 
+#ifndef AppDelegate
+#define DEBUG_ANIMATION false
+#endif
+
 @class TMStorage;
 @class ViewController;
 @class ODRefreshControl;

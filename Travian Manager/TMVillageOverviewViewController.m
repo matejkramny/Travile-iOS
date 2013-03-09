@@ -33,6 +33,7 @@
 }
 
 - (void)reloadBadgeCount;
+- (void)back:(id)sender;
 
 @end
 
@@ -60,6 +61,9 @@ static NSString *viewTitle = @"Overview";
 	[self reloadBadgeCount];
 	
 	[[self tableView] setBackgroundView:nil];
+	[self.navigationItem setTitle:viewTitle];
+	[self.navigationItem setHidesBackButton:NO];
+	[self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithTitle:@"Villages" style:UIBarButtonItemStyleBordered target:self action:@selector(back:)]];
 	
 	[super viewDidLoad];
 }
@@ -70,13 +74,6 @@ static NSString *viewTitle = @"Overview";
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-	[self.tabBarController.navigationItem setRightBarButtonItems:nil];
-	[self.tabBarController.navigationItem setLeftBarButtonItems:nil];
-	[self.tabBarController.navigationItem setRightBarButtonItem:nil];
-	[self.tabBarController.navigationItem setLeftBarButtonItem:nil];
-	
-	[self.tabBarController setTitle:viewTitle];
-	
 	secondTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(secondTimerFired:) userInfo:nil repeats:YES];
 	[[self tableView] reloadData];
 	[self reloadBadgeCount];
@@ -256,7 +253,12 @@ static NSString *viewTitle = @"Overview";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+}
+
+#pragma mark - Back button
+
+- (void)back:(id)sender {
+	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

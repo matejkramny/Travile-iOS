@@ -57,6 +57,8 @@ static NSString *viewTitle = @"Reports";
     [super viewDidLoad];
 	
 	storage = [TMStorage sharedStorage];
+	[self.navigationItem setLeftBarButtonItem:editButton animated:NO];
+	[self setTitle:viewTitle];
 }
 
 - (void)viewDidUnload
@@ -70,12 +72,6 @@ static NSString *viewTitle = @"Reports";
 	if (!editButton) {
 		editButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editButtonClicked:)];
 	}
-	
-	[self.tabBarController setTitle:viewTitle];
-	[self.tabBarController.navigationItem setRightBarButtonItems:nil];
-	[self.tabBarController.navigationItem setRightBarButtonItem:nil];
-	[self.tabBarController.navigationItem setLeftBarButtonItems:nil];
-	[self.tabBarController.navigationItem setLeftBarButtonItem:editButton animated:NO];
 	
 	[self.tableView reloadData];
 }

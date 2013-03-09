@@ -201,6 +201,11 @@ static NSString *village = @"dorf2.php";
 
 - (void)deactivateAccount {
 	// A logout effectively..
+	if ((status & ANotLoggedIn) != 0) {
+		[self setStatus:ANotLoggedIn];
+		return;
+	}
+	
 	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[self urlForString:@"logout.php"] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
 	
 	[request setHTTPShouldHandleCookies:YES];

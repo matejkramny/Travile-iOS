@@ -51,6 +51,8 @@ static NSString *viewTitle = @"Hero";
     [super viewDidLoad];
 	
 	[[self tableView] setBackgroundView:nil];
+	
+	[self.navigationItem setTitle:viewTitle];
 }
 
 - (void)viewDidUnload
@@ -64,13 +66,6 @@ static NSString *viewTitle = @"Hero";
 	
 	hero = [[TMStorage sharedStorage] account].hero;
 	viewingMoreQuests = false;
-	
-	[self.tabBarController.navigationItem setRightBarButtonItems:nil];
-	[self.tabBarController.navigationItem setLeftBarButtonItems:nil];
-	[self.tabBarController.navigationItem setRightBarButtonItem:nil];
-	[self.tabBarController.navigationItem setLeftBarButtonItem:nil];
-	
-	[self.tabBarController setTitle:viewTitle];
 	
 	[self.tableView reloadData];
 }

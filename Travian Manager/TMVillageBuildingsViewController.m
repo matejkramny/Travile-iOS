@@ -70,6 +70,8 @@ static NSString *viewTitle = @"Buildings";
 	
 	[self setRefreshControl:[[UIRefreshControl alloc] init]];
 	[[self refreshControl] addTarget:self action:@selector(didBeginRefreshing:) forControlEvents:UIControlEventValueChanged];
+	
+	[self.navigationItem setTitle:viewTitle];
 }
 
 - (void)viewDidUnload
@@ -79,13 +81,6 @@ static NSString *viewTitle = @"Buildings";
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-	
-	[self.tabBarController.navigationItem setRightBarButtonItems:nil];
-	[self.tabBarController.navigationItem setLeftBarButtonItems:nil];
-	[self.tabBarController.navigationItem setRightBarButtonItem:nil];
-	[self.tabBarController.navigationItem setLeftBarButtonItem:nil];
-	
-	[self.tabBarController setTitle:viewTitle];
 	
 	if (sections == nil || last_update == 0 || account.last_updated < last_update) {
 		[self loadBuildingsToSections];

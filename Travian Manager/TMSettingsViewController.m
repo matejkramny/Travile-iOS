@@ -49,6 +49,8 @@ static NSString *viewTitle = @"Settings";
 	
 	[[self tableView] setBackgroundView:nil];
 	settings = [TMStorage sharedStorage].settings;
+
+	[self.navigationItem setTitle:viewTitle];
 }
 
 - (void)viewDidUnload
@@ -58,13 +60,6 @@ static NSString *viewTitle = @"Settings";
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-	
-	[self.tabBarController.navigationItem setRightBarButtonItems:nil];
-	[self.tabBarController.navigationItem setLeftBarButtonItems:nil];
-	[self.tabBarController.navigationItem setRightBarButtonItem:nil];
-	[self.tabBarController.navigationItem setLeftBarButtonItem:nil];
-	
-	[self.tabBarController setTitle:viewTitle];
 	
 	[decimalResources setOn:settings.showsDecimalResources];
 	[warehouseIndicator setOn:settings.showsResourceProgress];
