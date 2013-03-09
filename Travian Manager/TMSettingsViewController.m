@@ -91,7 +91,7 @@ static NSString *viewTitle = @"Settings";
 		[tracker sendView:@"Credits"]; // Tell analytics we are viewing credits screen
 	} else if (indexPath.section == 2) {
 		TMAccount *a = [TMStorage sharedStorage].account;
-		NSString *url = [NSString stringWithFormat:@"%@.travian.%@/%@", a.world, a.server, [TMAccount resources]];
+		NSString *url = [[NSString stringWithFormat:@"%@.travian.%@/%@", a.world, a.server, [TMAccount resources]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 		
 		if (indexPath.row == 0) {
 			// Open in safari
@@ -99,7 +99,14 @@ static NSString *viewTitle = @"Settings";
 		} else {
 			// Open in chrome
 			if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"googlechrome://"]]) {
-				[[UIApplication sharedApplication] openURL:[NSURL URLWithString:[@"googlechrome://" stringByAppendingString:url]]];
+				if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"googlechrome-x-callback://"]]) {
+					// Callback
+					NSString *callbackUrl = [NSString stringWithFormat:@"googlechrome-x-callback://x-callback-url/open/?x-source=%@&x-success=%@&url=%@&create-new-tab",
+									 @"Travian", [@"travian://" stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], url];
+					[[UIApplication sharedApplication] openURL:[NSURL URLWithString:callbackUrl]];
+				} else {
+					[[UIApplication sharedApplication] openURL:[NSURL URLWithString:[@"googlechrome://" stringByAppendingString:url]]];
+				}
 			} else {
 				[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"itms-apps://itunes.apple.com/us/app/chrome/id535886823"]]; // Install Chrome
 			}
