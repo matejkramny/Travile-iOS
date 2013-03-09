@@ -146,8 +146,6 @@ static CGFloat overlayOpacity = 0.9f;
 
 @implementation TMVillagesViewController
 
-static bool didAddOverlayOnce = false;
-
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -182,9 +180,7 @@ static bool didAddOverlayOnce = false;
 	[super viewWillAppear:animated];
 	
 	if (![storage account] || ([storage.account status] & ANotLoggedIn) != 0) {
-		[self addOverlayAnimated:NO usingAnimationType:AnimationTypeOverlay]; // logic for not-animating the overlay only once..
-		
-		didAddOverlayOnce = true;
+		[self addOverlayAnimated:NO usingAnimationType:AnimationTypeOverlay];
 		return;
 	} else if (overlay != nil) {
 		if (!beenPushed) {
