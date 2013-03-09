@@ -52,6 +52,7 @@
 		4F2D975A15D68925007E589D /* SelectedCell.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F2D975815D68925007E589D /* SelectedCell.png */; };
 		4F2D975B15D68925007E589D /* SelectedCell@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F2D975915D68925007E589D /* SelectedCell@2x.png */; };
 		4F4A52B915C96B20005F3708 /* TMVillageOpenBuildingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4A52B815C96B20005F3708 /* TMVillageOpenBuildingViewController.m */; };
+		4F4CA65716EAB93C0098FEF1 /* ModalOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4CA65616EAB93C0098FEF1 /* ModalOverlay.m */; };
 		4F509F5A15C5A64C00A15924 /* TMVillageResourcesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F509F5915C5A64C00A15924 /* TMVillageResourcesViewController.m */; };
 		4F509F5E15C5BC9300A15924 /* TMVillageTroopsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F509F5D15C5BC9300A15924 /* TMVillageTroopsViewController.m */; };
 		4F509F6115C5C08600A15924 /* TMVillageBuildingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F509F6015C5C08600A15924 /* TMVillageBuildingsViewController.m */; };
@@ -299,6 +300,8 @@
 		4F4A52B715C96B1F005F3708 /* TMVillageOpenBuildingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMVillageOpenBuildingViewController.h; sourceTree = "<group>"; };
 		4F4A52B815C96B20005F3708 /* TMVillageOpenBuildingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMVillageOpenBuildingViewController.m; sourceTree = "<group>"; };
 		4F4B132A164491D2002D3149 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		4F4CA65516EAB93C0098FEF1 /* ModalOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModalOverlay.h; sourceTree = "<group>"; };
+		4F4CA65616EAB93C0098FEF1 /* ModalOverlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModalOverlay.m; sourceTree = "<group>"; };
 		4F509F5815C5A64C00A15924 /* TMVillageResourcesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMVillageResourcesViewController.h; sourceTree = "<group>"; };
 		4F509F5915C5A64C00A15924 /* TMVillageResourcesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMVillageResourcesViewController.m; sourceTree = "<group>"; };
 		4F509F5C15C5BC9300A15924 /* TMVillageTroopsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMVillageTroopsViewController.h; sourceTree = "<group>"; };
@@ -816,6 +819,8 @@
 		4FC6F11915BC39B6006F583D /* HUD */ = {
 			isa = PBXGroup;
 			children = (
+				4F4CA65516EAB93C0098FEF1 /* ModalOverlay.h */,
+				4F4CA65616EAB93C0098FEF1 /* ModalOverlay.m */,
 				4FC6F11615BC3989006F583D /* MBProgressHUD.h */,
 				4FC6F11715BC3989006F583D /* MBProgressHUD.m */,
 			);
@@ -1110,6 +1115,7 @@
 				4F578C4C168236B600DC9FB6 /* TMTextViewCell.m in Sources */,
 				4FAF00DE16D792B4001E04C9 /* TMTrapper.m in Sources */,
 				4FAF00E116D79450001E04C9 /* TMResidence.m in Sources */,
+				4F4CA65716EAB93C0098FEF1 /* ModalOverlay.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

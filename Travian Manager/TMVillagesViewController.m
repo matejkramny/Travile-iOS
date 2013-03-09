@@ -24,123 +24,15 @@
 #import "TMAccount.h"
 #import "TMVillage.h"
 #import "TMVillageOverviewViewController.h"
+#import "ModalOverlay.h"
 
 @interface TMVillagesViewController () {
 	TMStorage *storage;
-	UIView *overlay;
 	BOOL beenPushed;
-	NSArray *timers;
-	CGRect navbarBounds;
-	CGRect navbarBoundsPushed;
+	ModalOverlay *overlay;
 }
-
-typedef enum {
-	AnimationTypeOverlay = 1 << 1,
-	AnimationTypeFromBottom = 1 << 2,
-	AnimationTypeComplete = AnimationTypeOverlay | AnimationTypeFromBottom
-} AnimationType;
 
 - (void)didBeginRefreshing:(id)sender;
-
-@end
-
-@interface TMVillagesViewController (Overlay)
-
-- (void)addOverlay;
-- (void)addOverlayAnimated:(BOOL)animated;
-- (void)addOverlayAnimated:(BOOL)animated usingAnimationType:(AnimationType)animationType;
-- (void)removeOverlay:(id)sender;
-- (void)removeOverlayAnimated:(BOOL)animated;
-- (void)removeOverlayAnimated:(BOOL)animated usingAnimationType:(AnimationType)animationType;
-
-@end
-
-@implementation TMVillagesViewController (Overlay)
-
-static CGFloat transDuration = 0.4f;
-static CGFloat overlayOpacity = 0.9f;
-
-- (void)addOverlay {
-	[self addOverlayAnimated:NO];
-}
-
-- (void)addOverlayAnimated:(BOOL)animated {
-	[self addOverlayAnimated:animated usingAnimationType:AnimationTypeComplete];
-}
-
-- (void)addOverlayAnimated:(BOOL)animated usingAnimationType:(AnimationType)animationType {
-	if (overlay) {
-		[overlay removeFromSuperview];
-		overlay = nil;
-	}
-	
-	overlay = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-	[self.navigationController.tabBarController.view addSubview:overlay];
-	
-	overlay.backgroundColor = [UIColor colorWithWhite:0 alpha:overlayOpacity];
-	
-	if (animated) {
-		// Reset the view position and alpha before re-animating
-		[overlay setAlpha:0];
-		[self.navigationController.tabBarController.view setBounds:navbarBounds];
-		
-		[UIView beginAnimations:@"AddOverlay" context:nil];
-		[UIView setAnimationDuration:transDuration];
-		
-		if ((animationType & AnimationTypeOverlay) != 0)
-			[overlay setAlpha:overlayOpacity];
-		if ((animationType & AnimationTypeFromBottom) != 0)
-			[self.navigationController.tabBarController.view setBounds:navbarBoundsPushed];
-		
-		[UIView commitAnimations];
-	} else {
-		if ((animationType & AnimationTypeFromBottom) != 0)
-			[self.navigationController.tabBarController.view setBounds:navbarBoundsPushed];
-		if ((animationType & AnimationTypeOverlay) != 0)
-			[overlay setAlpha:overlayOpacity];
-	}
-}
-
-- (void)removeOverlay:(id)sender {
-	[self removeOverlayAnimated:NO];
-}
-
-- (void)removeOverlayAnimated:(BOOL)animated {
-	[self removeOverlayAnimated:animated usingAnimationType:AnimationTypeComplete];
-}
-
-- (void)removeOverlayAnimated:(BOOL)animated usingAnimationType:(AnimationType)animationType {
-	[overlay setAlpha:0];
-	[self.navigationController.tabBarController.view setBounds:navbarBounds];
-	
-	if (animated) {
-		// Reset the view position and alpha before re-animating
-		if ((animationType & AnimationTypeOverlay) != 0)
-			[overlay setAlpha:overlayOpacity];
-		
-		if ((animationType & AnimationTypeFromBottom) != 0)
-			[self.navigationController.tabBarController.view setBounds:navbarBoundsPushed];
-		
-		// Animate
-		[UIView beginAnimations:@"RemoveOverlay" context:NULL];
-		[UIView setAnimationDuration:transDuration];
-		
-		if ((animationType & AnimationTypeOverlay) != 0)
-			[overlay setAlpha:0];
-		if ((animationType & AnimationTypeFromBottom) != 0)
-			[self.navigationController.tabBarController.view setBounds:navbarBounds];
-		
-		[UIView commitAnimations];
-	} else {
-		if ((animationType & AnimationTypeFromBottom) != 0)
-			[self.navigationController.tabBarController.view setBounds:navbarBounds];
-		
-		if ((animationType & AnimationTypeOverlay) != 0)
-			[overlay setAlpha:0];
-	}
-	
-	//[overlay removeFromSuperview]; //not required?
-}
 
 @end
 
@@ -165,8 +57,11 @@ static CGFloat overlayOpacity = 0.9f;
 	[self.refreshControl addTarget:self action:@selector(didBeginRefreshing:) forControlEvents:UIControlEventValueChanged];
 	beenPushed = false;
 	
-	navbarBounds = self.navigationController.tabBarController.view.bounds;
-	navbarBoundsPushed = CGRectMake(navbarBounds.origin.x, navbarBounds.origin.y + navbarBounds.size.height / 3, navbarBounds.size.width, navbarBounds.size.height); // +44
+	overlay = [[ModalOverlay alloc] init];
+	
+	overlay.target = self.navigationController.tabBarController.view;
+	overlay.overlayBounds = overlay.target.bounds;
+	overlay.overlayBoundsPushed = CGRectMake(overlay.overlayBounds.origin.x, overlay.overlayBounds.origin.y + overlay.overlayBounds.size.height / 3, overlay.overlayBounds.size.width, overlay.overlayBounds.size.height); // +44
 }
 
 - (void)viewDidUnload
@@ -180,13 +75,13 @@ static CGFloat overlayOpacity = 0.9f;
 	[super viewWillAppear:animated];
 	
 	if (![storage account] || ([storage.account status] & ANotLoggedIn) != 0) {
-		[self addOverlayAnimated:NO usingAnimationType:AnimationTypeOverlay];
+		[overlay addOverlayAnimated:NO usingAnimationType:OverlayAnimationTypeMove];
 		return;
-	} else if (overlay != nil) {
+	} else {
 		if (!beenPushed) {
-			[self removeOverlayAnimated:NO usingAnimationType:AnimationTypeComplete];
+			[overlay removeOverlayAnimated:NO usingAnimationType:OverlayAnimationTypeComplete];
 		} else {
-			[self removeOverlayAnimated:YES usingAnimationType:AnimationTypeComplete];
+			[overlay removeOverlayAnimated:YES usingAnimationType:OverlayAnimationTypeComplete];
 		}
 	}
 	
@@ -268,7 +163,7 @@ static CGFloat overlayOpacity = 0.9f;
 	else
 		[NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(viewWillAppear:) userInfo:nil repeats:NO]; // to debug animations..
 	
-	[self addOverlayAnimated:TRUE];
+	[overlay addOverlayAnimated:TRUE];
 	
 	beenPushed = true;
 }

@@ -24,6 +24,7 @@
 #import "TMAccountDetailsViewController.h"
 #import "MBProgressHUD.h"
 #import "AppDelegate.h"
+#import "ModalOverlay.h"
 
 @interface TMAccountsViewController () {
 	TMStorage *storage;
@@ -33,6 +34,8 @@
 	TMAccount *passwordRetryAccount;
 	MBProgressHUD *hud;
 	UITapGestureRecognizer *tapGestureRecognizer;
+	ModalOverlay *overlay;
+	bool firstAnimateButtons;
 }
 
 - (void)logIn:(TMAccount *)a withPasword:(NSString *)password;
@@ -96,6 +99,13 @@
 	storage = [TMStorage sharedStorage];
 	
 	[super viewDidLoad];
+	
+	overlay = [[ModalOverlay alloc] init];
+	overlay.target = self.navigationController.view;
+	overlay.overlayBounds = overlay.target.bounds;
+	overlay.overlayBoundsPushed = CGRectMake(overlay.overlayBounds.origin.x, overlay.overlayBounds.origin.y + overlay.overlayBounds.size.height / 3, overlay.overlayBounds.size.width, overlay.overlayBounds.size.height);
+	
+	firstAnimateButtons = true;
 }
 
 - (void)viewDidUnload
@@ -104,18 +114,32 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-	if ([[storage accounts] count] == 0) {
-		[self.navigationItem setLeftBarButtonItem:nil];
-	} else {
-		[self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editButtonClicked:)]];
+	if (firstAnimateButtons == false) {
+		if ([[storage accounts] count] == 0) {
+			[self.navigationItem setLeftBarButtonItem:nil];
+		} else {
+			[self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editButtonClicked:)] animated:NO];
+		}
+		
+		[self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addAccount:)] animated:NO];
 	}
-	
-	[self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addAccount:)]];
 	
 	[super viewWillAppear:animated];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
+	if (firstAnimateButtons) {
+		if ([[storage accounts] count] == 0) {
+			[self.navigationItem setLeftBarButtonItem:nil];
+		} else {
+			[self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editButtonClicked:)] animated:YES];
+		}
+		
+		[self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addAccount:)] animated:YES];
+		
+		firstAnimateButtons = false;
+	}
+	
 	[super viewDidAppear:animated];
 }
 
@@ -354,11 +378,16 @@
 {
 	if ([segue.identifier isEqualToString:@"NewAccount"])
 	{
+		[overlay addOverlayAnimated:YES];
+		
 		UINavigationController *navigationController = segue.destinationViewController;
 		TMAccountDetailsViewController *advc = [[navigationController viewControllers] objectAtIndex:0];
 		
 		advc.delegate = self;
 		advc.editingAccount = selectedAccount;
+	} else {
+		// open account
+		firstAnimateButtons = true;
 	}
 }
 
@@ -373,6 +402,7 @@
 	
 	// Dismiss the view
 	[self dismissViewControllerAnimated:YES completion:nil];
+	[overlay removeOverlayAnimated:YES];
 	
 	if ([storage.accounts count]-1 == 0) {
 		// First account created..
@@ -392,6 +422,7 @@
 {
 	// Dismiss view
 	[self dismissViewControllerAnimated:YES completion:nil];
+	[overlay removeOverlayAnimated:YES];
 	
 	selectedAccount = nil;
 	[self setEditing:NO];
@@ -403,6 +434,8 @@
 - (void)accountDetailsViewControllerDidCancel:(TMAccountDetailsViewController *)controller
 {
 	[self dismissViewControllerAnimated:YES completion:nil];
+	[overlay removeOverlayAnimated:YES];
+	
 	selectedAccount = nil;
 	[self setEditing:NO];
 }
@@ -419,9 +452,11 @@
 		[self.tableView reloadData];
 	}
 	
-	[self dismissViewControllerAnimated:YES completion:nil];
 	[self setEditing:NO];
 	selectedAccount = nil;
+	
+	[self dismissViewControllerAnimated:YES completion:nil];
+	[overlay removeOverlayAnimated:YES];
 	
 	[self.tableView reloadData];
 	
