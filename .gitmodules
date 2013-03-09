@@ -1,0 +1,3 @@
+[submodule "Travian Manager/MKModalOverlay"]
+	path = Travian Manager/MKModalOverlay
+	url = git@github.com:matejkramny/MKModalOverlay.git

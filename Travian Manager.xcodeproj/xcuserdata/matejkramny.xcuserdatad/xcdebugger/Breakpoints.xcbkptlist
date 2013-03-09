@@ -1239,30 +1239,40 @@
          </Actions>
       </FileBreakpoint>
       <FileBreakpoint
-         shouldBeEnabled = "No"
+         shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Travian Manager/TMAccountsViewController.m"
-         timestampString = "384487087.194208"
+         timestampString = "384520190.261585"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "101"
-         endingLineNumber = "101"
-         landmarkName = "-viewDidLoad"
+         startingLineNumber = "393"
+         endingLineNumber = "393"
+         landmarkName = "-prepareForSegue:sender:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "Travian Manager/TMAccountsViewController.m"
-         timestampString = "384487374.646062"
+         condition = "target == nil"
+         continueAfterRunningActions = "Yes"
+         filePath = "Travian Manager/MKModalOverlay.m"
+         timestampString = "384519370.60807"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "390"
-         endingLineNumber = "390"
-         landmarkName = "-prepareForSegue:sender:"
+         startingLineNumber = "84"
+         endingLineNumber = "84"
+         landmarkName = "-configureBoundsBottomToTop"
          landmarkType = "5">
+         <Actions>
+            <BreakpointActionProxy
+               ActionType = "Xcode.BreakpointAction.Log">
+               <ActionContent
+                  message = "target nil when %B"
+                  conveyanceType = "0">
+               </ActionContent>
+            </BreakpointActionProxy>
+         </Actions>
       </FileBreakpoint>
    </FileBreakpoints>
    <ExceptionBreakpoints>

@@ -24,12 +24,12 @@
 #import "TMAccount.h"
 #import "TMVillage.h"
 #import "TMVillageOverviewViewController.h"
-#import "ModalOverlay.h"
+#import "MKModalOverlay.h"
 
 @interface TMVillagesViewController () {
 	TMStorage *storage;
-	BOOL beenPushed;
-	ModalOverlay *overlay;
+	NSIndexPath *selectedVillageIndexPath;
+	MKModalOverlay *overlay;
 }
 
 - (void)didBeginRefreshing:(id)sender;
@@ -55,13 +55,9 @@
 	
 	[self setRefreshControl:[[UIRefreshControl alloc] init]];
 	[self.refreshControl addTarget:self action:@selector(didBeginRefreshing:) forControlEvents:UIControlEventValueChanged];
-	beenPushed = false;
 	
-	overlay = [[ModalOverlay alloc] init];
-	
-	overlay.target = self.navigationController.tabBarController.view;
-	overlay.overlayBounds = overlay.target.bounds;
-	overlay.overlayBoundsPushed = CGRectMake(overlay.overlayBounds.origin.x, overlay.overlayBounds.origin.y + overlay.overlayBounds.size.height / 3, overlay.overlayBounds.size.width, overlay.overlayBounds.size.height); // +44
+	overlay = [[MKModalOverlay alloc] initWithTarget:self.navigationController.tabBarController.view];
+	[overlay configureBoundsBottomToTop];
 }
 
 - (void)viewDidUnload
@@ -78,21 +74,23 @@
 		[overlay addOverlayAnimated:NO usingAnimationType:OverlayAnimationTypeMove];
 		return;
 	} else {
-		if (!beenPushed) {
+		if (selectedVillageIndexPath == nil) {
 			[overlay removeOverlayAnimated:NO usingAnimationType:OverlayAnimationTypeComplete];
 		} else {
 			[overlay removeOverlayAnimated:YES usingAnimationType:OverlayAnimationTypeComplete];
 		}
 	}
 	
-	static NSString *title = @"Villages";
-	[self.navigationItem setTitle:title];
-	
-	if (!beenPushed) {
+	if (selectedVillageIndexPath) {
+		[self.tableView selectRowAtIndexPath:selectedVillageIndexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+		[self.tableView deselectRowAtIndexPath:selectedVillageIndexPath animated:YES];
+		selectedVillageIndexPath = nil;
+	} else {
 		[[self tableView] reloadData];
 	}
 	
-	beenPushed = false;
+	static NSString *title = @"Villages";
+	[self.navigationItem setTitle:title];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -145,7 +143,7 @@
     
 	TMVillage *village = [[[storage account] villages] objectAtIndex:indexPath.row];
 	cell.textLabel.text = [village name];
-	cell.backgroundColor = [UIColor colorWithRed:1.0 green:0 blue:0 alpha:1];
+	//cell.backgroundColor = [UIColor colorWithRed:1.0 green:0 blue:0 alpha:1];
 	
 	[AppDelegate setCellAppearance:cell forIndexPath:indexPath];
 	
@@ -157,6 +155,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [[storage account] setVillage:[[storage account].villages objectAtIndex:indexPath.row]];
+	selectedVillageIndexPath = indexPath;
 	
 	if (!DEBUG_ANIMATION)
 		[self performSegueWithIdentifier:@"OpenVillage" sender:self];
@@ -164,8 +163,6 @@
 		[NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(viewWillAppear:) userInfo:nil repeats:NO]; // to debug animations..
 	
 	[overlay addOverlayAnimated:TRUE];
-	
-	beenPushed = true;
 }
 
 @end

@@ -300,7 +300,7 @@ static NSString *viewTitle = @"Buildings";
 		openBuilding = true;
 		[b addObserver:self forKeyPath:[[selectedBuildings objectAtIndex:0] finishedLoadingKVOIdentifier] options:NSKeyValueObservingOptionNew context:nil];
 		[b fetchDescription];
-		HUD = [MBProgressHUD showHUDAddedTo:self.tabBarController.navigationController.view animated:YES];
+		HUD = [MBProgressHUD showHUDAddedTo:self.navigationController.tabBarController.view animated:YES];
 		HUD.labelText = @"Loading";
 		HUD.detailsLabelText = @"Tap to cancel";
 		tapToCancel = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedToCancel:)];
@@ -364,7 +364,7 @@ static NSString *viewTitle = @"Buildings";
 	openBuilding = false;
 	[[selectedBuildings objectAtIndex:0] buildFromAccount:account];
 	
-	HUD = [MBProgressHUD showHUDAddedTo:self.tabBarController.navigationController.view animated:YES];
+	HUD = [MBProgressHUD showHUDAddedTo:self.navigationController.tabBarController.view animated:YES];
 	HUD.labelText = @"Building";
 	HUD.detailsLabelText = @"Tap to hide";
 	tapToHide = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedToHide:)];

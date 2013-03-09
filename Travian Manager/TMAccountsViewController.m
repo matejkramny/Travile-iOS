@@ -24,7 +24,7 @@
 #import "TMAccountDetailsViewController.h"
 #import "MBProgressHUD.h"
 #import "AppDelegate.h"
-#import "ModalOverlay.h"
+#import "MKModalOverlay.h"
 
 @interface TMAccountsViewController () {
 	TMStorage *storage;
@@ -34,7 +34,7 @@
 	TMAccount *passwordRetryAccount;
 	MBProgressHUD *hud;
 	UITapGestureRecognizer *tapGestureRecognizer;
-	ModalOverlay *overlay;
+	MKModalOverlay *overlay;
 	bool firstAnimateButtons;
 }
 
@@ -72,8 +72,11 @@
 	
 	if (editing)
 		[self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(editButtonClicked:)] animated:animated];
-	else
+	else if ([storage.accounts count] > 0)
 		[self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editButtonClicked:)] animated:animated];
+	else {
+		[self.navigationItem setLeftBarButtonItem:nil];
+	}
 }
 
 - (void)dismissView {
@@ -100,10 +103,8 @@
 	
 	[super viewDidLoad];
 	
-	overlay = [[ModalOverlay alloc] init];
-	overlay.target = self.navigationController.view;
-	overlay.overlayBounds = overlay.target.bounds;
-	overlay.overlayBoundsPushed = CGRectMake(overlay.overlayBounds.origin.x, overlay.overlayBounds.origin.y + overlay.overlayBounds.size.height / 3, overlay.overlayBounds.size.width, overlay.overlayBounds.size.height);
+	overlay = [[MKModalOverlay alloc] initWithTarget:self.navigationController.view];
+	[overlay configureBoundsBottomToTop];
 	
 	firstAnimateButtons = true;
 }
@@ -115,6 +116,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
 	if (firstAnimateButtons == false) {
+		// Do not fade buttons in, happens when returning from NewAccount scene
 		if ([[storage accounts] count] == 0) {
 			[self.navigationItem setLeftBarButtonItem:nil];
 		} else {
@@ -129,6 +131,7 @@
 
 - (void)viewDidAppear:(BOOL)animated {
 	if (firstAnimateButtons) {
+		// Fades the buttons in, after logging out from an account.
 		if ([[storage accounts] count] == 0) {
 			[self.navigationItem setLeftBarButtonItem:nil];
 		} else {

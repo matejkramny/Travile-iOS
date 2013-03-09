@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4F0261D115612EA300DF545F /* TPIdentifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F0261D015612EA300DF545F /* TPIdentifier.m */; };
+		4F02A37E16EB635500178150 /* MKModalOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F02A37D16EB635500178150 /* MKModalOverlay.m */; };
 		4F04DA2915ED632700DAF6E7 /* TMVillageBarracksCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F04DA2815ED632700DAF6E7 /* TMVillageBarracksCell.m */; };
 		4F04DA2D15EEDFDE00DAF6E7 /* TMAccountTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F04DA2C15EEDFDE00DAF6E7 /* TMAccountTextFieldCell.m */; };
 		4F04DA3015EEE02300DAF6E7 /* TMAccountTextFieldRightCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F04DA2F15EEE02300DAF6E7 /* TMAccountTextFieldRightCell.m */; };
@@ -52,7 +53,6 @@
 		4F2D975A15D68925007E589D /* SelectedCell.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F2D975815D68925007E589D /* SelectedCell.png */; };
 		4F2D975B15D68925007E589D /* SelectedCell@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F2D975915D68925007E589D /* SelectedCell@2x.png */; };
 		4F4A52B915C96B20005F3708 /* TMVillageOpenBuildingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4A52B815C96B20005F3708 /* TMVillageOpenBuildingViewController.m */; };
-		4F4CA65716EAB93C0098FEF1 /* ModalOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4CA65616EAB93C0098FEF1 /* ModalOverlay.m */; };
 		4F509F5A15C5A64C00A15924 /* TMVillageResourcesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F509F5915C5A64C00A15924 /* TMVillageResourcesViewController.m */; };
 		4F509F5E15C5BC9300A15924 /* TMVillageTroopsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F509F5D15C5BC9300A15924 /* TMVillageTroopsViewController.m */; };
 		4F509F6115C5C08600A15924 /* TMVillageBuildingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F509F6015C5C08600A15924 /* TMVillageBuildingsViewController.m */; };
@@ -229,6 +229,8 @@
 /* Begin PBXFileReference section */
 		4F0261CF15612EA300DF545F /* TPIdentifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPIdentifier.h; sourceTree = "<group>"; };
 		4F0261D015612EA300DF545F /* TPIdentifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPIdentifier.m; sourceTree = "<group>"; };
+		4F02A37C16EB635500178150 /* MKModalOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MKModalOverlay.h; path = MKModalOverlay/MKModalOverlay.h; sourceTree = "<group>"; };
+		4F02A37D16EB635500178150 /* MKModalOverlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MKModalOverlay.m; path = MKModalOverlay/MKModalOverlay.m; sourceTree = "<group>"; };
 		4F04DA2715ED632700DAF6E7 /* TMVillageBarracksCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMVillageBarracksCell.h; sourceTree = "<group>"; };
 		4F04DA2815ED632700DAF6E7 /* TMVillageBarracksCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMVillageBarracksCell.m; sourceTree = "<group>"; };
 		4F04DA2B15EEDFDE00DAF6E7 /* TMAccountTextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMAccountTextFieldCell.h; sourceTree = "<group>"; };
@@ -300,8 +302,6 @@
 		4F4A52B715C96B1F005F3708 /* TMVillageOpenBuildingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMVillageOpenBuildingViewController.h; sourceTree = "<group>"; };
 		4F4A52B815C96B20005F3708 /* TMVillageOpenBuildingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMVillageOpenBuildingViewController.m; sourceTree = "<group>"; };
 		4F4B132A164491D2002D3149 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		4F4CA65516EAB93C0098FEF1 /* ModalOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModalOverlay.h; sourceTree = "<group>"; };
-		4F4CA65616EAB93C0098FEF1 /* ModalOverlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModalOverlay.m; sourceTree = "<group>"; };
 		4F509F5815C5A64C00A15924 /* TMVillageResourcesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMVillageResourcesViewController.h; sourceTree = "<group>"; };
 		4F509F5915C5A64C00A15924 /* TMVillageResourcesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMVillageResourcesViewController.m; sourceTree = "<group>"; };
 		4F509F5C15C5BC9300A15924 /* TMVillageTroopsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMVillageTroopsViewController.h; sourceTree = "<group>"; };
@@ -819,8 +819,8 @@
 		4FC6F11915BC39B6006F583D /* HUD */ = {
 			isa = PBXGroup;
 			children = (
-				4F4CA65516EAB93C0098FEF1 /* ModalOverlay.h */,
-				4F4CA65616EAB93C0098FEF1 /* ModalOverlay.m */,
+				4F02A37C16EB635500178150 /* MKModalOverlay.h */,
+				4F02A37D16EB635500178150 /* MKModalOverlay.m */,
 				4FC6F11615BC3989006F583D /* MBProgressHUD.h */,
 				4FC6F11715BC3989006F583D /* MBProgressHUD.m */,
 			);
@@ -1115,7 +1115,7 @@
 				4F578C4C168236B600DC9FB6 /* TMTextViewCell.m in Sources */,
 				4FAF00DE16D792B4001E04C9 /* TMTrapper.m in Sources */,
 				4FAF00E116D79450001E04C9 /* TMResidence.m in Sources */,
-				4F4CA65716EAB93C0098FEF1 /* ModalOverlay.m in Sources */,
+				4F02A37E16EB635500178150 /* MKModalOverlay.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
