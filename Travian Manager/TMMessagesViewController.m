@@ -26,6 +26,7 @@
 #import "MBProgressHUD.h"
 #import "TMOpenMessageViewController.h"
 #import "TMMessageCell.h"
+#import "MKModalOverlay/MKModalOverlay.h"
 
 @interface TMMessagesViewController () {
 	TMStorage *storage;
@@ -45,6 +46,9 @@
 	bool forceZeroRows;
 	
 	__weak TMAccount *account;
+	
+	MKModalOverlay *overlay;
+	bool inModal;
 }
 
 - (IBAction)editButtonClicked:(id)sender;
@@ -105,6 +109,10 @@ static NSString *viewTitle = @"Messages";
 	[self reloadBadgeCount];
 	
 	forceZeroRows = false;
+	
+	overlay = [[MKModalOverlay alloc] initWithTarget:self.navigationController.tabBarController.view];
+	[overlay configureBoundsBottomToTop];
+	inModal = false;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -132,6 +140,11 @@ static NSString *viewTitle = @"Messages";
 	[self.navigationItem setTitle:viewTitle];
 	
 	[self reloadBadgeCount];
+	
+	if (inModal) {
+		[overlay removeOverlayAnimated:YES];
+		inModal = false;
+	}
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -291,8 +304,8 @@ static NSString *noMessagesCellIdentifier = @"NoMessagesCell";
 	
 	int total = deleteArray.count;
 	
-	HUD = [[MBProgressHUD alloc] initWithView:self.tabBarController.navigationController.view];
-	[self.tabBarController.navigationController.view addSubview:HUD];
+	HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.tabBarController.view];
+	[self.navigationController.tabBarController.view addSubview:HUD];
 	HUD.delegate = self;
 	HUD.labelText = [NSString stringWithFormat:@"Deleted %d Messages", total];
 	
@@ -446,8 +459,8 @@ static NSString *noMessagesCellIdentifier = @"NoMessagesCell";
 		[selectedMessage addObserver:self forKeyPath:@"content" options:NSKeyValueObservingOptionNew context:NULL];
 		[selectedMessage downloadAndParse];
 				
-		HUD = [[MBProgressHUD alloc] initWithView:self.tabBarController.navigationController.view];
-		[self.tabBarController.navigationController.view addSubview:HUD];
+		HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.tabBarController.view];
+		[self.navigationController.tabBarController.view addSubview:HUD];
 		HUD.delegate = self;
 		HUD.labelText = [NSString stringWithFormat:@"Downloading message"];
 		
@@ -517,6 +530,8 @@ static NSString *noMessagesCellIdentifier = @"NoMessagesCell";
 			openMessageAction = 0;
 		}
 		
+		[overlay addOverlayAnimated:YES];
+		inModal = true;
 	}
 }
 

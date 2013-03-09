@@ -61,7 +61,7 @@ static NSString *contentCellIdentifier = @"ContentCell";
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
+	[super viewDidLoad];
 	
 	storage = [TMStorage sharedStorage];
 	[self.tableView setBackgroundColor:[UIColor whiteColor]];
@@ -79,9 +79,23 @@ static NSString *contentCellIdentifier = @"ContentCell";
 	
 	[self buildCells];
 	
+	[[NSNotificationCenter defaultCenter] addObserver:self
+											 selector:@selector(willShowKeyboard:)
+												 name:UIKeyboardWillShowNotification
+											   object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:self
+											 selector:@selector(didShowKeyboard:)
+												 name:UIKeyboardDidShowNotification
+											   object:nil];
+	
+	[UIView beginAnimations:nil context:nil];
+	[UIView setAnimationDuration:0.0];
+	
 	[[[cells objectAtIndex:0] field] becomeFirstResponder];
+	[UIView commitAnimations];
 	
 	if (replyToMessage || forwardMessage) {
+		// auto height of textview
 		UITextView *textView = [[cells objectAtIndex:2] textView];
 		
 		CGFloat height = [textView contentSize].height;
@@ -276,6 +290,18 @@ static CGFloat kbHeight = 216; // Keyboard height
 	//[self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:2 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
 	//[self.tableView reloadData];
 	[self.tableView endUpdates];
+}
+
+#pragma mark -
+
+- (void)willShowKeyboard:(NSNotification *)notification {
+	[UIView setAnimationsEnabled:NO];
+}
+
+- (void)didShowKeyboard:(NSNotification *)notification {
+	[UIView setAnimationsEnabled:YES];
+	
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end
