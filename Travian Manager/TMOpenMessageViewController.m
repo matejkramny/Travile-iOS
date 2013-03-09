@@ -55,6 +55,8 @@
 	//[self.tableView setBackgroundColor:[UIColor whiteColor]];
 	
 	cells = @[];
+	
+	[super setTrackedViewName:@"Open message"];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

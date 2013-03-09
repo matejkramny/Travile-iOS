@@ -52,6 +52,10 @@
 		4F28C74115BB358500C976E3 /* TMAccountDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F28C74015BB358500C976E3 /* TMAccountDetailsViewController.m */; };
 		4F2D975A15D68925007E589D /* SelectedCell.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F2D975815D68925007E589D /* SelectedCell.png */; };
 		4F2D975B15D68925007E589D /* SelectedCell@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F2D975915D68925007E589D /* SelectedCell@2x.png */; };
+		4F2DEA9916EBB07200B4324C /* libGoogleAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F2DEA9816EBB07200B4324C /* libGoogleAnalytics.a */; };
+		4F2DEA9C16EBB24100B4324C /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F2DEA9B16EBB24100B4324C /* CoreData.framework */; };
+		4F2DEA9E16EBB24900B4324C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F2DEA9D16EBB24900B4324C /* SystemConfiguration.framework */; };
+		4F2DEAA416EBF54900B4324C /* MKGAITrackedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F2DEAA316EBF54900B4324C /* MKGAITrackedTableViewController.m */; };
 		4F4A52B915C96B20005F3708 /* TMVillageOpenBuildingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4A52B815C96B20005F3708 /* TMVillageOpenBuildingViewController.m */; };
 		4F509F5A15C5A64C00A15924 /* TMVillageResourcesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F509F5915C5A64C00A15924 /* TMVillageResourcesViewController.m */; };
 		4F509F5E15C5BC9300A15924 /* TMVillageTroopsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F509F5D15C5BC9300A15924 /* TMVillageTroopsViewController.m */; };
@@ -297,6 +301,16 @@
 		4F28C74015BB358500C976E3 /* TMAccountDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMAccountDetailsViewController.m; sourceTree = "<group>"; };
 		4F2D975815D68925007E589D /* SelectedCell.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SelectedCell.png; sourceTree = "<group>"; };
 		4F2D975915D68925007E589D /* SelectedCell@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SelectedCell@2x.png"; sourceTree = "<group>"; };
+		4F2DEA9316EBB07200B4324C /* GAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAI.h; path = GoogleAnalytics.framework/GAI.h; sourceTree = "<group>"; };
+		4F2DEA9416EBB07200B4324C /* GAITrackedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAITrackedViewController.h; path = GoogleAnalytics.framework/GAITrackedViewController.h; sourceTree = "<group>"; };
+		4F2DEA9516EBB07200B4324C /* GAITracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAITracker.h; path = GoogleAnalytics.framework/GAITracker.h; sourceTree = "<group>"; };
+		4F2DEA9616EBB07200B4324C /* GAITransaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAITransaction.h; path = GoogleAnalytics.framework/GAITransaction.h; sourceTree = "<group>"; };
+		4F2DEA9716EBB07200B4324C /* GAITransactionItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAITransactionItem.h; path = GoogleAnalytics.framework/GAITransactionItem.h; sourceTree = "<group>"; };
+		4F2DEA9816EBB07200B4324C /* libGoogleAnalytics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGoogleAnalytics.a; path = GoogleAnalytics.framework/libGoogleAnalytics.a; sourceTree = "<group>"; };
+		4F2DEA9B16EBB24100B4324C /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		4F2DEA9D16EBB24900B4324C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		4F2DEAA216EBF54800B4324C /* MKGAITrackedTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MKGAITrackedTableViewController.h; path = "Travian Manager/MKGAITrackedTableViewController/MKGAITrackedTableViewController.h"; sourceTree = "<group>"; };
+		4F2DEAA316EBF54900B4324C /* MKGAITrackedTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MKGAITrackedTableViewController.m; path = "Travian Manager/MKGAITrackedTableViewController/MKGAITrackedTableViewController.m"; sourceTree = "<group>"; };
 		4F38F938156008FE00AF2E82 /* TMPages.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TMPages.h; sourceTree = "<group>"; };
 		4F38F93A15600B6700AF2E82 /* TravianPageParsingProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TravianPageParsingProtocol.h; sourceTree = "<group>"; };
 		4F4A52B715C96B1F005F3708 /* TMVillageOpenBuildingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMVillageOpenBuildingViewController.h; sourceTree = "<group>"; };
@@ -461,11 +475,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F2DEA9E16EBB24900B4324C /* SystemConfiguration.framework in Frameworks */,
+				4F2DEA9C16EBB24100B4324C /* CoreData.framework in Frameworks */,
 				4FBACE5815D71FCF0092A8F3 /* QuartzCore.framework in Frameworks */,
 				4F095238155C7B6100C15D6E /* libxml2.2.dylib in Frameworks */,
 				4F09520D155C767800C15D6E /* UIKit.framework in Frameworks */,
 				4F09520F155C767800C15D6E /* Foundation.framework in Frameworks */,
 				4F095211155C767800C15D6E /* CoreGraphics.framework in Frameworks */,
+				4F2DEA9916EBB07200B4324C /* libGoogleAnalytics.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -512,6 +529,8 @@
 		4F09520B155C767800C15D6E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4F2DEA9B16EBB24100B4324C /* CoreData.framework */,
+				4F2DEA9D16EBB24900B4324C /* SystemConfiguration.framework */,
 				4F724F3416E15ED2005E5CA2 /* GHUnitIOS.framework */,
 				4F4B132A164491D2002D3149 /* SenTestingKit.framework */,
 				4FBACE5715D71FCF0092A8F3 /* QuartzCore.framework */,
@@ -538,6 +557,7 @@
 				4FD64FCD15DAAF24002FAFFC /* BuildingMap */,
 				4FC6F11915BC39B6006F583D /* HUD */,
 				4F095239155C7C6300C15D6E /* HTMLParser */,
+				4F2DEA9A16EBB07C00B4324C /* Google Analytics */,
 				4F095213155C767800C15D6E /* Supporting Files */,
 			);
 			path = "Travian Manager";
@@ -625,6 +645,22 @@
 				4F38F938156008FE00AF2E82 /* TMPages.h */,
 			);
 			name = Models;
+			sourceTree = "<group>";
+		};
+		4F2DEA9A16EBB07C00B4324C /* Google Analytics */ = {
+			isa = PBXGroup;
+			children = (
+				4F2DEA9316EBB07200B4324C /* GAI.h */,
+				4F2DEA9416EBB07200B4324C /* GAITrackedViewController.h */,
+				4F2DEA9516EBB07200B4324C /* GAITracker.h */,
+				4F2DEA9616EBB07200B4324C /* GAITransaction.h */,
+				4F2DEA9716EBB07200B4324C /* GAITransactionItem.h */,
+				4F2DEA9816EBB07200B4324C /* libGoogleAnalytics.a */,
+				4F2DEAA216EBF54800B4324C /* MKGAITrackedTableViewController.h */,
+				4F2DEAA316EBF54900B4324C /* MKGAITrackedTableViewController.m */,
+			);
+			name = "Google Analytics";
+			path = ..;
 			sourceTree = "<group>";
 		};
 		4F57044715CEE126001614AC /* Resources */ = {
@@ -1116,6 +1152,7 @@
 				4FAF00DE16D792B4001E04C9 /* TMTrapper.m in Sources */,
 				4FAF00E116D79450001E04C9 /* TMResidence.m in Sources */,
 				4F02A37E16EB635500178150 /* MKModalOverlay.m in Sources */,
+				4F2DEAA416EBF54900B4324C /* MKGAITrackedTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1300,6 +1337,10 @@
 				);
 				INFOPLIST_FILE = "Travian Manager/Travian Manager-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/GoogleAnalytics.framework\"",
+				);
 				PRODUCT_NAME = "Travian Manager";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
@@ -1324,6 +1365,10 @@
 				);
 				INFOPLIST_FILE = "Travian Manager/Travian Manager-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/GoogleAnalytics.framework\"",
+				);
 				PRODUCT_NAME = "Travian Manager";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;

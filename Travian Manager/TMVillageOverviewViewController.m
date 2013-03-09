@@ -65,6 +65,8 @@ static NSString *viewTitle = @"Overview";
 	[self.navigationItem setHidesBackButton:NO];
 	[self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithTitle:@"Villages" style:UIBarButtonItemStyleBordered target:self action:@selector(back:)]];
 	
+	[super setTrackedViewName:viewTitle];
+	
 	[super viewDidLoad];
 }
 

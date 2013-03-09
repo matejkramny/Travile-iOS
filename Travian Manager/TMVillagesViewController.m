@@ -38,6 +38,8 @@
 
 @implementation TMVillagesViewController
 
+static NSString *title = @"Villages";
+
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -58,6 +60,8 @@
 	
 	overlay = [[MKModalOverlay alloc] initWithTarget:self.navigationController.tabBarController.view];
 	[overlay configureBoundsBottomToTop];
+	
+	[super setTrackedViewName:title];
 }
 
 - (void)viewDidUnload
@@ -89,7 +93,6 @@
 		[[self tableView] reloadData];
 	}
 	
-	static NSString *title = @"Villages";
 	[self.navigationItem setTitle:title];
 }
 

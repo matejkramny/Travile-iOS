@@ -21,6 +21,6 @@
 #import <UIKit/UIKit.h>
 #import "TMVillageOpenBuildingViewController.h"
 
-@interface TMVillageBuildingsViewController : UITableViewController <UITableViewDataSource, TMVillageOpenBuildingDelegate>
+@interface TMVillageBuildingsViewController : MKGAITrackedTableViewController <UITableViewDataSource, TMVillageOpenBuildingDelegate>
 
 @end

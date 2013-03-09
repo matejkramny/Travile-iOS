@@ -21,11 +21,14 @@
 #import "AppDelegate.h"
 #import "TMStorage.h"
 
+static NSString *trackingId = @"UA-39166000-1";
+
 @implementation AppDelegate {
 	unsigned int timeAtGoingToInactiveState; // States the time when the app resignsActive
 }
 
 @synthesize window = _window;
+@synthesize tracker;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -34,6 +37,13 @@
 	
 	// Initialize storage
 	[TMStorage sharedStorage].delegate = self;
+	
+	// Google analytics
+	GAI *gai = [GAI sharedInstance];
+	gai.debug = DEBUG_APP;
+	gai.dispatchInterval = DEBUG_APP ? 3 : 30;
+	gai.trackUncaughtExceptions = YES;
+	tracker = [gai trackerWithTrackingId:trackingId];
 	
 	return YES;
 }

@@ -59,6 +59,8 @@ static NSString *viewTitle = @"Reports";
 	storage = [TMStorage sharedStorage];
 	[self.navigationItem setLeftBarButtonItem:editButton animated:NO];
 	[self setTitle:viewTitle];
+	
+	[super setTrackedViewName:viewTitle];
 }
 
 - (void)viewDidUnload

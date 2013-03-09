@@ -72,6 +72,8 @@ static NSString *viewTitle = @"Buildings";
 	[[self refreshControl] addTarget:self action:@selector(didBeginRefreshing:) forControlEvents:UIControlEventValueChanged];
 	
 	[self.navigationItem setTitle:viewTitle];
+	
+	[super setTrackedViewName:viewTitle];
 }
 
 - (void)viewDidUnload

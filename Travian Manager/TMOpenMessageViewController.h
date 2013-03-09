@@ -41,7 +41,7 @@ typedef enum {
 
 @end
 
-@interface TMOpenMessageViewController : UITableViewController <UITableViewDataSource>
+@interface TMOpenMessageViewController : MKGAITrackedTableViewController <UITableViewDataSource>
 
 @property (weak, nonatomic) id<TMOpenMessageViewControllerDelegate> delegate;
 @property (weak, nonatomic) TMMessage *message;

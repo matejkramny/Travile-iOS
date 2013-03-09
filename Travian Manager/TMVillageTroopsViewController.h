@@ -20,6 +20,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TMVillageTroopsViewController : UITableViewController
+@interface TMVillageTroopsViewController : MKGAITrackedTableViewController
 
 @end

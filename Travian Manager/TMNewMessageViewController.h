@@ -31,7 +31,7 @@
 
 @end
 
-@interface TMNewMessageViewController : UITableViewController <UIAlertViewDelegate, MBProgressHUDDelegate>
+@interface TMNewMessageViewController : MKGAITrackedTableViewController <UIAlertViewDelegate, MBProgressHUDDelegate>
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *sendButton;
 @property (weak, nonatomic) TMMessage *replyToMessage;

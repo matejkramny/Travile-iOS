@@ -19,9 +19,11 @@
  */
 
 #import <UIKit/UIKit.h>
+#import "GAI.h"
 
 #ifndef AppDelegate
-#define DEBUG_ANIMATION false
+	#define DEBUG_APP false
+	#define DEBUG_ANIMATION false
 #endif
 
 @class TMStorage;
@@ -31,6 +33,7 @@
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+@property (strong, nonatomic) id<GAITracker> tracker;
 
 @end
 

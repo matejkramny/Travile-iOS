@@ -51,6 +51,8 @@ static NSString *viewTitle = @"Settings";
 	settings = [TMStorage sharedStorage].settings;
 
 	[self.navigationItem setTitle:viewTitle];
+	
+	[super setTrackedViewName:viewTitle];
 }
 
 - (void)viewDidUnload
@@ -85,6 +87,8 @@ static NSString *viewTitle = @"Settings";
 		// Logout
 		[[TMStorage sharedStorage].account deactivateAccount];
 		[self.tabBarController setSelectedIndex:0];
+	} else if (indexPath.section == 1 && indexPath.row == 3) {
+		[tracker sendView:@"Credits"]; // Tell analytics we are viewing credits screen
 	} else if (indexPath.section == 2) {
 		TMAccount *a = [TMStorage sharedStorage].account;
 		NSString *url = [NSString stringWithFormat:@"%@.travian.%@/%@", a.world, a.server, [TMAccount resources]];

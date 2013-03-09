@@ -22,7 +22,7 @@
 #import "MBProgressHUD.h"
 #import "TMOpenMessageViewController.h"
 
-@interface TMMessagesViewController : UITableViewController <UIAlertViewDelegate, MBProgressHUDDelegate, TMOpenMessageViewControllerDelegate>
+@interface TMMessagesViewController : MKGAITrackedTableViewController <UIAlertViewDelegate, MBProgressHUDDelegate, TMOpenMessageViewControllerDelegate>
 
 - (void)reloadBadgeCount;
 

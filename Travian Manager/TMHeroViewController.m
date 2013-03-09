@@ -53,6 +53,8 @@ static NSString *viewTitle = @"Hero";
 	[[self tableView] setBackgroundView:nil];
 	
 	[self.navigationItem setTitle:viewTitle];
+	
+	[super setTrackedViewName:viewTitle];
 }
 
 - (void)viewDidUnload

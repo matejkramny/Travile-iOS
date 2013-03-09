@@ -36,6 +36,9 @@
 	UITapGestureRecognizer *tapGestureRecognizer;
 	MKModalOverlay *overlay;
 	bool firstAnimateButtons;
+	
+	// Analytics - waiting for loading interval
+	int startedLoadingUNIXTime;
 }
 
 - (void)logIn:(TMAccount *)a withPasword:(NSString *)password;
@@ -107,6 +110,8 @@
 	[overlay configureBoundsBottomToTop];
 	
 	firstAnimateButtons = true;
+	
+	[super setTrackedViewName:@"Accounts list"];
 }
 
 - (void)viewDidUnload
@@ -203,6 +208,9 @@
 }
 
 - (void)logIn:(TMAccount *)a withPasword:(NSString *)password {
+	// start counting...
+	startedLoadingUNIXTime = [[NSDate date] timeIntervalSince1970];
+	
 	// Check if we need to be prompted for password
 	
 	// Activate the account
@@ -302,6 +310,13 @@
 			// Cannot log in.
 			// Display Alert - Cancel - Retry with new password
 			
+			if ([storage.account password].length > 0)
+				[tracker sendEventWithCategory:@"failed_login" withAction:@"prompt password" withLabel:@"cannot login" withValue:[NSNumber numberWithInt:10]];
+			else {
+				// Nil password - user wants to enter his pwd for security
+				[tracker sendEventWithCategory:@"security" withAction:@"prompt" withLabel:@"enter password" withValue:[NSNumber numberWithInt:10]];
+			}
+			
 			[storage.account removeObserver:self forKeyPath:@"notificationPending"];
 			[storage.account removeObserver:self forKeyPath:@"progressIndicator"];
 			[storage.account removeObserver:self forKeyPath:@"status"];
@@ -314,6 +329,13 @@
 			[passwordRetryView setAlertViewStyle:UIAlertViewStyleSecureTextInput];
 			[passwordRetryView show];
 		} else if ((stat & ARefreshed) != 0) {
+			// Finished loading
+			
+			// Record this with Analytics (time it took)
+			int diff = [[NSDate date] timeIntervalSince1970] - startedLoadingUNIXTime;
+			startedLoadingUNIXTime = 0;
+			[tracker sendTimingWithCategory:@"resources" withValue:diff withName:@"login" withLabel:nil];
+			
 			[hud setLabelText:@"Done"];
 			[hud setDetailsLabelText:@""];
 			[hud removeGestureRecognizer:tapGestureRecognizer];

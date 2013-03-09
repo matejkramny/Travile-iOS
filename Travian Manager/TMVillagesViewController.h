@@ -20,6 +20,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TMVillagesViewController : UITableViewController
+@interface TMVillagesViewController : MKGAITrackedTableViewController
 
 @end

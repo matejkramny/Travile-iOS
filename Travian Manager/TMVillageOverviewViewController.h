@@ -20,7 +20,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TMVillageOverviewViewController : UITableViewController <UITableViewDataSource>
+@interface TMVillageOverviewViewController : MKGAITrackedTableViewController <UITableViewDataSource>
 
 - (IBAction)secondTimerFired:(id)sender;
 

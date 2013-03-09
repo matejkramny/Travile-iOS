@@ -22,7 +22,7 @@
 
 @class TMSettings;
 
-@interface TMSettingsViewController : UITableViewController
+@interface TMSettingsViewController : MKGAITrackedTableViewController
 
 @property (nonatomic, weak) TMSettings *settings;
 @property (nonatomic, weak) IBOutlet UISwitch *decimalResources;

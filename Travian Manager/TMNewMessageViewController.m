@@ -65,6 +65,8 @@ static NSString *contentCellIdentifier = @"ContentCell";
 	
 	storage = [TMStorage sharedStorage];
 	[self.tableView setBackgroundColor:[UIColor whiteColor]];
+	
+	[super setTrackedViewName:@"New Message"];
 }
 
 - (void)viewDidUnload

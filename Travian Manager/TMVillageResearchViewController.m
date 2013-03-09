@@ -51,6 +51,8 @@ static NSString *viewTitle = @"Research";
     [super viewDidLoad];
 	
 	[self.tableView setBackgroundView:nil];
+	
+	[super setTrackedViewName:viewTitle];
 }
 
 - (void)viewDidUnload

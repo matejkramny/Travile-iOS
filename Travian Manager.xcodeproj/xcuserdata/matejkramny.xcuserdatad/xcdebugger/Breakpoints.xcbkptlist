@@ -8,11 +8,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "Yes"
          filePath = "Travian Manager/AppDelegate.m"
-         timestampString = "384432778.1664"
+         timestampString = "384545900.905159"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "42"
-         endingLineNumber = "42"
+         startingLineNumber = "52"
+         endingLineNumber = "52"
          landmarkName = "-applicationWillResignActive:"
          landmarkType = "5">
          <Actions>
@@ -30,11 +30,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "Yes"
          filePath = "Travian Manager/AppDelegate.m"
-         timestampString = "384432842.949799"
+         timestampString = "384545900.905159"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "43"
-         endingLineNumber = "43"
+         startingLineNumber = "53"
+         endingLineNumber = "53"
          landmarkName = "-applicationWillResignActive:"
          landmarkType = "5">
          <Actions>
@@ -52,11 +52,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "Yes"
          filePath = "Travian Manager/AppDelegate.m"
-         timestampString = "384433019.5412"
+         timestampString = "384545900.905159"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "46"
-         endingLineNumber = "46"
+         startingLineNumber = "56"
+         endingLineNumber = "56"
          landmarkName = "-applicationWillEnterForeground:"
          landmarkType = "5">
          <Actions>
@@ -74,11 +74,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "Yes"
          filePath = "Travian Manager/AppDelegate.m"
-         timestampString = "384433167.095496"
+         timestampString = "384545900.905159"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "49"
-         endingLineNumber = "49"
+         startingLineNumber = "59"
+         endingLineNumber = "59"
          landmarkName = "-applicationWillEnterForeground:"
          landmarkType = "5">
          <Actions>
@@ -1177,11 +1177,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Travian Manager/TMVillageBuildingsViewController.m"
-         timestampString = "384462563.999083"
+         timestampString = "384547941.831772"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "212"
-         endingLineNumber = "212"
+         startingLineNumber = "214"
+         endingLineNumber = "214"
          landmarkName = "-accessoryButtonTapped:withEvent:"
          landmarkType = "5">
          <Actions>
@@ -1199,11 +1199,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "Yes"
          filePath = "Travian Manager/TMVillageBuildingsViewController.m"
-         timestampString = "384462563.999083"
+         timestampString = "384547941.831772"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "356"
-         endingLineNumber = "356"
+         startingLineNumber = "358"
+         endingLineNumber = "358"
          landmarkName = "-phvOpenBuildingViewController:didCloseBuilding:"
          landmarkType = "5">
          <Actions>
@@ -1219,13 +1219,13 @@
       <FileBreakpoint
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
-         continueAfterRunningActions = "No"
+         continueAfterRunningActions = "Yes"
          filePath = "Travian Manager/TMVillageBuildingsViewController.m"
-         timestampString = "384462563.999083"
+         timestampString = "384547941.831772"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "359"
-         endingLineNumber = "359"
+         startingLineNumber = "361"
+         endingLineNumber = "361"
          landmarkName = "-phvOpenBuildingViewController:didBuildBuilding:"
          landmarkType = "5">
          <Actions>
@@ -1243,11 +1243,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Travian Manager/TMAccountsViewController.m"
-         timestampString = "384520190.261585"
+         timestampString = "384551256.222595"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "393"
-         endingLineNumber = "393"
+         startingLineNumber = "415"
+         endingLineNumber = "415"
          landmarkName = "-prepareForSegue:sender:"
          landmarkType = "5">
       </FileBreakpoint>

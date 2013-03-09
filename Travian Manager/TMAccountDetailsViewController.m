@@ -52,6 +52,8 @@
 		[[self navigationItem] setTitle:@"Edit account"];
 	}
 	
+	[super setTrackedViewName:@"Account view"];
+	
 	[[self tableView] setBackgroundView:nil];
 	
 	[super viewDidLoad];

@@ -1,3 +1,6 @@
 [submodule "Travian Manager/MKModalOverlay"]
 	path = Travian Manager/MKModalOverlay
 	url = git@github.com:matejkramny/MKModalOverlay.git
+[submodule "Travian Manager/MKGAITrackedTableViewController"]
+	path = Travian Manager/MKGAITrackedTableViewController
+	url = git@github.com:matejkramny/MKGAITrackedTableViewController.git
