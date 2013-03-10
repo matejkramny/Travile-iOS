@@ -160,10 +160,7 @@ static NSString *title = @"Villages";
     [[storage account] setVillage:[[storage account].villages objectAtIndex:indexPath.row]];
 	selectedVillageIndexPath = indexPath;
 	
-	if (!DEBUG_ANIMATION)
-		[self performSegueWithIdentifier:@"OpenVillage" sender:self];
-	else
-		[NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(viewWillAppear:) userInfo:nil repeats:NO]; // to debug animations..
+	[self performSegueWithIdentifier:@"OpenVillage" sender:self];
 	
 	[overlay addOverlayAnimated:TRUE];
 }

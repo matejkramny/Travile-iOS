@@ -25,11 +25,14 @@
 #import "TMAccount.h"
 #import "TMMovement.h"
 #import "TMConstruction.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface TMVillageOverviewViewController () {
 	TMStorage *storage;
 	TMVillage *village;
 	NSTimer *secondTimer;
+	UISegmentedControl *navControl;
+	UIBarButtonItem *navButton;
 }
 
 - (void)reloadBadgeCount;
@@ -82,6 +85,8 @@ static NSString *viewTitle = @"Overview";
 	
 	[self.navigationItem setTitle:village.name];
 	
+	[self updateNavigationButtons];
+	
 	[super viewWillAppear:animated];
 }
 
@@ -120,6 +125,78 @@ static NSString *viewTitle = @"Overview";
 		[[self tabBarItem] setBadgeValue:[NSString stringWithFormat:@"%d", badgeCount]];
 	else
 		[[self tabBarItem] setBadgeValue:NULL];
+}
+
+- (void)updateNavigationButtons {
+	if (!navControl) {
+		navControl = [[UISegmentedControl alloc] initWithItems:@[@" \U000025B2 ", @" \U000025BC "]];
+		[navControl setSegmentedControlStyle:UISegmentedControlStyleBar];
+		[navControl setMomentary:YES];
+		
+		[navControl addTarget:self action:@selector(didPressNavControl:) forControlEvents:UIControlEventValueChanged];
+		
+		navButton = [[UIBarButtonItem alloc] initWithCustomView:navControl];
+	}
+	
+	if ([storage.account.villages count] > 1) {
+		// get index of current villages
+		int index = [storage.account.villages indexOfObjectIdenticalTo:village];
+		if (index == 0)
+			[navControl setEnabled:NO forSegmentAtIndex:0];
+		else if (index == [storage.account.villages count]-1)
+			[navControl setEnabled:NO forSegmentAtIndex:1];
+		else {
+			[navControl setEnabled:YES forSegmentAtIndex:0];
+			[navControl setEnabled:YES forSegmentAtIndex:1];
+		}
+	} else {
+		[navControl setEnabled:NO forSegmentAtIndex:0];
+		[navControl setEnabled:NO forSegmentAtIndex:1];
+	}
+	
+	[self.navigationItem setRightBarButtonItem:navButton animated:NO];
+}
+
+- (void)didPressNavControl:(id)sender {
+	static const CGFloat animationSpeed = DEBUG_ANIMATION ? 2 : 0.5;
+	
+	int index = [navControl selectedSegmentIndex];
+	int villageIndex = [storage.account.villages indexOfObjectIdenticalTo:village];
+	
+	// Animates the tableview reload
+	CATransition *transition = [CATransition animation];
+	[transition setType:kCATransitionPush];
+	[transition setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
+	[transition setFillMode:kCAFillModeForwards];
+	[transition setDuration:animationSpeed];
+	
+	if (index == 0) {
+		// up
+		villageIndex--;
+		// transition move from bottom
+		[transition setSubtype:kCATransitionFromBottom];
+	} else {
+		// down
+		villageIndex++;
+		// transition move from top
+		[transition setSubtype:kCATransitionFromTop];
+	}
+	
+	if (villageIndex < 0 || villageIndex > storage.account.villages.count-1) {
+		// array out of bounds prevention
+		[self updateNavigationButtons];
+		return;
+	}
+	
+	village = [storage.account.villages objectAtIndex:villageIndex];
+	[storage.account setVillage:village];
+	
+	[self.tableView reloadData];
+	[[self.tableView layer] addAnimation:transition forKey:@"UITableViewReloadDataAnimationKey"];
+	
+	[self reloadBadgeCount];
+	[self.navigationItem setTitle:village.name];
+	[self updateNavigationButtons];
 }
 
 #pragma mark - Table view data source
@@ -243,7 +320,7 @@ static NSString *viewTitle = @"Overview";
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
 	switch (section) {
 		case 0:
-			return NSLocalizedString(@"Village", @"");
+			return [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Village", @""), village.name];
 		case 1:
 			return NSLocalizedString(@"Movements", @"");
 		case 2:

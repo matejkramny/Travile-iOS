@@ -1177,11 +1177,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Travian Manager/TMVillageBuildingsViewController.m"
-         timestampString = "384547941.831772"
+         timestampString = "384642618.304089"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "214"
-         endingLineNumber = "214"
+         startingLineNumber = "216"
+         endingLineNumber = "216"
          landmarkName = "-accessoryButtonTapped:withEvent:"
          landmarkType = "5">
          <Actions>
@@ -1199,11 +1199,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "Yes"
          filePath = "Travian Manager/TMVillageBuildingsViewController.m"
-         timestampString = "384547941.831772"
+         timestampString = "384642618.304089"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "358"
-         endingLineNumber = "358"
+         startingLineNumber = "360"
+         endingLineNumber = "360"
          landmarkName = "-phvOpenBuildingViewController:didCloseBuilding:"
          landmarkType = "5">
          <Actions>
@@ -1221,11 +1221,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "Yes"
          filePath = "Travian Manager/TMVillageBuildingsViewController.m"
-         timestampString = "384547941.831772"
+         timestampString = "384642618.304089"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "361"
-         endingLineNumber = "361"
+         startingLineNumber = "363"
+         endingLineNumber = "363"
          landmarkName = "-phvOpenBuildingViewController:didBuildBuilding:"
          landmarkType = "5">
          <Actions>

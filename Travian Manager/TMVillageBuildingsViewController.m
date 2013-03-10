@@ -28,6 +28,7 @@
 
 @interface TMVillageBuildingsViewController () {
 	TMAccount *account;
+	TMVillage *village;
 	NSArray *selectedBuildings;
 	NSArray *otherBuildings;
 	MBProgressHUD *HUD;
@@ -65,6 +66,7 @@ static NSString *viewTitle = @"Buildings";
     [super viewDidLoad];
 	
 	account = [[TMStorage sharedStorage] account];
+	village = account.village;
 	
 	[self loadBuildingsToSections];
 	
@@ -84,7 +86,7 @@ static NSString *viewTitle = @"Buildings";
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	
-	if (sections == nil || last_update == 0 || account.last_updated < last_update) {
+	if (sections == nil || last_update == 0 || account.last_updated < last_update || village != account.village) {
 		[self loadBuildingsToSections];
 		[self.tableView reloadData];
 	}
@@ -92,7 +94,7 @@ static NSString *viewTitle = @"Buildings";
 
 - (void)loadBuildingsToSections {
 	sectionsWithCells = [[NSMutableArray alloc] init]; // Forces reallocation
-	NSArray *buildings = [[account village] buildings];
+	NSArray *buildings = [village buildings];
 	NSMutableDictionary *sec1 = [[NSMutableDictionary alloc] init];
 	NSMutableDictionary *sec2 = [[NSMutableDictionary alloc] init];
 	NSMutableArray *sec3 = [[NSMutableArray alloc] init]; // secX = sectionX
