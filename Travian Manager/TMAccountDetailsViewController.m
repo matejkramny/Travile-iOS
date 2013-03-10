@@ -26,14 +26,21 @@
 #import "TMStorage.h"
 
 @interface TMAccountDetailsViewController () {
-	UITableViewCell __weak *usernameCell, __weak *passwordCell, __weak *nameCell, __weak *serverCell, __weak *worldCell; // Text Cells
+	TMAccountTextFieldCell __weak *usernameCell, __weak *passwordCell, __weak *nameCell;
+	TMAccountTextFieldRightCell __weak *serverCell, __weak *worldCell; // Text Cells
 }
+
+- (void)nameFieldDidChange:(id)sender;
 
 @end
 
 @implementation TMAccountDetailsViewController
 
 @synthesize delegate, editingAccount;
+
+static NSString *addAccount = @"Add Account";
+static NSString *editAccount = @"Edit Account";
+static NSString *trackedViewName = @"Account view";
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -49,14 +56,22 @@
 	if (self.editingAccount != nil)
 	{
 		// Editing mode
-		[[self navigationItem] setTitle:@"Edit account"];
+		[[self navigationItem] setTitle:self.editingAccount.name];
 	}
-	
-	[super setTrackedViewName:@"Account view"];
 	
 	[[self tableView] setBackgroundView:nil];
 	
 	[super viewDidLoad];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+	[[(AppDelegate *)[UIApplication sharedApplication].delegate tracker] sendView:trackedViewName];
+	
+	[super viewWillAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+	[super viewWillDisappear:animated];
 }
 
 - (void)viewDidUnload
@@ -106,6 +121,8 @@ static NSString *deleteButtonCellID = @"DeleteButton";
 			
 			[cell.textField setAutocapitalizationType:UITextAutocapitalizationTypeSentences];
 			[cell.textField setAutocorrectionType:UITextAutocorrectionTypeYes];
+			
+			[cell.textField addTarget:self action:@selector(nameFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
 		}
 		
 		return nameCell;
@@ -292,6 +309,22 @@ static NSString *deleteButtonCellID = @"DeleteButton";
 		default:
 			return @"";
 	}
+}
+
+#pragma mark - nameFieldDidChange:
+
+- (void)nameFieldDidChange:(id)sender {
+	NSString *title = nameCell.textField.text;
+	
+	if ([title length] == 0) {
+		// Restore default title
+		if (editingAccount)
+			title = editAccount;
+		else
+			title = addAccount;
+	}
+	
+	[self.navigationItem setTitle:title];
 }
 
 @end

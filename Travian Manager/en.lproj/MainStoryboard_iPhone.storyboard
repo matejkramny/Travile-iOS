@@ -1933,7 +1933,7 @@ matejkramny@gmail.com</string>
         <class className="MKGAITrackedTableViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MKGAITrackedTableViewController.h"/>
         </class>
-        <class className="TMAccountDetailsViewController" superclassName="MKGAITrackedTableViewController">
+        <class className="TMAccountDetailsViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/TMAccountDetailsViewController.h"/>
             <relationships>
                 <relationship kind="action" name="cancel:"/>

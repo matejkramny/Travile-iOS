@@ -906,8 +906,8 @@
 			buildPhases = (
 				4F095204155C767700C15D6E /* Sources */,
 				4F095205155C767700C15D6E /* Frameworks */,
+				4F1664C316EC14B60018AE65 /* Increment Build Number and Update Build Date */,
 				4F095206155C767700C15D6E /* Resources */,
-				50524F424C454D533F /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1076,18 +1076,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		50524F424C454D533F /* ShellScript */ = {
+		4F1664C316EC14B60018AE65 /* Increment Build Number and Update Build Date */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 8;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "Increment Build Number and Update Build Date";
 			outputPaths = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
+			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
-			shellScript = "export CODESIGN_ALLOCATE=/Library/JailCoder/codesign_allocate\nif [ \"${PLATFORM_NAME}\" == \"iphoneos\" ]; then\n/Library/JailCoder/Entitlements/Entitlements.py \"my.company.${PROJECT_NAME}\" \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/${PROJECT_NAME}.xcent\";\ncodesign -f -s \"iPhone Developer\" --entitlements \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/${PROJECT_NAME}.xcent\" \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/\"\nfi";
+			shellScript = "#!/bin/bash\n\nbuildPlist=\"${PROJECT_DIR}/${INFOPLIST_FILE}\"\n\n# Get the existing buildVersion and buildNumber values from the buildPlist\nversionString=$(/usr/libexec/PlistBuddy -c \"Print CFBundleShortVersionString\" \"${buildPlist}\")\nbuildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"${buildPlist}\")\nbuildDate=$(date \"+%Y%m%d.%H%M%S\")\n\n# Increment the buildNumber\nbuildNumber=$(($buildNumber + 1))\n\n# Set the version numbers in the buildPlist\n/usr/libexec/PlistBuddy -c \"Set :CFBuildDate $buildDate\" \"${buildPlist}\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${buildPlist}\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleLongVersionString $versionString.$buildDate\" \"${buildPlist}\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 

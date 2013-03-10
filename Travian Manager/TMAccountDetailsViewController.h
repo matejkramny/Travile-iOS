@@ -30,7 +30,7 @@
 - (void)accountDetailsViewController:(TMAccountDetailsViewController *)controller didDeleteAccount:(TMAccount *)account;
 @end
 
-@interface TMAccountDetailsViewController : MKGAITrackedTableViewController <UIActionSheetDelegate>
+@interface TMAccountDetailsViewController : UITableViewController <UIActionSheetDelegate>
 
 @property (nonatomic, weak) id <TMAccountDetailsViewControllerDelegate> delegate;
 @property (nonatomic, weak) TMAccount *editingAccount;

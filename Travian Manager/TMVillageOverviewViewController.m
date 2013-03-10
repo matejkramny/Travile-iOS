@@ -80,6 +80,8 @@ static NSString *viewTitle = @"Overview";
 	[[self tableView] reloadData];
 	[self reloadBadgeCount];
 	
+	[self.navigationItem setTitle:village.name];
+	
 	[super viewWillAppear:animated];
 }
 
