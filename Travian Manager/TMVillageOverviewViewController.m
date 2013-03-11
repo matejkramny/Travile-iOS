@@ -40,6 +40,36 @@
 
 @end
 
+@interface TMVillageOverviewViewController (Notifications)
+
+// Future of notifications.. get asked, indicate if this is getting notified
+- (void)scheduleConstruction:(TMConstruction *)construction;
+- (void)scheduleConstruction:(TMConstruction *)construction confirmed:(BOOL)confirmed;
+- (void)scheduleMovement:(TMMovement *)movement;
+- (void)scheduleMovement:(TMMovement *)movement confirmed:(BOOL)confirmed;
+
+@end
+
+@implementation TMVillageOverviewViewController (Notifications)
+
+- (void)scheduleConstruction:(TMConstruction *)construction {
+	[self scheduleConstruction:construction confirmed:NO];
+}
+
+- (void)scheduleConstruction:(TMConstruction *)construction confirmed:(BOOL)confirmed {
+	
+}
+
+- (void)scheduleMovement:(TMMovement *)movement {
+	[self scheduleMovement:movement confirmed:NO];
+}
+
+- (void)scheduleMovement:(TMMovement *)movement confirmed:(BOOL)confirmed {
+	
+}
+
+@end
+
 @implementation TMVillageOverviewViewController
 
 static NSString *viewTitle = @"Overview";
@@ -129,7 +159,7 @@ static NSString *viewTitle = @"Overview";
 
 - (void)updateNavigationButtons {
 	if (!navControl) {
-		navControl = [[UISegmentedControl alloc] initWithItems:@[@" \U000025B2 ", @" \U000025BC "]];
+		navControl = [[UISegmentedControl alloc] initWithItems:@[@" \U000025B2 ", @" \U000025BC "]]; // ASCII codes for arrow up and down
 		[navControl setSegmentedControlStyle:UISegmentedControlStyleBar];
 		[navControl setMomentary:YES];
 		
@@ -253,10 +283,14 @@ static NSString *viewTitle = @"Overview";
 			return [NSString stringWithFormat:@"%@ %@", secondsString, NSLocalizedString(@"sec", @"Timers suffix (seconds remaining)")];
 	};
 	
+	static NSString *rightDetailCellIdentifier = @"RightDetail";
+	static NSString *rightDetailSelectableCellIdentifier = @"RightDetailSelectable";
+	static NSString *basicCellIdentifier = @"Basic";
+	__unused static NSString *basicSelectableCellIdentifier = @"BasicSelectable";
+	
     if (indexPath.section == 0) {
 		// Population & Loyalty
-		NSString *cellIdentifier = @"RightDetail";
-		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:rightDetailCellIdentifier];
 		
 		if (indexPath.row == 0)
 		{
@@ -273,7 +307,7 @@ static NSString *viewTitle = @"Overview";
 		// Movements
 		if ([village.movements count] == 0)
 		{
-			UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Basic"];
+			UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:basicCellIdentifier];
 			
 			cell.textLabel.text = NSLocalizedString(@"No Movements", @"");
 			
@@ -281,7 +315,7 @@ static NSString *viewTitle = @"Overview";
 		}
 		else
 		{
-			UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RightDetail"];
+			UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:rightDetailSelectableCellIdentifier];
 			
 			TMMovement *movement = [village.movements objectAtIndex:indexPath.row];
 			
@@ -293,12 +327,12 @@ static NSString *viewTitle = @"Overview";
 	} else if (indexPath.section == 2) {
 		// Constructions
 		if ([village.constructions count] == 0) {
-			// No movements
-			UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Basic"];
+			// No constructions
+			UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:basicCellIdentifier];
 			cell.textLabel.text = NSLocalizedString(@"No Constructions", @"");
 			return cell;
 		} else {
-			UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RightDetail"];
+			UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:rightDetailSelectableCellIdentifier];
 			
 			TMConstruction *construction = [village.constructions objectAtIndex:indexPath.row];
 			
@@ -332,8 +366,45 @@ static NSString *viewTitle = @"Overview";
 
 #pragma mark - Table view delegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	if (indexPath.section == 1) {
+		// Movements
+		if ([village.movements count] > 0) {
+			// Select row
+			TMMovement *movement = [village.movements objectAtIndex:indexPath.row];
+			
+			UILocalNotification *notification = [[UILocalNotification alloc] init];
+			if (DEBUG_APP) {
+				NSDate *finish = [NSDate dateWithTimeIntervalSinceNow:10];
+				[notification setFireDate:finish];
+			} else
+				[notification setFireDate:movement.finished];
+			[notification setAlertAction:[NSString stringWithFormat:@"open village %@", village.name]];
+			[notification setAlertBody:[NSString stringWithFormat:@"%@ happened on village %@ from account %@", movement.name, village.name, storage.account.name]];
+			
+			[[UIApplication sharedApplication] scheduleLocalNotification:notification];
+		} else {
+			[tableView deselectRowAtIndexPath:indexPath animated:YES];
+			return;
+		}
+	} else if (indexPath.section == 2) {
+		// Construction
+		if ([village.constructions count] > 0) {
+			TMConstruction *construction = [village.constructions objectAtIndex:indexPath.row];
+			
+			UILocalNotification *notification = [[UILocalNotification alloc] init];
+			if (DEBUG_APP) {
+				NSDate *finish = [NSDate dateWithTimeIntervalSinceNow:10];
+				[notification setFireDate:finish];
+			} else {
+				[notification setFireDate:construction.finishTime];
+			}
+			[notification setAlertAction:[NSString stringWithFormat:@"open village %@", village.name]];
+			[notification setAlertBody:[NSString stringWithFormat:@"%@ constructed on village %@ from account %@", construction.name, village.name, storage.account.name]];
+			
+			[[UIApplication sharedApplication] scheduleLocalNotification:notification];
+		}
+	}
 }
 
 #pragma mark - Back button
