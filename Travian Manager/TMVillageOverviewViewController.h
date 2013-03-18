@@ -19,8 +19,9 @@
  */
 
 #import <UIKit/UIKit.h>
+#import "UITabBarBadgeCountProtocol.h"
 
-@interface TMVillageOverviewViewController : MKGAITrackedTableViewController <UITableViewDataSource>
+@interface TMVillageOverviewViewController : MKGAITrackedTableViewController <UITableViewDataSource, UITabBarBadgeCountProtocol>
 
 - (IBAction)secondTimerFired:(id)sender;
 

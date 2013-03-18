@@ -48,7 +48,6 @@ static NSString *viewTitle = @"Settings";
     [super viewDidLoad];
 	
 	[[self tableView] setBackgroundView:nil];
-	settings = [TMStorage sharedStorage].settings;
 
 	[self.navigationItem setTitle:viewTitle];
 	
@@ -63,6 +62,7 @@ static NSString *viewTitle = @"Settings";
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	
+	settings = [TMStorage sharedStorage].account.settings;
 	[decimalResources setOn:settings.showsDecimalResources];
 	[warehouseIndicator setOn:settings.showsResourceProgress];
 }

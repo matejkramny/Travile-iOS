@@ -19,8 +19,9 @@
  */
 
 #import <UIKit/UIKit.h>
+#import "UITabBarBadgeCountProtocol.h"
 
-@interface TMVillageResourcesViewController : MKGAITrackedTableViewController
+@interface TMVillageResourcesViewController : MKGAITrackedTableViewController <UITabBarBadgeCountProtocol>
 
 @property (weak, nonatomic) IBOutlet UILabel *wood;
 @property (weak, nonatomic) IBOutlet UILabel *clay;

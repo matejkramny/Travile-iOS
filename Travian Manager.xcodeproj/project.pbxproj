@@ -283,6 +283,7 @@
 		4F15443215D4863200EA58EC /* BackButtonLandscape@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BackButtonLandscape@2x.png"; sourceTree = "<group>"; };
 		4F15443315D4863200EA58EC /* ButtonStyleNormalLandscape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonStyleNormalLandscape.png; sourceTree = "<group>"; };
 		4F15443415D4863200EA58EC /* ButtonStyleNormalLandscape@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ButtonStyleNormalLandscape@2x.png"; sourceTree = "<group>"; };
+		4F15CEB916F4D59F00AA488A /* UITabBarBadgeCountProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UITabBarBadgeCountProtocol.h; sourceTree = "<group>"; };
 		4F2440BE1645C31100EEBC93 /* TMStable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMStable.h; sourceTree = "<group>"; };
 		4F2440BF1645C31100EEBC93 /* TMStable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMStable.m; sourceTree = "<group>"; };
 		4F2440C11645C71B00EEBC93 /* TMWorkshop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMWorkshop.h; sourceTree = "<group>"; };
@@ -558,6 +559,7 @@
 				4FC6F11915BC39B6006F583D /* HUD */,
 				4F095239155C7C6300C15D6E /* HTMLParser */,
 				4F2DEA9A16EBB07C00B4324C /* Google Analytics */,
+				4F15CEB916F4D59F00AA488A /* UITabBarBadgeCountProtocol.h */,
 				4F095213155C767800C15D6E /* Supporting Files */,
 			);
 			path = "Travian Manager";

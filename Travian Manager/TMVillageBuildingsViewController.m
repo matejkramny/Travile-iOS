@@ -375,4 +375,10 @@ static NSString *viewTitle = @"Buildings";
 	[HUD addGestureRecognizer:tapToHide];
 }
 
+#pragma mark - UITabBarBadgeCountDelegate
+
+- (void)reloadBadgeCount {
+	// TODO
+}
+
 @end

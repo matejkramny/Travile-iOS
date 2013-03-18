@@ -20,10 +20,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TMAccountTextFieldCell : UITableViewCell <UITextFieldDelegate>
+@interface TMAccountTextFieldCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UITextField *textField;
 
-- (void)configure;
+- (void)configure:(id<UITextFieldDelegate>) delegate;
 
 @end

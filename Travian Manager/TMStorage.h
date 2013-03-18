@@ -32,7 +32,6 @@
 @property (nonatomic, weak) AppDelegate *delegate;
 @property (nonatomic, strong) NSArray *accounts; // List of accounts
 @property (nonatomic, weak) TMAccount *account; // Active account
-@property (nonatomic, strong) TMSettings *settings;
 // game settings?
 
 - (BOOL)saveData;

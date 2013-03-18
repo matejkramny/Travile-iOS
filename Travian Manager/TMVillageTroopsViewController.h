@@ -19,7 +19,8 @@
  */
 
 #import <UIKit/UIKit.h>
+#import "UITabBarBadgeCountProtocol.h"
 
-@interface TMVillageTroopsViewController : MKGAITrackedTableViewController
+@interface TMVillageTroopsViewController : MKGAITrackedTableViewController <UITabBarBadgeCountProtocol>
 
 @end

@@ -20,6 +20,10 @@
 
 #import "AppDelegate.h"
 #import "TMStorage.h"
+#import "TMAccount.h"
+#import "TMVillage.h"
+#import <QuartzCore/QuartzCore.h>
+#import "UITabBarBadgeCountProtocol.h"
 
 static NSString *trackingId = @"UA-39166000-1";
 
@@ -29,6 +33,7 @@ static NSString *trackingId = @"UA-39166000-1";
 
 @synthesize window = _window;
 @synthesize tracker;
+@synthesize storage;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -65,6 +70,112 @@ static NSString *trackingId = @"UA-39166000-1";
 }
 - (void)applicationDidBecomeActive:(UIApplication *)application {}
 - (void)applicationWillTerminate:(UIApplication *)application {}
+
+static UISegmentedControl *navigationControl;
+static UIBarButtonItem *navigationButton;
++ (void)addVillageNavigationButtonsToNavigationItem:(UINavigationItem *)navigationItem {
+	if (!navigationControl) {
+		navigationControl = [[UISegmentedControl alloc] initWithItems:@[@" \U000025B2 ", @" \U000025BC "]]; // ASCII codes for arrow up and down
+		[navigationControl setSegmentedControlStyle:UISegmentedControlStyleBar];
+		[navigationControl setMomentary:YES];
+		
+		[navigationControl addTarget:self action:@selector(navigationControlTouched:) forControlEvents:UIControlEventValueChanged];
+		
+		navigationButton = [[UIBarButtonItem alloc] initWithCustomView:navigationControl];
+	}
+	
+	[self setNavigationControlButtons];
+		
+	[navigationItem setRightBarButtonItem:navigationButton];
+}
+
++ (void)setNavigationControlButtons {
+	TMStorage *storage = [TMStorage sharedStorage];
+	
+	if ([storage.account.villages count] > 1) {
+		// get index of current villages
+		int index = [storage.account.villages indexOfObjectIdenticalTo:storage.account.village];
+		
+		[navigationControl setEnabled:YES forSegmentAtIndex:0];
+		[navigationControl setEnabled:YES forSegmentAtIndex:1];
+		
+		if (index == 0) {
+			[navigationControl setEnabled:NO forSegmentAtIndex:0];
+		} else if (index == [storage.account.villages count]-1) {
+			[navigationControl setEnabled:NO forSegmentAtIndex:1];
+		}
+	} else {
+		[navigationControl setEnabled:NO forSegmentAtIndex:0];
+		[navigationControl setEnabled:NO forSegmentAtIndex:1];
+	}
+}
+
++ (void)navigationControlTouched:(id)sender {
+	TMStorage *storage = [TMStorage sharedStorage];
+	
+	int index = [navigationControl selectedSegmentIndex];
+	int villageIndex = [storage.account.villages indexOfObjectIdenticalTo:storage.account.village];
+	
+	if (index == 0) {
+		// up
+		villageIndex--;
+	} else {
+		// down
+		villageIndex++;
+	}
+	
+	if (villageIndex < 0 || villageIndex > storage.account.villages.count-1) {
+		// array out of bounds prevention
+		return;
+	}
+	
+	[storage.account setVillage:[storage.account.villages objectAtIndex:villageIndex]];
+	
+	[self setNavigationControlButtons];
+}
+
++ (void)tableViewController:(UITableViewController<UITabBarBadgeCountProtocol> *)tableViewController wantsToAnimateTableChange:(int)changeType {
+	static const CGFloat animationSpeed = DEBUG_ANIMATION ? 2 : 0.5;
+	TMStorage *storage = [TMStorage sharedStorage];
+	
+	int index = [navigationControl selectedSegmentIndex];
+	int villageIndex = [storage.account.villages indexOfObjectIdenticalTo:storage.account.village];
+	
+	// Animates the tableview reload
+	CATransition *transition = [CATransition animation];
+	[transition setType:kCATransitionPush];
+	[transition setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
+	[transition setFillMode:kCAFillModeForwards];
+	[transition setDuration:animationSpeed];
+	
+	if (index == 0) {
+		// up
+		villageIndex--;
+		// transition move from bottom
+		[transition setSubtype:kCATransitionFromBottom];
+	} else {
+		// down
+		villageIndex++;
+		// transition move from top
+		[transition setSubtype:kCATransitionFromTop];
+	}
+	
+	if (villageIndex < 0 || villageIndex > storage.account.villages.count-1) {
+		// array out of bounds prevention
+		//[self updateNavigationButtons];
+		return;
+	}
+	
+	[storage.account setVillage:[storage.account.villages objectAtIndex:villageIndex]];
+	
+	[tableViewController.tableView reloadData];
+	[[tableViewController.tableView layer] addAnimation:transition forKey:@"UITableViewReloadDataAnimationKey"];
+	
+	//[self reloadBadgeCount]; // if is badge compilant
+	[tableViewController reloadBadgeCount];
+	[tableViewController.navigationItem setTitle:storage.account.village.name];
+	//[self updateNavigationButtons];
+}
 
 @end
 

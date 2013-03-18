@@ -20,7 +20,8 @@
 
 #import <UIKit/UIKit.h>
 #import "TMVillageOpenBuildingViewController.h"
+#import "UITabBarBadgeCountProtocol.h"
 
-@interface TMVillageBuildingsViewController : MKGAITrackedTableViewController <UITableViewDataSource, TMVillageOpenBuildingDelegate>
+@interface TMVillageBuildingsViewController : MKGAITrackedTableViewController <UITableViewDataSource, TMVillageOpenBuildingDelegate, UITabBarBadgeCountProtocol>
 
 @end

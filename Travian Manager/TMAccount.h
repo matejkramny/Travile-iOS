@@ -44,9 +44,12 @@ typedef enum {
 
 @class TMHero;
 @class TMVillage;
+@class TMSettings;
 //@class Profile;
 
 @interface TMAccount : NSObject <NSCoding, TMPageParsingProtocol, NSURLConnectionDelegate, NSURLConnectionDataDelegate>
+
+@property (nonatomic, strong) TMSettings *settings;
 
 @property (nonatomic, strong) NSString *name; // User's account name
 @property (nonatomic, strong) NSString *username; // Login - username
@@ -66,7 +69,7 @@ typedef enum {
 @property (assign) bool notificationPending; // There is a notification. Notify user to either skipNotification or view it in safari.
 @property (nonatomic, strong) NSString *progressIndicator; // Label on HUD
 
-@property (assign) long last_updated;// UNIX timestamp tells when last refreshed..
+@property (assign) long last_updated; // UNIX timestamp tells when last refreshed..
 
 - (void)activateAccount;
 - (void)activateAccountWithPassword:(NSString *)passwd;

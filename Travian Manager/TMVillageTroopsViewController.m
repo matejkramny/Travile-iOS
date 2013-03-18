@@ -123,4 +123,10 @@ static NSString *NoTroopsCellID = @"NoTroops";
 	}
 }
 
+#pragma mark - UITabBarBadgeCountDelegate
+
+- (void)reloadBadgeCount {
+	// TODO
+}
+
 @end

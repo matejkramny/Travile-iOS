@@ -114,7 +114,7 @@ static NSString *viewTitle = @"Messages";
 	[overlay configureBoundsBottomToTop];
 	inModal = false;
 	
-	[super setTrackedViewName:viewTitle];
+	[storage.delegate.tracker sendView:viewTitle];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

@@ -83,8 +83,7 @@ static NSString *viewTitle = @"Overview";
     return self;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
 	storage = [TMStorage sharedStorage];
 	village = [[storage account] village];
 	
@@ -100,11 +99,15 @@ static NSString *viewTitle = @"Overview";
 	
 	[super setTrackedViewName:viewTitle];
 	
+	// Watch for village changes..
+	[[storage account] addObserver:self forKeyPath:@"village" options:NSKeyValueObservingOptionNew context:nil];
+	[AppDelegate addVillageNavigationButtonsToNavigationItem:self.navigationItem];
+	
 	[super viewDidLoad];
 }
 
 - (void)viewDidUnload
-{	
+{
     [super viewDidUnload];
 }
 
@@ -115,7 +118,7 @@ static NSString *viewTitle = @"Overview";
 	
 	[self.navigationItem setTitle:village.name];
 	
-	[self updateNavigationButtons];
+	//[self updateNavigationButtons];
 	
 	[super viewWillAppear:animated];
 }
@@ -123,6 +126,8 @@ static NSString *viewTitle = @"Overview";
 - (void)viewWillDisappear:(BOOL)animated {
 	if (secondTimer)
 		[secondTimer invalidate];
+	
+	//[[storage account] removeObserver:self forKeyPath:@"village" context:nil];
 	
 	[super viewWillDisappear:animated];
 }
@@ -132,6 +137,8 @@ static NSString *viewTitle = @"Overview";
 	
 	[[storage account] refreshAccountWithMap:ARVillage];
 }
+
+#pragma mark - KVO
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 	if ([keyPath isEqualToString:@"status"]) {
@@ -143,8 +150,14 @@ static NSString *viewTitle = @"Overview";
 			[[self tableView] reloadData];
 			[self reloadBadgeCount];
 		}
+	} else if (object == storage.account && [keyPath isEqualToString:@"village"]) {
+		village = [[storage account] village];
+		[self reloadBadgeCount];
+		[self.tableView reloadData];
 	}
 }
+
+#pragma mark - UITabBarBadgeCountDelegate
 
 - (void)reloadBadgeCount {
 	int badgeCount = 0;
@@ -156,6 +169,8 @@ static NSString *viewTitle = @"Overview";
 	else
 		[[self tabBarItem] setBadgeValue:NULL];
 }
+
+#pragma mark -
 
 - (void)updateNavigationButtons {
 	if (!navControl) {
@@ -405,6 +420,8 @@ static NSString *viewTitle = @"Overview";
 			[[UIApplication sharedApplication] scheduleLocalNotification:notification];
 		}
 	}
+	
+	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 #pragma mark - Back button
