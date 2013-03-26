@@ -24,7 +24,7 @@
 
 @implementation TMStorage
 
-@synthesize accounts, account, settings;
+@synthesize accounts, account;
 
 // Singleton
 + (TMStorage *)sharedStorage {
@@ -41,7 +41,6 @@
 
 - (id)init {
 	static NSString *accountsPath = @"Accounts.plist";
-	static NSString *settingsPath = @"Settings.plist";
 	
 	self = [super init];
 	
@@ -51,7 +50,6 @@
 		NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 		NSString *documentsDirectory = [paths objectAtIndex:0];
 		savePath = [documentsDirectory stringByAppendingPathComponent:accountsPath];
-		settingsSavePath = [documentsDirectory stringByAppendingPathComponent:settingsPath];
 		
 		[self loadData];
 	}
@@ -65,13 +63,10 @@
 	
 	// Data
 	NSData *data = [NSKeyedArchiver archivedDataWithRootObject:accounts];
-	NSData *settingsData = [NSKeyedArchiver archivedDataWithRootObject:settings];
 	
 	// Write the data
 	NSError *error;
-	NSError *errorSettings;
-	if ([data writeToFile:savePath options:NSDataWritingAtomic error:&error] &&
-		[settingsData writeToFile:settingsSavePath options:NSDataWritingAtomic error:&errorSettings]) {
+	if ([data writeToFile:savePath options:NSDataWritingAtomic error:&error]) {
 		return true;
 	} else {
 		
@@ -81,7 +76,6 @@
 
 - (BOOL)loadData {
 	NSData *data = [NSData dataWithContentsOfFile:savePath];
-	NSData *settingsData = [NSData dataWithContentsOfFile:settingsSavePath];
 	
 	bool result = false;
 	
@@ -92,14 +86,6 @@
 		result = true;
 	
 	account = nil;
-	
-	settings = [NSKeyedUnarchiver unarchiveObjectWithData:settingsData];
-	if (settings == nil) {
-		settings = [[TMSettings alloc] init];
-		result = false;
-	} else {
-		result = true;
-	}
 	
 	return result;
 }

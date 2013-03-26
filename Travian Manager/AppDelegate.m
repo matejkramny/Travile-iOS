@@ -29,6 +29,7 @@ static NSString *trackingId = @"UA-39166000-1";
 
 @synthesize window = _window;
 @synthesize tracker;
+@synthesize storage;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -37,6 +38,7 @@ static NSString *trackingId = @"UA-39166000-1";
 	
 	// Initialize storage
 	[TMStorage sharedStorage].delegate = self;
+	storage = [TMStorage sharedStorage];
 	
 	// Google analytics
 	GAI *gai = [GAI sharedInstance];
@@ -106,7 +108,7 @@ static NSString *trackingId = @"UA-39166000-1";
 	
 	// SegmentedControl
 	[[UISegmentedControl appearance] setBackgroundImage:button forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-	//[[UISegmentedControl appearance] setDividerImage:background forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+	//[[UISegmentedControl appearance] setDividerImage:background forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault]; // Requires its own image.. This is for segmented control's middle gap image.
 	
 	// Table background
 	[[UITableView appearance] setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"TMBackground.png"]]];

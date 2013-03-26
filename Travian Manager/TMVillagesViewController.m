@@ -66,8 +66,6 @@ static NSString *title = @"Villages";
 
 - (void)viewDidUnload
 {
-	//refreshControl = nil;
-	
     [super viewDidUnload];
 }
 

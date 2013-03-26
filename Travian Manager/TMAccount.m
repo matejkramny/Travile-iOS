@@ -26,6 +26,7 @@
 #import "TMHero.h"
 #import "TMMessage.h"
 #import "TMReport.h"
+#import "TMSettings.h"
 
 @interface TMAccount () {
 	AReloadMap reloadMap;
@@ -71,7 +72,7 @@ static NSString *village = @"dorf2.php";
 
 @implementation TMAccount
 
-@synthesize name, username, password, world, server, baseURL, villages, reports, messages, contacts, hero, status, notificationPending, progressIndicator, village, last_updated;
+@synthesize name, username, password, world, server, baseURL, villages, reports, messages, contacts, hero, status, notificationPending, progressIndicator, village, last_updated, settings;
 
 - (bool)isComplete {
 	if ([name length] < 2 || username.length < 2 || world.length < 2 || server.length < 1)
@@ -93,6 +94,7 @@ static NSString *village = @"dorf2.php";
 - (id)initWithCoder:(NSCoder *)coder {
 	self = [super init];
 	
+	settings = [coder decodeObjectForKey:@"settings"];
 	name = [coder decodeObjectForKey:@"name"];
 	username = [coder decodeObjectForKey:@"username"];
 	password = [coder decodeObjectForKey:@"password"];
@@ -108,10 +110,14 @@ static NSString *village = @"dorf2.php";
 //		[vil setAccountParent:self];
 //	}
 	
+	if (settings == nil)
+		settings = [[TMSettings alloc] init];
+	
 	return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)coder {
+	[coder encodeObject:settings forKey:@"settings"];
 	[coder encodeObject:name forKey:@"name"];
 	[coder encodeObject:username forKey:@"username"];
 	[coder encodeObject:password forKey:@"password"];
@@ -123,6 +129,8 @@ static NSString *village = @"dorf2.php";
 //	[coder encodeObject:contacts forKey:@"contacts"];
 //	[coder encodeObject:hero forKey:@"hero"];
 }
+
+#pragma mark -
 
 - (void)activateAccount {
 	[self activateAccountWithPassword:password];
@@ -215,6 +223,14 @@ static NSString *village = @"dorf2.php";
 	last_updated = [[NSDate date] timeIntervalSince1970];
 	
 	NSURLConnection *conn __unused = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
+	
+	// Allow ARC to deallocate these.
+	village = nil;
+	villages = nil;
+	messages = nil;
+	hero = nil;
+	reports = nil;
+	contacts = nil;
 }
 
 #pragma mark - TravianPageParsingProtocol

@@ -8,11 +8,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "Yes"
          filePath = "Travian Manager/AppDelegate.m"
-         timestampString = "384545900.905159"
+         timestampString = "386008547.784636"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "52"
-         endingLineNumber = "52"
+         startingLineNumber = "54"
+         endingLineNumber = "54"
          landmarkName = "-applicationWillResignActive:"
          landmarkType = "5">
          <Actions>
@@ -30,11 +30,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "Yes"
          filePath = "Travian Manager/AppDelegate.m"
-         timestampString = "384545900.905159"
+         timestampString = "386008547.784636"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "53"
-         endingLineNumber = "53"
+         startingLineNumber = "55"
+         endingLineNumber = "55"
          landmarkName = "-applicationWillResignActive:"
          landmarkType = "5">
          <Actions>
@@ -52,11 +52,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "Yes"
          filePath = "Travian Manager/AppDelegate.m"
-         timestampString = "384545900.905159"
+         timestampString = "386008547.784636"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "56"
-         endingLineNumber = "56"
+         startingLineNumber = "58"
+         endingLineNumber = "58"
          landmarkName = "-applicationWillEnterForeground:"
          landmarkType = "5">
          <Actions>
@@ -74,11 +74,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "Yes"
          filePath = "Travian Manager/AppDelegate.m"
-         timestampString = "384545900.905159"
+         timestampString = "386008547.784636"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "59"
-         endingLineNumber = "59"
+         startingLineNumber = "61"
+         endingLineNumber = "61"
          landmarkName = "-applicationWillEnterForeground:"
          landmarkType = "5">
          <Actions>
@@ -96,11 +96,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Travian Manager/TMAccount.m"
-         timestampString = "384477710.416003"
+         timestampString = "386008547.784636"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "276"
-         endingLineNumber = "276"
+         startingLineNumber = "292"
+         endingLineNumber = "292"
          landmarkName = "-connection:didFailWithError:"
          landmarkType = "5">
          <Actions>
@@ -130,11 +130,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "Yes"
          filePath = "Travian Manager/TMAccount.m"
-         timestampString = "384477710.416003"
+         timestampString = "386008547.784636"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "320"
-         endingLineNumber = "320"
+         startingLineNumber = "336"
+         endingLineNumber = "336"
          landmarkName = "-connectionDidFinishLoading:"
          landmarkType = "5">
          <Actions>
@@ -158,11 +158,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "Yes"
          filePath = "Travian Manager/TMAccount.m"
-         timestampString = "384477710.416003"
+         timestampString = "386008547.784636"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "340"
-         endingLineNumber = "340"
+         startingLineNumber = "356"
+         endingLineNumber = "356"
          landmarkName = "-connectionDidFinishLoading:"
          landmarkType = "5">
          <Actions>
@@ -180,11 +180,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "Yes"
          filePath = "Travian Manager/TMAccount.m"
-         timestampString = "384477710.416003"
+         timestampString = "386008547.784636"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "346"
-         endingLineNumber = "346"
+         startingLineNumber = "362"
+         endingLineNumber = "362"
          landmarkName = "-connectionDidFinishLoading:"
          landmarkType = "5">
          <Actions>
@@ -203,11 +203,11 @@
          condition = "Loaded hero"
          continueAfterRunningActions = "Yes"
          filePath = "Travian Manager/TMAccount.m"
-         timestampString = "384477710.416003"
+         timestampString = "386008547.784636"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "350"
-         endingLineNumber = "350"
+         startingLineNumber = "366"
+         endingLineNumber = "366"
          landmarkName = "-connectionDidFinishLoading:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -216,11 +216,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "Yes"
          filePath = "Travian Manager/TMAccount.m"
-         timestampString = "384477710.416003"
+         timestampString = "386008547.784636"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "354"
-         endingLineNumber = "354"
+         startingLineNumber = "370"
+         endingLineNumber = "370"
          landmarkName = "-connectionDidFinishLoading:"
          landmarkType = "5">
          <Actions>
@@ -238,11 +238,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "Yes"
          filePath = "Travian Manager/TMAccount.m"
-         timestampString = "384477710.416003"
+         timestampString = "386008547.784636"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "358"
-         endingLineNumber = "358"
+         startingLineNumber = "374"
+         endingLineNumber = "374"
          landmarkName = "-connectionDidFinishLoading:"
          landmarkType = "5">
          <Actions>
@@ -260,11 +260,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "Yes"
          filePath = "Travian Manager/TMAccount.m"
-         timestampString = "384477710.416003"
+         timestampString = "386008547.784636"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "361"
-         endingLineNumber = "361"
+         startingLineNumber = "377"
+         endingLineNumber = "377"
          landmarkName = "-connectionDidFinishLoading:"
          landmarkType = "5">
          <Actions>
@@ -282,11 +282,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Travian Manager/TMAccount.m"
-         timestampString = "384477710.416003"
+         timestampString = "386008547.784636"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "415"
-         endingLineNumber = "415"
+         startingLineNumber = "431"
+         endingLineNumber = "431"
          landmarkName = "-parseVillages:"
          landmarkType = "5">
          <Actions>
@@ -304,11 +304,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Travian Manager/TMAccount.m"
-         timestampString = "384477710.416003"
+         timestampString = "386008547.784636"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "436"
-         endingLineNumber = "436"
+         startingLineNumber = "452"
+         endingLineNumber = "452"
          landmarkName = "-parseVillages:"
          landmarkType = "5">
          <Actions>
@@ -326,11 +326,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Travian Manager/TMAccount.m"
-         timestampString = "384477710.416003"
+         timestampString = "386008547.784636"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "441"
-         endingLineNumber = "441"
+         startingLineNumber = "457"
+         endingLineNumber = "457"
          landmarkName = "-parseVillages:"
          landmarkType = "5">
          <Actions>
@@ -348,11 +348,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "Yes"
          filePath = "Travian Manager/TMAccount.m"
-         timestampString = "384477710.416003"
+         timestampString = "386008547.784636"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "482"
-         endingLineNumber = "482"
+         startingLineNumber = "498"
+         endingLineNumber = "498"
          landmarkName = "-parseVillages:"
          landmarkType = "5">
          <Actions>
@@ -369,11 +369,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Travian Manager/TMAccount.m"
-         timestampString = "384477710.416003"
+         timestampString = "386008547.784636"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "491"
-         endingLineNumber = "491"
+         startingLineNumber = "507"
+         endingLineNumber = "507"
          landmarkName = "-parseReports:"
          landmarkType = "5">
          <Actions>
@@ -391,11 +391,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "Yes"
          filePath = "Travian Manager/TMAccount.m"
-         timestampString = "384477710.416003"
+         timestampString = "386008547.784636"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "554"
-         endingLineNumber = "554"
+         startingLineNumber = "570"
+         endingLineNumber = "570"
          landmarkName = "-parseReports:"
          landmarkType = "5">
          <Actions>
@@ -413,11 +413,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Travian Manager/TMAccount.m"
-         timestampString = "384477710.416003"
+         timestampString = "386008547.784636"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "560"
-         endingLineNumber = "560"
+         startingLineNumber = "576"
+         endingLineNumber = "576"
          landmarkName = "-parseMessages:"
          landmarkType = "5">
          <Actions>
@@ -435,11 +435,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Travian Manager/TMAccount.m"
-         timestampString = "384477710.416003"
+         timestampString = "386008547.784636"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "636"
-         endingLineNumber = "636"
+         startingLineNumber = "652"
+         endingLineNumber = "652"
          landmarkName = "-parseMessages:"
          landmarkType = "5">
          <Actions>
@@ -925,11 +925,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "Yes"
          filePath = "Travian Manager/TMStorage.m"
-         timestampString = "384435209.285696"
+         timestampString = "386008547.784636"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "75"
-         endingLineNumber = "75"
+         startingLineNumber = "70"
+         endingLineNumber = "70"
          landmarkName = "-saveData"
          landmarkType = "5">
          <Actions>
@@ -948,11 +948,11 @@
          condition = "if(error != nil)"
          continueAfterRunningActions = "No"
          filePath = "Travian Manager/TMStorage.m"
-         timestampString = "384435626.657895"
+         timestampString = "386008547.784636"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "78"
-         endingLineNumber = "78"
+         startingLineNumber = "73"
+         endingLineNumber = "73"
          landmarkName = "-saveData"
          landmarkType = "5">
          <Actions>
@@ -977,11 +977,11 @@
          condition = "if(errorSettings != nil)"
          continueAfterRunningActions = "No"
          filePath = "Travian Manager/TMStorage.m"
-         timestampString = "384435624.557122"
+         timestampString = "386008547.784636"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "77"
-         endingLineNumber = "77"
+         startingLineNumber = "72"
+         endingLineNumber = "72"
          landmarkName = "-saveData"
          landmarkType = "5">
          <Actions>
@@ -1005,11 +1005,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "Yes"
          filePath = "Travian Manager/TMStorage.m"
-         timestampString = "384435338.830394"
+         timestampString = "386008547.784636"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "65"
-         endingLineNumber = "65"
+         startingLineNumber = "63"
+         endingLineNumber = "63"
          landmarkName = "-saveData"
          landmarkType = "5">
          <Actions>
@@ -1243,11 +1243,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Travian Manager/TMAccountsViewController.m"
-         timestampString = "384551256.222595"
+         timestampString = "386008547.784636"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "415"
-         endingLineNumber = "415"
+         startingLineNumber = "413"
+         endingLineNumber = "413"
          landmarkName = "-prepareForSegue:sender:"
          landmarkType = "5">
       </FileBreakpoint>

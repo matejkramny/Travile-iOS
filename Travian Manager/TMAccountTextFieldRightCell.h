@@ -20,11 +20,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TMAccountTextFieldRightCell : UITableViewCell <UITextFieldDelegate>
+@interface TMAccountTextFieldRightCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *label;
 @property (weak, nonatomic) IBOutlet UITextField *textField;
 
-- (void)configure;
+- (void)configure:(id<UITextFieldDelegate>) delegate;
 
 @end
