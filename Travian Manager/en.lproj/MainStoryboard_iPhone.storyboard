@@ -1324,7 +1324,7 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="Application Settings" id="6FN-3Z-sf3">
+                            <tableViewSection headerTitle="Application Settings" footerTitle="Load everything at once loads all villages after you log in. If not enabled, only list of villages will be loaded." id="6FN-3Z-sf3">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="vgQ-3G-xmJ">
                                         <rect key="frame" x="0.0" y="182" width="320" height="45"/>
@@ -1401,8 +1401,31 @@
                                         </view>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="o1A-dT-qsl">
+                                        <rect key="frame" x="0.0" y="315" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="10" y="0.0" width="300" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Load everything at login" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="i6C-oY-rwS">
+                                                    <rect key="frame" x="10" y="11" width="197" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                                <switch opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="Web-LI-Yjh">
+                                                    <rect key="frame" x="216" y="8" width="79" height="27"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </switch>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="oqK-Rj-4TF" style="IBUITableViewCellStyleDefault" id="RKZ-TJ-NMe">
-                                        <rect key="frame" x="0.0" y="315" width="320" height="45"/>
+                                        <rect key="frame" x="0.0" y="359" width="320" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="10" y="0.0" width="280" height="43"/>
@@ -1428,7 +1451,7 @@
                             <tableViewSection headerTitle="Browser" id="mtK-Jx-dWr">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="THh-rT-qV0" style="IBUITableViewCellStyleDefault" id="2wf-Nl-QOJ">
-                                        <rect key="frame" x="0.0" y="406" width="320" height="45"/>
+                                        <rect key="frame" x="0.0" y="519" width="320" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="10" y="1" width="300" height="43"/>
@@ -1447,7 +1470,7 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="XCD-G8-7nU" style="IBUITableViewCellStyleDefault" id="Ilj-by-XJb">
-                                        <rect key="frame" x="0.0" y="451" width="320" height="45"/>
+                                        <rect key="frame" x="0.0" y="564" width="320" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="10" y="0.0" width="300" height="43"/>
@@ -1550,7 +1573,7 @@ matejkramny@gmail.com</string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Many thanks to Travian Gmbh for creating such a great game" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="SlP-IS-ANm">
-                                        <rect key="frame" x="20" y="355" width="280" height="41"/>
+                                        <rect key="frame" x="20" y="254" width="280" height="41"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -2036,7 +2059,7 @@ matejkramny@gmail.com</string>
         <class className="TMMessageContentTextView" superclassName="UITextView">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/TMMessageContentTextView.h"/>
         </class>
-        <class className="TMMessagesViewController" superclassName="MKGAITrackedTableViewController">
+        <class className="TMMessagesViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/TMMessagesViewController.h"/>
             <relationships>
                 <relationship kind="action" name="delete:userDidConfirm:"/>
@@ -2054,7 +2077,7 @@ matejkramny@gmail.com</string>
                 <relationship kind="outlet" name="sendButton" candidateClass="UIBarButtonItem"/>
             </relationships>
         </class>
-        <class className="TMOpenMessageViewController" superclassName="MKGAITrackedTableViewController">
+        <class className="TMOpenMessageViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/TMOpenMessageViewController.h"/>
             <relationships>
                 <relationship kind="action" name="deleteMessage:"/>
