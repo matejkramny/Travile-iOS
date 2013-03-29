@@ -64,6 +64,17 @@
 
 @synthesize resources, resourceProduction, troops, movements, constructions, buildings, name;
 @synthesize urlPart, loyalty, population, warehouse, granary, consumption, x, y;
+@synthesize hasDownloaded;
+
+- (id)init {
+	self = [super init];
+	
+	if (self) {
+		hasDownloaded = NO;
+	}
+	
+	return self;
+}
 
 - (void)setAccountParent:(TMAccount *)newParent {
 	parent = newParent;
@@ -545,7 +556,10 @@
 		}
 		
 		[self parsePage:page fromHTMLNode:body];
+		[self setHasDownloaded:YES];
 	}
 }
+
+#pragma mark -
 
 @end

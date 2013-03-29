@@ -30,7 +30,7 @@
 
 @implementation TMSettingsViewController
 
-@synthesize settings, decimalResources, warehouseIndicator;
+@synthesize settings, decimalResources, warehouseIndicator, loadAllAtOnce;
 
 static NSString *viewTitle = @"Settings";
 
@@ -66,6 +66,7 @@ static NSString *viewTitle = @"Settings";
 
 	[decimalResources setOn:settings.showsDecimalResources];
 	[warehouseIndicator setOn:settings.showsResourceProgress];
+	[loadAllAtOnce setOn:settings.loadsAllDataAtLogin];
 	
 	if ([self.tableView indexPathForSelectedRow] != nil) {
 		[self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
@@ -79,6 +80,11 @@ static NSString *viewTitle = @"Settings";
 - (IBAction)changedWarehouseIndicator:(id)sender {
 	[settings setShowsResourceProgress:[warehouseIndicator isOn]];
 	[[TMStorage sharedStorage] saveData];
+}
+- (IBAction)loadAllAtOnce:(id)sender {
+	[settings setLoadsAllDataAtLogin:loadAllAtOnce.isOn];
+	[[TMStorage sharedStorage] saveData];
+	[self.tableView reloadData];
 }
 
 #pragma mark - Table view delegate
@@ -120,6 +126,19 @@ static NSString *viewTitle = @"Settings";
 		}
 		
 		[tableView deselectRowAtIndexPath:indexPath animated:YES];
+	}
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
+	static NSString *notSelectedText = @"TM will only load a list of villages and unread messages count. This is the fastest and safest method.";
+	static NSString *selectedText = @"TM will load all villages at login time. This takes a bit longer depending on how many villages you have. Not recommended for players with many villages.";
+	if (section != 1) return nil;
+	
+	if (loadAllAtOnce.isOn) {
+		return selectedText;
+	}
+	else {
+		return notSelectedText;
 	}
 }
 

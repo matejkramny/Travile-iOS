@@ -100,15 +100,6 @@ static NSString *village = @"dorf2.php";
 	password = [coder decodeObjectForKey:@"password"];
 	world = [coder decodeObjectForKey:@"world"];
 	server = [coder decodeObjectForKey:@"server"];
-//	villages = [coder decodeObjectForKey:@"villages"];
-//	reports = [coder decodeObjectForKey:@"reports"];
-//	messages = [coder decodeObjectForKey:@"messages"];
-//	contacts = [coder decodeObjectForKey:@"contacts"];
-//	hero = [coder decodeObjectForKey:@"hero"];
-	
-//	for (Village *vil in villages) {
-//		[vil setAccountParent:self];
-//	}
 	
 	if (settings == nil)
 		settings = [[TMSettings alloc] init];
@@ -123,11 +114,6 @@ static NSString *village = @"dorf2.php";
 	[coder encodeObject:password forKey:@"password"];
 	[coder encodeObject:world forKey:@"world"];
 	[coder encodeObject:server forKey:@"server"];
-//	[coder encodeObject:villages forKey:@"villages"];
-//	[coder encodeObject:reports forKey:@"reports"];
-//	[coder encodeObject:messages forKey:@"messages"];
-//	[coder encodeObject:contacts forKey:@"contacts"];
-//	[coder encodeObject:hero forKey:@"hero"];
 }
 
 #pragma mark -
@@ -356,6 +342,12 @@ static NSString *village = @"dorf2.php";
 			loginConnection = urlConnectionForURL([TMAccount profilePage]);
 			
 		} else if ((page & TPProfile) != 0) {
+			// If loadAllAtOnce is off stop here. Rest will be downloaded later.
+			if (connection == loginConnection && !settings.loadsAllDataAtLogin) {
+				[self setStatus:ALoggedIn | ARefreshed];
+				return;
+			}
+			
 			// load hero
 			// Make another request for hero
 			
@@ -494,10 +486,11 @@ static NSString *village = @"dorf2.php";
 	// Empty local villages and replace them with tempVillages
 	villages = tempVillages;
 	
-	for (TMVillage *vil in villages) {
-		[vil downloadAndParse]; // Tell each village to download its data
+	if (settings.loadsAllDataAtLogin) {
+		for (TMVillage *vil in villages) {
+			[vil downloadAndParse]; // Tell each village to download its data
+		}
 	}
-	
 }
 
 - (void)parseReports:(HTMLNode *)node {

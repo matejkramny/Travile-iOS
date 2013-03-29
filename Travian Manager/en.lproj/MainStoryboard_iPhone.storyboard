@@ -1418,6 +1418,9 @@
                                                 <switch opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="Web-LI-Yjh">
                                                     <rect key="frame" x="216" y="8" width="79" height="27"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <connections>
+                                                        <action selector="loadAllAtOnce:" destination="Gnp-Je-Kkg" eventType="valueChanged" id="sYM-yZ-jk6"/>
+                                                    </connections>
                                                 </switch>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1500,6 +1503,7 @@
                     <navigationItem key="navigationItem" id="1OQ-K8-coH"/>
                     <connections>
                         <outlet property="decimalResources" destination="at5-yr-dNJ" id="NpZ-M7-FtS"/>
+                        <outlet property="loadAllAtOnce" destination="Web-LI-Yjh" id="X9K-Ri-iXx"/>
                         <outlet property="warehouseIndicator" destination="DkZ-oY-M9e" id="Z02-rh-g9Q"/>
                     </connections>
                 </tableViewController>
@@ -2099,7 +2103,9 @@ matejkramny@gmail.com</string>
             <relationships>
                 <relationship kind="action" name="changedDecimalResources:"/>
                 <relationship kind="action" name="changedWarehouseIndicator:"/>
+                <relationship kind="action" name="loadAllAtOnce:"/>
                 <relationship kind="outlet" name="decimalResources" candidateClass="UISwitch"/>
+                <relationship kind="outlet" name="loadAllAtOnce" candidateClass="UISwitch"/>
                 <relationship kind="outlet" name="warehouseIndicator" candidateClass="UISwitch"/>
             </relationships>
         </class>
