@@ -48,6 +48,14 @@ static NSString *trackingId = @"UA-39166000-1";
 	return YES;
 }
 
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+	NSLog(@"%@", deviceToken);
+}
+
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+	
+}
+
 - (void)applicationWillResignActive:(UIApplication *)application {
 	timeAtGoingToInactiveState = [[NSDate date] timeIntervalSince1970];
 }

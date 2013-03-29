@@ -148,6 +148,9 @@
 		firstAnimateButtons = false;
 	}
 	
+	[[UIApplication sharedApplication] registerForRemoteNotificationTypes:
+	 (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+	
 	[super viewDidAppear:animated];
 }
 
