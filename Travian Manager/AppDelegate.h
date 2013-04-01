@@ -27,8 +27,6 @@
 #endif
 
 @class TMStorage;
-@class ViewController;
-@class ODRefreshControl;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
