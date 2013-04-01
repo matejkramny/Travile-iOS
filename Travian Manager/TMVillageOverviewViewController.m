@@ -158,33 +158,35 @@ static NSString *viewTitle = @"Overview";
 }
 
 - (void)updateNavigationButtons {
-	if (!navControl) {
-		navControl = [[UISegmentedControl alloc] initWithItems:@[@" \U000025B2 ", @" \U000025BC "]]; // ASCII codes for arrow up and down
-		[navControl setSegmentedControlStyle:UISegmentedControlStyleBar];
-		[navControl setMomentary:YES];
-		
-		[navControl addTarget:self action:@selector(didPressNavControl:) forControlEvents:UIControlEventValueChanged];
-		
-		navButton = [[UIBarButtonItem alloc] initWithCustomView:navControl];
-	}
-	
 	if ([storage.account.villages count] > 1) {
+		if (!navControl) {
+			navControl = [[UISegmentedControl alloc] initWithItems:@[@" \U000025B2 ", @" \U000025BC "]]; // ASCII codes for arrow up and down
+			[navControl setSegmentedControlStyle:UISegmentedControlStyleBar];
+			[navControl setMomentary:YES];
+			
+			[navControl addTarget:self action:@selector(didPressNavControl:) forControlEvents:UIControlEventValueChanged];
+			
+			navButton = [[UIBarButtonItem alloc] initWithCustomView:navControl];
+		}
+		
 		// get index of current villages
 		int index = [storage.account.villages indexOfObjectIdenticalTo:village];
-		if (index == 0)
+		
+		if (index == 0) {
 			[navControl setEnabled:NO forSegmentAtIndex:0];
-		else if (index == [storage.account.villages count]-1)
+			[navControl setEnabled:YES forSegmentAtIndex:1];
+		} else if (index == [storage.account.villages count]-1) {
+			[navControl setEnabled:YES forSegmentAtIndex:0];
 			[navControl setEnabled:NO forSegmentAtIndex:1];
-		else {
+		} else {
 			[navControl setEnabled:YES forSegmentAtIndex:0];
 			[navControl setEnabled:YES forSegmentAtIndex:1];
 		}
+		
+		[self.navigationItem setRightBarButtonItem:navButton animated:NO];
 	} else {
-		[navControl setEnabled:NO forSegmentAtIndex:0];
-		[navControl setEnabled:NO forSegmentAtIndex:1];
+		[self.navigationItem setRightBarButtonItem:nil animated:NO];
 	}
-	
-	[self.navigationItem setRightBarButtonItem:navButton animated:NO];
 }
 
 - (void)didPressNavControl:(id)sender {
@@ -405,6 +407,8 @@ static NSString *viewTitle = @"Overview";
 			[[UIApplication sharedApplication] scheduleLocalNotification:notification];
 		}
 	}
+	
+	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 #pragma mark - Back button

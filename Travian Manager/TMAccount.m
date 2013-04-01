@@ -26,6 +26,7 @@
 #import "TMHero.h"
 #import "TMMessage.h"
 #import "TMReport.h"
+#import "TMSettings.h"
 
 @interface TMAccount () {
 	AReloadMap reloadMap;
@@ -71,7 +72,7 @@ static NSString *village = @"dorf2.php";
 
 @implementation TMAccount
 
-@synthesize name, username, password, world, server, baseURL, villages, reports, messages, contacts, hero, status, notificationPending, progressIndicator, village, last_updated;
+@synthesize name, username, password, world, server, baseURL, villages, reports, messages, contacts, hero, status, notificationPending, progressIndicator, village, last_updated, settings;
 
 - (bool)isComplete {
 	if ([name length] < 2 || username.length < 2 || world.length < 2 || server.length < 1)
@@ -93,36 +94,29 @@ static NSString *village = @"dorf2.php";
 - (id)initWithCoder:(NSCoder *)coder {
 	self = [super init];
 	
+	settings = [coder decodeObjectForKey:@"settings"];
 	name = [coder decodeObjectForKey:@"name"];
 	username = [coder decodeObjectForKey:@"username"];
 	password = [coder decodeObjectForKey:@"password"];
 	world = [coder decodeObjectForKey:@"world"];
 	server = [coder decodeObjectForKey:@"server"];
-//	villages = [coder decodeObjectForKey:@"villages"];
-//	reports = [coder decodeObjectForKey:@"reports"];
-//	messages = [coder decodeObjectForKey:@"messages"];
-//	contacts = [coder decodeObjectForKey:@"contacts"];
-//	hero = [coder decodeObjectForKey:@"hero"];
 	
-//	for (Village *vil in villages) {
-//		[vil setAccountParent:self];
-//	}
+	if (settings == nil)
+		settings = [[TMSettings alloc] init];
 	
 	return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)coder {
+	[coder encodeObject:settings forKey:@"settings"];
 	[coder encodeObject:name forKey:@"name"];
 	[coder encodeObject:username forKey:@"username"];
 	[coder encodeObject:password forKey:@"password"];
 	[coder encodeObject:world forKey:@"world"];
 	[coder encodeObject:server forKey:@"server"];
-//	[coder encodeObject:villages forKey:@"villages"];
-//	[coder encodeObject:reports forKey:@"reports"];
-//	[coder encodeObject:messages forKey:@"messages"];
-//	[coder encodeObject:contacts forKey:@"contacts"];
-//	[coder encodeObject:hero forKey:@"hero"];
 }
+
+#pragma mark -
 
 - (void)activateAccount {
 	[self activateAccountWithPassword:password];
@@ -215,6 +209,14 @@ static NSString *village = @"dorf2.php";
 	last_updated = [[NSDate date] timeIntervalSince1970];
 	
 	NSURLConnection *conn __unused = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
+	
+	// Allow ARC to deallocate these.
+	village = nil;
+	villages = nil;
+	messages = nil;
+	hero = nil;
+	reports = nil;
+	contacts = nil;
 }
 
 #pragma mark - TravianPageParsingProtocol
@@ -340,6 +342,12 @@ static NSString *village = @"dorf2.php";
 			loginConnection = urlConnectionForURL([TMAccount profilePage]);
 			
 		} else if ((page & TPProfile) != 0) {
+			// If loadAllAtOnce is off stop here. Rest will be downloaded later.
+			if (connection == loginConnection && !settings.loadsAllDataAtLogin) {
+				[self setStatus:ALoggedIn | ARefreshed];
+				return;
+			}
+			
 			// load hero
 			// Make another request for hero
 			
@@ -478,10 +486,11 @@ static NSString *village = @"dorf2.php";
 	// Empty local villages and replace them with tempVillages
 	villages = tempVillages;
 	
-	for (TMVillage *vil in villages) {
-		[vil downloadAndParse]; // Tell each village to download its data
+	if (settings.loadsAllDataAtLogin) {
+		for (TMVillage *vil in villages) {
+			[vil downloadAndParse]; // Tell each village to download its data
+		}
 	}
-	
 }
 
 - (void)parseReports:(HTMLNode *)node {

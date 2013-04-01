@@ -138,8 +138,8 @@ static NSString *viewTitle = @"Resources";
 	TMVillage *v = [account village];
 	TMResources *r = [v resources];
 	TMResourcesProduction *rp = [v resourceProduction];
-	bool indicatePercentage = [TMStorage sharedStorage].settings.showsResourceProgress;
-	bool decimalResources = [TMStorage sharedStorage].settings.showsDecimalResources;
+	bool indicatePercentage = account.settings.showsResourceProgress;
+	bool decimalResources = account.settings.showsDecimalResources;
 	
 	void (^setFormatToResource)(UILabel *, float, int, int) = ^(UILabel *l, float rv, int rpv, int percentage) {
 		if (decimalResources)

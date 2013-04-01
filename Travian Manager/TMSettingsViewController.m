@@ -30,7 +30,7 @@
 
 @implementation TMSettingsViewController
 
-@synthesize settings, decimalResources, warehouseIndicator;
+@synthesize settings, decimalResources, warehouseIndicator, loadAllAtOnce;
 
 static NSString *viewTitle = @"Settings";
 
@@ -48,7 +48,6 @@ static NSString *viewTitle = @"Settings";
     [super viewDidLoad];
 	
 	[[self tableView] setBackgroundView:nil];
-	settings = [TMStorage sharedStorage].settings;
 
 	[self.navigationItem setTitle:viewTitle];
 	
@@ -63,8 +62,15 @@ static NSString *viewTitle = @"Settings";
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	
+	settings = [TMStorage sharedStorage].account.settings;
+
 	[decimalResources setOn:settings.showsDecimalResources];
 	[warehouseIndicator setOn:settings.showsResourceProgress];
+	[loadAllAtOnce setOn:settings.loadsAllDataAtLogin];
+	
+	if ([self.tableView indexPathForSelectedRow] != nil) {
+		[self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
+	}
 }
 
 - (IBAction)changedDecimalResources:(id)sender {
@@ -75,6 +81,11 @@ static NSString *viewTitle = @"Settings";
 	[settings setShowsResourceProgress:[warehouseIndicator isOn]];
 	[[TMStorage sharedStorage] saveData];
 }
+- (IBAction)loadAllAtOnce:(id)sender {
+	[settings setLoadsAllDataAtLogin:loadAllAtOnce.isOn];
+	[[TMStorage sharedStorage] saveData];
+	[self.tableView reloadData];
+}
 
 #pragma mark - Table view delegate
 
@@ -82,16 +93,18 @@ static NSString *viewTitle = @"Settings";
 {
 	if (indexPath.section == 0 && indexPath.row == 0) {
 		// Reload data
-		
+		[tableView deselectRowAtIndexPath:indexPath animated:YES];
 	} else if (indexPath.section == 0 && indexPath.row == 1) {
 		// Logout
 		[[TMStorage sharedStorage].account deactivateAccount];
 		[self.tabBarController setSelectedIndex:0];
+		
+		[tableView deselectRowAtIndexPath:indexPath animated:YES];
 	} else if (indexPath.section == 1 && indexPath.row == 3) {
 		[tracker sendView:@"Credits"]; // Tell analytics we are viewing credits screen
 	} else if (indexPath.section == 2) {
 		TMAccount *a = [TMStorage sharedStorage].account;
-		NSString *url = [[NSString stringWithFormat:@"%@.travian.%@/%@", a.world, a.server, [TMAccount resources]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+		NSString *url = [[NSString stringWithFormat:@"http://%@.travian.%@/%@", a.world, a.server, [TMAccount resources]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 		
 		if (indexPath.row == 0) {
 			// Open in safari
@@ -102,7 +115,7 @@ static NSString *viewTitle = @"Settings";
 				if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"googlechrome-x-callback://"]]) {
 					// Callback
 					NSString *callbackUrl = [NSString stringWithFormat:@"googlechrome-x-callback://x-callback-url/open/?x-source=%@&x-success=%@&url=%@&create-new-tab",
-									 @"Travian", [@"travian://" stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], url];
+									 @"TM", @"travian%3A%2F%2F", url];
 					[[UIApplication sharedApplication] openURL:[NSURL URLWithString:callbackUrl]];
 				} else {
 					[[UIApplication sharedApplication] openURL:[NSURL URLWithString:[@"googlechrome://" stringByAppendingString:url]]];
@@ -113,6 +126,19 @@ static NSString *viewTitle = @"Settings";
 		}
 		
 		[tableView deselectRowAtIndexPath:indexPath animated:YES];
+	}
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
+	static NSString *notSelectedText = @"TM will only load a list of villages and unread messages count. This is the fastest and safest method.";
+	static NSString *selectedText = @"TM will load all villages at login time. This takes a bit longer depending on how many villages you have. Not recommended for players with many villages.";
+	if (section != 1) return nil;
+	
+	if (loadAllAtOnce.isOn) {
+		return selectedText;
+	}
+	else {
+		return notSelectedText;
 	}
 }
 

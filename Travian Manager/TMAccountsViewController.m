@@ -206,8 +206,6 @@
 	[arr removeObjectAtIndex:fromIndexPath.row];
 	[arr insertObject:a atIndex:toIndexPath.row];
 	storage.accounts = [arr copy];
-	
-	[storage saveData];
 }
 
 - (void)logIn:(TMAccount *)a withPasword:(NSString *)password {

@@ -39,13 +39,8 @@
     // Configure the view for the selected state
 }
 
-- (void)configure {
-	textField.delegate = self;
-}
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-	[self.textField resignFirstResponder];
-	return NO;
+- (void)configure:(id<UITextFieldDelegate>)delegate {
+	textField.delegate = delegate;
 }
 
 @end

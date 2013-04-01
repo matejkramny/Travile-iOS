@@ -25,11 +25,14 @@
 #import "TMVillage.h"
 #import "TMVillageOverviewViewController.h"
 #import "MKModalOverlay.h"
+#import "MBProgressHUD.h"
 
 @interface TMVillagesViewController () {
 	TMStorage *storage;
 	NSIndexPath *selectedVillageIndexPath;
 	MKModalOverlay *overlay;
+	MBProgressHUD *HUD;
+	UITapGestureRecognizer *tapToCancel;
 }
 
 - (void)didBeginRefreshing:(id)sender;
@@ -66,8 +69,6 @@ static NSString *title = @"Villages";
 
 - (void)viewDidUnload
 {
-	//refreshControl = nil;
-	
     [super viewDidUnload];
 }
 
@@ -115,7 +116,7 @@ static NSString *title = @"Villages";
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if ([keyPath isEqualToString:@"status"]) {
+	if (object == storage.account && [keyPath isEqualToString:@"status"]) {
 		if (([[change objectForKey:NSKeyValueChangeNewKey] intValue] & ARefreshed) != 0) {
 			// Done refreshing
 			[storage.account removeObserver:self forKeyPath:@"status"];
@@ -124,6 +125,13 @@ static NSString *title = @"Villages";
 			[self.tableView reloadData];
 		}
 		// implement other scenarios - cannot log in, connection failure.
+	} else if ([object isKindOfClass:[TMVillage class]] && [keyPath isEqualToString:@"hasDownloaded"]) {
+		[[storage.account.villages objectAtIndex:selectedVillageIndexPath.row] removeObserver:self forKeyPath:@"hasDownloaded"];
+		[HUD removeGestureRecognizer:tapToCancel];
+		tapToCancel = nil;
+		[HUD hide:YES];
+		
+		[self tableView:self.tableView didSelectRowAtIndexPath:selectedVillageIndexPath]; // 'Reselect' the table cell
 	}
 }
 
@@ -157,12 +165,36 @@ static NSString *title = @"Villages";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [[storage account] setVillage:[[storage account].villages objectAtIndex:indexPath.row]];
+	TMVillage *village = [[storage account].villages objectAtIndex:indexPath.row];
 	selectedVillageIndexPath = indexPath;
+	
+	if (![village hasDownloaded]) {
+		HUD = [MBProgressHUD showHUDAddedTo:self.navigationController.tabBarController.view animated:YES];
+		[HUD setLabelText:[NSString stringWithFormat:@"Loading %@", village.name]];
+		[HUD setDetailsLabelText:@"Tap to cancel"];
+		tapToCancel = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedToCancel:)];
+		[HUD addGestureRecognizer:tapToCancel];
+		[village addObserver:self forKeyPath:@"hasDownloaded" options:NSKeyValueObservingOptionNew context:nil];
+		[village downloadAndParse];
+		
+		return;
+	}
+	
+    [[storage account] setVillage:village];
 	
 	[self performSegueWithIdentifier:@"OpenVillage" sender:self];
 	
 	[overlay addOverlayAnimated:TRUE];
+}
+
+#pragma mark -
+
+- (void)tappedToCancel:(id)sender {
+	[[storage.account.villages objectAtIndex:selectedVillageIndexPath.row] removeObserver:self forKeyPath:@"hasDownloaded"];
+	[HUD removeGestureRecognizer:tapToCancel];
+	tapToCancel = nil;
+	[HUD hide:YES];
+	[self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
 }
 
 @end

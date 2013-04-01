@@ -117,7 +117,7 @@ static NSString *deleteButtonCellID = @"DeleteButton";
 			
 			nameCell = cell;
 			
-			[cell configure];
+			[cell configure:self];
 			
 			[cell.textField setAutocapitalizationType:UITextAutocapitalizationTypeSentences];
 			[cell.textField setAutocorrectionType:UITextAutocorrectionTypeYes];
@@ -150,7 +150,7 @@ static NSString *deleteButtonCellID = @"DeleteButton";
 				passwordCell = cell;
 			}
 			
-			[cell configure];
+			[cell configure:self];
 			
 			[cell.textField setAutocapitalizationType:UITextAutocapitalizationTypeNone];
 			[cell.textField setAutocorrectionType:UITextAutocorrectionTypeNo];
@@ -181,7 +181,7 @@ static NSString *deleteButtonCellID = @"DeleteButton";
 				serverCell = cell;
 			}
 			
-			[cell configure];
+			[cell configure:self];
 			
 			[cell.textField setAutocapitalizationType:UITextAutocapitalizationTypeNone];
 			[cell.textField setAutocorrectionType:UITextAutocorrectionTypeNo];
@@ -325,6 +325,28 @@ static NSString *deleteButtonCellID = @"DeleteButton";
 	}
 	
 	[self.navigationItem setTitle:title];
+}
+
+#pragma mark - UITextFieldDelegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+	if ([textField isEqual:nameCell.textField]) {
+		[usernameCell.textField becomeFirstResponder];
+		[self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+	} else if ([textField isEqual:usernameCell.textField]) {
+		[passwordCell.textField becomeFirstResponder];
+		[self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:1] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+	} else if ([textField isEqual:passwordCell.textField]) {
+		[worldCell.textField becomeFirstResponder];
+		[self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:2] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+	} else if ([textField isEqual:worldCell.textField]) {
+		[serverCell.textField becomeFirstResponder];
+		[self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:2] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+	} else {
+		[textField resignFirstResponder];
+	}
+	
+	return YES;
 }
 
 @end

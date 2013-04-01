@@ -22,7 +22,7 @@
 
 @implementation TMSettings
 
-@synthesize showsDecimalResources, showsResourceProgress;
+@synthesize showsDecimalResources, showsResourceProgress, loadsAllDataAtLogin;
 
 - (id)init {
 	self = [super init];
@@ -40,6 +40,7 @@
 	
 	showsDecimalResources = [aDecoder decodeBoolForKey:@"decimalResources"];
 	showsResourceProgress = [aDecoder decodeBoolForKey:@"resourceProgress"];
+	loadsAllDataAtLogin = [aDecoder decodeBoolForKey:@"loadsAllDataAtLogin"];
 	
 	return self;
 }
@@ -47,10 +48,11 @@
 - (void)encodeWithCoder:(NSCoder *)aCoder {
 	[aCoder encodeBool:showsDecimalResources forKey:@"decimalResources"];
 	[aCoder encodeBool:showsResourceProgress forKey:@"resourceProgress"];
+	[aCoder encodeBool:loadsAllDataAtLogin forKey:@"loadsAllDataAtLogin"];
 }
 
 - (NSString *)description {
-	return [NSString stringWithFormat:@"Decimal resources: %d \nResource progress: %d", showsDecimalResources, showsResourceProgress];
+	return [NSString stringWithFormat:@"Decimal resources: %d \nResource progress: %d\nLoads all data at login: %d", showsDecimalResources, showsResourceProgress, loadsAllDataAtLogin];
 }
 
 @end

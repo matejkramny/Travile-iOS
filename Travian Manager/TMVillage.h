@@ -46,6 +46,8 @@
 @property (assign) int x; // Location X
 @property (assign) int y; // Location Y
 
+@property (assign) bool hasDownloaded; // Has downloaded property (used with loadallatonce property of TMSettings)
+
 - (void)setAccountParent:(TMAccount *)newParent;
 - (TMAccount *)getParent;
 - (void)downloadAndParse;

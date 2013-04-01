@@ -113,8 +113,6 @@ static NSString *viewTitle = @"Messages";
 	overlay = [[MKModalOverlay alloc] initWithTarget:self.navigationController.tabBarController.view];
 	[overlay configureBoundsBottomToTop];
 	inModal = false;
-	
-	[super setTrackedViewName:viewTitle];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -147,6 +145,8 @@ static NSString *viewTitle = @"Messages";
 		[overlay removeOverlayAnimated:YES];
 		inModal = false;
 	}
+	
+	[storage.delegate.tracker sendView:viewTitle];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
