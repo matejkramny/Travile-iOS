@@ -20,6 +20,7 @@
 
 #import "AppDelegate.h"
 #import "TMStorage.h"
+#import "TMAPNService.h"
 
 static NSString *trackingId = @"UA-39166000-1";
 
@@ -47,7 +48,19 @@ static NSString *trackingId = @"UA-39166000-1";
 	gai.trackUncaughtExceptions = YES;
 	tracker = [gai trackerWithTrackingId:trackingId];
 	
+	[[UIApplication sharedApplication] registerForRemoteNotificationTypes:
+	 (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+	
 	return YES;
+}
+
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+	NSString *token = [deviceToken description];
+	[[TMAPNService sharedInstance] sendToken:token];
+}
+
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+	
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

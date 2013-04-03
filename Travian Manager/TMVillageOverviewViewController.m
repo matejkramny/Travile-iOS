@@ -26,6 +26,7 @@
 #import "TMMovement.h"
 #import "TMConstruction.h"
 #import <QuartzCore/QuartzCore.h>
+#import "TMAPNService.h"
 
 @interface TMVillageOverviewViewController () {
 	TMStorage *storage;
@@ -375,16 +376,11 @@ static NSString *viewTitle = @"Overview";
 			// Select row
 			TMMovement *movement = [village.movements objectAtIndex:indexPath.row];
 			
-			UILocalNotification *notification = [[UILocalNotification alloc] init];
-			if (DEBUG_APP) {
-				NSDate *finish = [NSDate dateWithTimeIntervalSinceNow:10];
-				[notification setFireDate:finish];
-			} else
-				[notification setFireDate:movement.finished];
-			[notification setAlertAction:[NSString stringWithFormat:@"open village %@", village.name]];
-			[notification setAlertBody:[NSString stringWithFormat:@"%@ happened on village %@ from account %@", movement.name, village.name, storage.account.name]];
+			NSDate *finish = movement.finished;
+			if (DEBUG_APP)
+				finish = [NSDate dateWithTimeIntervalSinceNow:10];
 			
-			[[UIApplication sharedApplication] scheduleLocalNotification:notification];
+			[[TMAPNService sharedInstance] scheduleNotification:finish withMessageTitle:[NSString stringWithFormat:@"%@ happened on village %@ from account %@", movement.name, village.name, storage.account.name]];
 		} else {
 			[tableView deselectRowAtIndexPath:indexPath animated:YES];
 			return;
@@ -394,17 +390,11 @@ static NSString *viewTitle = @"Overview";
 		if ([village.constructions count] > 0) {
 			TMConstruction *construction = [village.constructions objectAtIndex:indexPath.row];
 			
-			UILocalNotification *notification = [[UILocalNotification alloc] init];
-			if (DEBUG_APP) {
-				NSDate *finish = [NSDate dateWithTimeIntervalSinceNow:10];
-				[notification setFireDate:finish];
-			} else {
-				[notification setFireDate:construction.finishTime];
-			}
-			[notification setAlertAction:[NSString stringWithFormat:@"open village %@", village.name]];
-			[notification setAlertBody:[NSString stringWithFormat:@"%@ constructed on village %@ from account %@", construction.name, village.name, storage.account.name]];
+			NSDate *finish = construction.finishTime;
+			if (DEBUG_APP)
+				finish = [NSDate dateWithTimeIntervalSinceNow:10];
 			
-			[[UIApplication sharedApplication] scheduleLocalNotification:notification];
+			[[TMAPNService sharedInstance] scheduleNotification:finish withMessageTitle:[NSString stringWithFormat:@"%@ constructed on village %@ from account %@", construction.name, village.name, storage.account.name]];
 		}
 	}
 	
