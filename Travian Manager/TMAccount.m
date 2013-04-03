@@ -441,12 +441,18 @@ static NSString *village = @"dorf2.php";
 	// Get div with ID 'villageList'
 	HTMLNode *villagesList = [node findChildWithAttribute:@"id" matchingName:@"villageList" allowPartial:NO];
 	if (!villagesList) {
-		return;
+		villagesList = [node findChildWithAttribute:@"id" matchingName:@"sidebarBoxVillagelist" allowPartial:NO]; // T4.2
+		
+		if (!villagesList)
+			return;
 	}
 	// Get div#villageList div.list
 	HTMLNode *villageList_div_List = [villagesList findChildWithAttribute:@"class" matchingName:@"list" allowPartial:NO];
 	if (!villageList_div_List) {
-		return;
+		villageList_div_List = [villagesList findChildWithAttribute:@"class" matchingName:@"innerBox content" allowPartial:NO]; // T4.2
+		
+		if (!villageList_div_List)
+			return;
 	}
 	
 	// List of villages in <li> tags
@@ -455,7 +461,15 @@ static NSString *village = @"dorf2.php";
 	for (int i = 0; i < [divList_li count]; i++) {
 		HTMLNode *li = [divList_li objectAtIndex:i];
 		TMVillage *tempVillage = [[TMVillage alloc] init];
-		tempVillage.name = [[li findChildTag:@"a"] contents];
+
+		HTMLNode *aTag = [li findChildTag:@"a"];
+		NSString *villageName = [aTag contents];
+		HTMLNode *v4_2 = [aTag findChildWithAttribute:@"class" matchingName:@"name" allowPartial:NO];
+		if (v4_2 != nil) {
+			// Try 4.2 version
+			villageName = [v4_2 contents];
+		}
+		tempVillage.name = villageName;
 		
 		int index = -1;
 		for (int ii = 0; ii < [tempVillages count]; ii++) {

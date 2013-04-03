@@ -103,6 +103,30 @@
 		resourceProductionBoost.wheat = manyResource;
 	}
 	
+	// Version 4.2 features 2 boosts..
+	NSArray *imgs = [attribute findChildTags:@"img"];
+	for (HTMLNode *img in imgs) {
+		HTMLNode *parent = [img parent];
+		if ([[parent tagName] isEqualToString:@"span"]) {
+			// Probably it?
+			HTMLNode *spanCurrent = [parent findChildWithAttribute:@"class" matchingName:@"current" allowPartial:NO];
+			int value = [[spanCurrent contents] intValue];
+			
+			NSString *className = [img className];
+			if ([className isEqualToString:@"r1"]) {
+				resourceProductionBoost.wood += value;
+			} else if ([className isEqualToString:@"r2"]) {
+				resourceProductionBoost.clay += value;
+			} else if ([className isEqualToString:@"r3"]) {
+				resourceProductionBoost.iron += value;
+			} else if ([className isEqualToString:@"r4"]) {
+				resourceProductionBoost.wheat += value;
+			}
+			
+			break;
+		}
+	}
+	
 	// experience
 	attribute = [[node findChildWithAttribute:@"id" matchingName:@"attributes" allowPartial:NO] findChildWithAttribute:@"class" matchingName:@"element current powervalue experience points" allowPartial:NO];
 	if (attribute) {

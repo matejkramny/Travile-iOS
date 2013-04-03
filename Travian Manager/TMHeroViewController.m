@@ -29,6 +29,7 @@
 @interface TMHeroViewController () {
 	TMHero *hero;
 	bool viewingMoreQuests;
+	NSMutableArray *resourceBoost;
 }
 
 @end
@@ -68,6 +69,17 @@ static NSString *viewTitle = @"Hero";
 	
 	hero = [[TMStorage sharedStorage] account].hero;
 	viewingMoreQuests = false;
+	
+	TMResources *r = [hero resourceProductionBoost];
+	resourceBoost = [[NSMutableArray alloc] initWithCapacity:4];
+	if (r.wood != 0.0f)
+		[resourceBoost addObject:@{@"label": @"Wood", @"value":[NSNumber numberWithInt:r.wood]}];
+	if (r.clay != 0.0f)
+		[resourceBoost addObject:@{@"label": @"Clay", @"value":[NSNumber numberWithInt:r.clay]}];
+	if (r.iron != 0.0f)
+		[resourceBoost addObject:@{@"label": @"Iron", @"value":[NSNumber numberWithInt:r.iron]}];
+	if (r.wheat != 0.0f)
+		[resourceBoost addObject:@{@"label": @"Wheat", @"value":[NSNumber numberWithInt:r.wheat]}];
 	
 	[self.tableView reloadData];
 }
@@ -206,39 +218,10 @@ static NSString *viewTitle = @"Hero";
 		case 3:
 			// Resources boost
 			cell = [tableView dequeueReusableCellWithIdentifier:@"RightDetailCell"];
-			NSString *tL = @"", *dL = @""; // textLabel, detailLabel
-			TMResources *r = [hero resourceProductionBoost];
 			
-			// Beware tricky fall-through switch logic in place
-			switch (indexPath.row) {
-				case 0:
-					if (r.wood != 0.0f) {
-						tL = @"Wood";
-						dL = [NSString stringWithFormat:@"%.0f", r.wood];
-						break;
-					}
-				case 1:
-					if (r.clay != 0.0f) {
-						tL = @"Clay";
-						dL = [NSString stringWithFormat:@"%.0f", r.clay];
-						break;
-					}
-				case 2:
-					if (r.iron != 0.0f) {
-						tL = @"Iron";
-						dL = [NSString stringWithFormat:@"%.0f", r.iron];
-						break;
-					}
-				case 3:
-					if (r.wheat != 0.0f) {
-						tL = @"Wheat";
-						dL = [NSString stringWithFormat:@"%.0f", r.wheat];
-						break;
-					}
-			}
-			
-			cell.textLabel.text = tL;
-			cell.detailTextLabel.text = dL;
+			NSDictionary *current = [resourceBoost objectAtIndex:indexPath.row];
+			cell.textLabel.text = [current valueForKey:@"label"];
+			cell.detailTextLabel.text = [NSString stringWithFormat:@"%d", [[current valueForKey:@"value"] intValue]];
 			
 			break;
 	}

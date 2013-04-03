@@ -139,6 +139,12 @@
 	if (villageName) {
 		NSString *span = [[[villageName findChildWithAttribute:@"class" matchingName:@"loyalty" allowPartial:YES] contents] stringByTrimmingCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]];
 		loyalty = [span intValue];
+	} else {
+		// T4.2 version?
+		HTMLNode *loy_4_2 = [node findChildWithAttribute:@"id" matchingName:@"sidebarBoxActiveVillage" allowPartial:NO];
+		if (loy_4_2 != nil) {
+			loyalty = [[[[loy_4_2 findChildWithAttribute:@"class" matchingName:@"loyalty" allowPartial:YES] findChildTag:@"span"] contents] intValue];
+		}
 	}
 	
 	if (page & TPVillage) {
@@ -181,7 +187,12 @@
 - (void)parseResources:(HTMLNode *)body {
 	NSArray *woodRaw = [[[body findChildWithAttribute:@"id" matchingName:@"l1" allowPartial:NO] contents] componentsSeparatedByString:@"/"];
 	
-	warehouse = [[woodRaw objectAtIndex:1] intValue];
+	HTMLNode *wh_4_2 = [body findChildWithAttribute:@"id" matchingName:@"stockBarWarehouse" allowPartial:NO];
+	if (wh_4_2 != nil) {
+		warehouse = [[wh_4_2 contents] intValue];
+	} else {
+		warehouse = [[woodRaw objectAtIndex:1] intValue];
+	}
 	
 	// Resources object might be nil
 	if (!resources)
@@ -192,9 +203,22 @@
 	resources.iron = [[[[[body findChildWithAttribute:@"id" matchingName:@"l3" allowPartial:NO] contents] componentsSeparatedByString:@"/"] objectAtIndex:0] intValue];
 	
 	NSArray *rawWheat = [[[body findChildWithAttribute:@"id" matchingName:@"l4" allowPartial:NO] contents] componentsSeparatedByString:@"/"];
-	granary = [[rawWheat objectAtIndex:1] intValue];
+	
+	HTMLNode *gr_4_2 = [body findChildWithAttribute:@"id" matchingName:@"stockBarGranary" allowPartial:NO];
+	if (gr_4_2 != nil) {
+		granary = [[gr_4_2 contents] intValue];
+	} else {
+		granary = [[rawWheat objectAtIndex:1] intValue];
+	}
+	
 	resources.wheat =[[rawWheat objectAtIndex:0] intValue];
-	consumption = [[[[[body findChildWithAttribute:@"id" matchingName:@"l5" allowPartial:NO] contents] componentsSeparatedByString:@"/"] objectAtIndex:0] intValue];
+	
+	HTMLNode *consumption_4_2 = [body findChildWithAttribute:@"id" matchingName:@"stockBarFreeCrop" allowPartial:NO];
+	if (consumption_4_2 != nil) {
+		consumption = [[consumption_4_2 contents] intValue];
+	} else {
+		consumption = [[[[[body findChildWithAttribute:@"id" matchingName:@"l5" allowPartial:NO] contents] componentsSeparatedByString:@"/"] objectAtIndex:0] intValue];
+	}
 }
 
 - (void)parseMovements:(HTMLNode *)body {
@@ -434,6 +458,40 @@
 		}
 		
 		constructions = tempConstructions;
+	} else {
+		// T4.2 version
+		HTMLNode *classBuildingList = [node findChildWithAttribute:@"class" matchingName:@"boxes buildingList" allowPartial:YES];
+		if (classBuildingList) {
+			NSArray *lis = [classBuildingList findChildTags:@"li"];
+			for (HTMLNode *li in lis) {
+				TMConstruction *construction = [[TMConstruction alloc] init];
+				
+				HTMLNode *nameNode = [li findChildWithAttribute:@"class" matchingName:@"name" allowPartial:NO];
+				NSString *conName = [[[nameNode contents] stringByReplacingOccurrencesOfString:@"\n" withString:@""] stringByReplacingOccurrencesOfString:@"\t" withString:@""];
+				
+				int level = [[[[nameNode findChildWithAttribute:@"class" matchingName:@"lvl" allowPartial:NO] contents] stringByTrimmingCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]] intValue];
+				
+				NSString *finishTime = [[li findChildWithAttribute:@"id" matchingName:@"timer" allowPartial:YES] contents];
+				if ([finishTime length] != 0) {
+					// Parse time from (hh:mm:ss) to NSDate
+					NSArray *timeSplit = [finishTime componentsSeparatedByString:@":"];
+					int hour = 0, minute = 0, second = 0;
+					hour = [[timeSplit objectAtIndex:0] intValue];
+					minute = [[timeSplit objectAtIndex:1] intValue];
+					second = [[timeSplit objectAtIndex:2] intValue];
+					int timestamp = [[NSDate date] timeIntervalSince1970]; // Now date
+					timestamp += hour * 60 * 60 + minute * 60 + second; // Now date + hour:minute:second
+					construction.finishTime = [NSDate dateWithTimeIntervalSince1970:timestamp]; // Future date
+				}
+				
+				construction.name = conName;
+				construction.level = level;
+				
+				[tempConstructions addObject:construction];
+			}
+			
+			constructions = tempConstructions;
+		}
 	}
 }
 
