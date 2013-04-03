@@ -57,6 +57,7 @@
 		4F2DEA9E16EBB24900B4324C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F2DEA9D16EBB24900B4324C /* SystemConfiguration.framework */; };
 		4F2DEAA416EBF54900B4324C /* MKGAITrackedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F2DEAA316EBF54900B4324C /* MKGAITrackedTableViewController.m */; };
 		4F4A52B915C96B20005F3708 /* TMVillageOpenBuildingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4A52B815C96B20005F3708 /* TMVillageOpenBuildingViewController.m */; };
+		4F4EB32F17091D9100204AB9 /* TMAPNService.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4EB32E17091D9100204AB9 /* TMAPNService.m */; };
 		4F509F5A15C5A64C00A15924 /* TMVillageResourcesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F509F5915C5A64C00A15924 /* TMVillageResourcesViewController.m */; };
 		4F509F5E15C5BC9300A15924 /* TMVillageTroopsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F509F5D15C5BC9300A15924 /* TMVillageTroopsViewController.m */; };
 		4F509F6115C5C08600A15924 /* TMVillageBuildingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F509F6015C5C08600A15924 /* TMVillageBuildingsViewController.m */; };
@@ -316,6 +317,8 @@
 		4F4A52B715C96B1F005F3708 /* TMVillageOpenBuildingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMVillageOpenBuildingViewController.h; sourceTree = "<group>"; };
 		4F4A52B815C96B20005F3708 /* TMVillageOpenBuildingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMVillageOpenBuildingViewController.m; sourceTree = "<group>"; };
 		4F4B132A164491D2002D3149 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		4F4EB32D17091D9100204AB9 /* TMAPNService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMAPNService.h; sourceTree = "<group>"; };
+		4F4EB32E17091D9100204AB9 /* TMAPNService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMAPNService.m; sourceTree = "<group>"; };
 		4F509F5815C5A64C00A15924 /* TMVillageResourcesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMVillageResourcesViewController.h; sourceTree = "<group>"; };
 		4F509F5915C5A64C00A15924 /* TMVillageResourcesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMVillageResourcesViewController.m; sourceTree = "<group>"; };
 		4F509F5C15C5BC9300A15924 /* TMVillageTroopsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMVillageTroopsViewController.h; sourceTree = "<group>"; };
@@ -549,6 +552,8 @@
 				4F5704D715CF166F001614AC /* Localizable.strings */,
 				4F09521B155C767800C15D6E /* AppDelegate.h */,
 				4F09521C155C767800C15D6E /* AppDelegate.m */,
+				4F4EB32D17091D9100204AB9 /* TMAPNService.h */,
+				4F4EB32E17091D9100204AB9 /* TMAPNService.m */,
 				4F09521E155C767800C15D6E /* MainStoryboard_iPhone.storyboard */,
 				4F28C73D15BB1ACB00C976E3 /* Models */,
 				4F28C73C15BB1A9F00C976E3 /* View Controllers */,
@@ -1154,6 +1159,7 @@
 				4FAF00E116D79450001E04C9 /* TMResidence.m in Sources */,
 				4F02A37E16EB635500178150 /* MKModalOverlay.m in Sources */,
 				4F2DEAA416EBF54900B4324C /* MKGAITrackedTableViewController.m in Sources */,
+				4F4EB32F17091D9100204AB9 /* TMAPNService.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
