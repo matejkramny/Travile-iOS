@@ -27,6 +27,7 @@
 #import "TMConstruction.h"
 #import <QuartzCore/QuartzCore.h>
 #import "TMAPNService.h"
+#import "TestFlight.h"
 
 @interface TMVillageOverviewViewController () {
 	TMStorage *storage;
@@ -34,6 +35,8 @@
 	NSTimer *secondTimer;
 	UISegmentedControl *navControl;
 	UIBarButtonItem *navButton;
+	int constructionRows;
+	int movementRows;
 }
 
 - (void)reloadBadgeCount;
@@ -244,11 +247,13 @@ static NSString *viewTitle = @"Overview";
 	} else if (section == 1) {
 		int c = [[village movements] count];
 		
-		return c == 0 ? 1 : c;
+		movementRows = c == 0 ? 1 : c;
+		return movementRows;
 	} else if (section == 2) {
 		int c = [[village constructions] count];
 		
-		return c == 0 ? 1 : c;
+		constructionRows = c == 0 ? 1 : c;
+		return constructionRows;
 	}
 	
     return 0;
@@ -297,6 +302,7 @@ static NSString *viewTitle = @"Overview";
 		{
 			cell.textLabel.text = @"Population";
 			cell.detailTextLabel.text = [NSString stringWithFormat:@"%d", [village population]];
+			[AppDelegate setRoundedCellAppearance:cell forIndexPath:indexPath forLastRow:false];
 		}
 		else {
 			cell.textLabel.text = @"Loyalty";
@@ -323,6 +329,8 @@ static NSString *viewTitle = @"Overview";
 			cell.textLabel.text = [movement name];
 			cell.detailTextLabel.text = calculateRemainingTimeFromDate(movement.finished);
 			
+			[AppDelegate setRoundedCellAppearance:cell forIndexPath:indexPath forLastRow:indexPath.row+1 == movementRows];
+			
 			return cell;
 		}
 	} else if (indexPath.section == 2) {
@@ -340,6 +348,8 @@ static NSString *viewTitle = @"Overview";
 			NSString *name = [NSString stringWithFormat:NSLocalizedString(@"construction lvl to", @"Construction name lvl X"), construction.name, construction.level];
 			cell.textLabel.text = name;
 			cell.detailTextLabel.text = calculateRemainingTimeFromDate(construction.finishTime);
+			
+			[AppDelegate setRoundedCellAppearance:cell forIndexPath:indexPath forLastRow:indexPath.row+1 == constructionRows];
 			
 			return cell;
 		}
@@ -365,6 +375,13 @@ static NSString *viewTitle = @"Overview";
 	}
 }
 
+- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
+	if (section == 2)
+		return @"Tap on a construction or movement to schedule a notification";
+	
+	return @"";
+}
+
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -379,6 +396,7 @@ static NSString *viewTitle = @"Overview";
 				finish = [NSDate dateWithTimeIntervalSinceNow:10];
 			
 			[[TMAPNService sharedInstance] scheduleNotification:finish withMessageTitle:[NSString stringWithFormat:@"%@ happened on village %@ from account %@", movement.name, village.name, storage.account.name]];
+			
 		} else {
 			[tableView deselectRowAtIndexPath:indexPath animated:YES];
 			return;

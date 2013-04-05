@@ -64,6 +64,8 @@ static NSString *viewTitle = @"Settings";
 	[warehouseIndicator setOn:settings.showsResourceProgress];
 	[loadAllAtOnce setOn:settings.loadsAllDataAtLogin];
 	
+	[self.tableView reloadData];
+	
 	if ([self.tableView indexPathForSelectedRow] != nil) {
 		[self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
 	}

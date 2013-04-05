@@ -2100,7 +2100,6 @@ matejkramny@gmail.com</string>
             <relationships>
                 <relationship kind="action" name="changedDecimalResources:"/>
                 <relationship kind="action" name="changedWarehouseIndicator:"/>
-                <relationship kind="action" name="giveFeedback:"/>
                 <relationship kind="action" name="loadAllAtOnce:"/>
                 <relationship kind="outlet" name="decimalResources" candidateClass="UISwitch"/>
                 <relationship kind="outlet" name="loadAllAtOnce" candidateClass="UISwitch"/>

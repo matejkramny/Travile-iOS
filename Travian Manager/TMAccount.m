@@ -116,6 +116,16 @@ static NSString *village = @"dorf2.php";
 	[coder encodeObject:server forKey:@"server"];
 }
 
+- (id)init {
+	self = [super init];
+	
+	if (self) {
+		settings = [[TMSettings alloc] init];
+	}
+	
+	return self;
+}
+
 #pragma mark -
 
 - (void)activateAccount {

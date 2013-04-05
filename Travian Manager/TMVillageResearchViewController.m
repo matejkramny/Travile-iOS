@@ -22,6 +22,7 @@
 #import "TMBuildingAction.h"
 #import "TMResources.h"
 #import "MBProgressHUD.h"
+#import "AppDelegate.h"
 
 @interface TMVillageResearchViewController () {
 	MBProgressHUD *HUD;
@@ -122,6 +123,7 @@ static NSString *resourceCellID = @"Resource";
 		case 2:
 			cell = [tableView dequeueReusableCellWithIdentifier:selectableCellID];
 			cell.textLabel.text = @"Research";
+			[AppDelegate setRoundedCellAppearance:cell forIndexPath:indexPath forLastRow:YES];
 			break;
 	}
     

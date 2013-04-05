@@ -30,6 +30,7 @@
 	TMHero *hero;
 	bool viewingMoreQuests;
 	NSMutableArray *resourceBoost;
+	int totalAdventureRows;
 }
 
 @end
@@ -107,15 +108,17 @@ static NSString *viewTitle = @"Hero";
 			//return viewingMoreQuests ? qsc+1 : qsc < 4 ? qsc : qsc+1;
 			
 			if (viewingMoreQuests)
-				return qsc+1; // Quests + button
+				totalAdventureRows = qsc+1; // Quests + button
 			else if (qsc == 0)
-				return 1; // Label showing no adventures
+				totalAdventureRows = 1; // Label showing no adventures
 			else if (qsc < 4)
-				return qsc; // Quests
+				totalAdventureRows = qsc; // Quests
 			else if (qsc > 3)
-				return 4; // Quests + button
+				totalAdventureRows = 4; // Quests + button
 			else
-				return qsc+1;
+				totalAdventureRows = qsc+1;
+			
+			return totalAdventureRows;
 		case 3:
 			// Resources
 			rpb = [hero resourceProductionBoost];
@@ -207,10 +210,12 @@ static NSString *viewTitle = @"Hero";
 				NSString *difficulty = @"Normal";
 				TMHeroQuest *quest = [[hero quests] objectAtIndex:indexPath.row];
 				if ([quest difficulty] == QD_VERY_HARD)
-					difficulty = @"VHard";
+					difficulty = @"Hard";
 				
 				cell.textLabel.text = [NSString stringWithFormat:@"[%@] %ds", difficulty, [quest duration]];
 			}
+			
+			[AppDelegate setRoundedCellAppearance:cell forIndexPath:indexPath forLastRow:indexPath.row+1 == totalAdventureRows];
 			
 			break;
 		case 3:
@@ -269,7 +274,7 @@ static NSString *viewTitle = @"Hero";
 			[ar removeObjectAtIndex:indexPath.row];
 			[hero setQuests:[ar copy]];
 			
-			[tableView reloadData];
+			[tableView reloadSections:[NSIndexSet indexSetWithIndex:2] withRowAnimation:UITableViewRowAnimationFade];
 		}
 	}
 }

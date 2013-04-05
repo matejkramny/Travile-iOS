@@ -42,6 +42,8 @@
 	[TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
 	[TestFlight takeOff:@"b358e40e-bd91-494b-848d-ce4398bed268"];
 	
+	[[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+	
 	return YES;
 }
 
@@ -54,6 +56,7 @@
 }
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
 	NSLog(@"Hey I just received a remote notification");
+	[[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
@@ -71,7 +74,9 @@
 		}
 	}
 }
-- (void)applicationDidBecomeActive:(UIApplication *)application {}
+- (void)applicationDidBecomeActive:(UIApplication *)application {
+	[[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+}
 - (void)applicationWillTerminate:(UIApplication *)application {}
 
 @end
@@ -121,6 +126,10 @@
 }
 
 static UIImageView *tableCellSelectedBackground;
+static UIImageView *roundedTableCellSelectedBackgroundTopBottom;
+static UIImageView *roundedTableCellSelectedBackgroundTop;
+static UIImageView *roundedTableCellSelectedBackgroundBottom;
+static UIImageView *roundedTableCellSelectedBackgroundMiddle;
 static UIImage *detailAccessoryViewImage;
 
 // Set appearance of cell based on indexPath
@@ -143,6 +152,45 @@ static UIImage *detailAccessoryViewImage;
 	
 	// Selected background
 	cell.selectedBackgroundView = tableCellSelectedBackground;
+	cell.textLabel.highlightedTextColor = [UIColor whiteColor];
+	cell.detailTextLabel.highlightedTextColor = [UIColor whiteColor];
+}
+// Set appearance of a rounded cell (so UITableView style is not 'Plain')
++ (void)setRoundedCellAppearance:(UITableViewCell *)cell forIndexPath:(NSIndexPath *)indexPath forLastRow:(bool)lastRow {
+	// Background
+	__weak UIImageView *selectedBackground;
+	
+	UIImageView *(^getImageForName)(NSString *) = ^(NSString *imageName) {
+		return [[UIImageView alloc] initWithImage:[[UIImage imageNamed:imageName] stretchableImageWithLeftCapWidth:10 topCapHeight:10]];
+	};
+	if (indexPath.row == 0 && lastRow) {
+		// Rounded top and bottom
+		if (!roundedTableCellSelectedBackgroundTopBottom)
+			roundedTableCellSelectedBackgroundTopBottom = getImageForName(@"SelectedCellRoundedTopBottom.png");
+		
+		selectedBackground = roundedTableCellSelectedBackgroundTopBottom;
+	} else if (indexPath.row == 0) {
+		// Rounded top
+		if (!roundedTableCellSelectedBackgroundTop)
+			roundedTableCellSelectedBackgroundTop = getImageForName(@"SelectedCellRoundedTop.png");
+		
+		selectedBackground = roundedTableCellSelectedBackgroundTop;
+	} else if (indexPath.row > 0 && !lastRow) {
+		// Middle - no rounded edges
+		if (!roundedTableCellSelectedBackgroundMiddle)
+			roundedTableCellSelectedBackgroundMiddle = getImageForName(@"SelectedCellRoundedMiddle.png");
+		
+		selectedBackground = roundedTableCellSelectedBackgroundMiddle;
+	} else if (indexPath.row > 0 && lastRow) {
+		// Bottom rounded edges
+		if (!roundedTableCellSelectedBackgroundBottom)
+			roundedTableCellSelectedBackgroundBottom = getImageForName(@"SelectedCellRoundedBottom.png");
+		
+		selectedBackground = roundedTableCellSelectedBackgroundBottom;
+	}
+	
+	// Selected background
+	cell.selectedBackgroundView = selectedBackground;
 	cell.textLabel.highlightedTextColor = [UIColor whiteColor];
 	cell.detailTextLabel.highlightedTextColor = [UIColor whiteColor];
 }

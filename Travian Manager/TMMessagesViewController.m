@@ -541,7 +541,7 @@ static NSString *noMessagesCellIdentifier = @"NoMessagesCell";
 	[self dismissViewControllerAnimated:YES completion:nil];
 	selectedMessage = nil;
 	
-	[self viewWillAppear:YES];
+	//[self viewWillAppear:YES];
 }
 
 - (void)openMessageViewController:(TMOpenMessageViewController *)viewController wantsToReplyToMessage:(TMMessage *)message {

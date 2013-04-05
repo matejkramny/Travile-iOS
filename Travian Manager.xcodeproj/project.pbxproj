@@ -122,8 +122,6 @@
 		4F5704D515CF166F001614AC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4F5704D715CF166F001614AC /* Localizable.strings */; };
 		4F578C48168235CF00DC9FB6 /* TMLabelAndTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F578C47168235CF00DC9FB6 /* TMLabelAndTextFieldCell.m */; };
 		4F578C4C168236B600DC9FB6 /* TMTextViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F578C4B168236B600DC9FB6 /* TMTextViewCell.m */; };
-		4F578C4F168342C000DC9FB6 /* SelectedCellGroupedTop.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F578C4D168342BF00DC9FB6 /* SelectedCellGroupedTop.png */; };
-		4F578C50168342C000DC9FB6 /* SelectedCellGroupedTop@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F578C4E168342BF00DC9FB6 /* SelectedCellGroupedTop@2x.png */; };
 		4F5F0A9415C0153400757356 /* TMOpenMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F5F0A9315C0153400757356 /* TMOpenMessageViewController.m */; };
 		4F6E222B15E15BFF002EC13F /* 37x-Checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F6E222915E15BFF002EC13F /* 37x-Checkmark.png */; };
 		4F6E222C15E15BFF002EC13F /* 37x-Checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F6E222A15E15BFF002EC13F /* 37x-Checkmark@2x.png */; };
@@ -219,6 +217,14 @@
 		4FC706AE15E825BB0081372E /* TMVillageResearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FC706AD15E825BB0081372E /* TMVillageResearchViewController.m */; };
 		4FC8E56515F6B3AA0035D296 /* TMNonGenericBuilding.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FC8E56415F6B3AA0035D296 /* TMNonGenericBuilding.m */; };
 		4FCA3750156B96DF0071BAD5 /* TMBuilding.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FCA374F156B96DF0071BAD5 /* TMBuilding.m */; };
+		4FCD327D170EF03600C6E6A0 /* SelectedCellRoundedTop.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FCD327B170EF03600C6E6A0 /* SelectedCellRoundedTop.png */; };
+		4FCD327E170EF03600C6E6A0 /* SelectedCellRoundedTop@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FCD327C170EF03600C6E6A0 /* SelectedCellRoundedTop@2x.png */; };
+		4FCD3281170EFCE900C6E6A0 /* SelectedCellRoundedBottom.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FCD327F170EFCE900C6E6A0 /* SelectedCellRoundedBottom.png */; };
+		4FCD3282170EFCE900C6E6A0 /* SelectedCellRoundedBottom@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FCD3280170EFCE900C6E6A0 /* SelectedCellRoundedBottom@2x.png */; };
+		4FCD3285170EFEF000C6E6A0 /* SelectedCellRoundedMiddle.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FCD3283170EFEF000C6E6A0 /* SelectedCellRoundedMiddle.png */; };
+		4FCD3286170EFEF000C6E6A0 /* SelectedCellRoundedMiddle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FCD3284170EFEF000C6E6A0 /* SelectedCellRoundedMiddle@2x.png */; };
+		4FCD3289170EFFDC00C6E6A0 /* SelectedCellRoundedTopBottom.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FCD3287170EFFDC00C6E6A0 /* SelectedCellRoundedTopBottom.png */; };
+		4FCD328A170EFFDC00C6E6A0 /* SelectedCellRoundedTopBottom@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FCD3288170EFFDC00C6E6A0 /* SelectedCellRoundedTopBottom@2x.png */; };
 		4FD480FD15724B5C00BECE24 /* TMReport.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD480FC15724B5C00BECE24 /* TMReport.m */; };
 		4FD4810115724B6500BECE24 /* TMMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD4810015724B6500BECE24 /* TMMessage.m */; };
 		4FD64FCB15DAAD57002FAFFC /* TMBuildingMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD64FCA15DAAD57002FAFFC /* TMBuildingMap.m */; };
@@ -382,9 +388,6 @@
 		4F578C47168235CF00DC9FB6 /* TMLabelAndTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMLabelAndTextFieldCell.m; sourceTree = "<group>"; };
 		4F578C4A168236B600DC9FB6 /* TMTextViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMTextViewCell.h; sourceTree = "<group>"; };
 		4F578C4B168236B600DC9FB6 /* TMTextViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMTextViewCell.m; sourceTree = "<group>"; };
-		4F578C4D168342BF00DC9FB6 /* SelectedCellGroupedTop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SelectedCellGroupedTop.png; sourceTree = "<group>"; };
-		4F578C4E168342BF00DC9FB6 /* SelectedCellGroupedTop@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SelectedCellGroupedTop@2x.png"; sourceTree = "<group>"; };
-		4F5F0A8D15BDEB8800757356 /* Travian Manager.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Travian Manager.entitlements"; sourceTree = "<group>"; };
 		4F5F0A9215C0153400757356 /* TMOpenMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMOpenMessageViewController.h; sourceTree = "<group>"; };
 		4F5F0A9315C0153400757356 /* TMOpenMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMOpenMessageViewController.m; sourceTree = "<group>"; };
 		4F6E222915E15BFF002EC13F /* 37x-Checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "37x-Checkmark.png"; sourceTree = "<group>"; };
@@ -453,6 +456,15 @@
 		4FC8E56415F6B3AA0035D296 /* TMNonGenericBuilding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMNonGenericBuilding.m; sourceTree = "<group>"; };
 		4FCA374E156B96DF0071BAD5 /* TMBuilding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMBuilding.h; sourceTree = "<group>"; };
 		4FCA374F156B96DF0071BAD5 /* TMBuilding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMBuilding.m; sourceTree = "<group>"; };
+		4FCD327B170EF03600C6E6A0 /* SelectedCellRoundedTop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SelectedCellRoundedTop.png; sourceTree = "<group>"; };
+		4FCD327C170EF03600C6E6A0 /* SelectedCellRoundedTop@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SelectedCellRoundedTop@2x.png"; sourceTree = "<group>"; };
+		4FCD327F170EFCE900C6E6A0 /* SelectedCellRoundedBottom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SelectedCellRoundedBottom.png; sourceTree = "<group>"; };
+		4FCD3280170EFCE900C6E6A0 /* SelectedCellRoundedBottom@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SelectedCellRoundedBottom@2x.png"; sourceTree = "<group>"; };
+		4FCD3283170EFEF000C6E6A0 /* SelectedCellRoundedMiddle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SelectedCellRoundedMiddle.png; sourceTree = "<group>"; };
+		4FCD3284170EFEF000C6E6A0 /* SelectedCellRoundedMiddle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SelectedCellRoundedMiddle@2x.png"; sourceTree = "<group>"; };
+		4FCD3287170EFFDC00C6E6A0 /* SelectedCellRoundedTopBottom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SelectedCellRoundedTopBottom.png; sourceTree = "<group>"; };
+		4FCD3288170EFFDC00C6E6A0 /* SelectedCellRoundedTopBottom@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SelectedCellRoundedTopBottom@2x.png"; sourceTree = "<group>"; };
+		4FCD328B170F268700C6E6A0 /* Travian Manager.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Travian Manager.entitlements"; sourceTree = "<group>"; };
 		4FD480FB15724B5C00BECE24 /* TMReport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMReport.h; sourceTree = "<group>"; };
 		4FD480FC15724B5C00BECE24 /* TMReport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMReport.m; sourceTree = "<group>"; };
 		4FD480FF15724B6500BECE24 /* TMMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMMessage.h; sourceTree = "<group>"; };
@@ -547,7 +559,7 @@
 		4F095212155C767800C15D6E /* Travian Manager */ = {
 			isa = PBXGroup;
 			children = (
-				4F5F0A8D15BDEB8800757356 /* Travian Manager.entitlements */,
+				4FCD328B170F268700C6E6A0 /* Travian Manager.entitlements */,
 				4F5704D715CF166F001614AC /* Localizable.strings */,
 				4F09521B155C767800C15D6E /* AppDelegate.h */,
 				4F09521C155C767800C15D6E /* AppDelegate.m */,
@@ -787,8 +799,14 @@
 				4FE7FFCF15D5D779007B80A5 /* ArrowIcon@2x.png */,
 				4F2D975815D68925007E589D /* SelectedCell.png */,
 				4F2D975915D68925007E589D /* SelectedCell@2x.png */,
-				4F578C4D168342BF00DC9FB6 /* SelectedCellGroupedTop.png */,
-				4F578C4E168342BF00DC9FB6 /* SelectedCellGroupedTop@2x.png */,
+				4FCD3287170EFFDC00C6E6A0 /* SelectedCellRoundedTopBottom.png */,
+				4FCD3288170EFFDC00C6E6A0 /* SelectedCellRoundedTopBottom@2x.png */,
+				4FCD3283170EFEF000C6E6A0 /* SelectedCellRoundedMiddle.png */,
+				4FCD3284170EFEF000C6E6A0 /* SelectedCellRoundedMiddle@2x.png */,
+				4FCD327F170EFCE900C6E6A0 /* SelectedCellRoundedBottom.png */,
+				4FCD3280170EFCE900C6E6A0 /* SelectedCellRoundedBottom@2x.png */,
+				4FCD327B170EF03600C6E6A0 /* SelectedCellRoundedTop.png */,
+				4FCD327C170EF03600C6E6A0 /* SelectedCellRoundedTop@2x.png */,
 			);
 			name = Design;
 			path = ../Design;
@@ -1050,9 +1068,15 @@
 				4F24E913167BC077002367B7 /* checkBoxBlank@2x.png in Resources */,
 				4F24E914167BC077002367B7 /* checkBoxDelete.png in Resources */,
 				4F24E915167BC077002367B7 /* checkBoxDelete@2x.png in Resources */,
-				4F578C4F168342C000DC9FB6 /* SelectedCellGroupedTop.png in Resources */,
-				4F578C50168342C000DC9FB6 /* SelectedCellGroupedTop@2x.png in Resources */,
 				4F752573170C86FD00B447D4 /* MainStoryboard_iPhone.strings in Resources */,
+				4FCD327D170EF03600C6E6A0 /* SelectedCellRoundedTop.png in Resources */,
+				4FCD327E170EF03600C6E6A0 /* SelectedCellRoundedTop@2x.png in Resources */,
+				4FCD3281170EFCE900C6E6A0 /* SelectedCellRoundedBottom.png in Resources */,
+				4FCD3282170EFCE900C6E6A0 /* SelectedCellRoundedBottom@2x.png in Resources */,
+				4FCD3285170EFEF000C6E6A0 /* SelectedCellRoundedMiddle.png in Resources */,
+				4FCD3286170EFEF000C6E6A0 /* SelectedCellRoundedMiddle@2x.png in Resources */,
+				4FCD3289170EFFDC00C6E6A0 /* SelectedCellRoundedTopBottom.png in Resources */,
+				4FCD328A170EFFDC00C6E6A0 /* SelectedCellRoundedTopBottom@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1317,8 +1341,8 @@
 				HEADER_SEARCH_PATHS = "${SDK_DIR}/usr/include/libxml2";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "69E12582-8528-4003-9633-6283752E4596";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "69E12582-8528-4003-9633-6283752E4596";
+				PROVISIONING_PROFILE = "36BBA43B-1243-488B-A123-36B6B8917EC3";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "36BBA43B-1243-488B-A123-36B6B8917EC3";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -1328,7 +1352,7 @@
 		4F09522A155C767800C15D6E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_ENTITLEMENTS = "Travian Manager/Travian Manager.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer: Matej Kramny (8FN4JHTL4E)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Matej Kramny (8FN4JHTL4E)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1358,7 +1382,7 @@
 		4F09522B155C767800C15D6E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_ENTITLEMENTS = "Travian Manager/Travian Manager.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Matej Kramny";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Matej Kramny";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1378,8 +1402,8 @@
 					"\"$(SRCROOT)/Travian Manager/Icons\"",
 				);
 				PRODUCT_NAME = "Travian Manager";
-				PROVISIONING_PROFILE = "69E12582-8528-4003-9633-6283752E4596";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "69E12582-8528-4003-9633-6283752E4596";
+				PROVISIONING_PROFILE = "36BBA43B-1243-488B-A123-36B6B8917EC3";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "36BBA43B-1243-488B-A123-36B6B8917EC3";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};

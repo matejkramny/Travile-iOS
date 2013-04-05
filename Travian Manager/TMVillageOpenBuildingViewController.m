@@ -358,6 +358,9 @@ static NSString *barracksCellID = @"Barracks";
 			// Train button
 			UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:basicSelectableCellID];
 			cell.textLabel.text = @"Train";
+			
+			[AppDelegate setRoundedCellAppearance:cell forIndexPath:indexPath forLastRow:YES];
+			
 			return cell;
 		} else {
 			TMVillageBarracksCell *cell = [tableView dequeueReusableCellWithIdentifier:barracksCellID];
@@ -386,6 +389,8 @@ static NSString *barracksCellID = @"Barracks";
 		cell.textLabel.text = key;
 		cell.detailTextLabel.text = [(NSDictionary *)sec objectForKey:key];
 	}
+	
+	[AppDelegate setRoundedCellAppearance:cell forIndexPath:indexPath forLastRow:indexPath.row+1 == [tableView numberOfRowsInSection:indexPath.section]];
 	
 	return cell;
 }
