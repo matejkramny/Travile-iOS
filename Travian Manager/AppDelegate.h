@@ -19,11 +19,16 @@
  */
 
 #import <UIKit/UIKit.h>
-#import "GAI.h"
 
 #ifndef AppDelegate
 	#define DEBUG_APP false
 	#define DEBUG_ANIMATION false
+#endif
+
+#ifdef DEBUG
+	#define APN_URL @"http://apn.sandbox.matej.me/" // used when running the app without the distribution prov. profile
+#else
+	#define APN_URL @"http://apn.matej.me/" // ad-hoc and app store mode.
 #endif
 
 @class TMStorage;
@@ -31,7 +36,6 @@
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-@property (strong, nonatomic) id<GAITracker> tracker;
 @property (weak, nonatomic) TMStorage *storage;
 
 @end

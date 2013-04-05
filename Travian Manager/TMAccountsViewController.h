@@ -21,6 +21,6 @@
 #import <UIKit/UIKit.h>
 #import "TMAccountDetailsViewController.h"
 
-@interface TMAccountsViewController : MKGAITrackedTableViewController <TMAccountDetailsViewControllerDelegate, UIAlertViewDelegate>
+@interface TMAccountsViewController : UITableViewController <TMAccountDetailsViewControllerDelegate, UIAlertViewDelegate>
 
 @end

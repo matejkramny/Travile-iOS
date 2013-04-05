@@ -145,8 +145,6 @@ static NSString *viewTitle = @"Messages";
 		[overlay removeOverlayAnimated:YES];
 		inModal = false;
 	}
-	
-	[storage.delegate.tracker sendView:viewTitle];
 }
 
 - (void)viewDidAppear:(BOOL)animated {

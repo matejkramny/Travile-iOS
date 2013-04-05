@@ -2000,9 +2000,6 @@ matejkramny@gmail.com</string>
         <image name="unreadNotification.png" width="10" height="10"/>
     </resources>
     <classes>
-        <class className="MKGAITrackedTableViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MKGAITrackedTableViewController.h"/>
-        </class>
         <class className="TMAccountDetailsViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/TMAccountDetailsViewController.h"/>
             <relationships>
@@ -2024,7 +2021,7 @@ matejkramny@gmail.com</string>
                 <relationship kind="outlet" name="textField" candidateClass="UITextField"/>
             </relationships>
         </class>
-        <class className="TMAccountsViewController" superclassName="MKGAITrackedTableViewController">
+        <class className="TMAccountsViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/TMAccountsViewController.h"/>
         </class>
         <class className="TMDeleteCell" superclassName="UITableViewCell">
@@ -2034,7 +2031,7 @@ matejkramny@gmail.com</string>
                 <relationship kind="outlet" name="button" candidateClass="UIButton"/>
             </relationships>
         </class>
-        <class className="TMHeroViewController" superclassName="MKGAITrackedTableViewController">
+        <class className="TMHeroViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/TMHeroViewController.h"/>
         </class>
         <class className="TMLabelAndTextFieldCell" superclassName="UITableViewCell">
@@ -2073,7 +2070,7 @@ matejkramny@gmail.com</string>
                 <relationship kind="action" name="newMessage:"/>
             </relationships>
         </class>
-        <class className="TMNewMessageViewController" superclassName="MKGAITrackedTableViewController">
+        <class className="TMNewMessageViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/TMNewMessageViewController.h"/>
             <relationships>
                 <relationship kind="action" name="closeView:"/>
@@ -2089,7 +2086,7 @@ matejkramny@gmail.com</string>
                 <relationship kind="action" name="reply:"/>
             </relationships>
         </class>
-        <class className="TMReportsViewController" superclassName="MKGAITrackedTableViewController">
+        <class className="TMReportsViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/TMReportsViewController.h"/>
             <relationships>
                 <relationship kind="action" name="deleteAll:"/>
@@ -2098,11 +2095,12 @@ matejkramny@gmail.com</string>
                 <relationship kind="action" name="editButtonClicked:"/>
             </relationships>
         </class>
-        <class className="TMSettingsViewController" superclassName="MKGAITrackedTableViewController">
+        <class className="TMSettingsViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/TMSettingsViewController.h"/>
             <relationships>
                 <relationship kind="action" name="changedDecimalResources:"/>
                 <relationship kind="action" name="changedWarehouseIndicator:"/>
+                <relationship kind="action" name="giveFeedback:"/>
                 <relationship kind="action" name="loadAllAtOnce:"/>
                 <relationship kind="outlet" name="decimalResources" candidateClass="UISwitch"/>
                 <relationship kind="outlet" name="loadAllAtOnce" candidateClass="UISwitch"/>
@@ -2125,22 +2123,22 @@ matejkramny@gmail.com</string>
                 <relationship kind="outlet" name="resources" candidateClass="UILabel"/>
             </relationships>
         </class>
-        <class className="TMVillageBuildingsViewController" superclassName="MKGAITrackedTableViewController">
+        <class className="TMVillageBuildingsViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/TMVillageBuildingsViewController.h"/>
         </class>
-        <class className="TMVillageOpenBuildingViewController" superclassName="MKGAITrackedTableViewController">
+        <class className="TMVillageOpenBuildingViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/TMVillageOpenBuildingViewController.h"/>
         </class>
-        <class className="TMVillageOverviewViewController" superclassName="MKGAITrackedTableViewController">
+        <class className="TMVillageOverviewViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/TMVillageOverviewViewController.h"/>
             <relationships>
                 <relationship kind="action" name="secondTimerFired:"/>
             </relationships>
         </class>
-        <class className="TMVillageResearchViewController" superclassName="MKGAITrackedTableViewController">
+        <class className="TMVillageResearchViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/TMVillageResearchViewController.h"/>
         </class>
-        <class className="TMVillageResourcesViewController" superclassName="MKGAITrackedTableViewController">
+        <class className="TMVillageResourcesViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/TMVillageResourcesViewController.h"/>
             <relationships>
                 <relationship kind="outlet" name="clay" candidateClass="UILabel"/>
@@ -2153,10 +2151,10 @@ matejkramny@gmail.com</string>
                 <relationship kind="outlet" name="wood" candidateClass="UILabel"/>
             </relationships>
         </class>
-        <class className="TMVillageTroopsViewController" superclassName="MKGAITrackedTableViewController">
+        <class className="TMVillageTroopsViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/TMVillageTroopsViewController.h"/>
         </class>
-        <class className="TMVillagesViewController" superclassName="MKGAITrackedTableViewController">
+        <class className="TMVillagesViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/TMVillagesViewController.h"/>
         </class>
     </classes>

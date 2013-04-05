@@ -71,8 +71,6 @@ static NSString *viewTitle = @"Resources";
 	
 	[[self tableView] setBackgroundView:nil];
 	[self.navigationItem setTitle:viewTitle];
-	
-	[super setTrackedViewName:viewTitle];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

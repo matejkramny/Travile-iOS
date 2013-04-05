@@ -21,6 +21,6 @@
 #import <UIKit/UIKit.h>
 #import "MBProgressHUD.h"
 
-@interface TMReportsViewController : MKGAITrackedTableViewController <MBProgressHUDDelegate, UIAlertViewDelegate>
+@interface TMReportsViewController : UITableViewController <MBProgressHUDDelegate, UIAlertViewDelegate>
 
 @end

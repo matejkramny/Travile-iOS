@@ -39,6 +39,10 @@
 	
 	// Analytics - waiting for loading interval
 	int startedLoadingUNIXTime;
+	
+	UIBarButtonItem *addButton;
+	UIBarButtonItem *editButton;
+	UIBarButtonItem *editButtonDone;
 }
 
 - (void)logIn:(TMAccount *)a withPasword:(NSString *)password;
@@ -73,12 +77,15 @@
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated {
 	[super setEditing:editing animated:animated];
 	
-	if (editing)
-		[self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(editButtonClicked:)] animated:animated];
-	else if ([storage.accounts count] > 0)
-		[self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editButtonClicked:)] animated:animated];
-	else {
+	if (editing) {
+		[self.navigationItem setLeftBarButtonItem:editButtonDone animated:animated];
+		[self.navigationItem setRightBarButtonItem:nil animated:animated];
+	} else if ([storage.accounts count] > 0) {
+		[self.navigationItem setLeftBarButtonItem:editButton animated:animated];
+		[self.navigationItem setRightBarButtonItem:addButton animated:animated];
+	} else {
 		[self.navigationItem setLeftBarButtonItem:nil];
+		[self.navigationItem setRightBarButtonItem:addButton animated:animated];
 	}
 }
 
@@ -111,7 +118,9 @@
 	
 	firstAnimateButtons = true;
 	
-	[super setTrackedViewName:@"Accounts list"];
+	addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addAccount:)];
+	editButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editButtonClicked:)];
+	editButtonDone = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(editButtonClicked:)];
 }
 
 - (void)viewDidUnload
@@ -125,10 +134,15 @@
 		if ([[storage accounts] count] == 0) {
 			[self.navigationItem setLeftBarButtonItem:nil];
 		} else {
-			[self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editButtonClicked:)] animated:NO];
+			[self.navigationItem setLeftBarButtonItem:editButton animated:NO];
 		}
 		
-		[self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addAccount:)] animated:NO];
+		[self.navigationItem setRightBarButtonItem:addButton animated:NO];
+	}
+	
+	NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+	if (indexPath != nil) {
+		[self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 	}
 	
 	[super viewWillAppear:animated];
@@ -147,6 +161,8 @@
 		
 		firstAnimateButtons = false;
 	}
+	
+	[[UIApplication sharedApplication] registerForRemoteNotificationTypes: (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
 	
 	[super viewDidAppear:animated];
 }
@@ -183,7 +199,7 @@
 		// Configure the cell...
 		TMAccount *a = [[storage accounts] objectAtIndex:indexPath.row];
 		cell.textLabel.text = [a name];
-		cell.detailTextLabel.text = [a username];
+		cell.detailTextLabel.text = [NSString stringWithFormat:@"%@@%@.travian.%@", a.username, a.world, a.server];
 
 		[cell setOpaque:YES];
 		[cell setAlpha:1];
@@ -308,11 +324,11 @@
 			// Cannot log in.
 			// Display Alert - Cancel - Retry with new password
 			
-			if ([storage.account password].length > 0)
-				[tracker sendEventWithCategory:@"failed_login" withAction:@"prompt password" withLabel:@"cannot login" withValue:[NSNumber numberWithInt:10]];
-			else {
+			if ([storage.account password].length > 0) {
+				//[tracker sendEventWithCategory:@"failed_login" withAction:@"prompt password" withLabel:@"cannot login" withValue:[NSNumber numberWithInt:10]];
+			} else {
 				// Nil password - user wants to enter his pwd for security
-				[tracker sendEventWithCategory:@"security" withAction:@"prompt" withLabel:@"enter password" withValue:[NSNumber numberWithInt:10]];
+				//[tracker sendEventWithCategory:@"security" withAction:@"prompt" withLabel:@"enter password" withValue:[NSNumber numberWithInt:10]];
 			}
 			
 			[storage.account removeObserver:self forKeyPath:@"notificationPending"];
@@ -332,7 +348,7 @@
 			// Record this with Analytics (time it took)
 			int diff = [[NSDate date] timeIntervalSince1970] - startedLoadingUNIXTime;
 			startedLoadingUNIXTime = 0;
-			[tracker sendTimingWithCategory:@"resources" withValue:diff withName:@"login" withLabel:nil];
+			//[tracker sendTimingWithCategory:@"resources" withValue:diff withName:@"login" withLabel:nil];
 			
 			[hud setLabelText:@"Done"];
 			[hud setDetailsLabelText:@""];

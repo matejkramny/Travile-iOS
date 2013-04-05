@@ -20,6 +20,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TMHeroViewController : MKGAITrackedTableViewController <UITableViewDataSource>
+@interface TMHeroViewController : UITableViewController <UITableViewDataSource>
 
 @end

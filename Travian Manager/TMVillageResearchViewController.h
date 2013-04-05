@@ -22,7 +22,7 @@
 
 @class TMBuildingAction;
 
-@interface TMVillageResearchViewController : MKGAITrackedTableViewController
+@interface TMVillageResearchViewController : UITableViewController
 
 @property (nonatomic, weak) TMBuildingAction *action;
 

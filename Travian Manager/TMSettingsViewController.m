@@ -50,8 +50,6 @@ static NSString *viewTitle = @"Settings";
 	[[self tableView] setBackgroundView:nil];
 
 	[self.navigationItem setTitle:viewTitle];
-	
-	[super setTrackedViewName:viewTitle];
 }
 
 - (void)viewDidUnload
@@ -60,8 +58,6 @@ static NSString *viewTitle = @"Settings";
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-	[super viewWillAppear:animated];
-	
 	settings = [TMStorage sharedStorage].account.settings;
 
 	[decimalResources setOn:settings.showsDecimalResources];
@@ -71,6 +67,8 @@ static NSString *viewTitle = @"Settings";
 	if ([self.tableView indexPathForSelectedRow] != nil) {
 		[self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
 	}
+	
+	[super viewWillAppear:animated];
 }
 
 - (IBAction)changedDecimalResources:(id)sender {
@@ -101,7 +99,7 @@ static NSString *viewTitle = @"Settings";
 		
 		[tableView deselectRowAtIndexPath:indexPath animated:YES];
 	} else if (indexPath.section == 1 && indexPath.row == 3) {
-		[tracker sendView:@"Credits"]; // Tell analytics we are viewing credits screen
+		//[tracker sendView:@"Credits"]; // Tell analytics we are viewing credits screen
 	} else if (indexPath.section == 2) {
 		TMAccount *a = [TMStorage sharedStorage].account;
 		NSString *url = [[NSString stringWithFormat:@"http://%@.travian.%@/%@", a.world, a.server, [TMAccount resources]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];

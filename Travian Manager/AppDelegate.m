@@ -21,15 +21,13 @@
 #import "AppDelegate.h"
 #import "TMStorage.h"
 #import "TMAPNService.h"
-
-static NSString *trackingId = @"UA-39166000-1";
+#import "TestFlight.h"
 
 @implementation AppDelegate {
 	unsigned int timeAtGoingToInactiveState; // States the time when the app resignsActive
 }
 
 @synthesize window = _window;
-@synthesize tracker;
 @synthesize storage;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -41,15 +39,8 @@ static NSString *trackingId = @"UA-39166000-1";
 	[TMStorage sharedStorage].delegate = self;
 	storage = [TMStorage sharedStorage];
 	
-	// Google analytics
-	GAI *gai = [GAI sharedInstance];
-	gai.debug = DEBUG_APP;
-	gai.dispatchInterval = DEBUG_APP ? 3 : 30;
-	gai.trackUncaughtExceptions = YES;
-	tracker = [gai trackerWithTrackingId:trackingId];
-	
-	[[UIApplication sharedApplication] registerForRemoteNotificationTypes:
-	 (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+	[TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
+	[TestFlight takeOff:@"b358e40e-bd91-494b-848d-ce4398bed268"];
 	
 	return YES;
 }
@@ -58,9 +49,11 @@ static NSString *trackingId = @"UA-39166000-1";
 	NSString *token = [deviceToken description];
 	[[TMAPNService sharedInstance] sendToken:token];
 }
-
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
 	
+}
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+	NSLog(@"Hey I just received a remote notification");
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

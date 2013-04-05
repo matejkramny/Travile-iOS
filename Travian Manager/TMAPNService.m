@@ -19,6 +19,7 @@
  */
 
 #import "TMAPNService.h"
+#import "AppDelegate.h"
 
 @interface TMAPNService () {
 	NSString *token;
@@ -78,7 +79,7 @@
 	NSString *postData = [[NSString alloc] initWithFormat:@"token=%@", token];
 	NSData *myRequestData = [NSData dataWithBytes: [postData UTF8String] length: [postData length]];
 	
-	NSURL *url = [NSURL URLWithString:@"http://apn.matej.me/register"];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", APN_URL, @"register"]];
 	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: url cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
 	
 	[request setHTTPMethod: @"POST"];
@@ -92,7 +93,7 @@
 	NSString *postData = [[NSString alloc] initWithFormat:@"token=%@&deliveryTime=%d&title=%@", token, (int)[date timeIntervalSince1970], title];
 	NSData *myRequestData = [NSData dataWithBytes: [postData UTF8String] length: [postData length]];
 	
-	NSURL *url = [NSURL URLWithString:@"http://apn.matej.me/schedule"];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", APN_URL, @"schedule"]];
 	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: url cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
 	
 	[request setHTTPMethod: @"POST"];

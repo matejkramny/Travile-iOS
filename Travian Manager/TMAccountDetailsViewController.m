@@ -40,7 +40,6 @@
 
 static NSString *addAccount = @"Add Account";
 static NSString *editAccount = @"Edit Account";
-static NSString *trackedViewName = @"Account view";
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -65,8 +64,6 @@ static NSString *trackedViewName = @"Account view";
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-	[[(AppDelegate *)[UIApplication sharedApplication].delegate tracker] sendView:trackedViewName];
-	
 	[super viewWillAppear:animated];
 }
 

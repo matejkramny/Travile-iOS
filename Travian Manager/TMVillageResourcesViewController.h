@@ -20,7 +20,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TMVillageResourcesViewController : MKGAITrackedTableViewController
+@interface TMVillageResourcesViewController : UITableViewController
 
 @property (weak, nonatomic) IBOutlet UILabel *wood;
 @property (weak, nonatomic) IBOutlet UILabel *clay;

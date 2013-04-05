@@ -31,7 +31,7 @@
 
 @end
 
-@interface TMVillageOpenBuildingViewController : MKGAITrackedTableViewController <TMBuildingMapProtocol, UITableViewDataSource, TMVillageOpenBuildingDelegate>
+@interface TMVillageOpenBuildingViewController : UITableViewController <TMBuildingMapProtocol, UITableViewDataSource, TMVillageOpenBuildingDelegate>
 
 @property (nonatomic, weak) id<TMVillageOpenBuildingDelegate> delegate;
 @property (nonatomic, weak) TMBuilding *building;

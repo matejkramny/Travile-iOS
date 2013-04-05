@@ -26,6 +26,7 @@
 #import "TMVillageOverviewViewController.h"
 #import "MKModalOverlay.h"
 #import "MBProgressHUD.h"
+#import "TestFlight.h"
 
 @interface TMVillagesViewController () {
 	TMStorage *storage;
@@ -63,8 +64,6 @@ static NSString *title = @"Villages";
 	
 	overlay = [[MKModalOverlay alloc] initWithTarget:self.navigationController.tabBarController.view];
 	[overlay configureBoundsBottomToTop];
-	
-	[super setTrackedViewName:title];
 }
 
 - (void)viewDidUnload
@@ -72,9 +71,8 @@ static NSString *title = @"Villages";
     [super viewDidUnload];
 }
 
+static UIBarButtonItem *feedbackButton;
 - (void)viewWillAppear:(BOOL)animated {
-	[super viewWillAppear:animated];
-	
 	if (![storage account] || ([storage.account status] & ANotLoggedIn) != 0) {
 		[overlay addOverlayAnimated:NO usingAnimationType:OverlayAnimationTypeMove];
 		return;
@@ -95,6 +93,13 @@ static NSString *title = @"Villages";
 	}
 	
 	[self.navigationItem setTitle:title];
+	
+	if (!feedbackButton) {
+		feedbackButton = [[UIBarButtonItem alloc] initWithTitle:@"Give Feedback" style:UIBarButtonItemStylePlain target:self action:@selector(giveFeedback:)];
+	}
+	[self.navigationItem setLeftBarButtonItem:feedbackButton];
+	
+	[super viewWillAppear:animated];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -133,6 +138,10 @@ static NSString *title = @"Villages";
 		
 		[self tableView:self.tableView didSelectRowAtIndexPath:selectedVillageIndexPath]; // 'Reselect' the table cell
 	}
+}
+
+- (void)giveFeedback:(id)sender {
+	[TestFlight openFeedbackView];
 }
 
 #pragma mark - Table view data source

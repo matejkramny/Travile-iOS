@@ -30,6 +30,7 @@
 	if (self) {
 		showsDecimalResources = true;
 		showsResourceProgress = true;
+		loadsAllDataAtLogin = true;
 	}
 	
 	return self;

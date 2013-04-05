@@ -81,8 +81,6 @@ static NSString *barracksCellID = @"Barracks";
     [super viewDidLoad];
 	
 	[[self tableView] setBackgroundView:nil];
-	
-	[super setTrackedViewName:@"Building"];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

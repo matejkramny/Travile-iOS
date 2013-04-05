@@ -25,7 +25,6 @@
 #import "TMNewMessageViewController.h"
 #import "TMMessageContentCell.h"
 #import "AppDelegate.h"
-#import "GAI.h"
 
 @interface TMOpenMessageViewController () <UIActionSheetDelegate> {
 	bool didCloseReply;
@@ -41,8 +40,6 @@
 
 @synthesize message;
 @synthesize delegate;
-
-static NSString *trackedViewName = @"Open message";
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -66,8 +63,6 @@ static NSString *trackedViewName = @"Open message";
 	[super viewWillAppear:animated];
 	
 	[self setTitle:message.title];
-	
-	[[(AppDelegate *)[UIApplication sharedApplication].delegate tracker] sendView:trackedViewName];
 }
 
 - (void)viewDidAppear:(BOOL)animated {

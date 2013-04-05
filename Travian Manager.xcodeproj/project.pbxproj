@@ -52,10 +52,6 @@
 		4F28C74115BB358500C976E3 /* TMAccountDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F28C74015BB358500C976E3 /* TMAccountDetailsViewController.m */; };
 		4F2D975A15D68925007E589D /* SelectedCell.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F2D975815D68925007E589D /* SelectedCell.png */; };
 		4F2D975B15D68925007E589D /* SelectedCell@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F2D975915D68925007E589D /* SelectedCell@2x.png */; };
-		4F2DEA9916EBB07200B4324C /* libGoogleAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F2DEA9816EBB07200B4324C /* libGoogleAnalytics.a */; };
-		4F2DEA9C16EBB24100B4324C /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F2DEA9B16EBB24100B4324C /* CoreData.framework */; };
-		4F2DEA9E16EBB24900B4324C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F2DEA9D16EBB24900B4324C /* SystemConfiguration.framework */; };
-		4F2DEAA416EBF54900B4324C /* MKGAITrackedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F2DEAA316EBF54900B4324C /* MKGAITrackedTableViewController.m */; };
 		4F4A52B915C96B20005F3708 /* TMVillageOpenBuildingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4A52B815C96B20005F3708 /* TMVillageOpenBuildingViewController.m */; };
 		4F4EB32F17091D9100204AB9 /* TMAPNService.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4EB32E17091D9100204AB9 /* TMAPNService.m */; };
 		4F509F5A15C5A64C00A15924 /* TMVillageResourcesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F509F5915C5A64C00A15924 /* TMVillageResourcesViewController.m */; };
@@ -137,6 +133,9 @@
 		4F724F1E16E159F0005E5CA2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F095210155C767800C15D6E /* CoreGraphics.framework */; };
 		4F724F2416E159F0005E5CA2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4F724F2216E159F0005E5CA2 /* InfoPlist.strings */; };
 		4F724F3516E15ED2005E5CA2 /* GHUnitIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F724F3416E15ED2005E5CA2 /* GHUnitIOS.framework */; };
+		4F752573170C86FD00B447D4 /* MainStoryboard_iPhone.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4F752571170C86FD00B447D4 /* MainStoryboard_iPhone.strings */; };
+		4F752582170E210200B447D4 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F752580170E210200B447D4 /* libTestFlight.a */; };
+		4F752584170E216800B447D4 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F752583170E216800B447D4 /* libz.dylib */; };
 		4F792EE416E4C9B30076C0EE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F724F2516E159F0005E5CA2 /* main.m */; };
 		4F792EE716E4CA030076C0EE /* TTStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F792EAD16E4BD710076C0EE /* TTStorage.m */; };
 		4F81DFDC164F1CFE00523CF4 /* TMSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F81DFDB164F1CFD00523CF4 /* TMSettings.m */; };
@@ -252,7 +251,6 @@
 		4F09521A155C767800C15D6E /* Travian Manager-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Travian Manager-Prefix.pch"; sourceTree = "<group>"; };
 		4F09521B155C767800C15D6E /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		4F09521C155C767800C15D6E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		4F09521F155C767800C15D6E /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
 		4F09522C155C76D800C15D6E /* TMStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMStorage.h; sourceTree = "<group>"; };
 		4F09522D155C76D800C15D6E /* TMStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMStorage.m; sourceTree = "<group>"; };
 		4F09522F155C7AA900C15D6E /* HTMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMLParser.h; sourceTree = "<group>"; };
@@ -302,16 +300,8 @@
 		4F28C74015BB358500C976E3 /* TMAccountDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMAccountDetailsViewController.m; sourceTree = "<group>"; };
 		4F2D975815D68925007E589D /* SelectedCell.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SelectedCell.png; sourceTree = "<group>"; };
 		4F2D975915D68925007E589D /* SelectedCell@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SelectedCell@2x.png"; sourceTree = "<group>"; };
-		4F2DEA9316EBB07200B4324C /* GAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAI.h; path = GoogleAnalytics.framework/GAI.h; sourceTree = "<group>"; };
-		4F2DEA9416EBB07200B4324C /* GAITrackedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAITrackedViewController.h; path = GoogleAnalytics.framework/GAITrackedViewController.h; sourceTree = "<group>"; };
-		4F2DEA9516EBB07200B4324C /* GAITracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAITracker.h; path = GoogleAnalytics.framework/GAITracker.h; sourceTree = "<group>"; };
-		4F2DEA9616EBB07200B4324C /* GAITransaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAITransaction.h; path = GoogleAnalytics.framework/GAITransaction.h; sourceTree = "<group>"; };
-		4F2DEA9716EBB07200B4324C /* GAITransactionItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAITransactionItem.h; path = GoogleAnalytics.framework/GAITransactionItem.h; sourceTree = "<group>"; };
-		4F2DEA9816EBB07200B4324C /* libGoogleAnalytics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGoogleAnalytics.a; path = GoogleAnalytics.framework/libGoogleAnalytics.a; sourceTree = "<group>"; };
 		4F2DEA9B16EBB24100B4324C /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		4F2DEA9D16EBB24900B4324C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		4F2DEAA216EBF54800B4324C /* MKGAITrackedTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MKGAITrackedTableViewController.h; path = "Travian Manager/MKGAITrackedTableViewController/MKGAITrackedTableViewController.h"; sourceTree = "<group>"; };
-		4F2DEAA316EBF54900B4324C /* MKGAITrackedTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MKGAITrackedTableViewController.m; path = "Travian Manager/MKGAITrackedTableViewController/MKGAITrackedTableViewController.m"; sourceTree = "<group>"; };
 		4F38F938156008FE00AF2E82 /* TMPages.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TMPages.h; sourceTree = "<group>"; };
 		4F38F93A15600B6700AF2E82 /* TravianPageParsingProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TravianPageParsingProtocol.h; sourceTree = "<group>"; };
 		4F4A52B715C96B1F005F3708 /* TMVillageOpenBuildingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMVillageOpenBuildingViewController.h; sourceTree = "<group>"; };
@@ -388,8 +378,6 @@
 		4F5704CA15CEE770001614AC /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		4F5704CC15CEE775001614AC /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		4F5704D615CF166F001614AC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		4F5704DE15CF176E001614AC /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Localizable.strings; sourceTree = "<group>"; };
-		4F5704E015CF17C0001614AC /* cs */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = cs; path = cs.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
 		4F578C46168235CF00DC9FB6 /* TMLabelAndTextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMLabelAndTextFieldCell.h; sourceTree = "<group>"; };
 		4F578C47168235CF00DC9FB6 /* TMLabelAndTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMLabelAndTextFieldCell.m; sourceTree = "<group>"; };
 		4F578C4A168236B600DC9FB6 /* TMTextViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMTextViewCell.h; sourceTree = "<group>"; };
@@ -409,6 +397,15 @@
 		4F724F2516E159F0005E5CA2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		4F724F2716E159F0005E5CA2 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
 		4F724F3416E15ED2005E5CA2 /* GHUnitIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GHUnitIOS.framework; sourceTree = "<group>"; };
+		4F752570170C796000B447D4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
+		4F752572170C86FD00B447D4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/MainStoryboard_iPhone.strings; sourceTree = "<group>"; };
+		4F75257C170CE77300B447D4 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/MainStoryboard_iPhone.strings; sourceTree = "<group>"; };
+		4F75257D170CE77300B447D4 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		4F75257E170CE77300B447D4 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Localizable.strings; sourceTree = "<group>"; };
+		4F75257F170CE77300B447D4 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		4F752580170E210200B447D4 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libTestFlight.a; path = "Travian Manager/Icons/libTestFlight.a"; sourceTree = "<group>"; };
+		4F752581170E210200B447D4 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestFlight.h; path = "Travian Manager/Icons/TestFlight.h"; sourceTree = "<group>"; };
+		4F752583170E216800B447D4 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		4F792EAC16E4BD710076C0EE /* TTStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTStorage.h; sourceTree = "<group>"; };
 		4F792EAD16E4BD710076C0EE /* TTStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTStorage.m; sourceTree = "<group>"; };
 		4F81DFDA164F1CFD00523CF4 /* TMSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMSettings.h; sourceTree = "<group>"; };
@@ -478,14 +475,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4F2DEA9E16EBB24900B4324C /* SystemConfiguration.framework in Frameworks */,
-				4F2DEA9C16EBB24100B4324C /* CoreData.framework in Frameworks */,
+				4F752584170E216800B447D4 /* libz.dylib in Frameworks */,
 				4FBACE5815D71FCF0092A8F3 /* QuartzCore.framework in Frameworks */,
 				4F095238155C7B6100C15D6E /* libxml2.2.dylib in Frameworks */,
 				4F09520D155C767800C15D6E /* UIKit.framework in Frameworks */,
 				4F09520F155C767800C15D6E /* Foundation.framework in Frameworks */,
 				4F095211155C767800C15D6E /* CoreGraphics.framework in Frameworks */,
-				4F2DEA9916EBB07200B4324C /* libGoogleAnalytics.a in Frameworks */,
+				4F752582170E210200B447D4 /* libTestFlight.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -532,6 +528,9 @@
 		4F09520B155C767800C15D6E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4F752583170E216800B447D4 /* libz.dylib */,
+				4F752580170E210200B447D4 /* libTestFlight.a */,
+				4F752581170E210200B447D4 /* TestFlight.h */,
 				4F2DEA9B16EBB24100B4324C /* CoreData.framework */,
 				4F2DEA9D16EBB24900B4324C /* SystemConfiguration.framework */,
 				4F724F3416E15ED2005E5CA2 /* GHUnitIOS.framework */,
@@ -555,6 +554,7 @@
 				4F4EB32D17091D9100204AB9 /* TMAPNService.h */,
 				4F4EB32E17091D9100204AB9 /* TMAPNService.m */,
 				4F09521E155C767800C15D6E /* MainStoryboard_iPhone.storyboard */,
+				4F752571170C86FD00B447D4 /* MainStoryboard_iPhone.strings */,
 				4F28C73D15BB1ACB00C976E3 /* Models */,
 				4F28C73C15BB1A9F00C976E3 /* View Controllers */,
 				4FC8E56615F6B70A0035D296 /* Cells */,
@@ -562,7 +562,6 @@
 				4FD64FCD15DAAF24002FAFFC /* BuildingMap */,
 				4FC6F11915BC39B6006F583D /* HUD */,
 				4F095239155C7C6300C15D6E /* HTMLParser */,
-				4F2DEA9A16EBB07C00B4324C /* Google Analytics */,
 				4F095213155C767800C15D6E /* Supporting Files */,
 			);
 			path = "Travian Manager";
@@ -650,22 +649,6 @@
 				4F38F938156008FE00AF2E82 /* TMPages.h */,
 			);
 			name = Models;
-			sourceTree = "<group>";
-		};
-		4F2DEA9A16EBB07C00B4324C /* Google Analytics */ = {
-			isa = PBXGroup;
-			children = (
-				4F2DEA9316EBB07200B4324C /* GAI.h */,
-				4F2DEA9416EBB07200B4324C /* GAITrackedViewController.h */,
-				4F2DEA9516EBB07200B4324C /* GAITracker.h */,
-				4F2DEA9616EBB07200B4324C /* GAITransaction.h */,
-				4F2DEA9716EBB07200B4324C /* GAITransactionItem.h */,
-				4F2DEA9816EBB07200B4324C /* libGoogleAnalytics.a */,
-				4F2DEAA216EBF54800B4324C /* MKGAITrackedTableViewController.h */,
-				4F2DEAA316EBF54900B4324C /* MKGAITrackedTableViewController.m */,
-			);
-			name = "Google Analytics";
-			path = ..;
 			sourceTree = "<group>";
 		};
 		4F57044715CEE126001614AC /* Resources */ = {
@@ -956,6 +939,8 @@
 				en,
 				cz,
 				cs,
+				Base,
+				fr,
 			);
 			mainGroup = 4F0951FD155C767700C15D6E;
 			productRefGroup = 4F095209155C767800C15D6E /* Products */;
@@ -1067,6 +1052,7 @@
 				4F24E915167BC077002367B7 /* checkBoxDelete@2x.png in Resources */,
 				4F578C4F168342C000DC9FB6 /* SelectedCellGroupedTop.png in Resources */,
 				4F578C50168342C000DC9FB6 /* SelectedCellGroupedTop@2x.png in Resources */,
+				4F752573170C86FD00B447D4 /* MainStoryboard_iPhone.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1158,7 +1144,6 @@
 				4FAF00DE16D792B4001E04C9 /* TMTrapper.m in Sources */,
 				4FAF00E116D79450001E04C9 /* TMResidence.m in Sources */,
 				4F02A37E16EB635500178150 /* MKModalOverlay.m in Sources */,
-				4F2DEAA416EBF54900B4324C /* MKGAITrackedTableViewController.m in Sources */,
 				4F4EB32F17091D9100204AB9 /* TMAPNService.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1233,6 +1218,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				4F095216155C767800C15D6E /* en */,
+				4F75257D170CE77300B447D4 /* cs */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -1240,8 +1226,7 @@
 		4F09521E155C767800C15D6E /* MainStoryboard_iPhone.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				4F09521F155C767800C15D6E /* en */,
-				4F5704E015CF17C0001614AC /* cs */,
+				4F752570170C796000B447D4 /* Base */,
 			);
 			name = MainStoryboard_iPhone.storyboard;
 			sourceTree = "<group>";
@@ -1250,7 +1235,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				4F5704D615CF166F001614AC /* en */,
-				4F5704DE15CF176E001614AC /* cs */,
+				4F75257E170CE77300B447D4 /* cs */,
 			);
 			name = Localizable.strings;
 			path = ..;
@@ -1260,8 +1245,18 @@
 			isa = PBXVariantGroup;
 			children = (
 				4F724F2316E159F0005E5CA2 /* en */,
+				4F75257F170CE77300B447D4 /* cs */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		4F752571170C86FD00B447D4 /* MainStoryboard_iPhone.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4F752572170C86FD00B447D4 /* en */,
+				4F75257C170CE77300B447D4 /* cs */,
+			);
+			name = MainStoryboard_iPhone.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -1277,8 +1272,8 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Matej Kramny (8FN4JHTL4E)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Matej Kramny (8FN4JHTL4E)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -1294,8 +1289,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "${SDK_DIR}/usr/include/libxml2";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE = "CB832903-613A-4D84-8889-FC658078AE70";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "CB832903-613A-4D84-8889-FC658078AE70";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1311,8 +1306,8 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Matej Kramny";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Matej Kramny";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -1322,8 +1317,8 @@
 				HEADER_SEARCH_PATHS = "${SDK_DIR}/usr/include/libxml2";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE = "69E12582-8528-4003-9633-6283752E4596";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "69E12582-8528-4003-9633-6283752E4596";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -1334,8 +1329,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Matej Kramny (8FN4JHTL4E)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Matej Kramny (8FN4JHTL4E)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -1350,11 +1345,11 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/GoogleAnalytics.framework\"",
+					"\"$(SRCROOT)/Travian Manager/Icons\"",
 				);
 				PRODUCT_NAME = "Travian Manager";
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE = "CB832903-613A-4D84-8889-FC658078AE70";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "CB832903-613A-4D84-8889-FC658078AE70";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1364,8 +1359,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Matej Kramny";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Matej Kramny";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -1380,11 +1375,11 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/GoogleAnalytics.framework\"",
+					"\"$(SRCROOT)/Travian Manager/Icons\"",
 				);
 				PRODUCT_NAME = "Travian Manager";
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE = "69E12582-8528-4003-9633-6283752E4596";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "69E12582-8528-4003-9633-6283752E4596";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
