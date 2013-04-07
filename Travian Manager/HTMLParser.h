@@ -12,7 +12,7 @@
 
 @class HTMLNode;
 
-@interface HTMLParser : NSObject 
+@interface HTMLParser : NSObject
 {
 @public
 	htmlDocPtr _doc;

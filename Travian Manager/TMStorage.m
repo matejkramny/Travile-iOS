@@ -1,30 +1,15 @@
-// This code is distributed under the terms and conditions of the MIT license.
-
-/* * Copyright (C) 2011 - 2013 Matej Kramny <matejkramny@gmail.com>
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
- * associated documentation files (the "Software"), to deal in the Software without restriction,
- * including without limitation the rights to use, copy, modify, merge, publish, distribute,
- * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all copies or substantial
- * portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
- * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
- * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES
- * OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
- * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+/* Copyright (C) 2011 - 2013 Matej Kramny <matejkramny@gmail.com>
+ * All rights reserved.
  */
 
 #import "TMStorage.h"
 #import "TMAccount.h"
 #import "TMSettings.h"
+#import "TMApplicationSettings.h"
 
 @implementation TMStorage
 
-@synthesize accounts, account;
+@synthesize accounts, account, appSettings;
 
 // Singleton
 + (TMStorage *)sharedStorage {
@@ -41,6 +26,7 @@
 
 - (id)init {
 	static NSString *accountsPath = @"Accounts.plist";
+	static NSString *appSettingsPath = @"ApplicationSettings.plist";
 	
 	self = [super init];
 	
@@ -50,6 +36,7 @@
 		NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 		NSString *documentsDirectory = [paths objectAtIndex:0];
 		savePath = [documentsDirectory stringByAppendingPathComponent:accountsPath];
+		appSettingsPath = [documentsDirectory stringByAppendingPathComponent:appSettingsPath];
 		
 		[self loadData];
 	}
@@ -60,30 +47,34 @@
 #pragma mark - Data Saving
 
 - (BOOL)saveData {
-	
 	// Data
-	NSData *data = [NSKeyedArchiver archivedDataWithRootObject:accounts];
+	NSData *accountData = [NSKeyedArchiver archivedDataWithRootObject:accounts];
+	NSData *appSettingsData = [NSKeyedArchiver archivedDataWithRootObject:appSettings];
 	
 	// Write the data
-	NSError *error;
-	if ([data writeToFile:savePath options:NSDataWritingAtomic error:&error]) {
+	if ([accountData writeToFile:savePath options:NSDataWritingAtomic error:nil] && [appSettingsData writeToFile:appSettingsSavePath options:NSDataWritingAtomic error:nil]) {
 		return true;
 	} else {
-		
 		return false;
 	}
 }
 
 - (BOOL)loadData {
-	NSData *data = [NSData dataWithContentsOfFile:savePath];
+	NSData *accountData = [NSData dataWithContentsOfFile:savePath];
+	NSData *appSettingsData = [NSData dataWithContentsOfFile:appSettingsSavePath];
 	
 	bool result = false;
 	
-	accounts = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+	accounts = [NSKeyedUnarchiver unarchiveObjectWithData:accountData];
+	appSettings = [NSKeyedUnarchiver unarchiveObjectWithData:appSettingsData];
 	if (accounts == nil)
 		accounts = [[NSArray alloc] init];
 	else
 		result = true;
+	if (appSettings == nil)
+		appSettings = [[TMApplicationSettings alloc] init];
+	else
+		result = result == false ? false : true;
 	
 	account = nil;
 	

@@ -145,6 +145,9 @@
 		4F928DA915D41A65008AC6DB /* UINavigationBarLandscape.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F928DA515D41A65008AC6DB /* UINavigationBarLandscape.png */; };
 		4F928DAA15D41A65008AC6DB /* UINavigationBarLandscape@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F928DA615D41A65008AC6DB /* UINavigationBarLandscape@2x.png */; };
 		4F99267515644E7200C6AFFC /* TMConstruction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F99267415644E7200C6AFFC /* TMConstruction.m */; };
+		4FA47AE51710652A00DFD460 /* TMBasicToggleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA47AE41710652A00DFD460 /* TMBasicToggleCell.m */; };
+		4FA47B22171163E500DFD460 /* TMAppSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA47B21171163E400DFD460 /* TMAppSettingsViewController.m */; };
+		4FA47B25171169D900DFD460 /* TMApplicationSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA47B24171169D900DFD460 /* TMApplicationSettings.m */; };
 		4FA67B2816E4E29D00B4CD18 /* TMStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F09522D155C76D800C15D6E /* TMStorage.m */; };
 		4FA67B2916E4E29D00B4CD18 /* TMSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F81DFDB164F1CFD00523CF4 /* TMSettings.m */; };
 		4FA67B2A16E4E29D00B4CD18 /* TMAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F095244155C804400C15D6E /* TMAccount.m */; };
@@ -425,6 +428,13 @@
 		4F928DA615D41A65008AC6DB /* UINavigationBarLandscape@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UINavigationBarLandscape@2x.png"; sourceTree = "<group>"; };
 		4F99267315644E7200C6AFFC /* TMConstruction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMConstruction.h; sourceTree = "<group>"; };
 		4F99267415644E7200C6AFFC /* TMConstruction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMConstruction.m; sourceTree = "<group>"; };
+		4FA47AE31710652A00DFD460 /* TMBasicToggleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMBasicToggleCell.h; sourceTree = "<group>"; };
+		4FA47AE41710652A00DFD460 /* TMBasicToggleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMBasicToggleCell.m; sourceTree = "<group>"; };
+		4FA47AE617107D5400DFD460 /* Travian Manager.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Travian Manager.entitlements"; sourceTree = "<group>"; };
+		4FA47B20171163E400DFD460 /* TMAppSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMAppSettingsViewController.h; sourceTree = "<group>"; };
+		4FA47B21171163E400DFD460 /* TMAppSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMAppSettingsViewController.m; sourceTree = "<group>"; };
+		4FA47B23171169D900DFD460 /* TMApplicationSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMApplicationSettings.h; sourceTree = "<group>"; };
+		4FA47B24171169D900DFD460 /* TMApplicationSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMApplicationSettings.m; sourceTree = "<group>"; };
 		4FA88B6B15F160D9001D9713 /* TMDeleteCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMDeleteCell.h; sourceTree = "<group>"; };
 		4FA88B6C15F160D9001D9713 /* TMDeleteCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMDeleteCell.m; sourceTree = "<group>"; };
 		4FA88B6E15F1632A001D9713 /* redButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = redButton.png; path = ../redButton.png; sourceTree = "<group>"; };
@@ -464,7 +474,6 @@
 		4FCD3284170EFEF000C6E6A0 /* SelectedCellRoundedMiddle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SelectedCellRoundedMiddle@2x.png"; sourceTree = "<group>"; };
 		4FCD3287170EFFDC00C6E6A0 /* SelectedCellRoundedTopBottom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SelectedCellRoundedTopBottom.png; sourceTree = "<group>"; };
 		4FCD3288170EFFDC00C6E6A0 /* SelectedCellRoundedTopBottom@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SelectedCellRoundedTopBottom@2x.png"; sourceTree = "<group>"; };
-		4FCD328B170F268700C6E6A0 /* Travian Manager.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Travian Manager.entitlements"; sourceTree = "<group>"; };
 		4FD480FB15724B5C00BECE24 /* TMReport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMReport.h; sourceTree = "<group>"; };
 		4FD480FC15724B5C00BECE24 /* TMReport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMReport.m; sourceTree = "<group>"; };
 		4FD480FF15724B6500BECE24 /* TMMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMMessage.h; sourceTree = "<group>"; };
@@ -559,7 +568,7 @@
 		4F095212155C767800C15D6E /* Travian Manager */ = {
 			isa = PBXGroup;
 			children = (
-				4FCD328B170F268700C6E6A0 /* Travian Manager.entitlements */,
+				4FA47AE617107D5400DFD460 /* Travian Manager.entitlements */,
 				4F5704D715CF166F001614AC /* Localizable.strings */,
 				4F09521B155C767800C15D6E /* AppDelegate.h */,
 				4F09521C155C767800C15D6E /* AppDelegate.m */,
@@ -608,6 +617,8 @@
 				4F28C73A15BB1A9500C976E3 /* TMAccountsViewController.m */,
 				4F28C73F15BB358500C976E3 /* TMAccountDetailsViewController.h */,
 				4F28C74015BB358500C976E3 /* TMAccountDetailsViewController.m */,
+				4FA47B20171163E400DFD460 /* TMAppSettingsViewController.h */,
+				4FA47B21171163E400DFD460 /* TMAppSettingsViewController.m */,
 				4FA1485316D94C76002E307B /* Village */,
 				4FC6F11D15BC4AC0006F583D /* TMReportsViewController.h */,
 				4FC6F11E15BC4AC0006F583D /* TMReportsViewController.m */,
@@ -632,6 +643,8 @@
 				4F09522D155C76D800C15D6E /* TMStorage.m */,
 				4F81DFDA164F1CFD00523CF4 /* TMSettings.h */,
 				4F81DFDB164F1CFD00523CF4 /* TMSettings.m */,
+				4FA47B23171169D900DFD460 /* TMApplicationSettings.h */,
+				4FA47B24171169D900DFD460 /* TMApplicationSettings.m */,
 				4F095243155C804400C15D6E /* TMAccount.h */,
 				4F095244155C804400C15D6E /* TMAccount.m */,
 				4F095240155C7F6300C15D6E /* TMVillage.h */,
@@ -890,6 +903,8 @@
 				4F578C4B168236B600DC9FB6 /* TMTextViewCell.m */,
 				4FB4E3D9167F5CEC00922886 /* TMMessageContentTextView.h */,
 				4FB4E3DA167F5CEC00922886 /* TMMessageContentTextView.m */,
+				4FA47AE31710652A00DFD460 /* TMBasicToggleCell.h */,
+				4FA47AE41710652A00DFD460 /* TMBasicToggleCell.m */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -1169,6 +1184,9 @@
 				4FAF00E116D79450001E04C9 /* TMResidence.m in Sources */,
 				4F02A37E16EB635500178150 /* MKModalOverlay.m in Sources */,
 				4F4EB32F17091D9100204AB9 /* TMAPNService.m in Sources */,
+				4FA47AE51710652A00DFD460 /* TMBasicToggleCell.m in Sources */,
+				4FA47B22171163E500DFD460 /* TMAppSettingsViewController.m in Sources */,
+				4FA47B25171169D900DFD460 /* TMApplicationSettings.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1313,8 +1331,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "${SDK_DIR}/usr/include/libxml2";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				PROVISIONING_PROFILE = "CB832903-613A-4D84-8889-FC658078AE70";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "CB832903-613A-4D84-8889-FC658078AE70";
+				PROVISIONING_PROFILE = "816A8BD6-D1B4-4992-994C-5F172E94D191";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "816A8BD6-D1B4-4992-994C-5F172E94D191";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1341,8 +1359,8 @@
 				HEADER_SEARCH_PATHS = "${SDK_DIR}/usr/include/libxml2";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "36BBA43B-1243-488B-A123-36B6B8917EC3";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "36BBA43B-1243-488B-A123-36B6B8917EC3";
+				PROVISIONING_PROFILE = "E1BEC4B2-AA59-424D-8180-72588505CA73";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E1BEC4B2-AA59-424D-8180-72588505CA73";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -1372,8 +1390,8 @@
 					"\"$(SRCROOT)/Travian Manager/Icons\"",
 				);
 				PRODUCT_NAME = "Travian Manager";
-				PROVISIONING_PROFILE = "CB832903-613A-4D84-8889-FC658078AE70";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "CB832903-613A-4D84-8889-FC658078AE70";
+				PROVISIONING_PROFILE = "816A8BD6-D1B4-4992-994C-5F172E94D191";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "816A8BD6-D1B4-4992-994C-5F172E94D191";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1402,8 +1420,8 @@
 					"\"$(SRCROOT)/Travian Manager/Icons\"",
 				);
 				PRODUCT_NAME = "Travian Manager";
-				PROVISIONING_PROFILE = "36BBA43B-1243-488B-A123-36B6B8917EC3";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "36BBA43B-1243-488B-A123-36B6B8917EC3";
+				PROVISIONING_PROFILE = "E1BEC4B2-AA59-424D-8180-72588505CA73";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E1BEC4B2-AA59-424D-8180-72588505CA73";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};

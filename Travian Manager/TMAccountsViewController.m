@@ -1,21 +1,5 @@
-// This code is distributed under the terms and conditions of the MIT license.
-
-/* * Copyright (C) 2011 - 2013 Matej Kramny <matejkramny@gmail.com>
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
- * associated documentation files (the "Software"), to deal in the Software without restriction,
- * including without limitation the rights to use, copy, modify, merge, publish, distribute,
- * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all copies or substantial
- * portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
- * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
- * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES
- * OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
- * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+/* Copyright (C) 2011 - 2013 Matej Kramny <matejkramny@gmail.com>
+ * All rights reserved.
  */
 
 #import "TMAccountsViewController.h"
@@ -40,9 +24,12 @@
 	// Analytics - waiting for loading interval
 	int startedLoadingUNIXTime;
 	
+	bool insideSettings;
+	
 	UIBarButtonItem *addButton;
 	UIBarButtonItem *editButton;
 	UIBarButtonItem *editButtonDone;
+	UIBarButtonItem *settingsButton;
 }
 
 - (void)logIn:(TMAccount *)a withPasword:(NSString *)password;
@@ -70,6 +57,10 @@
 	[self performSegueWithIdentifier:@"NewAccount" sender:self];
 }
 
+- (void)showSettings:(id)sender {
+	[self performSegueWithIdentifier:@"OpenSettings" sender:self];
+}
+
 // Overrides setEditing messages to change buttons on Navigation Bar
 - (void)setEditing:(BOOL)editing {
 	[self setEditing:editing animated:NO];
@@ -79,7 +70,7 @@
 	
 	if (editing) {
 		[self.navigationItem setLeftBarButtonItem:editButtonDone animated:animated];
-		[self.navigationItem setRightBarButtonItem:nil animated:animated];
+		[self.navigationItem setRightBarButtonItem:settingsButton animated:animated];
 	} else if ([storage.accounts count] > 0) {
 		[self.navigationItem setLeftBarButtonItem:editButton animated:animated];
 		[self.navigationItem setRightBarButtonItem:addButton animated:animated];
@@ -111,8 +102,6 @@
 {
 	storage = [TMStorage sharedStorage];
 	
-	[super viewDidLoad];
-	
 	overlay = [[MKModalOverlay alloc] initWithTarget:self.navigationController.view];
 	[overlay configureBoundsBottomToTop];
 	
@@ -121,6 +110,11 @@
 	addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addAccount:)];
 	editButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editButtonClicked:)];
 	editButtonDone = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(editButtonClicked:)];
+	settingsButton = [[UIBarButtonItem alloc] initWithTitle:@"Settings" style:UIBarButtonItemStylePlain target:self action:@selector(showSettings:)];
+	
+	insideSettings = false;
+	
+	[super viewDidLoad];
 }
 
 - (void)viewDidUnload
@@ -143,6 +137,11 @@
 	NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
 	if (indexPath != nil) {
 		[self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+	}
+	
+	if (insideSettings) {
+		[overlay removeOverlayAnimated:YES];
+		[self setEditing:NO animated:NO];
 	}
 	
 	[super viewWillAppear:animated];
@@ -346,7 +345,7 @@
 			// Finished loading
 			
 			// Record this with Analytics (time it took)
-			int diff = [[NSDate date] timeIntervalSince1970] - startedLoadingUNIXTime;
+			//int diff = [[NSDate date] timeIntervalSince1970] - startedLoadingUNIXTime;
 			startedLoadingUNIXTime = 0;
 			//[tracker sendTimingWithCategory:@"resources" withValue:diff withName:@"login" withLabel:nil];
 			
@@ -424,6 +423,9 @@
 		
 		advc.delegate = self;
 		advc.editingAccount = selectedAccount;
+	} else if ([segue.identifier isEqualToString:@"OpenSettings"]) {
+		[overlay addOverlayAnimated:YES];
+		insideSettings = true;
 	} else {
 		// open account
 		firstAnimateButtons = true;

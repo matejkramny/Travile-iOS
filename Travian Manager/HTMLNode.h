@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import <libxml/HTMLparser.h>
 #import "HTMLParser.h"
 
 @class HTMLParser;
@@ -33,7 +33,7 @@ typedef enum
 	HTMLBlockQuoteNode,
 } HTMLNodeType;
 
-@interface HTMLNode : NSObject 
+@interface HTMLNode : NSObject
 {
 @public
 	xmlNode * _node;
@@ -49,8 +49,8 @@ typedef enum
 //Returns all children of class
 -(NSArray*)findChildrenOfClass:(NSString*)className;
 
-//Finds a single child with a matching attribute 
-//set allowPartial to match partial matches 
+//Finds a single child with a matching attribute
+//set allowPartial to match partial matches
 //e.g. <img src="http://www.google.com> [findChildWithAttribute:@"src" matchingName:"google.com" allowPartial:TRUE]
 -(HTMLNode*)findChildWithAttribute:(NSString*)attribute matchingName:(NSString*)className allowPartial:(BOOL)partial;
 
@@ -75,7 +75,7 @@ typedef enum
 //Returns the plaintext contents of this node + all children
 -(NSString*)allContents;
 
-//Returns the html contents of the node 
+//Returns the html contents of the node
 -(NSString*)rawContents;
 
 //Returns next sibling in tree

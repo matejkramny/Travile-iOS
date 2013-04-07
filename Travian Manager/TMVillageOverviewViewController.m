@@ -1,21 +1,5 @@
-// This code is distributed under the terms and conditions of the MIT license.
-
-/* * Copyright (C) 2011 - 2013 Matej Kramny <matejkramny@gmail.com>
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
- * associated documentation files (the "Software"), to deal in the Software without restriction,
- * including without limitation the rights to use, copy, modify, merge, publish, distribute,
- * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all copies or substantial
- * portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
- * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
- * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES
- * OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
- * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+/* Copyright (C) 2011 - 2013 Matej Kramny <matejkramny@gmail.com>
+ * All rights reserved.
  */
 
 #import "TMVillageOverviewViewController.h"
@@ -28,6 +12,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "TMAPNService.h"
 #import "TestFlight.h"
+#import "TMApplicationSettings.h"
 
 @interface TMVillageOverviewViewController () {
 	TMStorage *storage;
@@ -125,6 +110,14 @@ static NSString *viewTitle = @"Overview";
 - (void)viewWillDisappear:(BOOL)animated {
 	if (secondTimer)
 		[secondTimer invalidate];
+	
+	@try {
+		[storage.account removeObserver:self forKeyPath:@"status"];
+		[self.refreshControl endRefreshing];
+	}
+	@catch (id exception) {
+		// do nothing.. means it isn't registered as observer
+	}
 	
 	[super viewWillDisappear:animated];
 }
@@ -384,6 +377,8 @@ static NSString *viewTitle = @"Overview";
 
 #pragma mark - Table view delegate
 
+static NSDate *notificationDate;
+static NSString *notificationTitle;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (indexPath.section == 1) {
 		// Movements
@@ -395,8 +390,7 @@ static NSString *viewTitle = @"Overview";
 			if (DEBUG_APP)
 				finish = [NSDate dateWithTimeIntervalSinceNow:10];
 			
-			[[TMAPNService sharedInstance] scheduleNotification:finish withMessageTitle:[NSString stringWithFormat:@"%@ happened on village %@ from account %@", movement.name, village.name, storage.account.name]];
-			
+			notificationTitle = [NSString stringWithFormat:@"%@ happened on village %@ from account %@", movement.name, village.name, storage.account.name];
 		} else {
 			[tableView deselectRowAtIndexPath:indexPath animated:YES];
 			return;
@@ -410,17 +404,36 @@ static NSString *viewTitle = @"Overview";
 			if (DEBUG_APP)
 				finish = [NSDate dateWithTimeIntervalSinceNow:10];
 			
-			[[TMAPNService sharedInstance] scheduleNotification:finish withMessageTitle:[NSString stringWithFormat:@"%@ constructed on village %@ from account %@", construction.name, village.name, storage.account.name]];
+			notificationTitle = [NSString stringWithFormat:@"%@ constructed on village %@ from account %@", construction.name, village.name, storage.account.name];
 		}
 	}
 	
-	[tableView deselectRowAtIndexPath:indexPath animated:YES];
+	if (storage.appSettings.pushNotifications) {
+		[[TMAPNService sharedInstance] scheduleNotification:notificationDate withMessageTitle:notificationTitle];
+		[tableView deselectRowAtIndexPath:indexPath animated:YES];
+	} else {
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Enable Push Notifications?" message:@"Push notifications are not enabled right now." delegate:self cancelButtonTitle:@"Not now" otherButtonTitles:@"Enable", nil];
+		[alert show];
+	}
 }
 
 #pragma mark - Back button
 
 - (void)back:(id)sender {
 	[self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+	NSLog(@"index %d", buttonIndex);
+	if (buttonIndex == 1) {
+		// Enable
+		storage.appSettings.pushNotifications = true;
+		[[TMAPNService sharedInstance] scheduleNotification:notificationDate withMessageTitle:notificationTitle];
+	}
+	
+	[self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
 }
 
 @end

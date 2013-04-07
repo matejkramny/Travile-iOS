@@ -391,6 +391,7 @@ static NSString *barracksCellID = @"Barracks";
 	}
 	
 	[AppDelegate setRoundedCellAppearance:cell forIndexPath:indexPath forLastRow:indexPath.row+1 == [tableView numberOfRowsInSection:indexPath.section]];
+	[cell.textLabel setBackgroundColor:[UIColor clearColor]];
 	
 	return cell;
 }

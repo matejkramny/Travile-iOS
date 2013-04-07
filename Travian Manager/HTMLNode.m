@@ -13,7 +13,7 @@
 
 -(HTMLNode*)parent
 {
-	return [[HTMLNode alloc] initWithXMLNode:_node->parent];	
+	return [[HTMLNode alloc] initWithXMLNode:_node->parent];
 }
 
 -(HTMLNode*)nextSibling {
@@ -21,7 +21,7 @@
 }
 
 -(HTMLNode*)previousSibling {
-	return [[HTMLNode alloc] initWithXMLNode:_node->prev];	
+	return [[HTMLNode alloc] initWithXMLNode:_node->prev];
 }
 
 void setAttributeNamed(xmlNode * node, const char * nameStr, const char * value) {
@@ -32,7 +32,7 @@ void setAttributeNamed(xmlNode * node, const char * nameStr, const char * value)
 	for(xmlAttrPtr attr = node->properties; NULL != attr; attr = attr->next)
 	{
 		if (strcmp((char*)attr->name, nameStr) == 0)
-		{				
+		{
 			for(xmlNode * child = attr->children; NULL != child; child = child->next)
 			{
 				free(child->content);
@@ -51,7 +51,7 @@ NSString * getAttributeNamed(xmlNode * node, const char * nameStr)
 	for(xmlAttrPtr attr = node->properties; NULL != attr; attr = attr->next)
 	{
 		if (strcmp((char*)attr->name, nameStr) == 0)
-		{				
+		{
 			for(xmlNode * child = attr->children; NULL != child; child = child->next)
 			{
 				return [NSString stringWithCString:(void*)child->content encoding:NSUTF8StringEncoding];
@@ -65,7 +65,7 @@ NSString * getAttributeNamed(xmlNode * node, const char * nameStr)
 }
 
 -(NSString*)getAttributeNamed:(NSString*)name
-{	
+{
 	const char * nameStr = [name UTF8String];
 	
 	return getAttributeNamed(_node, nameStr);
@@ -86,7 +86,7 @@ NSString * getAttributeNamed(xmlNode * node, const char * nameStr)
 
 -(HTMLNode*)firstChild
 {
-	return [[HTMLNode alloc] initWithXMLNode:_node->children];	
+	return [[HTMLNode alloc] initWithXMLNode:_node->children];
 }
 
 
@@ -96,13 +96,13 @@ NSString * getAttributeNamed(xmlNode * node, const char * nameStr)
 	const char * classNameStr = className;
 	//BOOL found = NO;
 	
-    for (cur_node = node; cur_node; cur_node = cur_node->next) 
-	{				
+    for (cur_node = node; cur_node; cur_node = cur_node->next)
+	{
 		for(xmlAttrPtr attr = cur_node->properties; NULL != attr; attr = attr->next)
 		{
 			
 			if (strcmp((char*)attr->name, attribute) == 0)
-			{				
+			{
 				for(xmlNode * child = attr->children; NULL != child; child = child->next)
 				{
 					
@@ -125,7 +125,7 @@ NSString * getAttributeNamed(xmlNode * node, const char * nameStr)
 		}
 		
 		[self findChildrenWithAttribute:attribute matchingName:className inXMLNode:cur_node->children inArray:array allowPartial:partial];
-	}	
+	}
 	
 }
 
@@ -137,8 +137,8 @@ NSString * getAttributeNamed(xmlNode * node, const char * nameStr)
 	if (tagNameStr == nil)
 		return;
 	
-    for (cur_node = node; cur_node; cur_node = cur_node->next) 
-	{				
+    for (cur_node = node; cur_node; cur_node = cur_node->next)
+	{
 		if (cur_node->name && strcmp((char*)cur_node->name, tagNameStr) == 0)
 		{
 			HTMLNode * node = [[HTMLNode alloc] initWithXMLNode:cur_node];
@@ -147,7 +147,7 @@ NSString * getAttributeNamed(xmlNode * node, const char * nameStr)
 		}
 		
 		[self findChildTags:tagName inXMLNode:cur_node->children inArray:array];
-	}	
+	}
 }
 
 
@@ -165,8 +165,8 @@ NSString * getAttributeNamed(xmlNode * node, const char * nameStr)
 	xmlNode *cur_node = NULL;
 	const char * tagNameStr =  [tagName UTF8String];
 	
-    for (cur_node = node; cur_node; cur_node = cur_node->next) 
-	{				
+    for (cur_node = node; cur_node; cur_node = cur_node->next)
+	{
 		if (cur_node && cur_node->name && strcmp((char*)cur_node->name, tagNameStr) == 0)
 		{
 			return [[HTMLNode alloc] initWithXMLNode:cur_node];
@@ -177,7 +177,7 @@ NSString * getAttributeNamed(xmlNode * node, const char * nameStr)
 		{
 			return cNode;
 		}
-	}	
+	}
 	
 	return NULL;
 }
@@ -191,10 +191,10 @@ NSString * getAttributeNamed(xmlNode * node, const char * nameStr)
 -(NSArray*)children
 {
 	xmlNode *cur_node = NULL;
-	NSMutableArray * array = [NSMutableArray array]; 
+	NSMutableArray * array = [NSMutableArray array];
 	
-	for (cur_node = _node->children; cur_node; cur_node = cur_node->next) 
-	{	
+	for (cur_node = _node->children; cur_node; cur_node = cur_node->next)
+	{
 		HTMLNode * node = [[HTMLNode alloc] initWithXMLNode:cur_node];
 		[array addObject:node];
 	}
@@ -226,12 +226,12 @@ NSString * getAttributeNamed(xmlNode * node, const char * nameStr)
 	if (node == NULL)
 		return NULL;
 	
-    for (cur_node = node; cur_node; cur_node = cur_node->next) 
-	{		
+    for (cur_node = node; cur_node; cur_node = cur_node->next)
+	{
 		for(xmlAttrPtr attr = cur_node->properties; NULL != attr; attr = attr->next)
-		{			
+		{
 			if (strcmp((char*)attr->name, attribute) == 0)
-			{				
+			{
 				for(xmlNode * child = attr->children; NULL != child; child = child->next)
 				{
 					
@@ -242,7 +242,7 @@ NSString * getAttributeNamed(xmlNode * node, const char * nameStr)
 						match = YES;
 					
 					if (match)
-					{					
+					{
 						return [[HTMLNode alloc] initWithXMLNode:cur_node];
 					}
 				}
@@ -255,7 +255,7 @@ NSString * getAttributeNamed(xmlNode * node, const char * nameStr)
 		{
 			return cNode;
 		}
-	}	
+	}
 	
 	return NULL;
 }
@@ -266,7 +266,7 @@ NSString * getAttributeNamed(xmlNode * node, const char * nameStr)
 }
 
 -(HTMLNode*)findChildOfClass:(NSString*)className
-{	
+{
 	HTMLNode * node = [self findChildWithAttribute:"class" matchingName:[className UTF8String]  inXMLNode:_node->children allowPartial:NO];
 	return node;
 }
@@ -282,7 +282,7 @@ NSString * getAttributeNamed(xmlNode * node, const char * nameStr)
 
 
 -(NSArray*)findChildrenOfClass:(NSString*)className
-{	
+{
 	return [self findChildrenWithAttribute:@"class" matchingName:className allowPartial:NO];
 }
 
@@ -300,11 +300,11 @@ NSString * getAttributeNamed(xmlNode * node, const char * nameStr)
 	if (node == NULL)
 		return;
 	
-	xmlNode *cur_node = NULL;	
-    for (cur_node = node; cur_node; cur_node = cur_node->next) 
+	xmlNode *cur_node = NULL;
+    for (cur_node = node; cur_node; cur_node = cur_node->next)
 	{
 		if (cur_node->content)
-		{			
+		{
 			[string appendString:[NSString stringWithCString:(void*)cur_node->content encoding:NSUTF8StringEncoding]];
 		}
 		
@@ -385,7 +385,7 @@ NSString * allNodeContents(xmlNode*node)
 }
 
 NSString * rawContentsOfNode(xmlNode * node)
-{	
+{
 	xmlBufferPtr buffer = xmlBufferCreateSize(1000);
 	xmlOutputBufferPtr buf = xmlOutputBufferCreateBuffer(buffer, NULL);
 	

@@ -1,21 +1,5 @@
-// This code is distributed under the terms and conditions of the MIT license.
-
-/* * Copyright (C) 2011 - 2013 Matej Kramny <matejkramny@gmail.com>
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
- * associated documentation files (the "Software"), to deal in the Software without restriction,
- * including without limitation the rights to use, copy, modify, merge, publish, distribute,
- * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all copies or substantial
- * portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
- * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
- * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES
- * OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
- * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+/* Copyright (C) 2011 - 2013 Matej Kramny <matejkramny@gmail.com>
+ * All rights reserved.
  */
 
 #import "TMSettingsViewController.h"
@@ -23,6 +7,8 @@
 #import "TMAccount.h"
 #import "MBProgressHUD.h"
 #import "TMSettings.h"
+#import "AppDelegate.h"
+#import "TMBasicToggleCell.h"
 
 @interface TMSettingsViewController ()
 
@@ -64,10 +50,10 @@ static NSString *viewTitle = @"Settings";
 	[warehouseIndicator setOn:settings.showsResourceProgress];
 	[loadAllAtOnce setOn:settings.loadsAllDataAtLogin];
 	
-	[self.tableView reloadData];
-	
 	if ([self.tableView indexPathForSelectedRow] != nil) {
 		[self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
+	} else {
+		[self.tableView reloadData];
 	}
 	
 	[super viewWillAppear:animated];
@@ -89,6 +75,93 @@ static NSString *viewTitle = @"Settings";
 
 #pragma mark - Table view delegate
 
+- (int)numberOfSectionsInTableView:(UITableView *)tableView {
+	return 4;
+}
+
+- (int)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+	switch (section) {
+		case 0:
+			return 2;
+		case 1:
+			return 3;
+		case 2:
+			return 1;
+		case 3:
+			return 2;
+	}
+	
+	return 0;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+	static NSString *basicCellIdentifier = @"BasicCell";
+	static NSString *basicCellSelectableIdentifier = @"BasicCellSelectable";
+	static NSString *basicToggleCellIdentifier = @"BasicToggle";
+	
+	if (indexPath.section == 0) {
+		if (indexPath.row == 0) {
+			UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:basicCellIdentifier];
+			cell.textLabel.text = @"Refresh Data";
+			
+			return cell;
+		} else if (indexPath.row == 1) {
+			UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:basicCellSelectableIdentifier];
+			cell.textLabel.text = @"Logout";
+			[AppDelegate setRoundedCellAppearance:cell forIndexPath:indexPath forLastRow:YES];
+			
+			return cell;
+		}
+	} else if (indexPath.section == 1) {
+		TMBasicToggleCell *cell = [tableView dequeueReusableCellWithIdentifier:basicToggleCellIdentifier];
+		if (!cell) {
+			cell = [[TMBasicToggleCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:basicToggleCellIdentifier];
+		}
+		
+		if (indexPath.row == 0) {
+			cell.title.text = @"Decimal Resources";
+			[cell.toggle setOn:settings.showsDecimalResources];
+			[cell.toggle addTarget:self action:@selector(changedDecimalResources:) forControlEvents:UIControlEventTouchUpInside];
+			decimalResources = cell.toggle;
+		} else if (indexPath.row == 1) {
+			cell.title.text = @"Warehouse Indicator";
+			[cell.toggle setOn:settings.showsResourceProgress];
+			[cell.toggle addTarget:self action:@selector(changedWarehouseIndicator:) forControlEvents:UIControlEventTouchUpInside];
+			warehouseIndicator = cell.toggle;
+		} else if (indexPath.row == 2) {
+			cell.title.text = @"Load everything at login";
+			[cell.toggle setOn:settings.loadsAllDataAtLogin];
+			[cell.toggle addTarget:self action:@selector(loadAllAtOnce:) forControlEvents:UIControlEventTouchUpInside];
+			loadAllAtOnce = cell.toggle;
+		}
+		
+		return cell;
+	} else if (indexPath.section == 2) {
+		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:basicCellSelectableIdentifier];
+		cell.textLabel.text = @"Credits";
+		
+		[AppDelegate setRoundedCellAppearance:cell forIndexPath:indexPath forLastRow:YES];
+		
+		[cell.textLabel setBackgroundColor:[UIColor clearColor]];
+		
+		return cell;
+	} else if (indexPath.section == 3) {
+		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:basicCellSelectableIdentifier];
+		
+		if (indexPath.row == 0) {
+			cell.textLabel.text = @"Browse in Safari";
+		} else {
+			cell.textLabel.text = @"Browse in Google Chrome";
+		}
+		
+		[AppDelegate setRoundedCellAppearance:cell forIndexPath:indexPath forLastRow:indexPath.row == 1];
+		
+		return cell;
+	}
+	
+	return nil;
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	if (indexPath.section == 0 && indexPath.row == 0) {
@@ -100,15 +173,15 @@ static NSString *viewTitle = @"Settings";
 		[self.tabBarController setSelectedIndex:0];
 		
 		[tableView deselectRowAtIndexPath:indexPath animated:YES];
-	} else if (indexPath.section == 1 && indexPath.row == 3) {
-		//[tracker sendView:@"Credits"]; // Tell analytics we are viewing credits screen
-	} else if (indexPath.section == 2) {
+	} else if (indexPath.section == 2 && indexPath.row == 0) {
+		[self performSegueWithIdentifier:@"OpenCredits" sender:self];
+	} else if (indexPath.section == 3) {
 		TMAccount *a = [TMStorage sharedStorage].account;
 		NSString *url = [[NSString stringWithFormat:@"http://%@.travian.%@/%@", a.world, a.server, [TMAccount resources]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 		
 		if (indexPath.row == 0) {
 			// Open in safari
-			[[UIApplication sharedApplication] openURL:[NSURL URLWithString:[@"http://" stringByAppendingString:url]]];
+			[[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
 		} else {
 			// Open in chrome
 			if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"googlechrome://"]]) {
@@ -129,12 +202,21 @@ static NSString *viewTitle = @"Settings";
 	}
 }
 
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+	switch (section) {
+		case 1:
+			return @"Account Settings";
+		default:
+			return nil;
+	}
+}
+
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
 	static NSString *notSelectedText = @"TM will only load a list of villages and unread messages count. This is the fastest and safest method.";
 	static NSString *selectedText = @"TM will load all villages at login time. This takes a bit longer depending on how many villages you have. Not recommended for players with many villages.";
 	if (section != 1) return nil;
 	
-	if (loadAllAtOnce.isOn) {
+	if (settings.loadsAllDataAtLogin) {
 		return selectedText;
 	}
 	else {

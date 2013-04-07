@@ -44,7 +44,7 @@
 }
 
 -(id)initWithString:(NSString*)string error:(NSError**)error
-{ 
+{
 	if (self = [super init])
 	{
 		_doc = NULL;
@@ -60,7 +60,7 @@
 			optionsHtml = optionsHtml | HTML_PARSE_NOWARNING;
 			_doc = htmlReadDoc ((xmlChar*)[string UTF8String], NULL, enc, optionsHtml);
 		}
-		else 
+		else
 		{
 			if (error) {
 				*error = [NSError errorWithDomain:@"HTMLParserdomain" code:1 userInfo:nil];
@@ -91,7 +91,7 @@
 		}
 		else
 		{
-			if (error) 
+			if (error)
 			{
 				*error = [NSError errorWithDomain:@"HTMLParserdomain" code:1 userInfo:nil];
 			}
@@ -124,6 +124,7 @@
 	{
 		xmlFreeDoc(_doc);
 	}
+	
 }
 
 @end
