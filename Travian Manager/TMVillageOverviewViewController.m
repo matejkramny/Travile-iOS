@@ -24,9 +24,6 @@
 	int movementRows;
 }
 
-- (void)reloadBadgeCount;
-- (void)back:(id)sender;
-
 @end
 
 @interface TMVillageOverviewViewController (Notifications)
@@ -80,12 +77,10 @@ static NSString *viewTitle = @"Overview";
 	[self setRefreshControl:[[UIRefreshControl alloc] init]];
 	[[self refreshControl] addTarget:self action:@selector(didBeginRefreshing:) forControlEvents:UIControlEventValueChanged];
 	
-	[self reloadBadgeCount];
-	
 	[[self tableView] setBackgroundView:nil];
 	[self.navigationItem setTitle:viewTitle];
-	[self.navigationItem setHidesBackButton:NO];
-	[self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithTitle:@"Villages" style:UIBarButtonItemStyleBordered target:self action:@selector(back:)]];
+	//[self.navigationItem setHidesBackButton:NO];
+	//[self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithTitle:@"Villages" style:UIBarButtonItemStyleBordered target:self action:@selector(back:)]];
 	
 	[super viewDidLoad];
 }
@@ -98,9 +93,8 @@ static NSString *viewTitle = @"Overview";
 - (void)viewWillAppear:(BOOL)animated {
 	secondTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(secondTimerFired:) userInfo:nil repeats:YES];
 	[[self tableView] reloadData];
-	[self reloadBadgeCount];
 	
-	[self.navigationItem setTitle:village.name];
+	[self.navigationItem setTitle:viewTitle];
 	
 	[self updateNavigationButtons];
 	
@@ -136,20 +130,8 @@ static NSString *viewTitle = @"Overview";
 			[self.refreshControl endRefreshing];
 			// Reload data
 			[[self tableView] reloadData];
-			[self reloadBadgeCount];
 		}
 	}
-}
-
-- (void)reloadBadgeCount {
-	int badgeCount = 0;
-	badgeCount += [[village movements] count];
-	badgeCount += [[village constructions] count];
-	
-	if (badgeCount > 0)
-		[[self tabBarItem] setBadgeValue:[NSString stringWithFormat:@"%d", badgeCount]];
-	else
-		[[self tabBarItem] setBadgeValue:NULL];
 }
 
 - (void)updateNavigationButtons {
@@ -221,8 +203,7 @@ static NSString *viewTitle = @"Overview";
 	[self.tableView reloadData];
 	[[self.tableView layer] addAnimation:transition forKey:@"UITableViewReloadDataAnimationKey"];
 	
-	[self reloadBadgeCount];
-	[self.navigationItem setTitle:village.name];
+	[self.navigationItem setTitle:viewTitle];
 	[self updateNavigationButtons];
 }
 
@@ -358,7 +339,7 @@ static NSString *viewTitle = @"Overview";
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
 	switch (section) {
 		case 0:
-			return [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Village", @""), village.name];
+			return village.name;
 		case 1:
 			return NSLocalizedString(@"Movements", @"");
 		case 2:
@@ -391,6 +372,7 @@ static NSString *notificationTitle;
 				finish = [NSDate dateWithTimeIntervalSinceNow:10];
 			
 			notificationTitle = [NSString stringWithFormat:@"%@ happened on village %@ from account %@", movement.name, village.name, storage.account.name];
+			notificationDate = [movement finished];
 		} else {
 			[tableView deselectRowAtIndexPath:indexPath animated:YES];
 			return;
@@ -405,6 +387,7 @@ static NSString *notificationTitle;
 				finish = [NSDate dateWithTimeIntervalSinceNow:10];
 			
 			notificationTitle = [NSString stringWithFormat:@"%@ constructed on village %@ from account %@", construction.name, village.name, storage.account.name];
+			notificationDate = [construction finishTime];
 		}
 	}
 	
@@ -417,20 +400,14 @@ static NSString *notificationTitle;
 	}
 }
 
-#pragma mark - Back button
-
-- (void)back:(id)sender {
-	[self dismissViewControllerAnimated:YES completion:nil];
-}
-
 #pragma mark - UIAlertViewDelegate
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-	NSLog(@"index %d", buttonIndex);
 	if (buttonIndex == 1) {
 		// Enable
 		storage.appSettings.pushNotifications = true;
 		[[TMAPNService sharedInstance] scheduleNotification:notificationDate withMessageTitle:notificationTitle];
+		[storage saveData];
 	}
 	
 	[self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];

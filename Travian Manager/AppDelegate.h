@@ -28,6 +28,7 @@
 
 - (void)customizeAppearance;
 + (void)setCellAppearance:(UITableViewCell *)cell forIndexPath:(NSIndexPath *)indexPath;
++ (void)setDarkCellAppearance:(UITableViewCell *)cell forIndexPath:(NSIndexPath *)indexPath;
 + (void)setRoundedCellAppearance:(UITableViewCell *)cell forIndexPath:(NSIndexPath *)indexPath forLastRow:(bool)lastRow;
 + (UIView *)setDetailAccessoryViewForTarget:(id)target action:(SEL)selector;
 

@@ -36,7 +36,7 @@
 		NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 		NSString *documentsDirectory = [paths objectAtIndex:0];
 		savePath = [documentsDirectory stringByAppendingPathComponent:accountsPath];
-		appSettingsPath = [documentsDirectory stringByAppendingPathComponent:appSettingsPath];
+		appSettingsSavePath = [documentsDirectory stringByAppendingPathComponent:appSettingsPath];
 		
 		[self loadData];
 	}
@@ -51,11 +51,17 @@
 	NSData *accountData = [NSKeyedArchiver archivedDataWithRootObject:accounts];
 	NSData *appSettingsData = [NSKeyedArchiver archivedDataWithRootObject:appSettings];
 	
-	// Write the data
-	if ([accountData writeToFile:savePath options:NSDataWritingAtomic error:nil] && [appSettingsData writeToFile:appSettingsSavePath options:NSDataWritingAtomic error:nil]) {
-		return true;
-	} else {
-		return false;
+	@try {
+		// Write the data
+		NSError *error = nil;
+		NSError *settingsError = nil;
+		if ([accountData writeToFile:savePath options:NSDataWritingAtomic error:&error] && [appSettingsData writeToFile:appSettingsSavePath options:NSDataWritingAtomic error:&settingsError]) {
+			return true;
+		} else {
+			return false;
+		}
+	} @catch (id exception) {
+		NSLog(@"Crashed while saving data %@", [(NSException *)exception description]);
 	}
 }
 

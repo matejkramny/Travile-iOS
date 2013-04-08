@@ -98,6 +98,8 @@ static NSString *viewTitle = @"Messages";
 	overlay = [[MKModalOverlay alloc] initWithTarget:self.navigationController.tabBarController.view];
 	[overlay configureBoundsBottomToTop];
 	inModal = false;
+	
+	self.clearsSelectionOnViewWillAppear = NO;
 }
 
 - (void)viewWillAppear:(BOOL)animated {

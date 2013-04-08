@@ -467,11 +467,11 @@ static NSString *barracksCellID = @"Barracks";
 		ob.isBuildingSiteAvailableBuilding = YES;
 		
 		[[self navigationController] pushViewController:ob animated:YES];
-	} else if ([indexPath compare:buildActionIndexPath] == NSOrderedSame) {
+	} else if ([indexPath compare:buildActionIndexPath] == NSOrderedSame) { // object references aren't identical, check its contents..
 		// Build
 		[[self delegate] phvOpenBuildingViewController:self didBuildBuilding:selectedBuilding];
 		
-		[[self navigationController] popViewControllerAnimated:YES];
+		//[[self navigationController] popViewControllerAnimated:YES]; // happens twice?
 	} else if (researchActionSection > 0 && indexPath.section == researchActionSection) {
 		// Push view controller for research
 		selectedAction = [[selectedBuilding actions] objectAtIndex:indexPath.row];

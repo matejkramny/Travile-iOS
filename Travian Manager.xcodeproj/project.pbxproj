@@ -123,6 +123,10 @@
 		4F578C48168235CF00DC9FB6 /* TMLabelAndTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F578C47168235CF00DC9FB6 /* TMLabelAndTextFieldCell.m */; };
 		4F578C4C168236B600DC9FB6 /* TMTextViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F578C4B168236B600DC9FB6 /* TMTextViewCell.m */; };
 		4F5F0A9415C0153400757356 /* TMOpenMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F5F0A9315C0153400757356 /* TMOpenMessageViewController.m */; };
+		4F6330691711E1F40005EE4B /* TMVillagePanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F6330681711E1F40005EE4B /* TMVillagePanelViewController.m */; };
+		4F63306E1711E22A0005EE4B /* JASidePanelController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F63306B1711E22A0005EE4B /* JASidePanelController.m */; };
+		4F63306F1711E22A0005EE4B /* UIViewController+JASidePanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F63306D1711E22A0005EE4B /* UIViewController+JASidePanel.m */; };
+		4F6330721711FE8C0005EE4B /* TMVillageSidePanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F6330711711FE8C0005EE4B /* TMVillageSidePanelViewController.m */; };
 		4F6E222B15E15BFF002EC13F /* 37x-Checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F6E222915E15BFF002EC13F /* 37x-Checkmark.png */; };
 		4F6E222C15E15BFF002EC13F /* 37x-Checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F6E222A15E15BFF002EC13F /* 37x-Checkmark@2x.png */; };
 		4F6E222F15E51B85002EC13F /* TMBuildingAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F6E222E15E51B85002EC13F /* TMBuildingAction.m */; };
@@ -145,6 +149,13 @@
 		4F928DA915D41A65008AC6DB /* UINavigationBarLandscape.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F928DA515D41A65008AC6DB /* UINavigationBarLandscape.png */; };
 		4F928DAA15D41A65008AC6DB /* UINavigationBarLandscape@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F928DA615D41A65008AC6DB /* UINavigationBarLandscape@2x.png */; };
 		4F99267515644E7200C6AFFC /* TMConstruction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F99267415644E7200C6AFFC /* TMConstruction.m */; };
+		4F995DBE17122908002E69AC /* TMDarkBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F995DBC17122908002E69AC /* TMDarkBackground@2x.png */; };
+		4F995DBF17122908002E69AC /* TMDarkBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F995DBD17122908002E69AC /* TMDarkBackground.png */; };
+		4F995DC217122E2D002E69AC /* DarkCell.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F995DC017122E2D002E69AC /* DarkCell.png */; };
+		4F995DC317122E2D002E69AC /* DarkCell@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F995DC117122E2D002E69AC /* DarkCell@2x.png */; };
+		4F995DC6171232A9002E69AC /* DarkSelectedCell.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F995DC4171232A9002E69AC /* DarkSelectedCell.png */; };
+		4F995DC7171232A9002E69AC /* DarkSelectedCell@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F995DC5171232A9002E69AC /* DarkSelectedCell@2x.png */; };
+		4F995DCA1712DBD2002E69AC /* TMDarkImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F995DC91712DBD2002E69AC /* TMDarkImageCell.m */; };
 		4FA47AE51710652A00DFD460 /* TMBasicToggleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA47AE41710652A00DFD460 /* TMBasicToggleCell.m */; };
 		4FA47B22171163E500DFD460 /* TMAppSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA47B21171163E400DFD460 /* TMAppSettingsViewController.m */; };
 		4FA47B25171169D900DFD460 /* TMApplicationSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA47B24171169D900DFD460 /* TMApplicationSettings.m */; };
@@ -393,6 +404,14 @@
 		4F578C4B168236B600DC9FB6 /* TMTextViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMTextViewCell.m; sourceTree = "<group>"; };
 		4F5F0A9215C0153400757356 /* TMOpenMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMOpenMessageViewController.h; sourceTree = "<group>"; };
 		4F5F0A9315C0153400757356 /* TMOpenMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMOpenMessageViewController.m; sourceTree = "<group>"; };
+		4F6330671711E1F40005EE4B /* TMVillagePanelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMVillagePanelViewController.h; sourceTree = "<group>"; };
+		4F6330681711E1F40005EE4B /* TMVillagePanelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMVillagePanelViewController.m; sourceTree = "<group>"; };
+		4F63306A1711E22A0005EE4B /* JASidePanelController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JASidePanelController.h; sourceTree = "<group>"; };
+		4F63306B1711E22A0005EE4B /* JASidePanelController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JASidePanelController.m; sourceTree = "<group>"; };
+		4F63306C1711E22A0005EE4B /* UIViewController+JASidePanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+JASidePanel.h"; sourceTree = "<group>"; };
+		4F63306D1711E22A0005EE4B /* UIViewController+JASidePanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+JASidePanel.m"; sourceTree = "<group>"; };
+		4F6330701711FE8C0005EE4B /* TMVillageSidePanelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMVillageSidePanelViewController.h; sourceTree = "<group>"; };
+		4F6330711711FE8C0005EE4B /* TMVillageSidePanelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMVillageSidePanelViewController.m; sourceTree = "<group>"; };
 		4F6E222915E15BFF002EC13F /* 37x-Checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "37x-Checkmark.png"; sourceTree = "<group>"; };
 		4F6E222A15E15BFF002EC13F /* 37x-Checkmark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "37x-Checkmark@2x.png"; sourceTree = "<group>"; };
 		4F6E222D15E51B84002EC13F /* TMBuildingAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMBuildingAction.h; sourceTree = "<group>"; };
@@ -428,6 +447,14 @@
 		4F928DA615D41A65008AC6DB /* UINavigationBarLandscape@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UINavigationBarLandscape@2x.png"; sourceTree = "<group>"; };
 		4F99267315644E7200C6AFFC /* TMConstruction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMConstruction.h; sourceTree = "<group>"; };
 		4F99267415644E7200C6AFFC /* TMConstruction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMConstruction.m; sourceTree = "<group>"; };
+		4F995DBC17122908002E69AC /* TMDarkBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TMDarkBackground@2x.png"; sourceTree = "<group>"; };
+		4F995DBD17122908002E69AC /* TMDarkBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TMDarkBackground.png; sourceTree = "<group>"; };
+		4F995DC017122E2D002E69AC /* DarkCell.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DarkCell.png; sourceTree = "<group>"; };
+		4F995DC117122E2D002E69AC /* DarkCell@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DarkCell@2x.png"; sourceTree = "<group>"; };
+		4F995DC4171232A9002E69AC /* DarkSelectedCell.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DarkSelectedCell.png; sourceTree = "<group>"; };
+		4F995DC5171232A9002E69AC /* DarkSelectedCell@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DarkSelectedCell@2x.png"; sourceTree = "<group>"; };
+		4F995DC81712DBD2002E69AC /* TMDarkImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMDarkImageCell.h; sourceTree = "<group>"; };
+		4F995DC91712DBD2002E69AC /* TMDarkImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMDarkImageCell.m; sourceTree = "<group>"; };
 		4FA47AE31710652A00DFD460 /* TMBasicToggleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMBasicToggleCell.h; sourceTree = "<group>"; };
 		4FA47AE41710652A00DFD460 /* TMBasicToggleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMBasicToggleCell.m; sourceTree = "<group>"; };
 		4FA47AE617107D5400DFD460 /* Travian Manager.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Travian Manager.entitlements"; sourceTree = "<group>"; };
@@ -808,6 +835,8 @@
 				4F15443315D4863200EA58EC /* ButtonStyleNormalLandscape.png */,
 				4F15443415D4863200EA58EC /* ButtonStyleNormalLandscape@2x.png */,
 				4FBAE09C15D50D8800089365 /* TMBackground.png */,
+				4F995DBD17122908002E69AC /* TMDarkBackground.png */,
+				4F995DBC17122908002E69AC /* TMDarkBackground@2x.png */,
 				4FE7FFCE15D5D779007B80A5 /* ArrowIcon.png */,
 				4FE7FFCF15D5D779007B80A5 /* ArrowIcon@2x.png */,
 				4F2D975815D68925007E589D /* SelectedCell.png */,
@@ -820,6 +849,10 @@
 				4FCD3280170EFCE900C6E6A0 /* SelectedCellRoundedBottom@2x.png */,
 				4FCD327B170EF03600C6E6A0 /* SelectedCellRoundedTop.png */,
 				4FCD327C170EF03600C6E6A0 /* SelectedCellRoundedTop@2x.png */,
+				4F995DC017122E2D002E69AC /* DarkCell.png */,
+				4F995DC117122E2D002E69AC /* DarkCell@2x.png */,
+				4F995DC4171232A9002E69AC /* DarkSelectedCell.png */,
+				4F995DC5171232A9002E69AC /* DarkSelectedCell@2x.png */,
 			);
 			name = Design;
 			path = ../Design;
@@ -828,6 +861,10 @@
 		4FA1485316D94C76002E307B /* Village */ = {
 			isa = PBXGroup;
 			children = (
+				4F6330671711E1F40005EE4B /* TMVillagePanelViewController.h */,
+				4F6330681711E1F40005EE4B /* TMVillagePanelViewController.m */,
+				4F6330701711FE8C0005EE4B /* TMVillageSidePanelViewController.h */,
+				4F6330711711FE8C0005EE4B /* TMVillageSidePanelViewController.m */,
 				4FC6F11A15BC4107006F583D /* TMVillagesViewController.h */,
 				4FC6F11B15BC4107006F583D /* TMVillagesViewController.m */,
 				4FE58E9915C59B55004825EF /* TMVillageOverviewViewController.h */,
@@ -874,6 +911,10 @@
 		4FC6F11915BC39B6006F583D /* HUD */ = {
 			isa = PBXGroup;
 			children = (
+				4F63306A1711E22A0005EE4B /* JASidePanelController.h */,
+				4F63306B1711E22A0005EE4B /* JASidePanelController.m */,
+				4F63306C1711E22A0005EE4B /* UIViewController+JASidePanel.h */,
+				4F63306D1711E22A0005EE4B /* UIViewController+JASidePanel.m */,
 				4F02A37C16EB635500178150 /* MKModalOverlay.h */,
 				4F02A37D16EB635500178150 /* MKModalOverlay.m */,
 				4FC6F11615BC3989006F583D /* MBProgressHUD.h */,
@@ -905,6 +946,8 @@
 				4FB4E3DA167F5CEC00922886 /* TMMessageContentTextView.m */,
 				4FA47AE31710652A00DFD460 /* TMBasicToggleCell.h */,
 				4FA47AE41710652A00DFD460 /* TMBasicToggleCell.m */,
+				4F995DC81712DBD2002E69AC /* TMDarkImageCell.h */,
+				4F995DC91712DBD2002E69AC /* TMDarkImageCell.m */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -1092,6 +1135,12 @@
 				4FCD3286170EFEF000C6E6A0 /* SelectedCellRoundedMiddle@2x.png in Resources */,
 				4FCD3289170EFFDC00C6E6A0 /* SelectedCellRoundedTopBottom.png in Resources */,
 				4FCD328A170EFFDC00C6E6A0 /* SelectedCellRoundedTopBottom@2x.png in Resources */,
+				4F995DBE17122908002E69AC /* TMDarkBackground@2x.png in Resources */,
+				4F995DBF17122908002E69AC /* TMDarkBackground.png in Resources */,
+				4F995DC217122E2D002E69AC /* DarkCell.png in Resources */,
+				4F995DC317122E2D002E69AC /* DarkCell@2x.png in Resources */,
+				4F995DC6171232A9002E69AC /* DarkSelectedCell.png in Resources */,
+				4F995DC7171232A9002E69AC /* DarkSelectedCell@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1187,6 +1236,11 @@
 				4FA47AE51710652A00DFD460 /* TMBasicToggleCell.m in Sources */,
 				4FA47B22171163E500DFD460 /* TMAppSettingsViewController.m in Sources */,
 				4FA47B25171169D900DFD460 /* TMApplicationSettings.m in Sources */,
+				4F6330691711E1F40005EE4B /* TMVillagePanelViewController.m in Sources */,
+				4F63306E1711E22A0005EE4B /* JASidePanelController.m in Sources */,
+				4F63306F1711E22A0005EE4B /* UIViewController+JASidePanel.m in Sources */,
+				4F6330721711FE8C0005EE4B /* TMVillageSidePanelViewController.m in Sources */,
+				4F995DCA1712DBD2002E69AC /* TMDarkImageCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -119,6 +119,7 @@ static UIImageView *roundedTableCellSelectedBackgroundTop;
 static UIImageView *roundedTableCellSelectedBackgroundBottom;
 static UIImageView *roundedTableCellSelectedBackgroundMiddle;
 static UIImage *detailAccessoryViewImage;
+static UIImageView *darkCellSelectedBackground;
 
 // Set appearance of cell based on indexPath
 + (void)setCellAppearance:(UITableViewCell *)cell forIndexPath:(NSIndexPath *)indexPath {
@@ -140,6 +141,23 @@ static UIImage *detailAccessoryViewImage;
 	
 	// Selected background
 	cell.selectedBackgroundView = tableCellSelectedBackground;
+	cell.textLabel.highlightedTextColor = [UIColor whiteColor];
+	cell.detailTextLabel.highlightedTextColor = [UIColor whiteColor];
+}
++ (void)setDarkCellAppearance:(UITableViewCell *)cell forIndexPath:(NSIndexPath *)indexPath {
+	if (!darkCellSelectedBackground) {
+		darkCellSelectedBackground = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"DarkSelectedCell.png"] stretchableImageWithLeftCapWidth:0 topCapHeight:0]];
+	}
+	
+	// Background
+	cell.backgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"DarkCell.png"] stretchableImageWithLeftCapWidth:0 topCapHeight:0]];
+	cell.textLabel.backgroundColor = [UIColor clearColor];
+	cell.detailTextLabel.backgroundColor = [UIColor clearColor];
+	cell.textLabel.textColor = [UIColor whiteColor];
+	cell.detailTextLabel.textColor = [UIColor whiteColor];
+	
+	// Selected background
+	cell.selectedBackgroundView = darkCellSelectedBackground;
 	cell.textLabel.highlightedTextColor = [UIColor whiteColor];
 	cell.detailTextLabel.highlightedTextColor = [UIColor whiteColor];
 }

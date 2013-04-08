@@ -96,7 +96,7 @@
 	[self setProperties:[props copy]];
 	[self setDescription:desc];
 	
-	HTMLNode *contract = [buildID findChildWithAttribute:@"id" matchingName:@"contract" allowPartial:NO];
+	HTMLNode *contract = [buildID findChildWithAttribute:@"id" matchingName:@"contract" allowPartial:YES];
 	
 	[self fetchContractConditionsFromContractID:contract];
 	[self fetchResourcesFromContract:contract];
@@ -195,7 +195,7 @@
 	
 	NSArray *titles = [node findChildTags:@"h2"];
 	NSArray *descs = [node findChildrenWithAttribute:@"class" matchingName:@"build_desc" allowPartial:NO];
-	NSArray *contracts = [node findChildrenWithAttribute:@"id" matchingName:@"contract" allowPartial:NO];
+	NSArray *contracts = [node findChildrenWithAttribute:@"id" matchingName:@"contract" allowPartial:YES];
 	
 	for (int i = 0; i < [titles count]; i++) {
 		TMBuilding *b = [[TMBuilding alloc] init];
@@ -214,7 +214,7 @@
 		// GID?
 		
 		// Contract
-		HTMLNode *button = [contract findChildWithAttribute:@"class" matchingName:@"new" allowPartial:NO];
+		HTMLNode *button = [contract findChildWithAttribute:@"class" matchingName:@"new" allowPartial:YES];
 		if (!button) {
 			// Cannot build this
 			
@@ -274,8 +274,10 @@
 - (void)fetchResourcesFromContract:(HTMLNode *)contract {
 	TMResources *res = [[TMResources alloc] init];
 	
+	NSAssert(contract != nil, @"HTMLNode contract nil!");
+	
 	HTMLNode *div;
-	if ([[contract getAttributeNamed:@"id"] isEqualToString:@"contract"]) {
+	if ([[contract getAttributeNamed:@"id"] rangeOfString:@"contract"].location != NSNotFound) {
 		div = [[contract findChildWithAttribute:@"class" matchingName:@"contractCosts" allowPartial:NO] findChildWithAttribute:@"class" matchingName:@"showCosts" allowPartial:NO];
 	} else {
 		div = contract;
