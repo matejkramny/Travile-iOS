@@ -38,9 +38,9 @@ static bool firstTime = true;
 	}
 	
 	[headerTable setBackgroundColor:backgroundImage];
-	[headerTable setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+	//[headerTable setSeparatorStyle:UITableViewCellSeparatorStyleNone];
 	[contentTable setBackgroundColor:backgroundImage];
-	[contentTable setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+	//[contentTable setSeparatorStyle:UITableViewCellSeparatorStyleNone];
 }
 
 - (void)didReceiveMemoryWarning
@@ -71,7 +71,7 @@ static bool firstTime = true;
 	if (tableView == headerTable)
 		return 1;
 	
-	return 2;
+	return storage.account.village.movements.count == 0 && storage.account.village.constructions.count == 0 ? 1 : 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -166,12 +166,40 @@ static bool firstTime = true;
     return cell;
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-	if (section == 11) {
-		return @"Sections";
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+	static UIColor *backgroundColor;
+	if (!backgroundColor)
+		backgroundColor = [UIColor colorWithPatternImage:[[UIImage imageNamed:@"DarkSection.png"] stretchableImageWithLeftCapWidth:0 topCapHeight:0]];
+	
+	UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 35)];
+	
+	if (tableView == contentTable) {
+		[header setBackgroundColor:backgroundColor];
+		UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, header.frame.size.width-10, header.frame.size.height)];
+		label.backgroundColor = [UIColor clearColor];
+		label.textColor = [UIColor whiteColor];
+		label.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:20];
+		
+		if (section == 0) {
+			label.text = @"Village Sections";
+		} else {
+			label.text = @"Village Events";
+		}
+		
+		[header addSubview:label];
+	} else {
+		[header setBackgroundColor:[UIColor clearColor]];
 	}
 	
-	return nil;
+	return header;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+	if (tableView == contentTable && (section == 0 || section == 1)) {
+		return 35;
+	}
+	
+	return 0;
 }
 
 #pragma mark - Table view delegate

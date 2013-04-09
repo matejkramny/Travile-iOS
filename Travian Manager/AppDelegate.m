@@ -111,6 +111,7 @@
 	
 	// Table background
 	[[UITableView appearance] setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"TMBackground.png"]]];
+	[[UITableView appearance] setSeparatorStyle:UITableViewCellSeparatorStyleNone];
 }
 
 static UIImageView *tableCellSelectedBackground;

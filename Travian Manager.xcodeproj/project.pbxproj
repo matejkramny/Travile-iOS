@@ -156,6 +156,8 @@
 		4F995DC6171232A9002E69AC /* DarkSelectedCell.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F995DC4171232A9002E69AC /* DarkSelectedCell.png */; };
 		4F995DC7171232A9002E69AC /* DarkSelectedCell@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F995DC5171232A9002E69AC /* DarkSelectedCell@2x.png */; };
 		4F995DCA1712DBD2002E69AC /* TMDarkImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F995DC91712DBD2002E69AC /* TMDarkImageCell.m */; };
+		4F995DD017142625002E69AC /* DarkSection.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F995DCE17142625002E69AC /* DarkSection.png */; };
+		4F995DD117142625002E69AC /* DarkSection@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F995DCF17142625002E69AC /* DarkSection@2x.png */; };
 		4FA47AE51710652A00DFD460 /* TMBasicToggleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA47AE41710652A00DFD460 /* TMBasicToggleCell.m */; };
 		4FA47B22171163E500DFD460 /* TMAppSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA47B21171163E400DFD460 /* TMAppSettingsViewController.m */; };
 		4FA47B25171169D900DFD460 /* TMApplicationSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA47B24171169D900DFD460 /* TMApplicationSettings.m */; };
@@ -455,6 +457,8 @@
 		4F995DC5171232A9002E69AC /* DarkSelectedCell@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DarkSelectedCell@2x.png"; sourceTree = "<group>"; };
 		4F995DC81712DBD2002E69AC /* TMDarkImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMDarkImageCell.h; sourceTree = "<group>"; };
 		4F995DC91712DBD2002E69AC /* TMDarkImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMDarkImageCell.m; sourceTree = "<group>"; };
+		4F995DCE17142625002E69AC /* DarkSection.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DarkSection.png; sourceTree = "<group>"; };
+		4F995DCF17142625002E69AC /* DarkSection@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DarkSection@2x.png"; sourceTree = "<group>"; };
 		4FA47AE31710652A00DFD460 /* TMBasicToggleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMBasicToggleCell.h; sourceTree = "<group>"; };
 		4FA47AE41710652A00DFD460 /* TMBasicToggleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMBasicToggleCell.m; sourceTree = "<group>"; };
 		4FA47AE617107D5400DFD460 /* Travian Manager.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Travian Manager.entitlements"; sourceTree = "<group>"; };
@@ -816,6 +820,8 @@
 		4F928D8715D400A8008AC6DB /* Design */ = {
 			isa = PBXGroup;
 			children = (
+				4F995DCE17142625002E69AC /* DarkSection.png */,
+				4F995DCF17142625002E69AC /* DarkSection@2x.png */,
 				4F24E90A167BA7ED002367B7 /* unreadNotification.png */,
 				4F24E90B167BA7ED002367B7 /* unreadNotification@2x.png */,
 				4F24E90E167BC077002367B7 /* checkBoxBlank.png */,
@@ -1141,6 +1147,8 @@
 				4F995DC317122E2D002E69AC /* DarkCell@2x.png in Resources */,
 				4F995DC6171232A9002E69AC /* DarkSelectedCell.png in Resources */,
 				4F995DC7171232A9002E69AC /* DarkSelectedCell@2x.png in Resources */,
+				4F995DD017142625002E69AC /* DarkSection.png in Resources */,
+				4F995DD117142625002E69AC /* DarkSection@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

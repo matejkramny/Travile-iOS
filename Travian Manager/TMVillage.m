@@ -239,6 +239,23 @@
 		movement.finished = [NSDate dateWithTimeIntervalSince1970:timestamp]; // Future date
 		
 		// Movement type!
+		NSString *type = [[divMov findChildTag:@"span"] getAttributeNamed:@"class"];
+		if ([type isEqualToString:@"a1"])
+			// Incoming attack
+			movement.type = TMMovementTypeAttack | TMMovementTypeIncoming;
+		else if ([type isEqualToString:@"a2"])
+			// Outgoing attack
+			movement.type = TMMovementTypeAttack | TMMovementTypeOutgoing;
+		else if ([type isEqualToString:@"d1"])
+			// Incoming reinforcement
+			movement.type = TMMovementTypeReinforcement | TMMovementTypeIncoming;
+		else if ([type isEqualToString:@"d2"])
+			// Outgoing reinforcements
+			movement.type = TMMovementTypeReinforcement | TMMovementTypeOutgoing;
+		else if ([type isEqualToString:@"adventure"])
+			// adventure
+			movement.type = TMMovementTypeAdventure | TMMovementTypeOutgoing;
+		// others.
 		
 		[tempMovements addObject:movement];
 	}

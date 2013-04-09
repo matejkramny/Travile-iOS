@@ -424,6 +424,34 @@
       <FileBreakpoint
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
+         continueAfterRunningActions = "Yes"
+         filePath = "Travian Manager/TMBuilding.m"
+         timestampString = "387025638.727544"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "149"
+         endingLineNumber = "149"
+         landmarkName = "-parsePage:fromHTMLNode:"
+         landmarkType = "5">
+         <Actions>
+            <BreakpointActionProxy
+               ActionType = "Xcode.BreakpointAction.Log">
+               <ActionContent
+                  message = "%B Cannot build/upgrade"
+                  conveyanceType = "0">
+               </ActionContent>
+            </BreakpointActionProxy>
+            <BreakpointActionProxy
+               ActionType = "Xcode.BreakpointAction.DebuggerCommand">
+               <ActionContent
+                  consoleCommand = "po [idContract rawContents]">
+               </ActionContent>
+            </BreakpointActionProxy>
+         </Actions>
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Travian Manager/TMBuilding.m"
          timestampString = "387153315.477076"
@@ -715,8 +743,8 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "131"
          endingLineNumber = "131"
-         landmarkName = "@implementation TMReport"
-         landmarkType = "3">
+         landmarkName = "-connection:didFailWithError:"
+         landmarkType = "5">
          <Actions>
             <BreakpointActionProxy
                ActionType = "Xcode.BreakpointAction.Log">
@@ -788,11 +816,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Travian Manager/TMVillage.m"
-         timestampString = "386526955.852407"
+         timestampString = "387162080.907612"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "162"
-         endingLineNumber = "162"
+         startingLineNumber = "146"
+         endingLineNumber = "146"
          landmarkName = "-parseTroops:"
          landmarkType = "5">
          <Actions>
@@ -810,11 +838,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Travian Manager/TMVillage.m"
-         timestampString = "387150132.165525"
+         timestampString = "387215470.089695"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "270"
-         endingLineNumber = "270"
+         startingLineNumber = "271"
+         endingLineNumber = "271"
          landmarkName = "-parseBuildingsPage:fromNode:"
          landmarkType = "5">
          <Actions>
@@ -832,11 +860,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Travian Manager/TMVillage.m"
-         timestampString = "387150132.165525"
+         timestampString = "387215470.089695"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "276"
-         endingLineNumber = "276"
+         startingLineNumber = "277"
+         endingLineNumber = "277"
          landmarkName = "-parseBuildingsPage:fromNode:"
          landmarkType = "5">
          <Actions>
@@ -854,11 +882,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Travian Manager/TMVillage.m"
-         timestampString = "387150132.165525"
+         timestampString = "387215470.089695"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "348"
-         endingLineNumber = "348"
+         startingLineNumber = "349"
+         endingLineNumber = "349"
          landmarkName = "-parseBuildingsPage:fromNode:"
          landmarkType = "5">
          <Actions>
@@ -888,11 +916,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Travian Manager/TMVillage.m"
-         timestampString = "387150132.165525"
+         timestampString = "387215470.089695"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "578"
-         endingLineNumber = "578"
+         startingLineNumber = "579"
+         endingLineNumber = "579"
          landmarkName = "-connection:didFailWithError:"
          landmarkType = "5">
          <Actions>
@@ -916,11 +944,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Travian Manager/TMVillage.m"
-         timestampString = "387150132.165525"
+         timestampString = "387215470.089695"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "603"
-         endingLineNumber = "603"
+         startingLineNumber = "604"
+         endingLineNumber = "604"
          landmarkName = "-connectionDidFinishLoading:"
          landmarkType = "5">
          <Actions>
@@ -938,11 +966,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Travian Manager/TMVillageBuildingsViewController.m"
-         timestampString = "384642618.304089"
+         timestampString = "387162080.907612"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "216"
-         endingLineNumber = "216"
+         startingLineNumber = "200"
+         endingLineNumber = "200"
          landmarkName = "@implementation TMVillageBuildingsViewController"
          landmarkType = "3">
          <Actions>
@@ -960,11 +988,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "Yes"
          filePath = "Travian Manager/TMVillageBuildingsViewController.m"
-         timestampString = "384642618.304089"
+         timestampString = "387162080.907612"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "360"
-         endingLineNumber = "360"
+         startingLineNumber = "344"
+         endingLineNumber = "344"
          landmarkName = "@implementation TMVillageBuildingsViewController"
          landmarkType = "3">
          <Actions>
@@ -982,11 +1010,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "Yes"
          filePath = "Travian Manager/TMVillageBuildingsViewController.m"
-         timestampString = "384642618.304089"
+         timestampString = "387162080.907612"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "363"
-         endingLineNumber = "363"
+         startingLineNumber = "347"
+         endingLineNumber = "347"
          landmarkName = "-phvOpenBuildingViewController:didBuildBuilding:"
          landmarkType = "5">
          <Actions>
@@ -994,6 +1022,29 @@
                ActionType = "Xcode.BreakpointAction.Log">
                <ActionContent
                   message = "Built building @building.name@ to @building.level@"
+                  conveyanceType = "0">
+               </ActionContent>
+            </BreakpointActionProxy>
+         </Actions>
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         condition = "target == nil"
+         continueAfterRunningActions = "Yes"
+         filePath = "Travian Manager/MKModalOverlay.m"
+         timestampString = "384519370.60807"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "84"
+         endingLineNumber = "84"
+         landmarkName = "-configureBoundsBottomToTop"
+         landmarkType = "5">
+         <Actions>
+            <BreakpointActionProxy
+               ActionType = "Xcode.BreakpointAction.Log">
+               <ActionContent
+                  message = "target nil when %B"
                   conveyanceType = "0">
                </ActionContent>
             </BreakpointActionProxy>
@@ -1010,6 +1061,32 @@
          startingLineNumber = "131"
          endingLineNumber = "131"
          landmarkName = "-viewWillAppear:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "Travian Manager/TMVillage.m"
+         timestampString = "387215525.384963"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "242"
+         endingLineNumber = "242"
+         landmarkName = "-parseMovements:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "Travian Manager/TMVillageSidePanelViewController.m"
+         timestampString = "387234443.412215"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "85"
+         endingLineNumber = "85"
+         landmarkName = "-tableView:numberOfRowsInSection:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

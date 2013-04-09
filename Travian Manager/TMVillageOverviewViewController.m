@@ -300,7 +300,13 @@ static NSString *viewTitle = @"Overview";
 			
 			TMMovement *movement = [village.movements objectAtIndex:indexPath.row];
 			
-			cell.textLabel.text = [movement name];
+			NSString *type = @"";
+			if ((movement.type & TMMovementTypeIncoming) != 0)
+				type = @"<";
+			else if ((movement.type & TMMovementTypeOutgoing) != 0)
+				type = @">";
+			
+			cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", type, [movement name]];
 			cell.detailTextLabel.text = calculateRemainingTimeFromDate(movement.finished);
 			
 			[AppDelegate setRoundedCellAppearance:cell forIndexPath:indexPath forLastRow:indexPath.row+1 == movementRows];
