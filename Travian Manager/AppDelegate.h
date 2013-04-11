@@ -15,6 +15,10 @@
 	#define APN_URL @"http://apn.matej.me/" // ad-hoc and app store mode.
 #endif
 
+#ifndef DEBUG
+	#define DEBUG false
+#endif
+
 @class TMStorage;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>

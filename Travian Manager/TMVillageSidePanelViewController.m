@@ -126,7 +126,7 @@ static bool firstTime = true;
 	
 	if (tableView == headerTable) {
 		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:BasicCellIdentifier forIndexPath:indexPath];
-		cell.textLabel.text = showsVillages ? @"To Village" : @"Switch Village";
+		cell.textLabel.text = showsVillages ? @"To Village" : @"Switch Villages";
 		cell.imageView.image = villagesImage;
 		
 		[AppDelegate setDarkCellAppearance:cell forIndexPath:indexPath];
