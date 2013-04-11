@@ -464,7 +464,7 @@
         <!--Navigation Controller-->
         <scene sceneID="zLI-8j-Kcc">
             <objects>
-                <navigationController storyboardIdentifier="sidebar" definesPresentationContext="YES" id="v2k-fK-uyH" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="sidebarVillage" definesPresentationContext="YES" id="v2k-fK-uyH" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="53B-Ht-dON">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

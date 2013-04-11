@@ -18,40 +18,8 @@
 	TMStorage *storage;
 	TMVillage *village;
 	NSTimer *secondTimer;
-	UISegmentedControl *navControl;
-	UIBarButtonItem *navButton;
 	int constructionRows;
 	int movementRows;
-}
-
-@end
-
-@interface TMVillageOverviewViewController (Notifications)
-
-// Future of notifications.. get asked, indicate if this is getting notified
-- (void)scheduleConstruction:(TMConstruction *)construction;
-- (void)scheduleConstruction:(TMConstruction *)construction confirmed:(BOOL)confirmed;
-- (void)scheduleMovement:(TMMovement *)movement;
-- (void)scheduleMovement:(TMMovement *)movement confirmed:(BOOL)confirmed;
-
-@end
-
-@implementation TMVillageOverviewViewController (Notifications)
-
-- (void)scheduleConstruction:(TMConstruction *)construction {
-	[self scheduleConstruction:construction confirmed:NO];
-}
-
-- (void)scheduleConstruction:(TMConstruction *)construction confirmed:(BOOL)confirmed {
-	
-}
-
-- (void)scheduleMovement:(TMMovement *)movement {
-	[self scheduleMovement:movement confirmed:NO];
-}
-
-- (void)scheduleMovement:(TMMovement *)movement confirmed:(BOOL)confirmed {
-	
 }
 
 @end
@@ -96,7 +64,11 @@ static NSString *viewTitle = @"Overview";
 	
 	[self.navigationItem setTitle:viewTitle];
 	
-	[self updateNavigationButtons];
+	if (village != storage.account.village) {
+		// Village changed..
+		village = storage.account.village;
+		[self.tableView reloadData];
+	}
 	
 	[super viewWillAppear:animated];
 }
@@ -132,79 +104,6 @@ static NSString *viewTitle = @"Overview";
 			[[self tableView] reloadData];
 		}
 	}
-}
-
-- (void)updateNavigationButtons {
-	if ([storage.account.villages count] > 1) {
-		if (!navControl) {
-			navControl = [[UISegmentedControl alloc] initWithItems:@[@" \U000025B2 ", @" \U000025BC "]]; // ASCII codes for arrow up and down
-			[navControl setSegmentedControlStyle:UISegmentedControlStyleBar];
-			[navControl setMomentary:YES];
-			
-			[navControl addTarget:self action:@selector(didPressNavControl:) forControlEvents:UIControlEventValueChanged];
-			
-			navButton = [[UIBarButtonItem alloc] initWithCustomView:navControl];
-		}
-		
-		// get index of current villages
-		int index = [storage.account.villages indexOfObjectIdenticalTo:village];
-		
-		if (index == 0) {
-			[navControl setEnabled:NO forSegmentAtIndex:0];
-			[navControl setEnabled:YES forSegmentAtIndex:1];
-		} else if (index == [storage.account.villages count]-1) {
-			[navControl setEnabled:YES forSegmentAtIndex:0];
-			[navControl setEnabled:NO forSegmentAtIndex:1];
-		} else {
-			[navControl setEnabled:YES forSegmentAtIndex:0];
-			[navControl setEnabled:YES forSegmentAtIndex:1];
-		}
-		
-		[self.navigationItem setRightBarButtonItem:navButton animated:NO];
-	} else {
-		[self.navigationItem setRightBarButtonItem:nil animated:NO];
-	}
-}
-
-- (void)didPressNavControl:(id)sender {
-	static const CGFloat animationSpeed = DEBUG_ANIMATION ? 2 : 0.5;
-	
-	int index = [navControl selectedSegmentIndex];
-	int villageIndex = [storage.account.villages indexOfObjectIdenticalTo:village];
-	
-	// Animates the tableview reload
-	CATransition *transition = [CATransition animation];
-	[transition setType:kCATransitionPush];
-	[transition setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
-	[transition setFillMode:kCAFillModeForwards];
-	[transition setDuration:animationSpeed];
-	
-	if (index == 0) {
-		// up
-		villageIndex--;
-		// transition move from bottom
-		[transition setSubtype:kCATransitionFromBottom];
-	} else {
-		// down
-		villageIndex++;
-		// transition move from top
-		[transition setSubtype:kCATransitionFromTop];
-	}
-	
-	if (villageIndex < 0 || villageIndex > storage.account.villages.count-1) {
-		// array out of bounds prevention
-		[self updateNavigationButtons];
-		return;
-	}
-	
-	village = [storage.account.villages objectAtIndex:villageIndex];
-	[storage.account setVillage:village];
-	
-	[self.tableView reloadData];
-	[[self.tableView layer] addAnimation:transition forKey:@"UITableViewReloadDataAnimationKey"];
-	
-	[self.navigationItem setTitle:viewTitle];
-	[self updateNavigationButtons];
 }
 
 #pragma mark - Table view data source

@@ -471,7 +471,7 @@ static NSString *barracksCellID = @"Barracks";
 		// Build
 		[[self delegate] phvOpenBuildingViewController:self didBuildBuilding:selectedBuilding];
 		
-		//[[self navigationController] popViewControllerAnimated:YES]; // happens twice?
+		[[self navigationController] popViewControllerAnimated:YES]; // happens twice?
 	} else if (researchActionSection > 0 && indexPath.section == researchActionSection) {
 		// Push view controller for research
 		selectedAction = [[selectedBuilding actions] objectAtIndex:indexPath.row];

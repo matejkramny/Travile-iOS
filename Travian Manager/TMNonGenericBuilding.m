@@ -22,10 +22,14 @@
 
 @implementation TMNonGenericBuilding
 
+@synthesize superFinishedLoading;
+
 - (id)init {
 	self = [super init];
 	
 	if (self) {
+		// the idea is that the hierarchy is TMBuilding->TMNonGenericBuilding->?
+		// and that the ? class sets superFinishedLoading when it loads its url requests..
 		[super setFinishedLoadingKVOIdentifier:@"superFinishedLoading"];
 	}
 	

@@ -38,7 +38,7 @@ static TMVillagePanelViewController *instance;
 	villageTroops = [self.storyboard instantiateViewControllerWithIdentifier:villageTroopsIdentifier];
 	villageBuildings = [self.storyboard instantiateViewControllerWithIdentifier:villageBuildingsIdentifier];
 	
-	[self setLeftPanel:[self.storyboard instantiateViewControllerWithIdentifier:@"sidebar"]];
+	[self setLeftPanel:[self.storyboard instantiateViewControllerWithIdentifier:@"sidebarVillage"]];
 	[self setCenterPanel:villageOverview];
 }
 

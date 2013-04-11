@@ -12,11 +12,14 @@
 #import "AppDelegate.h"
 #import "TMMovement.h"
 #import "TMConstruction.h"
+#import "TMDarkImageCell.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface TMVillageSidePanelViewController () {
 	__weak TMStorage *storage;
 	UIViewController *currentViewController;
 	NSIndexPath *currentViewControllerIndexPath;
+	bool showsVillages;
 }
 
 @end
@@ -37,10 +40,14 @@ static bool firstTime = true;
 		backgroundImage = [UIColor colorWithPatternImage:[UIImage imageNamed:@"TMDarkBackground.png"]];
 	}
 	
+	[self.view setBackgroundColor:backgroundImage];
+	
+	showsVillages = false;
 	[headerTable setBackgroundColor:backgroundImage];
 	//[headerTable setSeparatorStyle:UITableViewCellSeparatorStyleNone];
 	[contentTable setBackgroundColor:backgroundImage];
 	//[contentTable setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+	[self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"123-id-card-white.png"] style:UIBarButtonItemStylePlain target:self action:@selector(back:)]];
 }
 
 - (void)didReceiveMemoryWarning
@@ -55,13 +62,11 @@ static bool firstTime = true;
 	if (self.navigationItem != nil)
 		self.navigationItem.title = storage.account.village.name;
 	
-	[contentTable reloadData];
-	
 	if (firstTime) {
 		firstTime = false;
 		currentViewControllerIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+		currentViewController = [[TMVillagePanelViewController sharedInstance] villageOverview];
 	}
-	[contentTable selectRowAtIndexPath:currentViewControllerIndexPath animated:NO scrollPosition:UITableViewScrollPositionNone]; // select Overview
 }
 
 #pragma mark - Table view data source
@@ -71,13 +76,19 @@ static bool firstTime = true;
 	if (tableView == headerTable)
 		return 1;
 	
-	return storage.account.village.movements.count == 0 && storage.account.village.constructions.count == 0 ? 1 : 2;
+	if (showsVillages)
+		return 1;
+	else
+		return storage.account.village.movements.count == 0 && storage.account.village.constructions.count == 0 ? 1 : 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 	if (tableView == headerTable)
 		return 1;
+	
+	if (showsVillages)
+		return storage.account.villages.count;
 	
 	if (section == 0)
 		return 4;
@@ -115,7 +126,7 @@ static bool firstTime = true;
 	
 	if (tableView == headerTable) {
 		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:BasicCellIdentifier forIndexPath:indexPath];
-		cell.textLabel.text = @"Villages";
+		cell.textLabel.text = showsVillages ? @"To Village" : @"Switch Village";
 		cell.imageView.image = villagesImage;
 		
 		[AppDelegate setDarkCellAppearance:cell forIndexPath:indexPath];
@@ -124,38 +135,54 @@ static bool firstTime = true;
 	}
 	
 	// contentTable
-	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:BasicSelectableCellIdentifier forIndexPath:indexPath];
+	TMDarkImageCell *cell = [tableView dequeueReusableCellWithIdentifier:BasicSelectableCellIdentifier forIndexPath:indexPath];
+	if (!cell)
+		cell = [[TMDarkImageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:BasicSelectableCellIdentifier];
 	NSString *text;
-	if (indexPath.section == 0) {
-		switch (indexPath.row) {
-			case 0:
-				text = @"Overview";
-				cell.imageView.image = overviewImage;
-				break;
-			case 1:
-				text = @"Resources";
-				cell.imageView.image = resourcesImage;
-				break;
-			case 2:
-				text = @"Troops";
-				cell.imageView.image = troopsImage;
-				break;
-			case 3:
-				text = @"Buildings";
-				cell.imageView.image = buildingsImage;
-				break;
+	
+	if (showsVillages) {
+		TMVillage *village = [storage.account.villages objectAtIndex:indexPath.row];
+		text = village.name;
+		[cell.imageView setImage:nil];
+		[cell setIndentTitle:NO];
+		
+		if (village == storage.account.village) {
+			[tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
 		}
 	} else {
-		// Movements & constructions section / events
-		TMVillage *village = [storage account].village;
-		if (village.movements && [village.movements count] > 0 && indexPath.row < [village.movements count]) {
-			text = [(TMMovement *)[village.movements objectAtIndex:indexPath.row] name];
+		[cell setIndentTitle:YES];
+		
+		if (indexPath.section == 0) {
+			switch (indexPath.row) {
+				case 0:
+					text = @"Overview";
+					cell.imageView.image = overviewImage;
+					break;
+				case 1:
+					text = @"Resources";
+					cell.imageView.image = resourcesImage;
+					break;
+				case 2:
+					text = @"Troops";
+					cell.imageView.image = troopsImage;
+					break;
+				case 3:
+					text = @"Buildings";
+					cell.imageView.image = buildingsImage;
+					break;
+			}
 		} else {
-			int row = indexPath.row;
-			if (village.movements)
-				row -= village.movements.count;
-			
-			text = [(TMConstruction *)[village.constructions objectAtIndex:row] name];
+			// Movements & constructions section / events
+			TMVillage *village = [storage account].village;
+			if (village.movements && [village.movements count] > 0 && indexPath.row < [village.movements count]) {
+				text = [(TMMovement *)[village.movements objectAtIndex:indexPath.row] name];
+			} else {
+				int row = indexPath.row;
+				if (village.movements)
+					row -= village.movements.count;
+				
+				text = [(TMConstruction *)[village.constructions objectAtIndex:row] name];
+			}
 		}
 	}
 	
@@ -172,6 +199,9 @@ static bool firstTime = true;
 		backgroundColor = [UIColor colorWithPatternImage:[[UIImage imageNamed:@"DarkSection.png"] stretchableImageWithLeftCapWidth:0 topCapHeight:0]];
 	
 	UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 35)];
+	
+	if (showsVillages)
+		return nil;
 	
 	if (tableView == contentTable) {
 		[header setBackgroundColor:backgroundColor];
@@ -195,14 +225,36 @@ static bool firstTime = true;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-	if (tableView == contentTable && (section == 0 || section == 1)) {
+	if (tableView == contentTable && (section == 0 || section == 1) && !showsVillages) {
 		return 35;
 	}
 	
 	return 0;
 }
 
+- (void)back:(id)sender {
+	[self dismissViewControllerAnimated:YES completion:nil];
+}
+
 #pragma mark - Table view delegate
+
+- (void)transitionTableContent:(UITableView *)tableView {
+	// Animates the tableview reload
+	CATransition *transition = [CATransition animation];
+	[transition setType:kCATransitionPush];
+	[transition setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
+	[transition setFillMode:kCAFillModeBoth];
+	[transition setDuration:0.2];
+	
+	if (showsVillages) {
+		[transition setSubtype:kCATransitionFromLeft];
+	} else {
+		[transition setSubtype:kCATransitionFromRight];
+	}
+	
+	[tableView reloadData];
+	[[tableView layer] addAnimation:transition forKey:@"UITableViewReloadDataAnimationKey"];
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -211,15 +263,36 @@ static bool firstTime = true;
 	NSIndexPath *path = indexPath;
 	
 	if (tableView == headerTable) {
-		[self.sidePanelController showCenterPanelAnimated:YES];
+		showsVillages = !showsVillages;
 		
-		// Hide the modal when the sidePanel shows center panel.. animation takes 0.2s
-		dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.2 * NSEC_PER_SEC), dispatch_get_current_queue(), ^{
-			[self dismissViewControllerAnimated:YES completion:nil];
-		});
+		[self transitionTableContent:contentTable];
+		[self transitionTableContent:headerTable];
+		if (!showsVillages)
+			[contentTable selectRowAtIndexPath:currentViewControllerIndexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
 		
-		firstTime = true;
+		[headerTable deselectRowAtIndexPath:indexPath animated:YES];
+		
 		return;
+	} else if (showsVillages) {
+		// Switch to the village.
+		TMVillage *village = [storage.account.villages objectAtIndex:indexPath.row];
+		[storage.account setVillage:village];
+		
+		showsVillages = false;
+		path = currentViewControllerIndexPath;
+		newVC = currentViewController;
+		
+		if (newVC == nil) {
+			newVC = [panel villageOverview];
+			path = [NSIndexPath indexPathForRow:0 inSection:0];
+		}
+		
+		self.navigationItem.title = village.name;
+		[newVC viewWillAppear:NO];
+		[newVC viewDidAppear:NO];
+		
+		[self transitionTableContent:contentTable];
+		[self transitionTableContent:headerTable];
 	} else if (indexPath.section == 0) {
 		if (indexPath.row == 0)
 			newVC = [panel villageOverview];
@@ -240,6 +313,28 @@ static bool firstTime = true;
 	currentViewController = newVC;
 	currentViewControllerIndexPath = path;
 	[self.sidePanelController setCenterPanel:newVC];
+}
+
+#pragma mark - JASidePanelDelegate
+
+- (void)willBecomeActiveAsPanelAnimated:(BOOL)animated withBounce:(BOOL)withBounce {
+	[contentTable reloadData];
+	
+	if (!currentViewController) {
+		currentViewController = [TMVillagePanelViewController sharedInstance].villageOverview;
+	}
+	if (!currentViewControllerIndexPath) {
+		currentViewControllerIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+	}
+	
+	[contentTable selectRowAtIndexPath:currentViewControllerIndexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+}
+- (void)didBecomeActiveAsPanelAnimated:(BOOL)animated withBounce:(BOOL)withBounce {
+	NSLog(@"Hi");
+}
+
+- (void)willResignActiveAsPanelAnimated:(BOOL)animated withBounce:(BOOL)withBounce {
+	NSLog(@"Resigning");
 }
 
 @end
