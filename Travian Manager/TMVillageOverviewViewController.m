@@ -294,6 +294,8 @@ static NSString *notificationTitle;
 			notificationTitle = [NSString stringWithFormat:@"%@ constructed on village %@ from account %@", construction.name, village.name, storage.account.name];
 			notificationDate = [construction finishTime];
 		}
+	} else {
+		return;
 	}
 	
 	if (storage.appSettings.pushNotifications) {

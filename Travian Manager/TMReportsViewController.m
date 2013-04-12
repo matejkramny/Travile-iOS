@@ -61,7 +61,11 @@ static NSString *viewTitle = @"Reports";
 		editButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editButtonClicked:)];
 	}
 	
-	[self.tableView reloadData];
+	if (selectedReport) {
+		selectedReport = nil;
+	} else {
+		[self.tableView reloadData];
+	}
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -208,12 +212,17 @@ static NSString *viewTitle = @"Reports";
 	selectedIndexPath = indexPath;
 	
 	selectedReport = [storage.account.reports objectAtIndex:indexPath.row];
-	[selectedReport addObserver:self forKeyPath:@"parsed" options:NSKeyValueObservingOptionNew context:nil];
-	[selectedReport downloadAndParse];
 	
-	HUD = [MBProgressHUD showHUDAddedTo:self.navigationController.tabBarController.view animated:YES];
-	HUD.labelText = @"Loading report";
-	HUD.delegate = self;
+	if (![selectedReport parsed]) {
+		[selectedReport addObserver:self forKeyPath:@"parsed" options:NSKeyValueObservingOptionNew context:nil];
+		[selectedReport downloadAndParse];
+		
+		HUD = [MBProgressHUD showHUDAddedTo:self.navigationController.tabBarController.view animated:YES];
+		HUD.labelText = @"Loading report";
+		HUD.delegate = self;
+	} else {
+		[self performSegueWithIdentifier:@"openReport" sender:self];
+	}
 }
 
 #pragma mark - MBProgressHUDDelegate
@@ -250,7 +259,15 @@ static NSString *viewTitle = @"Reports";
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 	if ([segue.identifier isEqualToString:@"openReport"]) {
+		@try {
+			[selectedReport removeObserver:self forKeyPath:@"parsed"];
+		}
+		@catch (NSException *exception) {
+			// Remove observer from report.. If not observing do nothing.. Exception happens but we don't care
+		}
 		
+		TMReportViewController *destination = [segue destinationViewController];
+		destination.report = selectedReport;
 	}
 }
 
