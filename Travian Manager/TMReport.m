@@ -1,21 +1,5 @@
-// This code is distributed under the terms and conditions of the MIT license.
-
-/* * Copyright (C) 2011 - 2013 Matej Kramny <matejkramny@gmail.com>
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
- * associated documentation files (the "Software"), to deal in the Software without restriction,
- * including without limitation the rights to use, copy, modify, merge, publish, distribute,
- * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all copies or substantial
- * portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
- * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
- * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES
- * OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
- * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+/* Copyright (C) 2011 - 2013 Matej Kramny <matejkramny@gmail.com>
+ * All rights reserved.
  */
 
 #import "TMReport.h"
@@ -37,12 +21,12 @@
 
 @implementation TMReport
 
-@synthesize name, when, accessID, bounty, deleteID, attacker, attackerVillage, attackerTroops, defender, defenderVillage, defenderTroops, bountyName;
+@synthesize name, when, accessID, bounty, deleteID, attacker, defenders, bountyName, parsed;
 
 - (void)parsePage:(TravianPages)page fromHTMLNode:(HTMLNode *)node {
 	
 	// Not a report or not a body tag.
-	if (page != TPReport || ![[node tagName] isEqualToString:@"body"]) return;
+	if (page != TPReports || ![[node tagName] isEqualToString:@"body"]) return;
 	
 	HTMLNode *report_surround = [node findChildWithAttribute:@"id" matchingName:@"report_surround" allowPartial:NO];
 	if (!report_surround) {
@@ -50,19 +34,77 @@
 	}
 	
 	HTMLNode *report_content = [report_surround findChildWithAttribute:@"class" matchingName:@"report_content" allowPartial:NO];
+	if (!report_content) {
+		report_content = [report_surround findChildWithAttribute:@"id" matchingName:@"message" allowPartial:NO];
+		if (!report_content) {
+			return;
+		}
+	}
 	
 	NSArray *tables = [report_content findChildTags:@"table"];
 	
 	for (HTMLNode *table in tables) {
 		
-		if ([table getAttributeNamed:@"id"] && [[table getAttributeNamed:@"id"] isEqualToString:@"attacker"]) {
+		NSString *_id = [table getAttributeNamed:@"id"];
+		if ([_id isEqualToString:@"attacker"] || _id == nil) {
 			
-			// Attacker
-			// TODO this
+			// covers adventures, troop attacks
+			NSMutableString *tblName = [[NSMutableString alloc] init];
+			NSMutableArray *troopNames = [[NSMutableArray alloc] initWithCapacity:10];
+			NSMutableArray *troops = [[NSMutableArray alloc] initWithCapacity:10];
+			NSMutableArray *casualties = [[NSMutableArray alloc] initWithCapacity:10];
 			
+			HTMLNode *node_troopHeadline_p = [[table findChildWithAttribute:@"class" matchingName:@"troopHeadline" allowPartial:NO] findChildTag:@"p"];
+			NSArray *children = [node_troopHeadline_p children];
+			for (HTMLNode *child in children) {
+				NSString *content = [child contents];
+				if (content == nil)
+					content = [child rawContents];
+				
+				[tblName appendString:content];
+			}
+			
+			NSArray *units = [table findChildrenWithAttribute:@"class" matchingName:@"units" allowPartial:YES];
+			int units_i = 0;
+			for (HTMLNode *unit in units) {
+				NSArray *tds = [unit findChildTags:@"td"];
+				for (HTMLNode *td in tds) {
+					if ([[td getAttributeNamed:@"class"] rangeOfString:@"uniticon"].location != NSNotFound) {
+						// Unit icons.. Get names from ALT
+						[troopNames addObject:[[td findChildTag:@"img"] getAttributeNamed:@"alt"]];
+					} else if ([[td getAttributeNamed:@"class"] rangeOfString:@"unit"].location != NSNotFound) {
+						// Actual units
+						// casualties or sent troops?
+						if (units_i == 2) {
+							// Casualties
+							[casualties addObject:[td contents]];
+						} else {
+							// Troops
+							[troops addObject:[td contents]];
+						}
+					}
+				}
+				units_i++;
+			}
+			
+			NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:tblName, @"name",
+								  troopNames, @"troopNames",
+								  troops, @"troops",
+								  casualties, @"casualties",
+								  nil];
+			if ([_id isEqualToString:@"attacker"]) {
+				attacker = dict;
+			} else {
+				if (!defenders) {
+					defenders = [[NSMutableArray alloc] init];
+				}
+				[defenders addObject:dict];
+			}
 		}
 		
 	}
+	
+	parsed = YES;
 	
 }
 
@@ -84,42 +126,6 @@
 	[request setHTTPShouldHandleCookies:YES];
 	
 	deleteConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
-}
-
-#pragma mark - NSCoder
-
-- (id)initWithCoder:(NSCoder *)aDecoder {
-	name = [aDecoder decodeObjectForKey:@"name"];
-	when = [aDecoder decodeObjectForKey:@"when"];
-	accessID = [aDecoder decodeObjectForKey:@"accessID"];
-	bounty = [aDecoder decodeObjectForKey:@"bounty"];
-	bountyName = [aDecoder decodeObjectForKey:@"bountyName"];
-	deleteID = [aDecoder decodeObjectForKey:@"deleteID"];
-	
-	attacker = [aDecoder decodeObjectForKey:@"attacker"];
-	attackerVillage = [aDecoder decodeObjectForKey:@"attackerVillage"];
-	attackerTroops = [aDecoder decodeObjectForKey:@"attackerTroops"];
-	defender = [aDecoder decodeObjectForKey:@"defender"];
-	defenderVillage = [aDecoder decodeObjectForKey:@"defenderVillage"];
-	defenderTroops = [aDecoder decodeObjectForKey:@"defenderTroops"];
-	
-	return self;
-}
-
-- (void)encodeWithCoder:(NSCoder *)aCoder {
-	[aCoder encodeObject:name forKey:@"name"];
-	[aCoder encodeObject:when forKey:@"when"];
-	[aCoder encodeObject:accessID forKey:@"accessID"];
-	[aCoder encodeObject:bounty forKey:@"bounty"];
-	[aCoder encodeObject:bountyName forKey:@"bountyName"];
-	[aCoder encodeObject:deleteID forKey:@"deleteID"];
-	
-	[aCoder encodeObject:attacker forKey:@"attacker"];
-	[aCoder encodeObject:attackerVillage forKey:@"attackerVillage"];
-	[aCoder encodeObject:attackerTroops forKey:@"attackerTroops"];
-	[aCoder encodeObject:defender forKey:@"defender"];
-	[aCoder encodeObject:defenderVillage forKey:@"defenderVillage"];
-	[aCoder encodeObject:defenderTroops forKey:@"defenderTroops"];
 }
 
 #pragma mark - NSURLConnectionDelegate

@@ -390,7 +390,7 @@
 		return;
 	}
 	
-	[[storage account] removeObserver:self forKeyPath:@"notificationPending"];
+	//[[storage account] removeObserver:self forKeyPath:@"notificationPending"];
 	
 	if (buttonIndex == 1) {
 		// View
