@@ -16,10 +16,13 @@
 		<dict>
 			<key>CFBundleIconFiles</key>
 			<array>
-				<string>Logo.png</string>
-				<string>Logo@2x.png</string>
+				<string>icon57x57.png</string>
+				<string>icon114x114.png</string>
 				<string>Default.png</string>
 				<string>Default@2x.png</string>
+				<string>iconRetina.png</string>
+				<string>icon114.png</string>
+				<string>icon57.png</string>
 			</array>
 			<key>UIPrerenderedIcon</key>
 			<true/>
@@ -77,11 +80,11 @@
 			<key>TintColor</key>
 			<dict>
 				<key>Blue</key>
-				<real>0.15787433080573041</real>
+				<real>0.1578743308057304</real>
 				<key>Green</key>
 				<real>1</real>
 				<key>Red</key>
-				<real>0.0</real>
+				<real>0</real>
 			</dict>
 			<key>Translucent</key>
 			<false/>

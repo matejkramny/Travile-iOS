@@ -135,6 +135,8 @@ static NSString *deleteButtonCellID = @"DeleteButton";
 				if (editingAccount != nil)
 					cell.textField.text = editingAccount.username;
 				
+				[cell.textField setKeyboardType:UIKeyboardTypeEmailAddress];
+				
 				usernameCell = cell;
 			} else {
 				cell.textField.placeholder = @"Password";
@@ -174,6 +176,8 @@ static NSString *deleteButtonCellID = @"DeleteButton";
 				
 				if (editingAccount != nil)
 					cell.textField.text = editingAccount.server;
+				
+				[cell.textField setKeyboardType:UIKeyboardTypeURL];
 				
 				serverCell = cell;
 			}
