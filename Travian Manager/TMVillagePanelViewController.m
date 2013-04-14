@@ -28,8 +28,8 @@ static TMVillagePanelViewController *instance;
 	instance = self;
 	
 	[self setShouldResizeLeftPanel:YES];
-	[self setBounceOnSidePanelOpen:YES];
-	[self setBounceOnSidePanelClose:YES];
+	[self setBounceOnSidePanelOpen:NO];
+	[self setBounceOnSidePanelClose:NO];
 	[self setAllowLeftOverpan:NO];
 	[self setBounceOnCenterPanelChange:NO];
 	

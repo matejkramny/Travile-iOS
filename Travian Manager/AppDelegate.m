@@ -49,6 +49,7 @@
 
 - (void)applicationWillResignActive:(UIApplication *)application {
 	timeAtGoingToInactiveState = [[NSDate date] timeIntervalSince1970];
+	[storage saveData];
 }
 - (void)applicationDidEnterBackground:(UIApplication *)application {}
 - (void)applicationWillEnterForeground:(UIApplication *)application {
