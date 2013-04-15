@@ -69,8 +69,20 @@ static NSString *viewTitle = @"Buildings";
 	[super viewWillAppear:animated];
 	
 	if (sections == nil || last_update == 0 || account.last_updated < last_update || village != account.village) {
-		[self loadBuildingsToSections];
-		[self.tableView reloadData];
+		village = account.village;
+		if (!village.hasDownloaded) {
+			// Download the village.
+			HUD = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+			[HUD setLabelText:[NSString stringWithFormat:@"Loading %@", village.name]];
+			[HUD setDetailsLabelText:@"Tap to cancel"];
+			tapToCancel = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedToCancelVillageLoading:)];
+			[HUD addGestureRecognizer:tapToCancel];
+			[village addObserver:self forKeyPath:@"hasDownloaded" options:NSKeyValueObservingOptionNew context:nil];
+			[village downloadAndParse];
+		} else {
+			[self loadBuildingsToSections];
+			[self.tableView reloadData];
+		}
 	}
 }
 
@@ -210,12 +222,31 @@ static NSString *viewTitle = @"Buildings";
 		[self.tableView deselectRowAtIndexPath:selectedPath animated:YES];
 }
 
+- (void)tappedToCancelVillageLoading:(id)sender {
+	[self finishedLoadingVillageWithHUD];
+}
+
 - (void)tappedToHide:(id)sender {
 	[HUD hide:YES];
 	[HUD removeGestureRecognizer:tapToHide];
 	tapToHide = nil;
 	
 	[[selectedBuildings objectAtIndex:0] removeObserver:self forKeyPath:[[selectedBuildings objectAtIndex:0] finishedLoadingKVOIdentifier]];
+}
+
+- (void)finishedLoadingVillageWithHUD {
+	@try {
+		[village removeObserver:self forKeyPath:@"hasDownloaded"];
+		[HUD removeGestureRecognizer:tapToCancel];
+		tapToCancel = nil;
+		[HUD hide:YES];
+	}
+	@catch (NSException *exception) {
+	}
+	@finally {
+		[self loadBuildingsToSections];
+		[self.tableView reloadData];
+	}
 }
 
 #pragma mark - Table view data source
@@ -319,6 +350,8 @@ static NSString *viewTitle = @"Buildings";
 			[self loadBuildingsToSections];
 			[[self tableView] reloadData];
 		}
+	} else if ([keyPath isEqualToString:@"hasDownloaded"]) {
+		[self finishedLoadingVillageWithHUD];
 	}
 }
 

@@ -606,6 +606,8 @@
 		
 		TravianPages page = [TPIdentifier identifyPage:body];
 		
+		[self parsePage:page fromHTMLNode:body];
+		
 		if ((page & TPResources) != 0) {
 			// Village overview
 			
@@ -613,10 +615,9 @@
 			[request setHTTPShouldHandleCookies:YES];
 			
 			villageConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
+		} else {
+			[self setHasDownloaded:YES];
 		}
-		
-		[self parsePage:page fromHTMLNode:body];
-		[self setHasDownloaded:YES];
 	}
 }
 

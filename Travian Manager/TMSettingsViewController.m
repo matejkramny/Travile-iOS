@@ -129,7 +129,7 @@ static NSString *viewTitle = @"Settings";
 			[cell.toggle addTarget:self action:@selector(changedWarehouseIndicator:) forControlEvents:UIControlEventTouchUpInside];
 			warehouseIndicator = cell.toggle;
 		} else if (indexPath.row == 2) {
-			cell.title.text = @"Load everything at login";
+			cell.title.text = @"Fast login";
 			[cell.toggle setOn:settings.loadsAllDataAtLogin];
 			[cell.toggle addTarget:self action:@selector(loadAllAtOnce:) forControlEvents:UIControlEventTouchUpInside];
 			loadAllAtOnce = cell.toggle;

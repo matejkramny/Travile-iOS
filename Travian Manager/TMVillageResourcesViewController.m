@@ -1,21 +1,5 @@
-// This code is distributed under the terms and conditions of the MIT license.
-
-/* * Copyright (C) 2011 - 2013 Matej Kramny <matejkramny@gmail.com>
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
- * associated documentation files (the "Software"), to deal in the Software without restriction,
- * including without limitation the rights to use, copy, modify, merge, publish, distribute,
- * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all copies or substantial
- * portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
- * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
- * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES
- * OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
- * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+/* Copyright (C) 2011 - 2013 Matej Kramny <matejkramny@gmail.com>
+ * All rights reserved.
  */
 
 #import "TMVillageResourcesViewController.h"
@@ -26,10 +10,14 @@
 #import "TMResources.h"
 #import "TMResourcesProduction.h"
 #import "TMSettings.h"
+#import "MBProgressHUD.h"
 
 @interface TMVillageResourcesViewController () {
-	TMAccount *account;
+	TMStorage *storage;
+	TMVillage *village;
 	NSTimer *secondTimer;
+	MBProgressHUD *HUD;
+	UITapGestureRecognizer *tapToCancel;
 }
 
 - (void)timerFired:(id)sender;
@@ -62,12 +50,11 @@ static NSString *viewTitle = @"Resources";
 {
     [super viewDidLoad];
 	
-	account = [[TMStorage sharedStorage] account];
+	storage = [TMStorage sharedStorage];
+	village = storage.account.village;
 	
 	[self setRefreshControl:[[UIRefreshControl alloc] init]];
 	[[self refreshControl] addTarget:self action:@selector(didBeginRefreshing:) forControlEvents:UIControlEventValueChanged];
-	
-	[self reloadBadgeCount];
 	
 	[[self tableView] setBackgroundView:nil];
 	[self.navigationItem setTitle:viewTitle];
@@ -82,9 +69,22 @@ static NSString *viewTitle = @"Resources";
 	secondTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timerFired:) userInfo:nil repeats:YES];
 	[self timerFired:nil];
 	
-	[self.tableView reloadData];
-	
-	[self reloadBadgeCount];
+	if (village != storage.account.village) {
+		village = storage.account.village;
+		
+		if (!village.hasDownloaded) {
+			// Download the village.
+			HUD = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+			[HUD setLabelText:[NSString stringWithFormat:@"Loading %@", village.name]];
+			[HUD setDetailsLabelText:@"Tap to cancel"];
+			tapToCancel = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedToCancel:)];
+			[HUD addGestureRecognizer:tapToCancel];
+			[village addObserver:self forKeyPath:@"hasDownloaded" options:NSKeyValueObservingOptionNew context:nil];
+			[village downloadAndParse];
+		}
+		
+		[self.tableView reloadData];
+	}
 	
 	[self timerFired:self];
 }
@@ -114,30 +114,19 @@ static NSString *viewTitle = @"Resources";
 		[secondTimer invalidate];
 }
 
-- (void)reloadBadgeCount {
-	TMVillage *v = [account village];
-	TMResources *r = [v resources];
-	
-	unsigned int whouse = v.warehouse;
-	unsigned int gran = v.granary;
-	if ([r wood] > whouse || [r clay] > whouse || [r iron] > whouse || [r wheat] > gran) {
-		[[self tabBarItem] setBadgeValue:@"!"];
-	}
-}
-
 - (void)timerFired:(id)sender {
-	TMVillage *v = [account village];
+	TMVillage *v = [storage.account village];
 	[[v resources] updateResourcesFromProduction:[v resourceProduction] warehouse:[v warehouse] granary:[v granary]];
 	[self refreshResources];
 	[self.tableView reloadData];
 }
 
 - (void)refreshResources {
-	TMVillage *v = [account village];
+	TMVillage *v = [storage.account village];
 	TMResources *r = [v resources];
 	TMResourcesProduction *rp = [v resourceProduction];
-	bool indicatePercentage = account.settings.showsResourceProgress;
-	bool decimalResources = account.settings.showsDecimalResources;
+	bool indicatePercentage = storage.account.settings.showsResourceProgress;
+	bool decimalResources = storage.account.settings.showsDecimalResources;
 	
 	void (^setFormatToResource)(UILabel *, float, int, int) = ^(UILabel *l, float rv, int rpv, int percentage) {
 		if (decimalResources)
@@ -167,19 +156,39 @@ static NSString *viewTitle = @"Resources";
 }
 
 - (void)didBeginRefreshing:(id)sender {
-	[account addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:NULL];
+	[storage.account addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:NULL];
 	
-	[account refreshAccountWithMap:ARVillage];
+	[storage.account refreshAccountWithMap:ARVillage];
+}
+
+- (void)finishedLoadingVillageWithHUD {
+	@try {
+		[village removeObserver:self forKeyPath:@"hasDownloaded"];
+		[HUD removeGestureRecognizer:tapToCancel];
+		tapToCancel = nil;
+		[HUD hide:YES];
+	}
+	@catch (NSException *exception) {
+	}
+	@finally {
+		[self.tableView reloadData];
+	}
+}
+
+- (void)tappedToCancel:(id)sender {
+	[self finishedLoadingVillageWithHUD];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 	if ([keyPath isEqualToString:@"status"]) {
 		if (([[change objectForKey:NSKeyValueChangeNewKey] intValue] & ARefreshed) != 0) {
 			// Refreshed
-			[account removeObserver:self forKeyPath:@"status"];
+			[storage.account removeObserver:self forKeyPath:@"status"];
 			[self.refreshControl endRefreshing];
 			[[self tableView] reloadData];
 		}
+	} else if ([keyPath isEqualToString:@"hasDownloaded"]) {
+		[self finishedLoadingVillageWithHUD];
 	}
 }
 

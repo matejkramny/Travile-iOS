@@ -1,21 +1,5 @@
-// This code is distributed under the terms and conditions of the MIT license.
-
-/* * Copyright (C) 2011 - 2013 Matej Kramny <matejkramny@gmail.com>
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
- * associated documentation files (the "Software"), to deal in the Software without restriction,
- * including without limitation the rights to use, copy, modify, merge, publish, distribute,
- * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all copies or substantial
- * portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
- * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
- * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES
- * OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
- * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+/* Copyright (C) 2011 - 2013 Matej Kramny <matejkramny@gmail.com>
+ * All rights reserved.
  */
 
 #import "TMVillageTroopsViewController.h"
@@ -24,9 +8,13 @@
 #import "TMVillage.h"
 #import "TMAccount.h"
 #import "TMTroop.h"
+#import "MBProgressHUD.h"
 
 @interface TMVillageTroopsViewController () {
-	TMAccount *account;
+	TMStorage *storage;
+	TMVillage *village;
+	MBProgressHUD *HUD;
+	UITapGestureRecognizer *tapToCancel;
 }
 
 @end
@@ -48,7 +36,8 @@ static NSString *viewTitle = @"Troops";
 {
     [super viewDidLoad];
 	
-	account = [[TMStorage sharedStorage] account];
+	storage = [TMStorage sharedStorage];
+	village = storage.account.village;
 	
 	[self setRefreshControl:[[UIRefreshControl alloc] init]];
 	[[self refreshControl] addTarget:self action:@selector(didBeginRefreshing:) forControlEvents:UIControlEventValueChanged];
@@ -64,7 +53,40 @@ static NSString *viewTitle = @"Troops";
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	
-	[self.tableView reloadData];
+	if (village != storage.account.village) {
+		village = storage.account.village;
+		
+		if (!village.hasDownloaded) {
+			// Download the village.
+			HUD = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+			[HUD setLabelText:[NSString stringWithFormat:@"Loading %@", village.name]];
+			[HUD setDetailsLabelText:@"Tap to cancel"];
+			tapToCancel = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedToCancel:)];
+			[HUD addGestureRecognizer:tapToCancel];
+			[village addObserver:self forKeyPath:@"hasDownloaded" options:NSKeyValueObservingOptionNew context:nil];
+			[village downloadAndParse];
+		}
+		
+		[self.tableView reloadData];
+	}
+}
+
+- (void)finishedLoadingVillageWithHUD {
+	@try {
+		[village removeObserver:self forKeyPath:@"hasDownloaded"];
+		[HUD removeGestureRecognizer:tapToCancel];
+		tapToCancel = nil;
+		[HUD hide:YES];
+	}
+	@catch (NSException *exception) {
+	}
+	@finally {
+		[self.tableView reloadData];
+	}
+}
+
+- (void)tappedToCancel:(id)sender {
+	[self finishedLoadingVillageWithHUD];
 }
 
 #pragma mark - Table view data source
@@ -76,7 +98,7 @@ static NSString *viewTitle = @"Troops";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-	int c = [[[account village] troops] count];
+	int c = [[village troops] count];
     return c == 0 ? 1 : c;
 }
 
@@ -84,7 +106,7 @@ static NSString *RightDetailCellID = @"RightDetail";
 static NSString *NoTroopsCellID = @"NoTroops";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	if ([account.village.troops count] == 0) {
+	if ([village.troops count] == 0) {
 		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NoTroopsCellID];
 		cell.textLabel.text = NSLocalizedString(@"NoTroops", @"Village contains no troops - shown inside table as a cell");
 		
@@ -95,7 +117,7 @@ static NSString *NoTroopsCellID = @"NoTroops";
 	
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:RightDetailCellID];
     
-	TMTroop *troop = [[account.village troops] objectAtIndex:indexPath.row];
+	TMTroop *troop = [[village troops] objectAtIndex:indexPath.row];
 	cell.textLabel.text = [troop name];
 	cell.detailTextLabel.text = [NSString stringWithFormat:@"%d", troop.count];
 	
@@ -105,19 +127,21 @@ static NSString *NoTroopsCellID = @"NoTroops";
 }
 
 - (void)didBeginRefreshing:(id)sender {
-	[account addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:NULL];
+	[storage.account addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:NULL];
 	
-	[account refreshAccountWithMap:ARVillage];
+	[storage.account refreshAccountWithMap:ARVillage];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 	if ([keyPath isEqualToString:@"status"]) {
 		if (([[change objectForKey:NSKeyValueChangeNewKey] intValue] & ARefreshed) != 0) {
 			// Refreshed
-			[account removeObserver:self forKeyPath:@"status"];
+			[storage.account removeObserver:self forKeyPath:@"status"];
 			[self.refreshControl endRefreshing];
 			[[self tableView] reloadData];
 		}
+	} else if ([keyPath isEqualToString:@"hasDownloaded"]) {
+		[self finishedLoadingVillageWithHUD];
 	}
 }
 

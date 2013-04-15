@@ -317,7 +317,7 @@ static bool firstTime = true;
 
 #pragma mark - JASidePanelDelegate
 
-- (void)willBecomeActiveAsPanelAnimated:(BOOL)animated withBounce:(BOOL)withBounce {
+- (void)didBecomeActiveAsPanelAnimated:(BOOL)animated withBounce:(BOOL)withBounce {
 	[contentTable reloadData];
 	
 	if (!currentViewController) {
@@ -327,14 +327,7 @@ static bool firstTime = true;
 		currentViewControllerIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
 	}
 	
-	[contentTable selectRowAtIndexPath:currentViewControllerIndexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
-}
-- (void)didBecomeActiveAsPanelAnimated:(BOOL)animated withBounce:(BOOL)withBounce {
-	NSLog(@"Hi");
-}
-
-- (void)willResignActiveAsPanelAnimated:(BOOL)animated withBounce:(BOOL)withBounce {
-	NSLog(@"Resigning");
+	[contentTable selectRowAtIndexPath:currentViewControllerIndexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
 }
 
 @end

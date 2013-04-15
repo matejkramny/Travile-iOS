@@ -695,12 +695,6 @@ static char ja_kvoContext;
 {
 	if (self.style != JASidePanelMultipleActive && [fromPanel respondsToSelector:@selector(willResignActiveAsPanelAnimated:withBounce:)])
 	        [(id)fromPanel willResignActiveAsPanelAnimated:animated withBounce:bounce];
-	if ([toPanel isMemberOfClass:[UINavigationController class]]) {
-		UIViewController *view = [[(UINavigationController *)toPanel viewControllers] objectAtIndex:0];
-		if ([view respondsToSelector:@selector(willBecomeActiveAsPanelAnimated:withBounce:)]) {
-			[(id)view willBecomeActiveAsPanelAnimated:animated withBounce:bounce];
-		}
-	}
     if ([toPanel respondsToSelector:@selector(willBecomeActiveAsPanelAnimated:withBounce:)])
 	        [(id)toPanel willBecomeActiveAsPanelAnimated:animated withBounce:bounce];
 }
@@ -709,7 +703,14 @@ static char ja_kvoContext;
 {
     if ([toPanel respondsToSelector:@selector(didBecomeActiveAsPanelAnimated:withBounce:)])
 	        [(id)toPanel didBecomeActiveAsPanelAnimated:animated withBounce:bounce];
-    if (self.style != JASidePanelMultipleActive && [fromPanel respondsToSelector:@selector(didResignActiveAsPanelAnimated:withBounce:)])
+    if ([toPanel isMemberOfClass:[UINavigationController class]]) {
+		UIViewController *view = [[(UINavigationController *)toPanel viewControllers] objectAtIndex:0];
+		if ([view respondsToSelector:@selector(didBecomeActiveAsPanelAnimated:withBounce:)]) {
+			[(id)view didBecomeActiveAsPanelAnimated:animated withBounce:bounce];
+		}
+	}
+	
+	if (self.style != JASidePanelMultipleActive && [fromPanel respondsToSelector:@selector(didResignActiveAsPanelAnimated:withBounce:)])
         [(id)fromPanel didResignActiveAsPanelAnimated:animated withBounce:bounce];
 }
 

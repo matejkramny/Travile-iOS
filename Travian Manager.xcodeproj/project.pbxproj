@@ -152,8 +152,6 @@
 		4F995DC6171232A9002E69AC /* DarkSelectedCell.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F995DC4171232A9002E69AC /* DarkSelectedCell.png */; };
 		4F995DC7171232A9002E69AC /* DarkSelectedCell@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F995DC5171232A9002E69AC /* DarkSelectedCell@2x.png */; };
 		4F995DCA1712DBD2002E69AC /* TMDarkImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F995DC91712DBD2002E69AC /* TMDarkImageCell.m */; };
-		4F995DD017142625002E69AC /* DarkSection.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F995DCE17142625002E69AC /* DarkSection.png */; };
-		4F995DD117142625002E69AC /* DarkSection@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F995DCF17142625002E69AC /* DarkSection@2x.png */; };
 		4F995DDA171591A3002E69AC /* 123-id-card-white.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F995DD817159195002E69AC /* 123-id-card-white.png */; };
 		4F995DDB171591A3002E69AC /* 123-id-card-white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F995DD91715919B002E69AC /* 123-id-card-white@2x.png */; };
 		4F995DDE17178C1F002E69AC /* TMReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F995DDD17178C1A002E69AC /* TMReportViewController.m */; };
@@ -222,6 +220,12 @@
 		4FA67B5E16E4E3A800B4CD18 /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F095237155C7B6100C15D6E /* libxml2.2.dylib */; };
 		4FA88B6D15F160D9001D9713 /* TMDeleteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA88B6C15F160D9001D9713 /* TMDeleteCell.m */; };
 		4FA88B6F15F1632A001D9713 /* redButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FA88B6E15F1632A001D9713 /* redButton.png */; };
+		4FAA5E2A171B49A70051F075 /* CellEven.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FAA5E28171B49A70051F075 /* CellEven.png */; };
+		4FAA5E2B171B49A70051F075 /* CellEven@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FAA5E29171B49A70051F075 /* CellEven@2x.png */; };
+		4FAA5E2E171B4C6D0051F075 /* CellOdd.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FAA5E2C171B4C6D0051F075 /* CellOdd.png */; };
+		4FAA5E2F171B4C6D0051F075 /* CellOdd@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FAA5E2D171B4C6D0051F075 /* CellOdd@2x.png */; };
+		4FAA5E36171B59AB0051F075 /* DarkSection.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FAA5E34171B59AB0051F075 /* DarkSection.png */; };
+		4FAA5E37171B59AB0051F075 /* DarkSection@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FAA5E35171B59AB0051F075 /* DarkSection@2x.png */; };
 		4FAF00DE16D792B4001E04C9 /* TMTrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FAF00DD16D792B4001E04C9 /* TMTrapper.m */; };
 		4FAF00E116D79450001E04C9 /* TMResidence.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FAF00E016D79450001E04C9 /* TMResidence.m */; };
 		4FB1A75115EA539200C1FE4C /* TMBarracks.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FB1A75015EA539200C1FE4C /* TMBarracks.m */; };
@@ -253,6 +257,9 @@
 		4FE58E9B15C59B55004825EF /* TMVillageOverviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE58E9A15C59B55004825EF /* TMVillageOverviewViewController.m */; };
 		4FE7FFD015D5D779007B80A5 /* ArrowIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FE7FFCE15D5D779007B80A5 /* ArrowIcon.png */; };
 		4FE7FFD115D5D779007B80A5 /* ArrowIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FE7FFCF15D5D779007B80A5 /* ArrowIcon@2x.png */; };
+		4FF6489C171C1535007BB723 /* iconRetina.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FF6489B171C1535007BB723 /* iconRetina.png */; };
+		4FF6489F171C1599007BB723 /* icon57x57.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FF6489D171C1599007BB723 /* icon57x57.png */; };
+		4FF648A0171C1599007BB723 /* icon114x114.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FF6489E171C1599007BB723 /* icon114x114.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -456,8 +463,6 @@
 		4F995DC5171232A9002E69AC /* DarkSelectedCell@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DarkSelectedCell@2x.png"; sourceTree = "<group>"; };
 		4F995DC81712DBD2002E69AC /* TMDarkImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMDarkImageCell.h; sourceTree = "<group>"; };
 		4F995DC91712DBD2002E69AC /* TMDarkImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMDarkImageCell.m; sourceTree = "<group>"; };
-		4F995DCE17142625002E69AC /* DarkSection.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DarkSection.png; sourceTree = "<group>"; };
-		4F995DCF17142625002E69AC /* DarkSection@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DarkSection@2x.png"; sourceTree = "<group>"; };
 		4F995DD817159195002E69AC /* 123-id-card-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "123-id-card-white.png"; sourceTree = "<group>"; };
 		4F995DD91715919B002E69AC /* 123-id-card-white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "123-id-card-white@2x.png"; sourceTree = "<group>"; };
 		4F995DDC17178C18002E69AC /* TMReportViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMReportViewController.h; sourceTree = "<group>"; };
@@ -477,6 +482,12 @@
 		4FA88B6B15F160D9001D9713 /* TMDeleteCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMDeleteCell.h; sourceTree = "<group>"; };
 		4FA88B6C15F160D9001D9713 /* TMDeleteCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMDeleteCell.m; sourceTree = "<group>"; };
 		4FA88B6E15F1632A001D9713 /* redButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = redButton.png; path = ../redButton.png; sourceTree = "<group>"; };
+		4FAA5E28171B49A70051F075 /* CellEven.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CellEven.png; sourceTree = "<group>"; };
+		4FAA5E29171B49A70051F075 /* CellEven@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CellEven@2x.png"; sourceTree = "<group>"; };
+		4FAA5E2C171B4C6D0051F075 /* CellOdd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CellOdd.png; sourceTree = "<group>"; };
+		4FAA5E2D171B4C6D0051F075 /* CellOdd@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CellOdd@2x.png"; sourceTree = "<group>"; };
+		4FAA5E34171B59AB0051F075 /* DarkSection.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DarkSection.png; sourceTree = "<group>"; };
+		4FAA5E35171B59AB0051F075 /* DarkSection@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DarkSection@2x.png"; sourceTree = "<group>"; };
 		4FAF00DC16D792B4001E04C9 /* TMTrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMTrapper.h; sourceTree = "<group>"; };
 		4FAF00DD16D792B4001E04C9 /* TMTrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMTrapper.m; sourceTree = "<group>"; };
 		4FAF00DF16D79450001E04C9 /* TMResidence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMResidence.h; sourceTree = "<group>"; };
@@ -527,6 +538,9 @@
 		4FE58E9A15C59B55004825EF /* TMVillageOverviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMVillageOverviewViewController.m; sourceTree = "<group>"; };
 		4FE7FFCE15D5D779007B80A5 /* ArrowIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ArrowIcon.png; sourceTree = "<group>"; };
 		4FE7FFCF15D5D779007B80A5 /* ArrowIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ArrowIcon@2x.png"; sourceTree = "<group>"; };
+		4FF6489B171C1535007BB723 /* iconRetina.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = iconRetina.png; path = Photoshop/iconRetina.png; sourceTree = "<group>"; };
+		4FF6489D171C1599007BB723 /* icon57x57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon57x57.png; sourceTree = "<group>"; };
+		4FF6489E171C1599007BB723 /* icon114x114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon114x114.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -563,7 +577,10 @@
 			isa = PBXGroup;
 			children = (
 				4F9ADA661719EAF300154E69 /* icon57.png */,
+				4FF6489D171C1599007BB723 /* icon57x57.png */,
+				4FF6489E171C1599007BB723 /* icon114x114.png */,
 				4F9ADA641719EAE500154E69 /* icon114.png */,
+				4FF6489B171C1535007BB723 /* iconRetina.png */,
 				4F9ADA621719EACD00154E69 /* Default.png */,
 				4F9ADA5E1719E9D400154E69 /* Default@2x.png */,
 				4F9ADA601719EAC500154E69 /* Default-568h@2x.png */,
@@ -831,8 +848,8 @@
 		4F928D8715D400A8008AC6DB /* Design */ = {
 			isa = PBXGroup;
 			children = (
-				4F995DCE17142625002E69AC /* DarkSection.png */,
-				4F995DCF17142625002E69AC /* DarkSection@2x.png */,
+				4FAA5E34171B59AB0051F075 /* DarkSection.png */,
+				4FAA5E35171B59AB0051F075 /* DarkSection@2x.png */,
 				4F24E90A167BA7ED002367B7 /* unreadNotification.png */,
 				4F24E90B167BA7ED002367B7 /* unreadNotification@2x.png */,
 				4F24E90E167BC077002367B7 /* checkBoxBlank.png */,
@@ -856,6 +873,10 @@
 				4F995DBC17122908002E69AC /* TMDarkBackground@2x.png */,
 				4FE7FFCE15D5D779007B80A5 /* ArrowIcon.png */,
 				4FE7FFCF15D5D779007B80A5 /* ArrowIcon@2x.png */,
+				4FAA5E28171B49A70051F075 /* CellEven.png */,
+				4FAA5E29171B49A70051F075 /* CellEven@2x.png */,
+				4FAA5E2C171B4C6D0051F075 /* CellOdd.png */,
+				4FAA5E2D171B4C6D0051F075 /* CellOdd@2x.png */,
 				4F2D975815D68925007E589D /* SelectedCell.png */,
 				4F2D975915D68925007E589D /* SelectedCell@2x.png */,
 				4FCD3287170EFFDC00C6E6A0 /* SelectedCellRoundedTopBottom.png */,
@@ -1153,8 +1174,6 @@
 				4F995DC317122E2D002E69AC /* DarkCell@2x.png in Resources */,
 				4F995DC6171232A9002E69AC /* DarkSelectedCell.png in Resources */,
 				4F995DC7171232A9002E69AC /* DarkSelectedCell@2x.png in Resources */,
-				4F995DD017142625002E69AC /* DarkSection.png in Resources */,
-				4F995DD117142625002E69AC /* DarkSection@2x.png in Resources */,
 				4F995DDA171591A3002E69AC /* 123-id-card-white.png in Resources */,
 				4F995DDB171591A3002E69AC /* 123-id-card-white@2x.png in Resources */,
 				4F9ADA5F1719E9D400154E69 /* Default@2x.png in Resources */,
@@ -1162,6 +1181,15 @@
 				4F9ADA631719EACD00154E69 /* Default.png in Resources */,
 				4F9ADA651719EAE500154E69 /* icon114.png in Resources */,
 				4F9ADA671719EAF300154E69 /* icon57.png in Resources */,
+				4FAA5E2A171B49A70051F075 /* CellEven.png in Resources */,
+				4FAA5E2B171B49A70051F075 /* CellEven@2x.png in Resources */,
+				4FAA5E2E171B4C6D0051F075 /* CellOdd.png in Resources */,
+				4FAA5E2F171B4C6D0051F075 /* CellOdd@2x.png in Resources */,
+				4FAA5E36171B59AB0051F075 /* DarkSection.png in Resources */,
+				4FAA5E37171B59AB0051F075 /* DarkSection@2x.png in Resources */,
+				4FF6489C171C1535007BB723 /* iconRetina.png in Resources */,
+				4FF6489F171C1599007BB723 /* icon57x57.png in Resources */,
+				4FF648A0171C1599007BB723 /* icon114x114.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

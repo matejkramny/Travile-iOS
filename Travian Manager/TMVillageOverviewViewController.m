@@ -13,6 +13,7 @@
 #import "TMAPNService.h"
 #import "TestFlight.h"
 #import "TMApplicationSettings.h"
+#import "MBProgressHUD.h"
 
 @interface TMVillageOverviewViewController () {
 	TMStorage *storage;
@@ -20,6 +21,8 @@
 	NSTimer *secondTimer;
 	int constructionRows;
 	int movementRows;
+	MBProgressHUD *HUD;
+	UITapGestureRecognizer *tapToCancel;
 }
 
 @end
@@ -67,6 +70,18 @@ static NSString *viewTitle = @"Overview";
 	if (village != storage.account.village) {
 		// Village changed..
 		village = storage.account.village;
+		
+		if (!village.hasDownloaded) {
+			// Download the village.
+			HUD = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+			[HUD setLabelText:[NSString stringWithFormat:@"Loading %@", village.name]];
+			[HUD setDetailsLabelText:@"Tap to cancel"];
+			tapToCancel = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedToCancel:)];
+			[HUD addGestureRecognizer:tapToCancel];
+			[village addObserver:self forKeyPath:@"hasDownloaded" options:NSKeyValueObservingOptionNew context:nil];
+			[village downloadAndParse];
+		}
+		
 		[self.tableView reloadData];
 	}
 	
@@ -103,7 +118,27 @@ static NSString *viewTitle = @"Overview";
 			// Reload data
 			[[self tableView] reloadData];
 		}
+	} else if ([keyPath isEqualToString:@"hasDownloaded"]) {
+		[self finishedLoadingVillageWithHUD];
 	}
+}
+
+- (void)finishedLoadingVillageWithHUD {
+	@try {
+		[village removeObserver:self forKeyPath:@"hasDownloaded"];
+		[HUD removeGestureRecognizer:tapToCancel];
+		tapToCancel = nil;
+		[HUD hide:YES];
+	}
+	@catch (NSException *exception) {
+	}
+	@finally {
+		[self.tableView reloadData];
+	}
+}
+
+- (void)tappedToCancel:(id)sender {
+	[self finishedLoadingVillageWithHUD];
 }
 
 #pragma mark - Table view data source

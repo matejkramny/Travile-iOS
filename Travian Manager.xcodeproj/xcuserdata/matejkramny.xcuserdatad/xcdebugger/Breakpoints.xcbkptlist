@@ -964,35 +964,13 @@
       <FileBreakpoint
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "Travian Manager/TMVillageBuildingsViewController.m"
-         timestampString = "387162080.907612"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "200"
-         endingLineNumber = "200"
-         landmarkName = "@implementation TMVillageBuildingsViewController"
-         landmarkType = "3">
-         <Actions>
-            <BreakpointActionProxy
-               ActionType = "Xcode.BreakpointAction.Log">
-               <ActionContent
-                  message = "%B"
-                  conveyanceType = "0">
-               </ActionContent>
-            </BreakpointActionProxy>
-         </Actions>
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
          continueAfterRunningActions = "Yes"
          filePath = "Travian Manager/TMVillageBuildingsViewController.m"
-         timestampString = "387162080.907612"
+         timestampString = "387666653.520616"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "344"
-         endingLineNumber = "344"
+         startingLineNumber = "377"
+         endingLineNumber = "377"
          landmarkName = "@implementation TMVillageBuildingsViewController"
          landmarkType = "3">
          <Actions>
@@ -1010,11 +988,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "Yes"
          filePath = "Travian Manager/TMVillageBuildingsViewController.m"
-         timestampString = "387162080.907612"
+         timestampString = "387666653.520616"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "347"
-         endingLineNumber = "347"
+         startingLineNumber = "380"
+         endingLineNumber = "380"
          landmarkName = "-phvOpenBuildingViewController:didBuildBuilding:"
          landmarkType = "5">
          <Actions>
@@ -1164,6 +1142,45 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "255"
          endingLineNumber = "255"
+         landmarkName = "-observeValueForKeyPath:ofObject:change:context:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "Travian Manager/TMVillageResourcesViewController.m"
+         timestampString = "387663056.475857"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "72"
+         endingLineNumber = "72"
+         landmarkName = "-viewWillAppear:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "Travian Manager/TMVillage.m"
+         timestampString = "387663916.081765"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "611"
+         endingLineNumber = "611"
+         landmarkName = "-connectionDidFinishLoading:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "Travian Manager/TMVillageBuildingsViewController.m"
+         timestampString = "387666653.520616"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "354"
+         endingLineNumber = "354"
          landmarkName = "-observeValueForKeyPath:ofObject:change:context:"
          landmarkType = "5">
       </FileBreakpoint>

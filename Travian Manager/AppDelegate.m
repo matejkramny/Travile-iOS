@@ -130,9 +130,9 @@ static UIImage *darkSelecedCellImage;
 	
 	// Odd vs even row
 	if (indexPath.row % 2)
-		[bg setBackgroundColor:[UIColor colorWithWhite:0.98 alpha:0.8]];
+		bg = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"CellOdd.png"] stretchableImageWithLeftCapWidth:0 topCapHeight:0]];
 	else
-		[bg setBackgroundColor:[UIColor colorWithWhite:1.0 alpha:0.8]];
+		bg = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"CellEven.png"] stretchableImageWithLeftCapWidth:0 topCapHeight:0]];
 	
 	// Background
 	cell.backgroundView = bg;
@@ -219,6 +219,26 @@ static UIImage *darkSelecedCellImage;
 	[button addTarget:target action:selector forControlEvents:UIControlEventTouchUpInside];
 	
 	return button;
+}
+
+// Table Header view
++ (UIView *)viewForHeaderWithText:(NSString *)text tableView:(UITableView *)tableView {
+	static UIColor *backgroundColor;
+	if (!backgroundColor)
+		backgroundColor = [UIColor colorWithPatternImage:[[UIImage imageNamed:@"Section.png"] stretchableImageWithLeftCapWidth:0 topCapHeight:0]];
+	
+	UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 30)];
+	
+	[header setBackgroundColor:backgroundColor];
+	UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, header.frame.size.width-10, header.frame.size.height)];
+	label.backgroundColor = [UIColor clearColor];
+	label.textColor = [UIColor blackColor];
+	
+	label.text = text;
+	
+	[header addSubview:label];
+	
+	return header;
 }
 
 @end
