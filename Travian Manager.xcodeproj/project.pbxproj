@@ -126,16 +126,9 @@
 		4F6E222B15E15BFF002EC13F /* 37x-Checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F6E222915E15BFF002EC13F /* 37x-Checkmark.png */; };
 		4F6E222C15E15BFF002EC13F /* 37x-Checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F6E222A15E15BFF002EC13F /* 37x-Checkmark@2x.png */; };
 		4F6E222F15E51B85002EC13F /* TMBuildingAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F6E222E15E51B85002EC13F /* TMBuildingAction.m */; };
-		4F724F1C16E159F0005E5CA2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F09520C155C767800C15D6E /* UIKit.framework */; };
-		4F724F1D16E159F0005E5CA2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F09520E155C767800C15D6E /* Foundation.framework */; };
-		4F724F1E16E159F0005E5CA2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F095210155C767800C15D6E /* CoreGraphics.framework */; };
-		4F724F2416E159F0005E5CA2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4F724F2216E159F0005E5CA2 /* InfoPlist.strings */; };
-		4F724F3516E15ED2005E5CA2 /* GHUnitIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F724F3416E15ED2005E5CA2 /* GHUnitIOS.framework */; };
 		4F752573170C86FD00B447D4 /* MainStoryboard_iPhone.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4F752571170C86FD00B447D4 /* MainStoryboard_iPhone.strings */; };
 		4F752582170E210200B447D4 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F752580170E210200B447D4 /* libTestFlight.a */; };
 		4F752584170E216800B447D4 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F752583170E216800B447D4 /* libz.dylib */; };
-		4F792EE416E4C9B30076C0EE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F724F2516E159F0005E5CA2 /* main.m */; };
-		4F792EE716E4CA030076C0EE /* TTStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F792EAD16E4BD710076C0EE /* TTStorage.m */; };
 		4F81DFDC164F1CFE00523CF4 /* TMSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F81DFDB164F1CFD00523CF4 /* TMSettings.m */; };
 		4F895F1615C2C19A007525D9 /* TMHeroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F895F1515C2C19A007525D9 /* TMHeroViewController.m */; };
 		4F8A48A715C1FEDF00EC1564 /* NSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8A48A615C1FEDF00EC1564 /* NSString+HTML.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -163,61 +156,6 @@
 		4FA47AE51710652A00DFD460 /* TMBasicToggleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA47AE41710652A00DFD460 /* TMBasicToggleCell.m */; };
 		4FA47B22171163E500DFD460 /* TMAppSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA47B21171163E400DFD460 /* TMAppSettingsViewController.m */; };
 		4FA47B25171169D900DFD460 /* TMApplicationSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA47B24171169D900DFD460 /* TMApplicationSettings.m */; };
-		4FA67B2816E4E29D00B4CD18 /* TMStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F09522D155C76D800C15D6E /* TMStorage.m */; };
-		4FA67B2916E4E29D00B4CD18 /* TMSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F81DFDB164F1CFD00523CF4 /* TMSettings.m */; };
-		4FA67B2A16E4E29D00B4CD18 /* TMAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F095244155C804400C15D6E /* TMAccount.m */; };
-		4FA67B2B16E4E29D00B4CD18 /* TMVillage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F095241155C7F6300C15D6E /* TMVillage.m */; };
-		4FA67B2C16E4E29D00B4CD18 /* TMBuilding.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FCA374F156B96DF0071BAD5 /* TMBuilding.m */; };
-		4FA67B2D16E4E29D00B4CD18 /* TMNonGenericBuilding.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FC8E56415F6B3AA0035D296 /* TMNonGenericBuilding.m */; };
-		4FA67B2E16E4E29D00B4CD18 /* TMBarracks.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FB1A75015EA539200C1FE4C /* TMBarracks.m */; };
-		4FA67B2F16E4E29D00B4CD18 /* TMBuildingAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F6E222E15E51B85002EC13F /* TMBuildingAction.m */; };
-		4FA67B3016E4E29D00B4CD18 /* TMStable.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F2440BF1645C31100EEBC93 /* TMStable.m */; };
-		4FA67B3116E4E29D00B4CD18 /* TMWorkshop.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F2440C21645C71B00EEBC93 /* TMWorkshop.m */; };
-		4FA67B3216E4E29D00B4CD18 /* TMTownHall.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F2440C51645C85C00EEBC93 /* TMTownHall.m */; };
-		4FA67B3316E4E29D00B4CD18 /* TMTrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FAF00DD16D792B4001E04C9 /* TMTrapper.m */; };
-		4FA67B3416E4E29D00B4CD18 /* TMResidence.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FAF00E016D79450001E04C9 /* TMResidence.m */; };
-		4FA67B3516E4E29D00B4CD18 /* TMResources.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F09523E155C7DE400C15D6E /* TMResources.m */; };
-		4FA67B3616E4E29D00B4CD18 /* TMResourcesProduction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FDA07841563189100E9C6C2 /* TMResourcesProduction.m */; };
-		4FA67B3716E4E29D00B4CD18 /* TMConstruction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F99267415644E7200C6AFFC /* TMConstruction.m */; };
-		4FA67B3816E4E29D00B4CD18 /* TMTroop.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F09523B155C7CB200C15D6E /* TMTroop.m */; };
-		4FA67B3916E4E29D00B4CD18 /* TMHero.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F095292155DD2CB00C15D6E /* TMHero.m */; };
-		4FA67B3A16E4E29D00B4CD18 /* TMHeroQuest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F095295155DD53300C15D6E /* TMHeroQuest.m */; };
-		4FA67B3B16E4E29D00B4CD18 /* TMMovement.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F0D502E156D36CA005065AE /* TMMovement.m */; };
-		4FA67B3C16E4E29D00B4CD18 /* TMReport.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD480FC15724B5C00BECE24 /* TMReport.m */; };
-		4FA67B3D16E4E29D00B4CD18 /* TMMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD4810015724B6500BECE24 /* TMMessage.m */; };
-		4FA67B3E16E4E29D00B4CD18 /* TPIdentifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F0261D015612EA300DF545F /* TPIdentifier.m */; };
-		4FA67B3F16E4E29D00B4CD18 /* TMAccountsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F28C73A15BB1A9500C976E3 /* TMAccountsViewController.m */; };
-		4FA67B4016E4E29D00B4CD18 /* TMAccountDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F28C74015BB358500C976E3 /* TMAccountDetailsViewController.m */; };
-		4FA67B4116E4E29D00B4CD18 /* TMVillagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FC6F11B15BC4107006F583D /* TMVillagesViewController.m */; };
-		4FA67B4216E4E29D00B4CD18 /* TMVillageOverviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE58E9A15C59B55004825EF /* TMVillageOverviewViewController.m */; };
-		4FA67B4316E4E29D00B4CD18 /* TMVillageResourcesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F509F5915C5A64C00A15924 /* TMVillageResourcesViewController.m */; };
-		4FA67B4416E4E29D00B4CD18 /* TMVillageTroopsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F509F5D15C5BC9300A15924 /* TMVillageTroopsViewController.m */; };
-		4FA67B4516E4E29D00B4CD18 /* TMVillageBuildingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F509F6015C5C08600A15924 /* TMVillageBuildingsViewController.m */; };
-		4FA67B4616E4E29D00B4CD18 /* TMVillageOpenBuildingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4A52B815C96B20005F3708 /* TMVillageOpenBuildingViewController.m */; };
-		4FA67B4716E4E29D00B4CD18 /* TMVillageResearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FC706AD15E825BB0081372E /* TMVillageResearchViewController.m */; };
-		4FA67B4816E4E29D00B4CD18 /* TMReportsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FC6F11E15BC4AC0006F583D /* TMReportsViewController.m */; };
-		4FA67B4916E4E29D00B4CD18 /* TMMessagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FC6F12115BCA0FD006F583D /* TMMessagesViewController.m */; };
-		4FA67B4A16E4E29D00B4CD18 /* TMNewMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FC6F12715BDDD59006F583D /* TMNewMessageViewController.m */; };
-		4FA67B4B16E4E29D00B4CD18 /* TMOpenMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F5F0A9315C0153400757356 /* TMOpenMessageViewController.m */; };
-		4FA67B4C16E4E29D00B4CD18 /* TMHeroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F895F1515C2C19A007525D9 /* TMHeroViewController.m */; };
-		4FA67B4D16E4E29D00B4CD18 /* TMSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE58E9215C43C12004825EF /* TMSettingsViewController.m */; };
-		4FA67B4E16E4E29D00B4CD18 /* TMAccountTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F04DA2C15EEDFDE00DAF6E7 /* TMAccountTextFieldCell.m */; };
-		4FA67B4F16E4E29D00B4CD18 /* TMAccountTextFieldRightCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F04DA2F15EEE02300DAF6E7 /* TMAccountTextFieldRightCell.m */; };
-		4FA67B5016E4E29D00B4CD18 /* TMMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F0C318B167B931200D28AE9 /* TMMessageCell.m */; };
-		4FA67B5116E4E29D00B4CD18 /* TMDeleteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA88B6C15F160D9001D9713 /* TMDeleteCell.m */; };
-		4FA67B5216E4E29D00B4CD18 /* TMVillageBarracksCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F04DA2815ED632700DAF6E7 /* TMVillageBarracksCell.m */; };
-		4FA67B5316E4E29D00B4CD18 /* TMMessageContentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FB4E3D6167F5C3600922886 /* TMMessageContentCell.m */; };
-		4FA67B5416E4E29D00B4CD18 /* TMLabelAndTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F578C47168235CF00DC9FB6 /* TMLabelAndTextFieldCell.m */; };
-		4FA67B5516E4E29D00B4CD18 /* TMTextViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F578C4B168236B600DC9FB6 /* TMTextViewCell.m */; };
-		4FA67B5616E4E29D00B4CD18 /* TMMessageContentTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FB4E3DA167F5CEC00922886 /* TMMessageContentTextView.m */; };
-		4FA67B5716E4E29D00B4CD18 /* NSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8A48A615C1FEDF00EC1564 /* NSString+HTML.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		4FA67B5816E4E29D00B4CD18 /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8A48A915C1FFB000EC1564 /* GTMNSString+HTML.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		4FA67B5916E4E29D00B4CD18 /* TMBuildingMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD64FCA15DAAD57002FAFFC /* TMBuildingMap.m */; };
-		4FA67B5A16E4E29D00B4CD18 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FC6F11715BC3989006F583D /* MBProgressHUD.m */; };
-		4FA67B5B16E4E29D00B4CD18 /* HTMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F095230155C7AA900C15D6E /* HTMLParser.m */; };
-		4FA67B5C16E4E29D00B4CD18 /* HTMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F095235155C7B0100C15D6E /* HTMLNode.m */; };
-		4FA67B5D16E4E35100B4CD18 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F09521C155C767800C15D6E /* AppDelegate.m */; };
-		4FA67B5E16E4E3A800B4CD18 /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F095237155C7B6100C15D6E /* libxml2.2.dylib */; };
 		4FA88B6D15F160D9001D9713 /* TMDeleteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA88B6C15F160D9001D9713 /* TMDeleteCell.m */; };
 		4FA88B6F15F1632A001D9713 /* redButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FA88B6E15F1632A001D9713 /* redButton.png */; };
 		4FAA5E2A171B49A70051F075 /* CellEven.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FAA5E28171B49A70051F075 /* CellEven.png */; };
@@ -257,7 +195,6 @@
 		4FE58E9B15C59B55004825EF /* TMVillageOverviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE58E9A15C59B55004825EF /* TMVillageOverviewViewController.m */; };
 		4FE7FFD015D5D779007B80A5 /* ArrowIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FE7FFCE15D5D779007B80A5 /* ArrowIcon.png */; };
 		4FE7FFD115D5D779007B80A5 /* ArrowIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FE7FFCF15D5D779007B80A5 /* ArrowIcon@2x.png */; };
-		4FF6489C171C1535007BB723 /* iconRetina.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FF6489B171C1535007BB723 /* iconRetina.png */; };
 		4FF6489F171C1599007BB723 /* icon57x57.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FF6489D171C1599007BB723 /* icon57x57.png */; };
 		4FF648A0171C1599007BB723 /* icon114x114.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FF6489E171C1599007BB723 /* icon114x114.png */; };
 /* End PBXBuildFile section */
@@ -338,7 +275,6 @@
 		4F38F93A15600B6700AF2E82 /* TravianPageParsingProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TravianPageParsingProtocol.h; sourceTree = "<group>"; };
 		4F4A52B715C96B1F005F3708 /* TMVillageOpenBuildingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMVillageOpenBuildingViewController.h; sourceTree = "<group>"; };
 		4F4A52B815C96B20005F3708 /* TMVillageOpenBuildingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMVillageOpenBuildingViewController.m; sourceTree = "<group>"; };
-		4F4B132A164491D2002D3149 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		4F4EB32D17091D9100204AB9 /* TMAPNService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMAPNService.h; sourceTree = "<group>"; };
 		4F4EB32E17091D9100204AB9 /* TMAPNService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMAPNService.m; sourceTree = "<group>"; };
 		4F509F5815C5A64C00A15924 /* TMVillageResourcesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMVillageResourcesViewController.h; sourceTree = "<group>"; };
@@ -424,23 +360,14 @@
 		4F6E222A15E15BFF002EC13F /* 37x-Checkmark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "37x-Checkmark@2x.png"; sourceTree = "<group>"; };
 		4F6E222D15E51B84002EC13F /* TMBuildingAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMBuildingAction.h; sourceTree = "<group>"; };
 		4F6E222E15E51B85002EC13F /* TMBuildingAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMBuildingAction.m; sourceTree = "<group>"; };
-		4F724F1B16E159F0005E5CA2 /* Tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tests.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		4F724F2116E159F0005E5CA2 /* Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Tests-Info.plist"; sourceTree = "<group>"; };
-		4F724F2316E159F0005E5CA2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		4F724F2516E159F0005E5CA2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		4F724F2716E159F0005E5CA2 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
-		4F724F3416E15ED2005E5CA2 /* GHUnitIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GHUnitIOS.framework; sourceTree = "<group>"; };
 		4F752570170C796000B447D4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
 		4F752572170C86FD00B447D4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/MainStoryboard_iPhone.strings; sourceTree = "<group>"; };
 		4F75257C170CE77300B447D4 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/MainStoryboard_iPhone.strings; sourceTree = "<group>"; };
 		4F75257D170CE77300B447D4 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4F75257E170CE77300B447D4 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Localizable.strings; sourceTree = "<group>"; };
-		4F75257F170CE77300B447D4 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4F752580170E210200B447D4 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libTestFlight.a; path = "Travian Manager/Icons/libTestFlight.a"; sourceTree = "<group>"; };
 		4F752581170E210200B447D4 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestFlight.h; path = "Travian Manager/Icons/TestFlight.h"; sourceTree = "<group>"; };
 		4F752583170E216800B447D4 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
-		4F792EAC16E4BD710076C0EE /* TTStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTStorage.h; sourceTree = "<group>"; };
-		4F792EAD16E4BD710076C0EE /* TTStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTStorage.m; sourceTree = "<group>"; };
 		4F81DFDA164F1CFD00523CF4 /* TMSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMSettings.h; sourceTree = "<group>"; };
 		4F81DFDB164F1CFD00523CF4 /* TMSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMSettings.m; sourceTree = "<group>"; };
 		4F895F1415C2C19A007525D9 /* TMHeroViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMHeroViewController.h; sourceTree = "<group>"; };
@@ -538,7 +465,6 @@
 		4FE58E9A15C59B55004825EF /* TMVillageOverviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMVillageOverviewViewController.m; sourceTree = "<group>"; };
 		4FE7FFCE15D5D779007B80A5 /* ArrowIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ArrowIcon.png; sourceTree = "<group>"; };
 		4FE7FFCF15D5D779007B80A5 /* ArrowIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ArrowIcon@2x.png"; sourceTree = "<group>"; };
-		4FF6489B171C1535007BB723 /* iconRetina.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = iconRetina.png; path = Photoshop/iconRetina.png; sourceTree = "<group>"; };
 		4FF6489D171C1599007BB723 /* icon57x57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon57x57.png; sourceTree = "<group>"; };
 		4FF6489E171C1599007BB723 /* icon114x114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon114x114.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -558,21 +484,19 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4F724F1816E159F0005E5CA2 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4F724F1C16E159F0005E5CA2 /* UIKit.framework in Frameworks */,
-				4F724F1D16E159F0005E5CA2 /* Foundation.framework in Frameworks */,
-				4F724F1E16E159F0005E5CA2 /* CoreGraphics.framework in Frameworks */,
-				4FA67B5E16E4E3A800B4CD18 /* libxml2.2.dylib in Frameworks */,
-				4F724F3516E15ED2005E5CA2 /* GHUnitIOS.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4F00DC88171D677C0024FA8C /* TestFlight */ = {
+			isa = PBXGroup;
+			children = (
+				4F752583170E216800B447D4 /* libz.dylib */,
+				4F752580170E210200B447D4 /* libTestFlight.a */,
+				4F752581170E210200B447D4 /* TestFlight.h */,
+			);
+			name = TestFlight;
+			sourceTree = "<group>";
+		};
 		4F0951FD155C767700C15D6E = {
 			isa = PBXGroup;
 			children = (
@@ -580,13 +504,11 @@
 				4FF6489D171C1599007BB723 /* icon57x57.png */,
 				4FF6489E171C1599007BB723 /* icon114x114.png */,
 				4F9ADA641719EAE500154E69 /* icon114.png */,
-				4FF6489B171C1535007BB723 /* iconRetina.png */,
 				4F9ADA621719EACD00154E69 /* Default.png */,
 				4F9ADA5E1719E9D400154E69 /* Default@2x.png */,
 				4F9ADA601719EAC500154E69 /* Default-568h@2x.png */,
 				4F57044715CEE126001614AC /* Resources */,
 				4F095212155C767800C15D6E /* Travian Manager */,
-				4F724F1F16E159F0005E5CA2 /* Tests */,
 				4F09520B155C767800C15D6E /* Frameworks */,
 				4F095209155C767800C15D6E /* Products */,
 			);
@@ -596,7 +518,6 @@
 			isa = PBXGroup;
 			children = (
 				4F095208155C767800C15D6E /* Travian Manager.app */,
-				4F724F1B16E159F0005E5CA2 /* Tests.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -604,13 +525,9 @@
 		4F09520B155C767800C15D6E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				4F752583170E216800B447D4 /* libz.dylib */,
-				4F752580170E210200B447D4 /* libTestFlight.a */,
-				4F752581170E210200B447D4 /* TestFlight.h */,
+				4F00DC88171D677C0024FA8C /* TestFlight */,
 				4F2DEA9B16EBB24100B4324C /* CoreData.framework */,
 				4F2DEA9D16EBB24900B4324C /* SystemConfiguration.framework */,
-				4F724F3416E15ED2005E5CA2 /* GHUnitIOS.framework */,
-				4F4B132A164491D2002D3149 /* SenTestingKit.framework */,
 				4FBACE5715D71FCF0092A8F3 /* QuartzCore.framework */,
 				4F095237155C7B6100C15D6E /* libxml2.2.dylib */,
 				4F09520C155C767800C15D6E /* UIKit.framework */,
@@ -824,27 +741,6 @@
 			name = "NSString category extensions";
 			sourceTree = "<group>";
 		};
-		4F724F1F16E159F0005E5CA2 /* Tests */ = {
-			isa = PBXGroup;
-			children = (
-				4F792EAC16E4BD710076C0EE /* TTStorage.h */,
-				4F792EAD16E4BD710076C0EE /* TTStorage.m */,
-				4F724F2016E159F0005E5CA2 /* Supporting Files */,
-			);
-			path = Tests;
-			sourceTree = "<group>";
-		};
-		4F724F2016E159F0005E5CA2 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				4F724F2116E159F0005E5CA2 /* Tests-Info.plist */,
-				4F724F2216E159F0005E5CA2 /* InfoPlist.strings */,
-				4F724F2516E159F0005E5CA2 /* main.m */,
-				4F724F2716E159F0005E5CA2 /* Tests-Prefix.pch */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 		4F928D8715D400A8008AC6DB /* Design */ = {
 			isa = PBXGroup;
 			children = (
@@ -1020,23 +916,6 @@
 			productReference = 4F095208155C767800C15D6E /* Travian Manager.app */;
 			productType = "com.apple.product-type.application";
 		};
-		4F724F1A16E159F0005E5CA2 /* Tests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 4F724F3316E159F1005E5CA2 /* Build configuration list for PBXNativeTarget "Tests" */;
-			buildPhases = (
-				4F724F1716E159F0005E5CA2 /* Sources */,
-				4F724F1816E159F0005E5CA2 /* Frameworks */,
-				4F724F1916E159F0005E5CA2 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = Tests;
-			productName = Tests;
-			productReference = 4F724F1B16E159F0005E5CA2 /* Tests.app */;
-			productType = "com.apple.product-type.application";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1062,7 +941,6 @@
 			projectRoot = "";
 			targets = (
 				4F095207155C767700C15D6E /* Travian Manager */,
-				4F724F1A16E159F0005E5CA2 /* Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -1187,17 +1065,8 @@
 				4FAA5E2F171B4C6D0051F075 /* CellOdd@2x.png in Resources */,
 				4FAA5E36171B59AB0051F075 /* DarkSection.png in Resources */,
 				4FAA5E37171B59AB0051F075 /* DarkSection@2x.png in Resources */,
-				4FF6489C171C1535007BB723 /* iconRetina.png in Resources */,
 				4FF6489F171C1599007BB723 /* icon57x57.png in Resources */,
 				4FF648A0171C1599007BB723 /* icon114x114.png in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4F724F1916E159F0005E5CA2 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4F724F2416E159F0005E5CA2 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1294,69 +1163,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4F724F1716E159F0005E5CA2 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4FA67B5D16E4E35100B4CD18 /* AppDelegate.m in Sources */,
-				4F792EE416E4C9B30076C0EE /* main.m in Sources */,
-				4F792EE716E4CA030076C0EE /* TTStorage.m in Sources */,
-				4FA67B2816E4E29D00B4CD18 /* TMStorage.m in Sources */,
-				4FA67B2916E4E29D00B4CD18 /* TMSettings.m in Sources */,
-				4FA67B2A16E4E29D00B4CD18 /* TMAccount.m in Sources */,
-				4FA67B2B16E4E29D00B4CD18 /* TMVillage.m in Sources */,
-				4FA67B2C16E4E29D00B4CD18 /* TMBuilding.m in Sources */,
-				4FA67B2D16E4E29D00B4CD18 /* TMNonGenericBuilding.m in Sources */,
-				4FA67B2E16E4E29D00B4CD18 /* TMBarracks.m in Sources */,
-				4FA67B2F16E4E29D00B4CD18 /* TMBuildingAction.m in Sources */,
-				4FA67B3016E4E29D00B4CD18 /* TMStable.m in Sources */,
-				4FA67B3116E4E29D00B4CD18 /* TMWorkshop.m in Sources */,
-				4FA67B3216E4E29D00B4CD18 /* TMTownHall.m in Sources */,
-				4FA67B3316E4E29D00B4CD18 /* TMTrapper.m in Sources */,
-				4FA67B3416E4E29D00B4CD18 /* TMResidence.m in Sources */,
-				4FA67B3516E4E29D00B4CD18 /* TMResources.m in Sources */,
-				4FA67B3616E4E29D00B4CD18 /* TMResourcesProduction.m in Sources */,
-				4FA67B3716E4E29D00B4CD18 /* TMConstruction.m in Sources */,
-				4FA67B3816E4E29D00B4CD18 /* TMTroop.m in Sources */,
-				4FA67B3916E4E29D00B4CD18 /* TMHero.m in Sources */,
-				4FA67B3A16E4E29D00B4CD18 /* TMHeroQuest.m in Sources */,
-				4FA67B3B16E4E29D00B4CD18 /* TMMovement.m in Sources */,
-				4FA67B3C16E4E29D00B4CD18 /* TMReport.m in Sources */,
-				4FA67B3D16E4E29D00B4CD18 /* TMMessage.m in Sources */,
-				4FA67B3E16E4E29D00B4CD18 /* TPIdentifier.m in Sources */,
-				4FA67B3F16E4E29D00B4CD18 /* TMAccountsViewController.m in Sources */,
-				4FA67B4016E4E29D00B4CD18 /* TMAccountDetailsViewController.m in Sources */,
-				4FA67B4116E4E29D00B4CD18 /* TMVillagesViewController.m in Sources */,
-				4FA67B4216E4E29D00B4CD18 /* TMVillageOverviewViewController.m in Sources */,
-				4FA67B4316E4E29D00B4CD18 /* TMVillageResourcesViewController.m in Sources */,
-				4FA67B4416E4E29D00B4CD18 /* TMVillageTroopsViewController.m in Sources */,
-				4FA67B4516E4E29D00B4CD18 /* TMVillageBuildingsViewController.m in Sources */,
-				4FA67B4616E4E29D00B4CD18 /* TMVillageOpenBuildingViewController.m in Sources */,
-				4FA67B4716E4E29D00B4CD18 /* TMVillageResearchViewController.m in Sources */,
-				4FA67B4816E4E29D00B4CD18 /* TMReportsViewController.m in Sources */,
-				4FA67B4916E4E29D00B4CD18 /* TMMessagesViewController.m in Sources */,
-				4FA67B4A16E4E29D00B4CD18 /* TMNewMessageViewController.m in Sources */,
-				4FA67B4B16E4E29D00B4CD18 /* TMOpenMessageViewController.m in Sources */,
-				4FA67B4C16E4E29D00B4CD18 /* TMHeroViewController.m in Sources */,
-				4FA67B4D16E4E29D00B4CD18 /* TMSettingsViewController.m in Sources */,
-				4FA67B4E16E4E29D00B4CD18 /* TMAccountTextFieldCell.m in Sources */,
-				4FA67B4F16E4E29D00B4CD18 /* TMAccountTextFieldRightCell.m in Sources */,
-				4FA67B5016E4E29D00B4CD18 /* TMMessageCell.m in Sources */,
-				4FA67B5116E4E29D00B4CD18 /* TMDeleteCell.m in Sources */,
-				4FA67B5216E4E29D00B4CD18 /* TMVillageBarracksCell.m in Sources */,
-				4FA67B5316E4E29D00B4CD18 /* TMMessageContentCell.m in Sources */,
-				4FA67B5416E4E29D00B4CD18 /* TMLabelAndTextFieldCell.m in Sources */,
-				4FA67B5516E4E29D00B4CD18 /* TMTextViewCell.m in Sources */,
-				4FA67B5616E4E29D00B4CD18 /* TMMessageContentTextView.m in Sources */,
-				4FA67B5716E4E29D00B4CD18 /* NSString+HTML.m in Sources */,
-				4FA67B5816E4E29D00B4CD18 /* GTMNSString+HTML.m in Sources */,
-				4FA67B5916E4E29D00B4CD18 /* TMBuildingMap.m in Sources */,
-				4FA67B5A16E4E29D00B4CD18 /* MBProgressHUD.m in Sources */,
-				4FA67B5B16E4E29D00B4CD18 /* HTMLParser.m in Sources */,
-				4FA67B5C16E4E29D00B4CD18 /* HTMLNode.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
@@ -1385,15 +1191,6 @@
 			);
 			name = Localizable.strings;
 			path = ..;
-			sourceTree = "<group>";
-		};
-		4F724F2216E159F0005E5CA2 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				4F724F2316E159F0005E5CA2 /* en */,
-				4F75257F170CE77300B447D4 /* cs */,
-			);
-			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 		4F752571170C86FD00B447D4 /* MainStoryboard_iPhone.strings */ = {
@@ -1475,8 +1272,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Travian Manager/Travian Manager.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Matej Kramny (8FN4JHTL4E)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Matej Kramny (8FN4JHTL4E)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -1494,8 +1291,8 @@
 					"\"$(SRCROOT)/Travian Manager/Icons\"",
 				);
 				PRODUCT_NAME = "Travian Manager";
-				PROVISIONING_PROFILE = "816A8BD6-D1B4-4992-994C-5F172E94D191";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "816A8BD6-D1B4-4992-994C-5F172E94D191";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1505,8 +1302,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Travian Manager/Travian Manager.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Matej Kramny";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Matej Kramny";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -1524,71 +1321,9 @@
 					"\"$(SRCROOT)/Travian Manager/Icons\"",
 				);
 				PRODUCT_NAME = "Travian Manager";
-				PROVISIONING_PROFILE = "0DCF36B5-75BB-4E6C-ADAC-F84014100C83";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "0DCF36B5-75BB-4E6C-ADAC-F84014100C83";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				TARGETED_DEVICE_FAMILY = 1;
-				WRAPPER_EXTENSION = app;
-			};
-			name = Release;
-		};
-		4F724F3116E159F1005E5CA2 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "";
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)\"",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Tests/Tests-Prefix.pch";
-				INFOPLIST_FILE = "Tests/Tests-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
-				ONLY_ACTIVE_ARCH = YES;
-				OTHER_LDFLAGS = (
-					"-all_load",
-					"-ObjC",
-				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				TEST_HOST = "";
-				WRAPPER_EXTENSION = app;
-			};
-			name = Debug;
-		};
-		4F724F3216E159F1005E5CA2 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "";
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)\"",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Tests/Tests-Prefix.pch";
-				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
-				INFOPLIST_FILE = "Tests/Tests-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
-				OTHER_LDFLAGS = (
-					"-all_load",
-					"-ObjC",
-				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				TEST_HOST = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -1610,15 +1345,6 @@
 			buildConfigurations = (
 				4F09522A155C767800C15D6E /* Debug */,
 				4F09522B155C767800C15D6E /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		4F724F3316E159F1005E5CA2 /* Build configuration list for PBXNativeTarget "Tests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				4F724F3116E159F1005E5CA2 /* Debug */,
-				4F724F3216E159F1005E5CA2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

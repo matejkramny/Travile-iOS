@@ -110,7 +110,7 @@
 	} else if ((page & TPHero) != 0) {
 		[parent.hero parsePage:page fromHTMLNode:node];
 	} else if ((page & TPVillage) != 0) {
-		[parent setProgressIndicator:@"Loading Village"];
+		[parent setProgressIndicator:[@"Loading " stringByAppendingString:name]];
 		[self parseBuildingsPage:page fromNode:node];
 	}
 	

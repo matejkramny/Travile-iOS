@@ -4,13 +4,13 @@
 /* Shown when loading account - cannot load */
 "Cannot load" = "Cannot load";
 /* Shown when loading account - villages */
-"Loading villages" = "Loading villages";
+"Loading villages" = "Loading Villages";
 /* Shown when loading account - reports */
-"Loading reports" = "Loading reports";
+"Loading reports" = "Loading Reports";
 /* Shown when loading account - messages */
-"Loading messages" = "Loading messages";
+"Loading messages" = "Loading Messages";
 /* Shown when loading account - hero */
-"Loading hero" = "Loading hero";
+"Loading hero" = "Loading Hero";
 /* Connection failed */
 "Connection failed" = "Connection failed";
 "Village" = "Village";
