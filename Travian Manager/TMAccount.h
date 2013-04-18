@@ -77,5 +77,6 @@ typedef enum {
 + (NSString *)messages;
 + (NSString *)resources;
 + (NSString *)village;
++ (NSString *)farmList;
 
 @end

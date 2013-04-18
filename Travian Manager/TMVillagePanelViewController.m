@@ -15,12 +15,13 @@
 
 @implementation TMVillagePanelViewController
 
-@synthesize villageOverview, villageResources, villageTroops, villageBuildings;
+@synthesize villageOverview, villageResources, villageTroops, villageBuildings, villageFarmlist;
 
 static NSString *villageOverviewIdentifier = @"villageOverview";
 static NSString *villageResourcesIdentifier = @"villageResources";
 static NSString *villageTroopsIdentifier = @"villageTroops";
 static NSString *villageBuildingsIdentifier = @"villageBuildings";
+static NSString *villageFarmlistIdentifier = @"villageFarmList";
 
 static TMVillagePanelViewController *instance;
 
@@ -37,6 +38,7 @@ static TMVillagePanelViewController *instance;
 	villageResources = [self.storyboard instantiateViewControllerWithIdentifier:villageResourcesIdentifier];
 	villageTroops = [self.storyboard instantiateViewControllerWithIdentifier:villageTroopsIdentifier];
 	villageBuildings = [self.storyboard instantiateViewControllerWithIdentifier:villageBuildingsIdentifier];
+	villageFarmlist = [self.storyboard instantiateViewControllerWithIdentifier:villageFarmlistIdentifier];
 	
 	[self setLeftPanel:[self.storyboard instantiateViewControllerWithIdentifier:@"sidebarVillage"]];
 	[self setCenterPanel:villageOverview];
@@ -51,6 +53,7 @@ static TMVillagePanelViewController *instance;
 	villageResources = nil;
 	villageTroops = nil;
 	villageBuildings = nil;
+	villageFarmlist = nil;
 }
 
 @end

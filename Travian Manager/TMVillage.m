@@ -20,6 +20,7 @@
 #import "TMWorkshop.h"
 #import "TMTrapper.h"
 #import "TMResidence.h"
+#import "TMFarmList.h"
 
 @interface TMVillage () {
 	NSURLConnection *villageConnection; // Village connection

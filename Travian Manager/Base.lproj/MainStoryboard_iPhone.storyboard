@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12C60" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="9O6-kD-ji0">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12D78" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="9O6-kD-ji0">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
     </dependencies>
@@ -2078,6 +2078,98 @@ bugs@matej.me</string>
             </objects>
             <point key="canvasLocation" x="2849" y="-1217"/>
         </scene>
+        <!--Farm List View Controller-->
+        <scene sceneID="ZG1-js-EhO">
+            <objects>
+                <tableViewController id="y0u-Ww-IbP" customClass="TMFarmListViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="T3M-KO-6gu">
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="BasicSelectable" textLabel="ufY-uD-jL7" style="IBUITableViewCellStyleDefault" id="uGa-2r-yG9">
+                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="300" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ufY-uD-jL7">
+                                            <rect key="frame" x="10" y="0.0" width="280" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </tableViewCell>
+                        </prototypes>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="2Op-gK-f1J"/>
+                    <connections>
+                        <segue destination="gQA-PA-biB" kind="push" identifier="OpenFarmList" id="cUc-BL-xJh"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="C2L-e8-xJi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3215" y="-2953"/>
+        </scene>
+        <!--Farm List Entry View Controller-->
+        <scene sceneID="lbt-zu-qbU">
+            <objects>
+                <tableViewController id="gQA-PA-biB" customClass="TMFarmListEntryViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="2wz-nd-5Js">
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="checkmark" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="BasicCheckmark" textLabel="Q9t-ba-aIu" style="IBUITableViewCellStyleDefault" id="K7Y-F4-DDV">
+                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="300" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Q9t-ba-aIu">
+                                            <rect key="frame" x="10" y="0.0" width="280" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="gQA-PA-biB" id="8Se-1D-rJr"/>
+                            <outlet property="delegate" destination="gQA-PA-biB" id="Prq-GD-taG"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="DMs-Jr-GgV"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="17g-rQ-1ek" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3579" y="-2953"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="vAz-oU-bGm">
+            <objects>
+                <navigationController storyboardIdentifier="villageFarmList" definesPresentationContext="YES" id="fYq-eN-LrJ" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="eaS-fd-ciz">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="y0u-Ww-IbP" kind="relationship" relationship="rootViewController" id="ETy-ST-WY8"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EUL-dd-Coe" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2849" y="-2953"/>
+        </scene>
         <!--Navigation Controller - Buildings-->
         <scene sceneID="WwQ-k2-10I">
             <objects>
@@ -2124,6 +2216,202 @@ bugs@matej.me</string>
         <image name="redButton.png" width="602" height="86"/>
         <image name="unreadNotification.png" width="10" height="10"/>
     </resources>
+    <classes>
+        <class className="JASidePanelController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/JASidePanelController.h"/>
+        </class>
+        <class className="TMAccountDetailsViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TMAccountDetailsViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="cancel:"/>
+                <relationship kind="action" name="deleteAccount:"/>
+                <relationship kind="action" name="done:"/>
+            </relationships>
+        </class>
+        <class className="TMAccountTextFieldCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TMAccountTextFieldCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="textField" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="TMAccountTextFieldRightCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TMAccountTextFieldRightCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="label" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="textField" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="TMAccountsViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TMAccountsViewController.h"/>
+        </class>
+        <class className="TMAppSettingsViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TMAppSettingsViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="returnToAccounts:"/>
+            </relationships>
+        </class>
+        <class className="TMBasicToggleCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TMBasicToggleCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="title" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="toggle" candidateClass="UISwitch"/>
+            </relationships>
+        </class>
+        <class className="TMDarkImageCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TMDarkImageCell.h"/>
+        </class>
+        <class className="TMDeleteCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TMDeleteCell.h"/>
+            <relationships>
+                <relationship kind="action" name="buttonTouched:"/>
+                <relationship kind="outlet" name="button" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="TMFarmListEntryViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TMFarmListEntryViewController.h"/>
+        </class>
+        <class className="TMFarmListViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TMFarmListViewController.h"/>
+        </class>
+        <class className="TMHeroViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TMHeroViewController.h"/>
+        </class>
+        <class className="TMLabelAndTextFieldCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TMLabelAndTextFieldCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="field" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="label" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="TMMessageCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TMMessageCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="dateLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="deleteCheckboxImage" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="senderLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="subjectLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="unreadImage" candidateClass="UIImageView"/>
+            </relationships>
+        </class>
+        <class className="TMMessageContentCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TMMessageContentCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="messageContent" candidateClass="TMMessageContentTextView"/>
+            </relationships>
+        </class>
+        <class className="TMMessageContentTextView" superclassName="UITextView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TMMessageContentTextView.h"/>
+        </class>
+        <class className="TMMessagesViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TMMessagesViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="delete:userDidConfirm:"/>
+                <relationship kind="action" name="deleteMessage:"/>
+                <relationship kind="action" name="deleteTask:"/>
+                <relationship kind="action" name="editButtonClicked:"/>
+                <relationship kind="action" name="newMessage:"/>
+            </relationships>
+        </class>
+        <class className="TMNewMessageViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TMNewMessageViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="closeView:"/>
+                <relationship kind="action" name="sendButtonPressed:"/>
+                <relationship kind="outlet" name="sendButton" candidateClass="UIBarButtonItem"/>
+            </relationships>
+        </class>
+        <class className="TMOpenMessageViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TMOpenMessageViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="deleteMessage:"/>
+                <relationship kind="action" name="menuBarPressed:"/>
+                <relationship kind="action" name="reply:"/>
+            </relationships>
+        </class>
+        <class className="TMReportViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TMReportViewController.h"/>
+        </class>
+        <class className="TMReportsViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TMReportsViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="deleteAll:"/>
+                <relationship kind="action" name="deleteAll:userDidConfirm:"/>
+                <relationship kind="action" name="deleteTask:"/>
+                <relationship kind="action" name="editButtonClicked:"/>
+            </relationships>
+        </class>
+        <class className="TMSettingsViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TMSettingsViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="changedDecimalResources:"/>
+                <relationship kind="action" name="changedWarehouseIndicator:"/>
+                <relationship kind="action" name="loadAllAtOnce:"/>
+                <relationship kind="outlet" name="decimalResources" candidateClass="UISwitch"/>
+                <relationship kind="outlet" name="loadAllAtOnce" candidateClass="UISwitch"/>
+                <relationship kind="outlet" name="warehouseIndicator" candidateClass="UISwitch"/>
+            </relationships>
+        </class>
+        <class className="TMTextViewCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TMTextViewCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="textView" candidateClass="TMMessageContentTextView"/>
+            </relationships>
+        </class>
+        <class className="TMVillageBarracksCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TMVillageBarracksCell.h"/>
+            <relationships>
+                <relationship kind="action" name="manyEditingChanged:"/>
+                <relationship kind="outlet" name="many" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="name" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="otherDetails" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="resources" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="TMVillageBuildingsViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TMVillageBuildingsViewController.h"/>
+        </class>
+        <class className="TMVillageOpenBuildingViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TMVillageOpenBuildingViewController.h"/>
+        </class>
+        <class className="TMVillageOverviewViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TMVillageOverviewViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="secondTimerFired:"/>
+            </relationships>
+        </class>
+        <class className="TMVillagePanelViewController" superclassName="JASidePanelController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TMVillagePanelViewController.h"/>
+        </class>
+        <class className="TMVillageResearchViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TMVillageResearchViewController.h"/>
+        </class>
+        <class className="TMVillageResourcesViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TMVillageResourcesViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="clay" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="consuming" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="granary" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="iron" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="producing" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="warehouse" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="wheat" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="wood" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="TMVillageSidePanelViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TMVillageSidePanelViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="contentTable" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="headerTable" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="TMVillageTroopsViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TMVillageTroopsViewController.h"/>
+        </class>
+        <class className="TMVillagesViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TMVillagesViewController.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

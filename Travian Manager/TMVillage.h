@@ -9,6 +9,7 @@
 @class TMResourcesProduction;
 @class HTMLNode;
 @class TMAccount;
+@class TMFarmList;
 
 @interface TMVillage : NSObject <NSCoding, TMPageParsingProtocol, NSURLConnectionDelegate, NSURLConnectionDataDelegate> {
 	__weak TMAccount *parent;
@@ -29,6 +30,7 @@
 @property (assign) unsigned int consumption; // Consuming / hour
 @property (assign) int x; // Location X
 @property (assign) int y; // Location Y
+@property (nonatomic, strong) TMFarmList *farmList; // Farm List object
 
 @property (assign) bool hasDownloaded; // Has downloaded property (used with loadallatonce property of TMSettings)
 

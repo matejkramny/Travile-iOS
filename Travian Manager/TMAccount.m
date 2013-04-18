@@ -43,6 +43,7 @@ static NSString *reports = @"berichte.php";
 static NSString *messages = @"nachrichten.php";
 static NSString *resources = @"dorf1.php";
 static NSString *village = @"dorf2.php";
+static NSString *farmList = @"build.php?tt=99&id=39";
 // Getters
 + (NSString *)profilePage { return profilePage; }
 + (NSString *)heroInventory { return heroInventory; }
@@ -51,6 +52,7 @@ static NSString *village = @"dorf2.php";
 + (NSString *)messages { return messages; }
 + (NSString *)resources { return resources; }
 + (NSString *)village { return village; }
++ (NSString *)farmList { return farmList; }
 
 @end
 

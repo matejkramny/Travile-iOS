@@ -11,6 +11,7 @@
 @property (nonatomic, strong) UIViewController *villageResources;
 @property (nonatomic, strong) UIViewController *villageTroops;
 @property (nonatomic, strong) UIViewController *villageBuildings;
+@property (nonatomic, strong) UIViewController *villageFarmlist;
 
 + (TMVillagePanelViewController *)sharedInstance;
 

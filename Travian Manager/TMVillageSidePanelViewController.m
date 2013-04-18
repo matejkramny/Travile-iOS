@@ -91,7 +91,7 @@ static bool firstTime = true;
 		return storage.account.villages.count;
 	
 	if (section == 0)
-		return 4;
+		return 5;
 	else if (section == 1) {
 		TMVillage *village = [storage account].village;
 		int count = 0;
@@ -115,6 +115,7 @@ static bool firstTime = true;
 	static UIImage *troopsImage;
 	static UIImage *buildingsImage;
 	static UIImage *villagesImage;
+	static UIImage *farmlistImage;
 	
 	if (!overviewImage) {
 		overviewImage = [UIImage imageNamed:@"53-house.png"];
@@ -122,6 +123,7 @@ static bool firstTime = true;
 		troopsImage = [UIImage imageNamed:@"115-bow-and-arrow.png"];
 		buildingsImage = [UIImage imageNamed:@"177-building.png"];
 		villagesImage = [UIImage imageNamed:@"60-signpost.png"];
+		farmlistImage = [UIImage imageNamed:@"134-viking.png"];
 	}
 	
 	if (tableView == headerTable) {
@@ -169,6 +171,10 @@ static bool firstTime = true;
 				case 3:
 					text = @"Buildings";
 					cell.imageView.image = buildingsImage;
+					break;
+				case 4:
+					text = @"Farm List";
+					cell.imageView.image = farmlistImage;
 					break;
 			}
 		} else {
@@ -288,7 +294,7 @@ static bool firstTime = true;
 		}
 		
 		self.navigationItem.title = village.name;
-		[newVC viewWillAppear:NO];
+		[newVC viewWillAppear:NO]; // Simulate appearance
 		[newVC viewDidAppear:NO];
 		
 		[self transitionTableContent:contentTable];
@@ -300,8 +306,10 @@ static bool firstTime = true;
 			newVC = [panel villageResources];
 		else if (indexPath.row == 2)
 			newVC = [panel villageTroops];
-		else
+		else if (indexPath.row == 3)
 			newVC = [panel villageBuildings];
+		else if (indexPath.row == 4)
+			newVC = [panel villageFarmlist];
 	} else {
 		// Movements & constructions / events
 		newVC = [panel villageOverview];
