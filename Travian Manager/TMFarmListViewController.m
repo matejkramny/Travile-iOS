@@ -46,6 +46,9 @@ static UIBarButtonItem *executeButton;
 	storage = [TMStorage sharedStorage];
 	village = [storage.account village];
 	self.navigationItem.title = @"Farm Lists";
+	
+	self.refreshControl = [[UIRefreshControl alloc] init];
+	[self.refreshControl addTarget:self action:@selector(loadFarmLists) forControlEvents:UIControlEventValueChanged];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -60,6 +63,8 @@ static UIBarButtonItem *executeButton;
 	
 	if (village != storage.account.village) {
 		// Refresh
+		village = storage.account.village;
+		[self loadFarmLists];
 	}
 }
 
@@ -67,25 +72,38 @@ static UIBarButtonItem *executeButton;
 	[super viewDidAppear:animated];
 	
 	if (village.farmList == nil || village.farmList.loaded == false) {
+		if (!village.farmList.loading)
+			[self loadFarmLists];
+	}
+}
+
+- (void)loadFarmLists {
+	[self loadFarmLists:YES];
+}
+- (void)loadFarmLists:(bool)hud {
+	if (hud) {
 		// Load the farm list.
 		HUD = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-		[HUD setLabelText:@"Loading Farm List"];
+		[HUD setLabelText:@"Loading"];
 		[HUD setDetailsLabelText:@"Tap to cancel"];
 		tapToCancel = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedToCancel:)];
 		[HUD addGestureRecognizer:tapToCancel];
-		
-		if (!village.farmList) {
-			village.farmList = [[TMFarmList alloc] init];
-		}
-		[village.farmList loadFarmList:^(void) {
-			if (HUD) {
-				[HUD hide:YES];
-				[HUD removeGestureRecognizer:tapToCancel];
-				tapToCancel = nil;
-				[self.tableView reloadData];
-			}
-		}];
 	}
+	
+	if (!village.farmList) {
+		village.farmList = [[TMFarmList alloc] init];
+	}
+	[village.farmList loadFarmList:^(void) {
+		if (HUD) {
+			[HUD hide:YES];
+			[HUD removeGestureRecognizer:tapToCancel];
+			tapToCancel = nil;
+			[self.tableView reloadData];
+			
+			if ([self.refreshControl isRefreshing])
+				[self.refreshControl endRefreshing];
+		}
+	}];
 }
 
 - (void)tappedToCancel:(id)sender {
@@ -93,49 +111,44 @@ static UIBarButtonItem *executeButton;
 	[HUD removeGestureRecognizer:tapToCancel];
 	tapToCancel = nil;
 	[self.tableView reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, [self.tableView numberOfSections])] withRowAnimation:UITableViewRowAnimationFade];
+	
+	if ([self.refreshControl isRefreshing])
+		[self.refreshControl endRefreshing];
 }
 
 - (void)executeFarmList:(id)sender {
-	NSMutableArray *listsToExecute = [[NSMutableArray alloc] init];
+	TMFarmListEntry *selectedEntry = nil;
+	int selectedEntrySection = 0;
 	for (TMFarmListEntry *entry in village.farmList.farmLists) {
 		for (TMFarmListEntryFarm *farm in entry.farms) {
 			if (farm.selected) {
-				[listsToExecute addObject:entry];
-				break;
+				selectedEntry = entry;
+				goto foundEntry;
 			}
 		}
-	}
-	
-	if (listsToExecute.count > 0) {
-		HUD = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-		if (listsToExecute.count == 1)
-			HUD.labelText = [@"Executing " stringByAppendingString:[[listsToExecute objectAtIndex:0] name]];
-		else
-			HUD.labelText = [@"Executing " stringByAppendingFormat:@"%d lists", listsToExecute.count];
 		
+		selectedEntrySection++;
+	}
+foundEntry:;
+	
+	if (selectedEntry) {
+		HUD = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+		HUD.labelText = [@"Executing " stringByAppendingString:[selectedEntry name]];
 		HUD.detailsLabelText = @"Tap to hide";
 		tapToCancel = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedToCancel:)];
 		[HUD addGestureRecognizer:tapToCancel];
 		
-		void (^executeList)(TMFarmListEntry *, NSMutableArray *);
-		executeList = ^(TMFarmListEntry *entry, NSMutableArray *list) {
-			for (TMFarmListEntryFarm *farm in entry.farms) {
-				farm.selected = false; // deselect all
+		[selectedEntry executeWithCompletion:^{
+			[HUD setLabelText:@"Loading Farm List"];
+			[self loadFarmLists:NO];
+			
+			for (TMFarmListEntryFarm *farm in selectedEntry.farms) {
+				farm.selected = false;
 			}
 			
-			[list removeObjectIdenticalTo:entry];
-			if ([list count] > 0) {
-				TMFarmListEntry *next = [list objectAtIndex:0];
-				[entry executeWithCompletion:^{
-					executeList(next, list);
-				}];
-			} else {
-				[HUD hide:YES];
-				[HUD removeGestureRecognizer:tapToCancel];
-				tapToCancel = nil;
-				[self.tableView reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, listsToExecute.count)] withRowAnimation:UITableViewRowAnimationFade];
-			}
-		};
+			[self.tableView reloadSections:[NSIndexSet indexSetWithIndex:selectedEntrySection] withRowAnimation:UITableViewRowAnimationFade];
+			[self setExecuteButtonEnabled];
+		}];
 	}
 }
 
@@ -160,7 +173,7 @@ static UIBarButtonItem *executeButton;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"BasicCheckmark";
+    static NSString *CellIdentifier = @"Basic";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
 	NSArray *farmList = [[village.farmList.farmLists objectAtIndex:indexPath.section] farms];
@@ -185,7 +198,7 @@ static UIBarButtonItem *executeButton;
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
 	NSMutableArray *array = [[NSMutableArray alloc] init];
 	for (TMFarmListEntry *entry in village.farmList.farmLists) {
-		[array addObject:[entry.name substringToIndex:1]];
+		[array addObject:[[entry.name substringToIndex:1] capitalizedString]];
 	}
 	
 	return array;
@@ -197,16 +210,29 @@ static UIBarButtonItem *executeButton;
 	
 	UITableViewCell *cell = (UITableViewCell *)gesture.view;
 	NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
-	TMFarmListEntry *entry = [village.farmList.farmLists objectAtIndex:cellIndexPath.section];
+	TMFarmListEntry *selectedEntry = [village.farmList.farmLists objectAtIndex:cellIndexPath.section];
 	// Toggle all on-or off based on this cell
-	TMFarmListEntryFarm *thisFarm = [[entry farms] objectAtIndex:cellIndexPath.row];
-	bool newState = !thisFarm.selected;
+	TMFarmListEntryFarm *selectedFarm = [[selectedEntry farms] objectAtIndex:cellIndexPath.row];
+	bool newState = !selectedFarm.selected;
 	
-	for (TMFarmListEntryFarm *farm in entry.farms) {
-		farm.selected = newState;
+	int i = 0;
+	for (TMFarmListEntry *entry in village.farmList.farmLists) {
+		bool toBeReloaded = false;
+		for (TMFarmListEntryFarm *farm in entry.farms) {
+			if (i == cellIndexPath.section) {
+				farm.selected = newState;
+				toBeReloaded = true;
+			} else if (newState == true && farm.selected == true) {
+				farm.selected = false;
+				toBeReloaded = true;
+			}
+		}
+		
+		if (toBeReloaded)
+			[self.tableView reloadSections:[NSIndexSet indexSetWithIndex:i] withRowAnimation:UITableViewRowAnimationFade];
+		
+		i++;
 	}
-	
-	[self.tableView reloadSections:[NSIndexSet indexSetWithIndex:cellIndexPath.section] withRowAnimation:UITableViewRowAnimationFade];
 	
 	[self setExecuteButtonEnabled];
 }
@@ -241,6 +267,27 @@ after:;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+	int i = 0;
+	for (TMFarmListEntry *entry in village.farmList.farmLists) {
+		if (i == indexPath.section) {
+			i++;
+			continue;
+		}
+		
+		bool toBeReloaded = false;
+		for (TMFarmListEntryFarm *farm in entry.farms) {
+			if (farm.selected) {
+				farm.selected = false;
+				toBeReloaded = true;
+			}
+		}
+		
+		if (toBeReloaded)
+			[tableView reloadSections:[NSIndexSet indexSetWithIndex:i] withRowAnimation:UITableViewRowAnimationFade];
+		
+		i++;
+	}
+	
 	UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
 	TMFarmListEntry *farmList = [village.farmList.farmLists objectAtIndex:indexPath.section];
 	TMFarmListEntryFarm *farm = [farmList.farms objectAtIndex:indexPath.row];

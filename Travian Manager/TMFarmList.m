@@ -24,11 +24,12 @@
 
 @implementation TMFarmList
 
-@synthesize farmLists, loaded;
+@synthesize farmLists, loaded, loading;
 
 - (void)loadFarmList:(void (^)())completion {
 	loadCompletion = completion;
 	loaded = false;
+	loading = true;
 	
 	// first activate correct village
 	TMAccount *account = [TMStorage sharedStorage].account;
@@ -190,6 +191,7 @@
 	[self parsePage:page fromHTMLNode:body];
 	
 	[self setLoaded:YES];
+	[self setLoading:NO];
 	if (loadCompletion) {
 		loadCompletion();
 	}
