@@ -339,7 +339,7 @@ static NSString *farmList = @"build.php?tt=99&id=39";
 			
 		} else if ((page & TPProfile) != 0) {
 			// If loadAllAtOnce is off stop here. Rest will be downloaded later.
-			if (connection == loginConnection && !settings.loadsAllDataAtLogin) {
+			if (connection == loginConnection && settings.fastLogin) {
 				[self setStatus:ALoggedIn | ARefreshed];
 				return;
 			}
@@ -496,7 +496,7 @@ static NSString *farmList = @"build.php?tt=99&id=39";
 	// Empty local villages and replace them with tempVillages
 	villages = tempVillages;
 	
-	if (settings.loadsAllDataAtLogin) {
+	if (settings.fastLogin) {
 		for (TMVillage *vil in villages) {
 			[vil downloadAndParse]; // Tell each village to download its data
 		}

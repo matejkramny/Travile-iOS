@@ -8,6 +8,6 @@
 
 @property (assign) bool showsResourceProgress;
 @property (assign) bool showsDecimalResources;
-@property (assign) bool loadsAllDataAtLogin; // Boolean sets if TM loads all villages etc when logging in.
+@property (assign) bool fastLogin; // Boolean sets if TM loads all villages etc when logging in.
 
 @end

@@ -6,7 +6,7 @@
 
 @implementation TMSettings
 
-@synthesize showsDecimalResources, showsResourceProgress, loadsAllDataAtLogin;
+@synthesize showsDecimalResources, showsResourceProgress, fastLogin;
 
 - (id)init {
 	self = [super init];
@@ -14,7 +14,7 @@
 	if (self) {
 		showsDecimalResources = true;
 		showsResourceProgress = true;
-		loadsAllDataAtLogin = true;
+		fastLogin = false;
 	}
 	
 	return self;
@@ -25,7 +25,7 @@
 	
 	showsDecimalResources = [aDecoder decodeBoolForKey:@"decimalResources"];
 	showsResourceProgress = [aDecoder decodeBoolForKey:@"resourceProgress"];
-	loadsAllDataAtLogin = [aDecoder decodeBoolForKey:@"loadsAllDataAtLogin"];
+	fastLogin = [aDecoder decodeBoolForKey:@"loadsAllDataAtLogin"];
 	
 	return self;
 }
@@ -33,11 +33,11 @@
 - (void)encodeWithCoder:(NSCoder *)aCoder {
 	[aCoder encodeBool:showsDecimalResources forKey:@"decimalResources"];
 	[aCoder encodeBool:showsResourceProgress forKey:@"resourceProgress"];
-	[aCoder encodeBool:loadsAllDataAtLogin forKey:@"loadsAllDataAtLogin"];
+	[aCoder encodeBool:fastLogin forKey:@"loadsAllDataAtLogin"];
 }
 
 - (NSString *)description {
-	return [NSString stringWithFormat:@"Decimal resources: %d \nResource progress: %d\nLoads all data at login: %d", showsDecimalResources, showsResourceProgress, loadsAllDataAtLogin];
+	return [NSString stringWithFormat:@"Decimal resources: %d \nResource progress: %d\nLoads all data at login: %d", showsDecimalResources, showsResourceProgress, fastLogin];
 }
 
 @end

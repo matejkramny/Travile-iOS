@@ -48,7 +48,7 @@ static NSString *viewTitle = @"Settings";
 
 	[decimalResources setOn:settings.showsDecimalResources];
 	[warehouseIndicator setOn:settings.showsResourceProgress];
-	[loadAllAtOnce setOn:settings.loadsAllDataAtLogin];
+	[loadAllAtOnce setOn:settings.fastLogin];
 	
 	if ([self.tableView indexPathForSelectedRow] != nil) {
 		[self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
@@ -68,7 +68,7 @@ static NSString *viewTitle = @"Settings";
 	[[TMStorage sharedStorage] saveData];
 }
 - (IBAction)loadAllAtOnce:(id)sender {
-	[settings setLoadsAllDataAtLogin:loadAllAtOnce.isOn];
+	[settings setFastLogin:loadAllAtOnce.isOn];
 	[[TMStorage sharedStorage] saveData];
 	[self.tableView reloadData];
 }
@@ -130,7 +130,7 @@ static NSString *viewTitle = @"Settings";
 			warehouseIndicator = cell.toggle;
 		} else if (indexPath.row == 2) {
 			cell.title.text = @"Fast login";
-			[cell.toggle setOn:settings.loadsAllDataAtLogin];
+			[cell.toggle setOn:settings.fastLogin];
 			[cell.toggle addTarget:self action:@selector(loadAllAtOnce:) forControlEvents:UIControlEventTouchUpInside];
 			loadAllAtOnce = cell.toggle;
 		}
@@ -212,11 +212,11 @@ static NSString *viewTitle = @"Settings";
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
-	static NSString *notSelectedText = @"TM will only load a list of villages and unread messages count. This is the fastest and safest method.";
-	static NSString *selectedText = @"TM will load all villages at login time. This takes a bit longer depending on how many villages you have. Not recommended for players with many villages.";
+	static NSString *selectedText = @"TM will only load a list of villages and unread messages count. This is the fastest and safest method.";
+	static NSString *notSelectedText = @"TM will load all villages at login time. This takes a bit longer depending on how many villages you have. Not recommended for players with many villages.";
 	if (section != 1) return nil;
 	
-	if (settings.loadsAllDataAtLogin) {
+	if (settings.fastLogin) {
 		return selectedText;
 	}
 	else {
