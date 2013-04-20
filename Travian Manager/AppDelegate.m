@@ -5,7 +5,8 @@
 #import "AppDelegate.h"
 #import "TMStorage.h"
 #import "TMAPNService.h"
-#import "TestFlight.h"
+#import "Flurry.h"
+#import "FlurryAds.h"
 
 @implementation AppDelegate {
 	unsigned int timeAtGoingToInactiveState; // States the time when the app resignsActive
@@ -14,8 +15,14 @@
 @synthesize window = _window;
 @synthesize storage;
 
+void uncaughtExceptionHandler(NSException *exception) {
+	[Flurry logError:@"Uncaught" message:@"Crashed!" exception:exception];
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+	NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
+	
 	// Sets appearance for UI
 	[self customizeAppearance];
 	
@@ -23,11 +30,13 @@
 	[TMStorage sharedStorage].delegate = self;
 	storage = [TMStorage sharedStorage];
 	
-	//[TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
-	[TestFlight takeOff:@"b358e40e-bd91-494b-848d-ce4398bed268"];
-	
 	[[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
 	
+	[Flurry startSession:@"N6J2D56H5TFWSNNBKPB4"];
+	[Flurry setDebugLogEnabled:YES];
+	[FlurryAds initialize:self.window.rootViewController];
+	
+	// iCloud
 	NSFileManager *fileManager = [NSFileManager defaultManager];
 	id currentToken = [fileManager ubiquityIdentityToken];
 	storage.signedIntoICloud = (currentToken!=nil);

@@ -31,6 +31,10 @@
 		4F095245155C804400C15D6E /* TMAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F095244155C804400C15D6E /* TMAccount.m */; };
 		4F095293155DD2CB00C15D6E /* TMHero.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F095292155DD2CB00C15D6E /* TMHero.m */; };
 		4F095296155DD53300C15D6E /* TMHeroQuest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F095295155DD53300C15D6E /* TMHeroQuest.m */; };
+		4F0A596F172321EF0069DDEE /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F2DEA9D16EBB24900B4324C /* SystemConfiguration.framework */; };
+		4F0A597C17232A700069DDEE /* libFlurry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F0A597A17232A700069DDEE /* libFlurry.a */; };
+		4F0A597D17232A700069DDEE /* libFlurryAds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F0A597B17232A700069DDEE /* libFlurryAds.a */; };
+		4F0A597F17232C8D0069DDEE /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F0A597E17232C8D0069DDEE /* MediaPlayer.framework */; };
 		4F0C318C167B931200D28AE9 /* TMMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F0C318B167B931200D28AE9 /* TMMessageCell.m */; };
 		4F0D502F156D36CA005065AE /* TMMovement.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F0D502E156D36CA005065AE /* TMMovement.m */; };
 		4F15441D15D47E5E00EA58EC /* BackButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F15441915D47E5E00EA58EC /* BackButton.png */; };
@@ -129,7 +133,6 @@
 		4F6E222C15E15BFF002EC13F /* 37x-Checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F6E222A15E15BFF002EC13F /* 37x-Checkmark@2x.png */; };
 		4F6E222F15E51B85002EC13F /* TMBuildingAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F6E222E15E51B85002EC13F /* TMBuildingAction.m */; };
 		4F752573170C86FD00B447D4 /* MainStoryboard_iPhone.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4F752571170C86FD00B447D4 /* MainStoryboard_iPhone.strings */; };
-		4F752582170E210200B447D4 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F752580170E210200B447D4 /* libTestFlight.a */; };
 		4F752584170E216800B447D4 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F752583170E216800B447D4 /* libz.dylib */; };
 		4F81DFDC164F1CFE00523CF4 /* TMSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F81DFDB164F1CFD00523CF4 /* TMSettings.m */; };
 		4F895F1615C2C19A007525D9 /* TMHeroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F895F1515C2C19A007525D9 /* TMHeroViewController.m */; };
@@ -248,6 +251,12 @@
 		4F095292155DD2CB00C15D6E /* TMHero.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMHero.m; sourceTree = "<group>"; };
 		4F095294155DD53300C15D6E /* TMHeroQuest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMHeroQuest.h; sourceTree = "<group>"; };
 		4F095295155DD53300C15D6E /* TMHeroQuest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMHeroQuest.m; sourceTree = "<group>"; };
+		4F0A597717232A700069DDEE /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Flurry.h; path = "Travian Manager/Flurry/Flurry.h"; sourceTree = "<group>"; };
+		4F0A597817232A700069DDEE /* FlurryAdDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FlurryAdDelegate.h; path = "Travian Manager/Flurry/FlurryAdDelegate.h"; sourceTree = "<group>"; };
+		4F0A597917232A700069DDEE /* FlurryAds.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FlurryAds.h; path = "Travian Manager/Flurry/FlurryAds.h"; sourceTree = "<group>"; };
+		4F0A597A17232A700069DDEE /* libFlurry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFlurry.a; path = "Travian Manager/Flurry/libFlurry.a"; sourceTree = "<group>"; };
+		4F0A597B17232A700069DDEE /* libFlurryAds.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFlurryAds.a; path = "Travian Manager/Flurry/libFlurryAds.a"; sourceTree = "<group>"; };
+		4F0A597E17232C8D0069DDEE /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		4F0C318A167B931200D28AE9 /* TMMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMMessageCell.h; sourceTree = "<group>"; };
 		4F0C318B167B931200D28AE9 /* TMMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMMessageCell.m; sourceTree = "<group>"; };
 		4F0D502D156D36CA005065AE /* TMMovement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMMovement.h; sourceTree = "<group>"; };
@@ -374,8 +383,6 @@
 		4F75257C170CE77300B447D4 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/MainStoryboard_iPhone.strings; sourceTree = "<group>"; };
 		4F75257D170CE77300B447D4 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4F75257E170CE77300B447D4 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Localizable.strings; sourceTree = "<group>"; };
-		4F752580170E210200B447D4 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libTestFlight.a; path = "Travian Manager/Icons/libTestFlight.a"; sourceTree = "<group>"; };
-		4F752581170E210200B447D4 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestFlight.h; path = "Travian Manager/Icons/TestFlight.h"; sourceTree = "<group>"; };
 		4F752583170E216800B447D4 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		4F81DFDA164F1CFD00523CF4 /* TMSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMSettings.h; sourceTree = "<group>"; };
 		4F81DFDB164F1CFD00523CF4 /* TMSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMSettings.m; sourceTree = "<group>"; };
@@ -489,29 +496,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F0A597F17232C8D0069DDEE /* MediaPlayer.framework in Frameworks */,
+				4F0A596F172321EF0069DDEE /* SystemConfiguration.framework in Frameworks */,
 				4F752584170E216800B447D4 /* libz.dylib in Frameworks */,
 				4FBACE5815D71FCF0092A8F3 /* QuartzCore.framework in Frameworks */,
 				4F095238155C7B6100C15D6E /* libxml2.2.dylib in Frameworks */,
 				4F09520D155C767800C15D6E /* UIKit.framework in Frameworks */,
 				4F09520F155C767800C15D6E /* Foundation.framework in Frameworks */,
 				4F095211155C767800C15D6E /* CoreGraphics.framework in Frameworks */,
-				4F752582170E210200B447D4 /* libTestFlight.a in Frameworks */,
+				4F0A597C17232A700069DDEE /* libFlurry.a in Frameworks */,
+				4F0A597D17232A700069DDEE /* libFlurryAds.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		4F00DC88171D677C0024FA8C /* TestFlight */ = {
-			isa = PBXGroup;
-			children = (
-				4F752583170E216800B447D4 /* libz.dylib */,
-				4F752580170E210200B447D4 /* libTestFlight.a */,
-				4F752581170E210200B447D4 /* TestFlight.h */,
-			);
-			name = TestFlight;
-			sourceTree = "<group>";
-		};
 		4F0951FD155C767700C15D6E = {
 			isa = PBXGroup;
 			children = (
@@ -540,7 +540,9 @@
 		4F09520B155C767800C15D6E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				4F00DC88171D677C0024FA8C /* TestFlight */,
+				4F0A5973172322D70069DDEE /* Flurry */,
+				4F752583170E216800B447D4 /* libz.dylib */,
+				4F0A597E17232C8D0069DDEE /* MediaPlayer.framework */,
 				4F2DEA9B16EBB24100B4324C /* CoreData.framework */,
 				4F2DEA9D16EBB24900B4324C /* SystemConfiguration.framework */,
 				4FBACE5715D71FCF0092A8F3 /* QuartzCore.framework */,
@@ -595,6 +597,18 @@
 				4F095235155C7B0100C15D6E /* HTMLNode.m */,
 			);
 			name = HTMLParser;
+			sourceTree = "<group>";
+		};
+		4F0A5973172322D70069DDEE /* Flurry */ = {
+			isa = PBXGroup;
+			children = (
+				4F0A597717232A700069DDEE /* Flurry.h */,
+				4F0A597817232A700069DDEE /* FlurryAdDelegate.h */,
+				4F0A597917232A700069DDEE /* FlurryAds.h */,
+				4F0A597A17232A700069DDEE /* libFlurry.a */,
+				4F0A597B17232A700069DDEE /* libFlurryAds.a */,
+			);
+			name = Flurry;
 			sourceTree = "<group>";
 		};
 		4F28C73C15BB1A9F00C976E3 /* View Controllers */ = {
@@ -1319,6 +1333,9 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Travian Manager/Icons\"",
+					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/Travian Manager\"",
+					"\"$(SRCROOT)/Travian Manager/Flurry\"",
 				);
 				PRODUCT_NAME = "Travian Manager";
 				PROVISIONING_PROFILE = "";
@@ -1349,6 +1366,9 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Travian Manager/Icons\"",
+					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/Travian Manager\"",
+					"\"$(SRCROOT)/Travian Manager/Flurry\"",
 				);
 				PRODUCT_NAME = "Travian Manager";
 				PROVISIONING_PROFILE = "";

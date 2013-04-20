@@ -11,7 +11,6 @@
 #import "TMConstruction.h"
 #import <QuartzCore/QuartzCore.h>
 #import "TMAPNService.h"
-#import "TestFlight.h"
 #import "TMApplicationSettings.h"
 #import "MBProgressHUD.h"
 

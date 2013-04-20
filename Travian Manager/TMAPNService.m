@@ -4,7 +4,6 @@
 
 #import "TMAPNService.h"
 #import "AppDelegate.h"
-#import "TestFlight.h"
 
 @interface TMAPNService () {
 	NSString *token;
@@ -84,8 +83,6 @@
 	[request setHTTPMethod: @"POST"];
 	[request setHTTPBody: myRequestData];
 	[request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"content-type"];
-	
-	[TestFlight passCheckpoint:@"Scheduled push notification"];
 	
 	scheduleConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
 }
