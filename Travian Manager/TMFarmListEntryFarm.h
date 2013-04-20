@@ -15,5 +15,6 @@
 @property (nonatomic, strong) NSString *targetPopulation; // Village's population
 @property (nonatomic, strong) NSString *distance; // Distance to target from this village.
 @property (nonatomic, strong) NSArray *troops; // Array of NSDictionaries containing key=value store of troops. Dictionary contains name=troopname count=troopcount(string)
+@property (assign) bool selected;
 
 @end

@@ -1162,25 +1162,38 @@
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "Travian Manager/TMFarmListViewController.m"
-         timestampString = "387967502.188388"
+         filePath = "Travian Manager/TMFarmListEntryViewController.m"
+         timestampString = "387976298.292829"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "51"
-         endingLineNumber = "51"
-         landmarkName = "-viewDidAppear:"
+         startingLineNumber = "53"
+         endingLineNumber = "53"
+         landmarkName = "-executeFarmList:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "Travian Manager/TMFarmListViewController.m"
-         timestampString = "387967502.188388"
+         filePath = "Travian Manager/TMFarmListEntryViewController.m"
+         timestampString = "387976298.292829"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "43"
-         endingLineNumber = "43"
+         startingLineNumber = "62"
+         endingLineNumber = "62"
+         landmarkName = "-executeFarmList:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "Travian Manager/TMFarmListEntryViewController.m"
+         timestampString = "387976160.553925"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "40"
+         endingLineNumber = "40"
          landmarkName = "-viewWillAppear:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1188,26 +1201,39 @@
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "Travian Manager/TMFarmListViewController.m"
-         timestampString = "387967502.188388"
+         filePath = "Travian Manager/TMFarmListEntryViewController.m"
+         timestampString = "387976294.742113"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "63"
-         endingLineNumber = "63"
+         startingLineNumber = "49"
+         endingLineNumber = "49"
          landmarkName = "-viewDidAppear:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "Travian Manager/TMFarmListViewController.m"
+         timestampString = "388060749.536031"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "196"
+         endingLineNumber = "196"
+         landmarkName = "-handleTableViewCellLongPress:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "Travian Manager/TMFarmList.m"
-         timestampString = "387967700.212965"
+         filePath = "Travian Manager/TMFarmListViewController.m"
+         timestampString = "388060692.416926"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "78"
-         endingLineNumber = "78"
-         landmarkName = "-parsePage:fromHTMLNode:"
+         startingLineNumber = "105"
+         endingLineNumber = "105"
+         landmarkName = "-executeFarmList:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

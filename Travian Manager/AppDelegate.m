@@ -115,7 +115,7 @@
 	[[UITableView appearance] setSeparatorStyle:UITableViewCellSeparatorStyleNone];
 }
 
-static UIImageView *tableCellSelectedBackground;
+static UIImage *tableCellSelectedBackgroundImage;
 static UIImageView *roundedTableCellSelectedBackgroundTopBottom;
 static UIImageView *roundedTableCellSelectedBackgroundTop;
 static UIImageView *roundedTableCellSelectedBackgroundBottom;
@@ -139,11 +139,11 @@ static UIImage *darkSelecedCellImage;
 	cell.textLabel.backgroundColor = [UIColor clearColor];
 	cell.detailTextLabel.backgroundColor = [UIColor clearColor];
 	
-	if (!tableCellSelectedBackground)
-		tableCellSelectedBackground = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"SelectedCell.png"] stretchableImageWithLeftCapWidth:0 topCapHeight:0]];
+	if (!tableCellSelectedBackgroundImage)
+		tableCellSelectedBackgroundImage = [UIImage imageNamed:@"SelectedCell.png"];
 	
 	// Selected background
-	cell.selectedBackgroundView = tableCellSelectedBackground; // only ever used once at a time
+	cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[tableCellSelectedBackgroundImage stretchableImageWithLeftCapWidth:0 topCapHeight:0]];
 	cell.textLabel.highlightedTextColor = [UIColor whiteColor];
 	cell.detailTextLabel.highlightedTextColor = [UIColor whiteColor];
 }

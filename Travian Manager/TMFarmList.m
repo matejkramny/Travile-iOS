@@ -11,10 +11,12 @@
 #import "NSString+HTML.h"
 #import "TMAccount.h"
 #import "TMStorage.h"
+#import "TMVillage.h"
 
 @interface TMFarmList () {
 	void (^loadCompletion)(); // not sure if a good idea.. unusable with multiple objects trying to get the status of the farm list.
 	NSURLConnection *loadConnection;
+	NSURLConnection *villageConnection; // loads the village first in case the one isn't selected (in travian..)
 	NSMutableData *loadData;
 }
 
@@ -28,12 +30,14 @@
 	loadCompletion = completion;
 	loaded = false;
 	
-	// Get request to farm list url..
-	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[[TMStorage sharedStorage].account urlForString:[TMAccount farmList]] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60.0];
+	// first activate correct village
+	TMAccount *account = [TMStorage sharedStorage].account;
+	TMVillage *village = account.village;
+	NSURL *url = [account urlForArguments:[TMAccount resources], @"?", village.urlPart, nil];
 	
-	[request setHTTPShouldHandleCookies:YES];
+	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: url cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
 	
-	loadConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
+	villageConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
 }
 
 #pragma mark - TMPageParsingProtocol
@@ -77,6 +81,10 @@
 			HTMLNode *listTitle = [list findChildWithAttribute:@"class" matchingName:@"listTitleText" allowPartial:NO];
 			NSArray *listTitleChildren = [listTitle children];
 			NSString *listName = [[[[listTitleChildren objectAtIndex:listTitleChildren.count-2] rawContents] stringByReplacingOccurrencesOfString:@"\n" withString:@""] stringByReplacingOccurrencesOfString:@"\t" withString:@""];
+			NSRange firstMinus = [listName rangeOfString:@"-"];
+			if (firstMinus.location != NSNotFound) {
+				listName = [listName substringFromIndex:firstMinus.location+2];
+			}
 			
 			entry.name = listName;
 			
@@ -84,6 +92,10 @@
 			NSArray *slotRows = [listContent findChildrenWithAttribute:@"class" matchingName:@"slotRow" allowPartial:NO];
 			NSMutableArray *listFarms = [[NSMutableArray alloc] initWithCapacity:slotRows.count];
 			for (HTMLNode *slotRow in slotRows) {
+				if ([slotRow findChildOfClass:@"noData"]) {
+					continue; // no farms present
+				}
+				
 				TMFarmListEntryFarm *entry = [[TMFarmListEntryFarm alloc] init];
 				
 				// POST name
@@ -147,14 +159,28 @@
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
-	[loadData appendData:data];
+	if (connection == loadConnection)
+		[loadData appendData:data];
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSHTTPURLResponse *)response {
-	loadData = [[NSMutableData alloc] initWithLength:0];
+	if (connection == loadConnection)
+		loadData = [[NSMutableData alloc] initWithLength:0];
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
+	if (connection == villageConnection) {
+		// Get request to farm list url..
+		NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[[TMStorage sharedStorage].account urlForString:[TMAccount farmList]] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60.0];
+		
+		[request setHTTPShouldHandleCookies:YES];
+		
+		loadConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
+		villageConnection = nil;
+		
+		return;
+	}
+	
 	NSError *error = nil;
 	HTMLParser *parser = [[HTMLParser alloc] initWithData:loadData error:&error];
 	HTMLNode *body = [parser body];
