@@ -33,7 +33,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 	[[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
 	
 	[Flurry startSession:@"N6J2D56H5TFWSNNBKPB4"];
-	[Flurry setDebugLogEnabled:YES];
+	[Flurry setDebugLogEnabled:NO];
 	[FlurryAds initialize:self.window.rootViewController];
 	
 	// iCloud
