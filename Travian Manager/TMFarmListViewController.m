@@ -12,6 +12,10 @@
 #import "MBProgressHUD.h"
 #import "AppDelegate.h"
 #import "TMFarmListEntryViewController.h"
+#import "TMSwipeableCell.h"
+#import "UIViewController+JASidePanel.h"
+#import "JASidePanelController.h"
+#import "TMDarkImageCell.h"
 
 @interface TMFarmListViewController () {
 	TMStorage *storage;
@@ -28,20 +32,22 @@
 
 @implementation TMFarmListViewController
 
+@synthesize openCellIndexPath, openCellLastTX;
+
 static UIBarButtonItem *executeButton;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
+	self = [super initWithStyle:style];
+	if (self) {
+		// Custom initialization
+	}
+	return self;
 }
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
+	[super viewDidLoad];
 	
 	storage = [TMStorage sharedStorage];
 	village = [storage.account village];
@@ -152,42 +158,71 @@ foundEntry:;
 	}
 }
 
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return village.farmList.farmLists.count;
+	return village.farmList.farmLists.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [[[village.farmList.farmLists objectAtIndex:section] farms] count];
+	return [[[village.farmList.farmLists objectAtIndex:section] farms] count];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *CellIdentifier = @"Basic";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+	static UIColor *backViewColour;
+	static NSString *CellIdentifier = @"Basic";
+	static NSString *BackCellIdentifier = @"DarkCell";
+	if (!backViewColour) {
+		backViewColour = [UIColor colorWithPatternImage:[UIImage imageNamed:@"TMDarkBackground.png"]];
+	}
+	
+	TMSwipeableCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+	if (!cell) {
+		cell = [[TMSwipeableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+	}
+	
+	TMDarkImageCell *backCell = [tableView dequeueReusableCellWithIdentifier:BackCellIdentifier forIndexPath:indexPath];
+	if (!backCell) {
+		backCell = [[TMDarkImageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:BackCellIdentifier];
+	}
+	
+	// Set the frontCell's content
 	NSArray *farmList = [[village.farmList.farmLists objectAtIndex:indexPath.section] farms];
 	TMFarmListEntryFarm *farm = [farmList objectAtIndex:indexPath.row];
-    cell.textLabel.text = farm.targetName;
+	cell.textLabel.text = farm.targetName;
 	cell.accessoryType = farm.selected ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
 	
-	[AppDelegate setCellAppearance:cell forIndexPath:indexPath];
+	UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(cell.frame.size.width, 0, cell.frame.size.width, cell.frame.size.height)];
+	[backView setBackgroundColor:backViewColour];
+	[backCell setFrame:CGRectMake(0, 0, cell.frame.size.width, cell.frame.size.height)];
+	[backCell setIndentTitle:NO];
+	[backCell textLabel].text = @"Show farm details";
+	UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(openFarmDetailView:)];
+	[backView addGestureRecognizer:tapGesture];
+	[backView addSubview:backCell];
+	
+	cell.frontView = cell;
+	cell.backView = backView;
+	
+	//[cell addSubview:cell.frontView];
+	[cell addSubview:cell.backView];
 	
 	// long-press to select all
 	UILongPressGestureRecognizer *gesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleTableViewCellLongPress:)];
 	[cell addGestureRecognizer:gesture];
 	
-    return cell;
+	// swipe to reveal gesture
+	UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
+	[panGestureRecognizer setDelegate:self];
+	[cell addGestureRecognizer:panGestureRecognizer];
+	
+	// Set the appearance of the cells
+	[AppDelegate setCellAppearance:cell forIndexPath:indexPath];
+	//[AppDelegate setDarkCellAppearance:backCell forIndexPath:indexPath];
+	
+	return cell;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -205,6 +240,8 @@ foundEntry:;
 }
 
 - (void)handleTableViewCellLongPress:(UILongPressGestureRecognizer *)gesture {
+	if (openCellIndexPath) return;
+	
 	if (gesture.state != UIGestureRecognizerStateBegan)
 		return;
 	
@@ -267,6 +304,23 @@ after:;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+	NSLog(@"HeyHey");
+	if (openCellIndexPath) {
+		if ([openCellIndexPath compare:indexPath] == NSOrderedSame) {
+			TMSwipeableCell *cell = (TMSwipeableCell *)[self.tableView cellForRowAtIndexPath:openCellIndexPath];
+			
+			[self snapView:cell toX:0 animated:YES];
+			
+			[self setOpenCellIndexPath:nil];
+			[self setOpenCellLastTX:0];
+			
+			[self performSegueWithIdentifier:@"OpenFarm" sender:self];
+		} else {
+			[tableView deselectRowAtIndexPath:indexPath animated:NO];
+		}
+		return;
+	}
+	
 	int i = 0;
 	for (TMFarmListEntry *entry in village.farmList.farmLists) {
 		if (i == indexPath.section) {
@@ -296,6 +350,88 @@ after:;
 	[self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 	
 	[self setExecuteButtonEnabled];
+}
+
+#pragma mark - Gesture recognizer delegate
+- (BOOL)gestureRecognizerShouldBegin:(UIPanGestureRecognizer *)panGestureRecognizer
+{
+	TMSwipeableCell *cell = (TMSwipeableCell *)[panGestureRecognizer view];
+	CGPoint translation = [panGestureRecognizer translationInView:[cell superview] ];
+	return (fabs(translation.x) / fabs(translation.y) > 1) ? YES : NO;
+}
+
+#pragma mark - Gesture handlers
+
+-(void)handlePan:(UIPanGestureRecognizer *)panGestureRecognizer
+{
+	float threshold = (PAN_OPEN_X+PAN_CLOSED_X)/2.0;
+	float vX = 0.0;
+	float compare;
+	NSIndexPath *indexPath = [self.tableView indexPathForCell:(TMSwipeableCell *)[panGestureRecognizer view] ];
+	UIView *view = ((TMSwipeableCell *)panGestureRecognizer.view).frontView;
+	
+	switch ([panGestureRecognizer state]) {
+		case UIGestureRecognizerStateBegan:
+			if (self.openCellIndexPath.section != indexPath.section || self.openCellIndexPath.row != indexPath.row) {
+				[self snapView:((TMSwipeableCell *)[self.tableView cellForRowAtIndexPath:self.openCellIndexPath]).frontView toX:PAN_CLOSED_X animated:YES];
+				[self setOpenCellIndexPath:nil];
+				[self setOpenCellLastTX:0];
+			}
+			
+			break;
+		case UIGestureRecognizerStateEnded:
+			vX = (FAST_ANIMATION_DURATION/2.0)*[panGestureRecognizer velocityInView:self.view].x;
+			compare = view.transform.tx + vX;
+			if (compare > threshold) {
+				[self snapView:view toX:PAN_CLOSED_X animated:YES];
+				[self setOpenCellIndexPath:nil];
+				[self setOpenCellLastTX:0];
+				[self.sidePanelController setAllowLeftSwipe:YES];
+				[(TMSwipeableCell *)panGestureRecognizer.view setSelectionStyle:UITableViewCellSelectionStyleBlue];
+			} else {
+				[self snapView:view toX:PAN_OPEN_X animated:YES];
+				[self setOpenCellIndexPath:[self.tableView indexPathForCell:(TMSwipeableCell *)panGestureRecognizer.view] ];
+				[self setOpenCellLastTX:view.transform.tx];
+				[self.sidePanelController setAllowLeftSwipe:NO];
+				[(TMSwipeableCell *)panGestureRecognizer.view setSelectionStyle:UITableViewCellSelectionStyleNone];
+			}
+			break;
+		case UIGestureRecognizerStateChanged:
+			compare = self.openCellLastTX+[panGestureRecognizer translationInView:self.view].x;
+			if (compare > PAN_CLOSED_X)
+				compare = PAN_CLOSED_X;
+			else if (compare < PAN_OPEN_X)
+				compare = PAN_OPEN_X;
+			[view setTransform:CGAffineTransformMakeTranslation(compare, 0)];
+			break;
+		default:
+			break;
+	}
+}
+
+-(void)snapView:(UIView *)view toX:(float)x animated:(BOOL)animated {
+	if (animated) {
+		[UIView beginAnimations:nil context:nil];
+		[UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
+		[UIView setAnimationDuration:FAST_ANIMATION_DURATION];
+	}
+	
+	[view setTransform:CGAffineTransformMakeTranslation(x, 0)];
+	
+	if (animated) {
+		[UIView commitAnimations];
+	}
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+	if (openCellIndexPath) {
+		TMSwipeableCell *cell = (TMSwipeableCell *)[self.tableView cellForRowAtIndexPath:openCellIndexPath];
+		
+		[self snapView:cell toX:0 animated:YES];
+		
+		[self setOpenCellIndexPath:nil];
+		[self setOpenCellLastTX:0];
+	}
 }
 
 @end

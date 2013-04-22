@@ -496,7 +496,7 @@ static NSString *farmList = @"build.php?tt=99&id=39";
 	// Empty local villages and replace them with tempVillages
 	villages = tempVillages;
 	
-	if (settings.fastLogin) {
+	if (!settings.fastLogin) {
 		for (TMVillage *vil in villages) {
 			[vil downloadAndParse]; // Tell each village to download its data
 		}
