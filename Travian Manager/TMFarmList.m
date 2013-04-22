@@ -109,11 +109,11 @@
 				
 				// Population
 				HTMLNode *population = [slotRow findChildWithAttribute:@"class" matchingName:@"ew" allowPartial:NO];
-				entry.targetPopulation = [[population contents] stringByRemovingNewLinesAndWhitespace];
+				entry.targetPopulation = [[[population contents]  stringByReplacingOccurrencesOfString:@"\t" withString:@""] stringByReplacingOccurrencesOfString:@"\n" withString:@""];
 				
 				// Distance to target
 				HTMLNode *distance = [slotRow findChildWithAttribute:@"class" matchingName:@"distance" allowPartial:NO];
-				entry.distance = [[distance contents] stringByRemovingNewLinesAndWhitespace];
+				entry.distance = [[[distance contents] stringByReplacingOccurrencesOfString:@"\t" withString:@""] stringByReplacingOccurrencesOfString:@"\n" withString:@""];
 				
 				// List of troops
 				HTMLNode *troops = [slotRow findChildWithAttribute:@"class" matchingName:@"troops" allowPartial:NO];

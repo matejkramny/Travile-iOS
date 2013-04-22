@@ -11,18 +11,17 @@
 #import "TMFarmListEntryFarm.h"
 #import "MBProgressHUD.h"
 #import "AppDelegate.h"
-#import "TMFarmListEntryViewController.h"
 #import "TMSwipeableCell.h"
 #import "UIViewController+JASidePanel.h"
 #import "JASidePanelController.h"
 #import "TMDarkImageCell.h"
+#import "TMFarmListFarmViewController.h"
 
 @interface TMFarmListViewController () {
 	TMStorage *storage;
 	TMVillage *village;
 	MBProgressHUD *HUD;
 	UITapGestureRecognizer *tapToCancel;
-	TMFarmListEntry *selectedFarmList;
 	
 	NSMutableArray *executionQueue;
 	bool cancelledExecution;
@@ -277,9 +276,11 @@ foundEntry:;
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-	if ([segue.identifier isEqualToString:@"OpenFarmList"]) {
-		TMFarmListEntryViewController *entryVC = [segue destinationViewController];
-		entryVC.farmList = selectedFarmList;
+	if ([segue.identifier isEqualToString:@"OpenFarm"]) {
+		TMFarmListFarmViewController *farmVC = [segue destinationViewController];
+		TMFarmListEntry *entry = [village.farmList.farmLists objectAtIndex:openCellIndexPath.section];
+		TMFarmListEntryFarm *farm = [entry.farms objectAtIndex:openCellIndexPath.row];
+		farmVC.farm = farm;
 	}
 }
 
@@ -306,20 +307,8 @@ after:;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	NSLog(@"HeyHey");
 	if (openCellIndexPath) {
-		if ([openCellIndexPath compare:indexPath] == NSOrderedSame) {
-			TMSwipeableCell *cell = (TMSwipeableCell *)[self.tableView cellForRowAtIndexPath:openCellIndexPath];
-			
-			[self snapView:cell toX:0 animated:YES];
-			
-			[self setOpenCellIndexPath:nil];
-			[self setOpenCellLastTX:0];
-			
-			[self performSegueWithIdentifier:@"OpenFarm" sender:self];
-		} else {
-			[tableView deselectRowAtIndexPath:indexPath animated:NO];
-		}
+		[tableView deselectRowAtIndexPath:indexPath animated:NO];
 		return;
 	}
 	
@@ -386,6 +375,7 @@ after:;
 		case UIGestureRecognizerStateEnded:
 			vX = (FAST_ANIMATION_DURATION/2.0)*[panGestureRecognizer velocityInView:self.view].x;
 			compare = view.transform.tx + vX;
+			
 			if (compare > threshold) {
 				// move back to PAN_CLOSED_X
 				// do nothing
@@ -413,15 +403,24 @@ after:;
 				// text = pull to open
 				backCell.textLabel.text = @"Pull";
 				//[backCell.textLabel setTransform:CGAffineTransformMakeTranslation(threshold*-1 + compare, 0)];
-				[backCellTextBackgroundView setBackgroundColor:[UIColor colorWithRed:150.f/255.f green:180.f/255.f blue:56.f/255.f alpha:1.f]];
-				[backCellTextBackgroundView setTransform:CGAffineTransformMakeTranslation(threshold*-1 + compare, 0)];
+				[UIView animateWithDuration:FAST_ANIMATION_DURATION animations:^{
+					[backCellTextBackgroundView setBackgroundColor:[UIColor colorWithRed:150.f/255.f green:180.f/255.f blue:56.f/255.f alpha:1.f]];
+				} completion:nil];
+				float newX = threshold * -1 + compare;
+				if (newX < 0) newX = 0;
+				
+				[backCellTextBackgroundView setTransform:CGAffineTransformMakeTranslation(newX, 0)];
 			} else {
 				// text = release to open
 				backCell.textLabel.text = @"Release";
 				//[backCell.textLabel setFrame:CGRectMake(10, backCell.bounds.origin.y, backCell.bounds.size.width, backCell.bounds.size.height)];
-				[backCellTextBackgroundView setBackgroundColor:[UIColor colorWithRed:126.f/255.f green:155.f/255.f blue:40.f/255.f alpha:1.f]];
+				[UIView animateWithDuration:FAST_ANIMATION_DURATION animations:^{
+					[backCellTextBackgroundView setBackgroundColor:[UIColor colorWithRed:126.f/255.f green:155.f/255.f blue:40.f/255.f alpha:1.f]];
+				} completion:NULL];
 				[backCellTextBackgroundView setFrame:CGRectMake(0, backCellTextBackgroundView.bounds.origin.y, backCellTextBackgroundView.bounds.size.width, backCellTextBackgroundView.bounds.size.height)];
 			}
+			
+			openCellIndexPath = indexPath;
 			
 			[view setTransform:CGAffineTransformMakeTranslation(compare, 0)];
 			
