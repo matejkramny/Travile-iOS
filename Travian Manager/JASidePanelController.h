@@ -175,4 +175,8 @@ typedef enum _JASidePanelState {
 @property (nonatomic, strong, readonly) UIView *rightPanelContainer;
 @property (nonatomic, strong, readonly) UIView *centerPanelContainer;
 
+#pragma mark - Call Pan from real world
+
+- (void)_handlePan:(UIGestureRecognizer *)sender;
+
 @end

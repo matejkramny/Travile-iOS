@@ -194,17 +194,23 @@ foundEntry:;
 	cell.textLabel.text = farm.targetName;
 	cell.accessoryType = farm.selected ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
 	
-	UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(cell.frame.size.width, 0, cell.frame.size.width, cell.frame.size.height)];
-	[backView setBackgroundColor:backViewColour];
-	[backCell setFrame:CGRectMake(0, 0, cell.frame.size.width, cell.frame.size.height)];
+	// Set the appearance of the cells
+	[AppDelegate setCellAppearance:cell forIndexPath:indexPath];
+	[AppDelegate setDarkCellAppearance:backCell forIndexPath:indexPath];
+	
+	[backCell setFrame:CGRectMake(cell.frame.size.width, 0, cell.frame.size.width, cell.frame.size.height)];
 	[backCell setIndentTitle:NO];
-	[backCell textLabel].text = @"Show farm details";
-	UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(openFarmDetailView:)];
-	[backView addGestureRecognizer:tapGesture];
-	[backView addSubview:backCell];
+	[backCell textLabel].text = @"Pull to open";
+	[backCell setBackgroundView:nil];
+	[backCell setBackgroundColor:backViewColour];
+	UIView *backCellTextBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, cell.frame.size.width, cell.frame.size.height)];
+	[backCellTextBackgroundView setTag:22];
+	[backCell addSubview:backCellTextBackgroundView];
+	//[backCell sendSubviewToBack:backCellTextBackgroundView];
+	[backCellTextBackgroundView addSubview:backCell.textLabel];
 	
 	cell.frontView = cell;
-	cell.backView = backView;
+	cell.backView = backCell;
 	
 	//[cell addSubview:cell.frontView];
 	[cell addSubview:cell.backView];
@@ -217,10 +223,6 @@ foundEntry:;
 	UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
 	[panGestureRecognizer setDelegate:self];
 	[cell addGestureRecognizer:panGestureRecognizer];
-	
-	// Set the appearance of the cells
-	[AppDelegate setCellAppearance:cell forIndexPath:indexPath];
-	//[AppDelegate setDarkCellAppearance:backCell forIndexPath:indexPath];
 	
 	return cell;
 }
@@ -364,18 +366,20 @@ after:;
 
 -(void)handlePan:(UIPanGestureRecognizer *)panGestureRecognizer
 {
-	float threshold = (PAN_OPEN_X+PAN_CLOSED_X)/2.0;
+	[self.sidePanelController _handlePan:panGestureRecognizer]; // call to sidepanel to delegate the direction of the swipe
+	float threshold = -90;
 	float vX = 0.0;
 	float compare;
 	NSIndexPath *indexPath = [self.tableView indexPathForCell:(TMSwipeableCell *)[panGestureRecognizer view] ];
 	UIView *view = ((TMSwipeableCell *)panGestureRecognizer.view).frontView;
 	
+	TMSwipeableCell *cell = (TMSwipeableCell *)panGestureRecognizer.view;
+	UITableViewCell *backCell = (UITableViewCell *)cell.backView;
+	UIView *backCellTextBackgroundView = [backCell viewWithTag:22];
 	switch ([panGestureRecognizer state]) {
 		case UIGestureRecognizerStateBegan:
 			if (self.openCellIndexPath.section != indexPath.section || self.openCellIndexPath.row != indexPath.row) {
-				[self snapView:((TMSwipeableCell *)[self.tableView cellForRowAtIndexPath:self.openCellIndexPath]).frontView toX:PAN_CLOSED_X animated:YES];
-				[self setOpenCellIndexPath:nil];
-				[self setOpenCellLastTX:0];
+				// set the text to Pull to open
 			}
 			
 			break;
@@ -383,26 +387,44 @@ after:;
 			vX = (FAST_ANIMATION_DURATION/2.0)*[panGestureRecognizer velocityInView:self.view].x;
 			compare = view.transform.tx + vX;
 			if (compare > threshold) {
-				[self snapView:view toX:PAN_CLOSED_X animated:YES];
-				[self setOpenCellIndexPath:nil];
-				[self setOpenCellLastTX:0];
-				[self.sidePanelController setAllowLeftSwipe:YES];
-				[(TMSwipeableCell *)panGestureRecognizer.view setSelectionStyle:UITableViewCellSelectionStyleBlue];
+				// move back to PAN_CLOSED_X
+				// do nothing
 			} else {
-				[self snapView:view toX:PAN_OPEN_X animated:YES];
-				[self setOpenCellIndexPath:[self.tableView indexPathForCell:(TMSwipeableCell *)panGestureRecognizer.view] ];
-				[self setOpenCellLastTX:view.transform.tx];
-				[self.sidePanelController setAllowLeftSwipe:NO];
-				[(TMSwipeableCell *)panGestureRecognizer.view setSelectionStyle:UITableViewCellSelectionStyleNone];
+				// open segue
+				[self performSegueWithIdentifier:@"OpenFarm" sender:nil];
 			}
+			
+			[self snapView:view toX:PAN_CLOSED_X animated:YES];
+			[self setOpenCellIndexPath:nil];
+			[self setOpenCellLastTX:0];
+			[self.sidePanelController setAllowLeftSwipe:YES];
+			[(TMSwipeableCell *)panGestureRecognizer.view setSelectionStyle:UITableViewCellSelectionStyleBlue];
+			
 			break;
 		case UIGestureRecognizerStateChanged:
 			compare = self.openCellLastTX+[panGestureRecognizer translationInView:self.view].x;
-			if (compare > PAN_CLOSED_X)
+			if (compare > PAN_CLOSED_X) {
 				compare = PAN_CLOSED_X;
-			else if (compare < PAN_OPEN_X)
+			} else if (compare < PAN_OPEN_X) {
 				compare = PAN_OPEN_X;
+			}
+			
+			if (compare > threshold) {
+				// text = pull to open
+				backCell.textLabel.text = @"Pull";
+				//[backCell.textLabel setTransform:CGAffineTransformMakeTranslation(threshold*-1 + compare, 0)];
+				[backCellTextBackgroundView setBackgroundColor:[UIColor colorWithRed:150.f/255.f green:180.f/255.f blue:56.f/255.f alpha:1.f]];
+				[backCellTextBackgroundView setTransform:CGAffineTransformMakeTranslation(threshold*-1 + compare, 0)];
+			} else {
+				// text = release to open
+				backCell.textLabel.text = @"Release";
+				//[backCell.textLabel setFrame:CGRectMake(10, backCell.bounds.origin.y, backCell.bounds.size.width, backCell.bounds.size.height)];
+				[backCellTextBackgroundView setBackgroundColor:[UIColor colorWithRed:126.f/255.f green:155.f/255.f blue:40.f/255.f alpha:1.f]];
+				[backCellTextBackgroundView setFrame:CGRectMake(0, backCellTextBackgroundView.bounds.origin.y, backCellTextBackgroundView.bounds.size.width, backCellTextBackgroundView.bounds.size.height)];
+			}
+			
 			[view setTransform:CGAffineTransformMakeTranslation(compare, 0)];
+			
 			break;
 		default:
 			break;
