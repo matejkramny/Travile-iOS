@@ -31,6 +31,8 @@
 	UIBarButtonItem *editButton;
 	UIBarButtonItem *editButtonDone;
 	UIBarButtonItem *settingsButton;
+	
+	bool canSkipLoading;
 }
 
 - (void)logIn:(TMAccount *)a withPasword:(NSString *)password;
@@ -114,6 +116,7 @@
 	settingsButton = [[UIBarButtonItem alloc] initWithTitle:@"Settings" style:UIBarButtonItemStylePlain target:self action:@selector(showSettings:)];
 	
 	insideSettings = false;
+	canSkipLoading = false;
 	
 	[super viewDidLoad];
 }
@@ -155,6 +158,8 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
 	[super viewWillDisappear:animated];
+	
+	canSkipLoading = false;
 	
 	[FlurryAds removeAdFromSpace:@"LoginScreen"];
 	[FlurryAds setAdDelegate:nil];
@@ -266,6 +271,21 @@
 }
 
 - (void)handleTapGestureRecognizer:(UITapGestureRecognizer *)recognizer {
+	if (canSkipLoading) {
+		[hud hide:YES];
+		
+		[storage.account removeObserver:self forKeyPath:@"notificationPending"];
+		[storage.account removeObserver:self forKeyPath:@"progressIndicator"];
+		[storage.account removeObserver:self forKeyPath:@"status"];
+		
+		[[self tableView] deselectRowAtIndexPath:[[self tableView] indexPathForSelectedRow] animated:YES];
+		
+		[self dismissView];
+		canSkipLoading = false;
+		
+		return;
+	}
+	
 	[hud hide:YES];
 	[hud removeGestureRecognizer:tapGestureRecognizer];
 	tapGestureRecognizer = nil;
@@ -324,6 +344,12 @@
 	} else if ([keyPath isEqualToString:@"progressIndicator"]) {
 		// Shows progress
 		hud.labelText = [change objectForKey:NSKeyValueChangeNewKey];
+		
+		if (selectedAccount.villages.count > 0) {
+			// Enable to hide the loading and continue
+			canSkipLoading = true;
+			hud.detailsLabelText = @"Logged in. Tap to continue";
+		}
 	} else if ([keyPath isEqualToString:@"status"]) {
 		// Checks for change of account status
 		AccountStatus stat = [[change objectForKey:NSKeyValueChangeNewKey] intValue];

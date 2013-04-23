@@ -58,7 +58,7 @@ static NSString *farmList = @"build.php?tt=99&id=39";
 
 @implementation TMAccount
 
-@synthesize name, username, password, world, server, baseURL, villages, reports, messages, contacts, hero, status, notificationPending, progressIndicator, village, last_updated, settings;
+@synthesize name, username, password, world, server, baseURL, villages, reports, messages, contacts, hero, status, notificationPending, progressIndicator, village, last_updated, settings, cookies;
 
 - (bool)isComplete {
 	if ([name length] < 2 || username.length < 2 || world.length < 2 || server.length < 1)
@@ -86,6 +86,7 @@ static NSString *farmList = @"build.php?tt=99&id=39";
 	password = [coder decodeObjectForKey:@"password"];
 	world = [coder decodeObjectForKey:@"world"];
 	server = [coder decodeObjectForKey:@"server"];
+	cookies = [coder decodeObjectForKey:@"cookies"];
 	
 	if (settings == nil)
 		settings = [[TMSettings alloc] init];
@@ -100,6 +101,7 @@ static NSString *farmList = @"build.php?tt=99&id=39";
 	[coder encodeObject:password forKey:@"password"];
 	[coder encodeObject:world forKey:@"world"];
 	[coder encodeObject:server forKey:@"server"];
+	[coder encodeObject:cookies forKey:@"cookies"];
 }
 
 - (id)init {
@@ -138,6 +140,16 @@ static NSString *farmList = @"build.php?tt=99&id=39";
 }
 
 - (void)activateAccountWithPassword:(NSString *)passwd {
+	// Check if our cookie jar is empty.. If it is, we haven't logged in for a long time.
+	if (cookies == nil || cookies.count == 0) {
+		[self performLoginWithPassword:passwd];
+	} else {
+		// Probably valid cookies?
+		[self refreshAccountWithMap:ARAccount];
+	}
+}
+
+- (void)performLoginWithPassword:(NSString *)passwd {
 	// Start connection
 	NSString *postData = [[NSString alloc] initWithFormat:@"name=%@&password=%@&s1=Login&w=%@&login=%f", username, passwd, @"640:960", [[NSDate date] timeIntervalSince1970]];
 	NSData *myRequestData = [NSData dataWithBytes: [postData UTF8String] length: [postData length]];
@@ -191,20 +203,20 @@ static NSString *farmList = @"build.php?tt=99&id=39";
 
 - (void)deactivateAccount {
 	// A logout effectively..
-	if ((status & ANotLoggedIn) != 0) {
+	if ((status & ANotLoggedIn) != 0) { // Already logged out?
 		[self setStatus:ANotLoggedIn];
 		return;
 	}
 	
-	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[self urlForString:@"logout.php"] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
+	//NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[self urlForString:@"logout.php"] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
 	
-	[request setHTTPShouldHandleCookies:YES];
+	//[request setHTTPShouldHandleCookies:YES];
 	
 	[self setStatus:ANotLoggedIn];
 	
 	last_updated = [[NSDate date] timeIntervalSince1970];
 	
-	NSURLConnection *conn __unused = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
+	//NSURLConnection *conn __unused = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
 	
 	// Allow ARC to deallocate these.
 	village = nil;
@@ -309,6 +321,8 @@ static NSString *farmList = @"build.php?tt=99&id=39";
 		return [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
 	};
 	
+	cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:[self urlForString:@""]];
+	
 	if (connection == loginConnection || (connection == reloadConnection && ((reloadMap & ARAccount) != 0 || (reloadMap & ARVillages) != 0)))
 	{
 		NSError *error;
@@ -322,7 +336,15 @@ static NSString *farmList = @"build.php?tt=99&id=39";
 		
 		if ((page & (TPLogin | TPNotFound)) != 0) {
 			// Still at login page.
-			[self setStatus:(ANotLoggedIn | ACannotLogIn)];
+			if (connection == reloadConnection) {
+				// Login
+				reloadMap = 0;
+				cookies = nil;
+				[self activateAccount];
+			} else {
+				[self setStatus:(ANotLoggedIn | ACannotLogIn)];
+			}
+			
 			return;
 		}
 		
@@ -387,6 +409,17 @@ static NSString *farmList = @"build.php?tt=99&id=39";
 		HTMLNode *body = [parser body];
 		
 		TravianPages page = [TPIdentifier identifyPage:body];
+		
+		if ((page & (TPLogin | TPNotFound)) != 0) {
+			// Still at login page.
+			
+			// Login
+			reloadMap = 0;
+			cookies = nil;
+			[self activateAccount];
+			
+			return;
+		}
 		
 		if ((reloadMap & ARVillage) != 0) {
 			[[self village] parsePage:page fromHTMLNode:body];

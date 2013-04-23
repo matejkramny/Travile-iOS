@@ -8,12 +8,77 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Travian Manager/TMFarmListViewController.m"
-         timestampString = "388364005.952989"
+         timestampString = "388423754.048323"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "365"
-         endingLineNumber = "365"
+         startingLineNumber = "382"
+         endingLineNumber = "382"
          landmarkName = "-handlePan:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "Travian Manager/TMAccount.m"
+         timestampString = "388427372.081973"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "341"
+         endingLineNumber = "341"
+         landmarkName = "-connectionDidFinishLoading:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "Travian Manager/TMAccount.m"
+         timestampString = "388427372.081973"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "417"
+         endingLineNumber = "417"
+         landmarkName = "-connectionDidFinishLoading:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "Travian Manager/TMAccount.m"
+         timestampString = "388435928.564914"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "144"
+         endingLineNumber = "144"
+         landmarkName = "-activateAccountWithPassword:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "Travian Manager/TMAccount.m"
+         timestampString = "388435934.866082"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "286"
+         endingLineNumber = "286"
+         landmarkName = "-connection:didFailWithError:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "Travian Manager/TMAccount.m"
+         timestampString = "388435938.345609"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "314"
+         endingLineNumber = "314"
+         landmarkName = "-connectionDidFinishLoading:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

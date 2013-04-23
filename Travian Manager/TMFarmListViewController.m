@@ -161,12 +161,23 @@ foundEntry:;
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-	return village.farmList.farmLists.count;
+	if (village.farmList.farmLists.count > 0)
+		return village.farmList.farmLists.count;
+	
+	return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-	return [[[village.farmList.farmLists objectAtIndex:section] farms] count];
+	NSArray *farmLists = [village.farmList farmLists];
+	if (farmLists.count > 0) {
+		TMFarmListEntry *entry = [farmLists objectAtIndex:section];
+		if (entry.farms.count > 0) {
+			return [[entry farms] count];
+		}
+	}
+	
+	return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -182,6 +193,20 @@ foundEntry:;
 		cell = [[TMSwipeableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
 	}
 	
+	NSArray *lists = [village.farmList farmLists];
+	if (lists.count == 0 || [[lists objectAtIndex:indexPath.section] farms].count == 0) {
+		// Return no farms found || no farms in farm list
+		if (lists.count == 0) {
+			cell.textLabel.text = @"No Farm lists found";
+		} else {
+			cell.textLabel.text = @"No Farms found";
+		}
+		[AppDelegate setCellAppearance:cell forIndexPath:indexPath];
+		
+		cell.selectionStyle = UITableViewCellSelectionStyleNone;
+		return cell;
+	}
+	
 	TMDarkImageCell *backCell = [tableView dequeueReusableCellWithIdentifier:BackCellIdentifier forIndexPath:indexPath];
 	if (!backCell) {
 		backCell = [[TMDarkImageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:BackCellIdentifier];
@@ -192,6 +217,7 @@ foundEntry:;
 	TMFarmListEntryFarm *farm = [farmList objectAtIndex:indexPath.row];
 	cell.textLabel.text = farm.targetName;
 	cell.accessoryType = farm.selected ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+	cell.selectionStyle = UITableViewCellSelectionStyleBlue;
 	
 	// Set the appearance of the cells
 	[AppDelegate setCellAppearance:cell forIndexPath:indexPath];
@@ -227,22 +253,13 @@ foundEntry:;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+	if ([village.farmList.farmLists count] == 0) return nil;
+	
 	TMFarmListEntry *entry = [village.farmList.farmLists objectAtIndex:section];
 	return entry.name;
 }
 
-- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
-	NSMutableArray *array = [[NSMutableArray alloc] init];
-	for (TMFarmListEntry *entry in village.farmList.farmLists) {
-		[array addObject:[[entry.name substringToIndex:1] capitalizedString]];
-	}
-	
-	return array;
-}
-
 - (void)handleTableViewCellLongPress:(UILongPressGestureRecognizer *)gesture {
-	if (openCellIndexPath) return;
-	
 	if (gesture.state != UIGestureRecognizerStateBegan)
 		return;
 	
@@ -307,8 +324,8 @@ after:;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	if (openCellIndexPath) {
-		[tableView deselectRowAtIndexPath:indexPath animated:NO];
+	if (village.farmList.farmLists.count == 0 || [[village.farmList.farmLists objectAtIndex:indexPath.section] farms].count == 0) {
+		[tableView deselectRowAtIndexPath:indexPath animated:YES];
 		return;
 	}
 	
@@ -376,18 +393,20 @@ after:;
 			vX = (FAST_ANIMATION_DURATION/2.0)*[panGestureRecognizer velocityInView:self.view].x;
 			compare = view.transform.tx + vX;
 			
-			if (compare > threshold) {
+			if (view.transform.tx > threshold) {
 				// move back to PAN_CLOSED_X
 				// do nothing
 			} else {
-				// open segue
-				[self performSegueWithIdentifier:@"OpenFarm" sender:nil];
+				// open segue after the cell goes back to X 0
+				dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, FAST_ANIMATION_DURATION/2 * NSEC_PER_SEC);
+				dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+					[self performSegueWithIdentifier:@"OpenFarm" sender:nil];
+					[self setOpenCellIndexPath:nil];
+					[self setOpenCellLastTX:0];
+				});
 			}
 			
 			[self snapView:view toX:PAN_CLOSED_X animated:YES];
-			[self setOpenCellIndexPath:nil];
-			[self setOpenCellLastTX:0];
-			[self.sidePanelController setAllowLeftSwipe:YES];
 			[(TMSwipeableCell *)panGestureRecognizer.view setSelectionStyle:UITableViewCellSelectionStyleBlue];
 			
 			break;
@@ -399,14 +418,14 @@ after:;
 				compare = PAN_OPEN_X;
 			}
 			
-			if (compare > threshold) {
+			if ([panGestureRecognizer translationInView:self.view].x > threshold) {
 				// text = pull to open
 				backCell.textLabel.text = @"Pull";
 				//[backCell.textLabel setTransform:CGAffineTransformMakeTranslation(threshold*-1 + compare, 0)];
 				[UIView animateWithDuration:FAST_ANIMATION_DURATION animations:^{
 					[backCellTextBackgroundView setBackgroundColor:[UIColor colorWithRed:150.f/255.f green:180.f/255.f blue:56.f/255.f alpha:1.f]];
 				} completion:nil];
-				float newX = threshold * -1 + compare;
+				float newX = threshold * -1 + [panGestureRecognizer translationInView:self.view].x;
 				if (newX < 0) newX = 0;
 				
 				[backCellTextBackgroundView setTransform:CGAffineTransformMakeTranslation(newX, 0)];

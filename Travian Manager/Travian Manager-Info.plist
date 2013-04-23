@@ -7,7 +7,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>Travian</string>
+	<string>iTravian 4</string>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIcons</key>
@@ -80,11 +80,11 @@
 			<key>TintColor</key>
 			<dict>
 				<key>Blue</key>
-				<real>0.15787433080573041</real>
+				<real>0.1578743308057304</real>
 				<key>Green</key>
 				<real>1</real>
 				<key>Red</key>
-				<real>0.0</real>
+				<real>0</real>
 			</dict>
 			<key>Translucent</key>
 			<false/>

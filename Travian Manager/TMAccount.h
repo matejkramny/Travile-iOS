@@ -55,6 +55,8 @@ typedef enum {
 
 @property (assign) long last_updated; // UNIX timestamp tells when last refreshed..
 
+@property (nonatomic, strong) NSArray *cookies; // cookies store. Preserved in the storage to avoid logging in multiple times.
+
 - (void)activateAccount;
 - (void)activateAccountWithPassword:(NSString *)passwd;
 - (void)refreshAccountWithMap:(AReloadMap)map;

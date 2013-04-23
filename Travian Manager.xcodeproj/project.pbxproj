@@ -220,7 +220,7 @@
 		4F04DA2F15EEE02300DAF6E7 /* TMAccountTextFieldRightCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMAccountTextFieldRightCell.m; sourceTree = "<group>"; };
 		4F0806C1171FE81000D0A453 /* TMFarmListEntryFarm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMFarmListEntryFarm.h; sourceTree = "<group>"; };
 		4F0806C2171FE81000D0A453 /* TMFarmListEntryFarm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMFarmListEntryFarm.m; sourceTree = "<group>"; };
-		4F095208155C767800C15D6E /* Travian Manager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Travian Manager.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4F095208155C767800C15D6E /* iTravian 4.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "iTravian 4.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F09520C155C767800C15D6E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		4F09520E155C767800C15D6E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		4F095210155C767800C15D6E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -532,7 +532,7 @@
 		4F095209155C767800C15D6E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4F095208155C767800C15D6E /* Travian Manager.app */,
+				4F095208155C767800C15D6E /* iTravian 4.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -953,7 +953,7 @@
 			);
 			name = "Travian Manager";
 			productName = "Travian Manager";
-			productReference = 4F095208155C767800C15D6E /* Travian Manager.app */;
+			productReference = 4F095208155C767800C15D6E /* iTravian 4.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -1340,7 +1340,7 @@
 					"\"$(SRCROOT)/Travian Manager/Flurry\"",
 					"\"$(SRCROOT)/Travian Manager/AdMob\"",
 				);
-				PRODUCT_NAME = "Travian Manager";
+				PRODUCT_NAME = "iTravian 4";
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1374,7 +1374,7 @@
 					"\"$(SRCROOT)/Travian Manager/Flurry\"",
 					"\"$(SRCROOT)/Travian Manager/AdMob\"",
 				);
-				PRODUCT_NAME = "Travian Manager";
+				PRODUCT_NAME = "iTravian 4";
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				TARGETED_DEVICE_FAMILY = 1;
