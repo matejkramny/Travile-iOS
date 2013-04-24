@@ -140,6 +140,7 @@ static NSString *farmList = @"build.php?tt=99&id=39";
 }
 
 - (void)activateAccountWithPassword:(NSString *)passwd {
+	baseURL = [NSString stringWithFormat:@"http://%@.travian.%@/", world, server]; // Set up shared base URL
 	// Check if our cookie jar is empty.. If it is, we haven't logged in for a long time.
 	if (cookies == nil || cookies.count == 0) {
 		[self performLoginWithPassword:passwd];
@@ -153,7 +154,6 @@ static NSString *farmList = @"build.php?tt=99&id=39";
 	// Start connection
 	NSString *postData = [[NSString alloc] initWithFormat:@"name=%@&password=%@&s1=Login&w=%@&login=%f", username, passwd, @"640:960", [[NSDate date] timeIntervalSince1970]];
 	NSData *myRequestData = [NSData dataWithBytes: [postData UTF8String] length: [postData length]];
-	baseURL = [NSString stringWithFormat:@"http://%@.travian.%@/", world, server]; // Set up shared base URL
 	NSURL *url = [self urlForString:@"dorf1.php"];
 	
 	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: url cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];

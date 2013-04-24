@@ -203,8 +203,6 @@
 		4FE58E9B15C59B55004825EF /* TMVillageOverviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE58E9A15C59B55004825EF /* TMVillageOverviewViewController.m */; };
 		4FE7FFD015D5D779007B80A5 /* ArrowIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FE7FFCE15D5D779007B80A5 /* ArrowIcon.png */; };
 		4FE7FFD115D5D779007B80A5 /* ArrowIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FE7FFCF15D5D779007B80A5 /* ArrowIcon@2x.png */; };
-		4FF6489F171C1599007BB723 /* icon57x57.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FF6489D171C1599007BB723 /* icon57x57.png */; };
-		4FF648A0171C1599007BB723 /* icon114x114.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FF6489E171C1599007BB723 /* icon114x114.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -220,7 +218,7 @@
 		4F04DA2F15EEE02300DAF6E7 /* TMAccountTextFieldRightCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMAccountTextFieldRightCell.m; sourceTree = "<group>"; };
 		4F0806C1171FE81000D0A453 /* TMFarmListEntryFarm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMFarmListEntryFarm.h; sourceTree = "<group>"; };
 		4F0806C2171FE81000D0A453 /* TMFarmListEntryFarm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMFarmListEntryFarm.m; sourceTree = "<group>"; };
-		4F095208155C767800C15D6E /* iTravian 4.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "iTravian 4.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4F095208155C767800C15D6E /* Travian Manager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Travian Manager.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F09520C155C767800C15D6E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		4F09520E155C767800C15D6E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		4F095210155C767800C15D6E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -488,8 +486,6 @@
 		4FE58E9A15C59B55004825EF /* TMVillageOverviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMVillageOverviewViewController.m; sourceTree = "<group>"; };
 		4FE7FFCE15D5D779007B80A5 /* ArrowIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ArrowIcon.png; sourceTree = "<group>"; };
 		4FE7FFCF15D5D779007B80A5 /* ArrowIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ArrowIcon@2x.png"; sourceTree = "<group>"; };
-		4FF6489D171C1599007BB723 /* icon57x57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon57x57.png; sourceTree = "<group>"; };
-		4FF6489E171C1599007BB723 /* icon114x114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon114x114.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -516,8 +512,6 @@
 			isa = PBXGroup;
 			children = (
 				4F9ADA661719EAF300154E69 /* icon57.png */,
-				4FF6489D171C1599007BB723 /* icon57x57.png */,
-				4FF6489E171C1599007BB723 /* icon114x114.png */,
 				4F9ADA641719EAE500154E69 /* icon114.png */,
 				4F9ADA621719EACD00154E69 /* Default.png */,
 				4F9ADA5E1719E9D400154E69 /* Default@2x.png */,
@@ -532,7 +526,7 @@
 		4F095209155C767800C15D6E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4F095208155C767800C15D6E /* iTravian 4.app */,
+				4F095208155C767800C15D6E /* Travian Manager.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -953,7 +947,7 @@
 			);
 			name = "Travian Manager";
 			productName = "Travian Manager";
-			productReference = 4F095208155C767800C15D6E /* iTravian 4.app */;
+			productReference = 4F095208155C767800C15D6E /* Travian Manager.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -1105,8 +1099,6 @@
 				4FAA5E2F171B4C6D0051F075 /* CellOdd@2x.png in Resources */,
 				4FAA5E36171B59AB0051F075 /* DarkSection.png in Resources */,
 				4FAA5E37171B59AB0051F075 /* DarkSection@2x.png in Resources */,
-				4FF6489F171C1599007BB723 /* icon57x57.png in Resources */,
-				4FF648A0171C1599007BB723 /* icon114x114.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1318,8 +1310,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Travian Manager/Travian Manager.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Matej Kramny (8FN4JHTL4E)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Matej Kramny (8FN4JHTL4E)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -1338,11 +1330,10 @@
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/Travian Manager\"",
 					"\"$(SRCROOT)/Travian Manager/Flurry\"",
-					"\"$(SRCROOT)/Travian Manager/AdMob\"",
 				);
-				PRODUCT_NAME = "iTravian 4";
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PRODUCT_NAME = "Travian Manager";
+				PROVISIONING_PROFILE = "816A8BD6-D1B4-4992-994C-5F172E94D191";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "816A8BD6-D1B4-4992-994C-5F172E94D191";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1352,8 +1343,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Travian Manager/Travian Manager.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Matej Kramny";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Matej Kramny";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -1372,11 +1363,10 @@
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/Travian Manager\"",
 					"\"$(SRCROOT)/Travian Manager/Flurry\"",
-					"\"$(SRCROOT)/Travian Manager/AdMob\"",
 				);
-				PRODUCT_NAME = "iTravian 4";
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PRODUCT_NAME = "Travian Manager";
+				PROVISIONING_PROFILE = "998E50C7-E278-45B7-B075-F1934223741F";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "998E50C7-E278-45B7-B075-F1934223741F";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
