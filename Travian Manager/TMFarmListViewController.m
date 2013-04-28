@@ -387,6 +387,7 @@ after:;
 			if (self.openCellIndexPath.section != indexPath.section || self.openCellIndexPath.row != indexPath.row) {
 				// set the text to Pull to open
 			}
+			[self snapView:backCellTextBackgroundView toX:0 animated:NO];
 			
 			break;
 		case UIGestureRecognizerStateEnded:
@@ -396,14 +397,17 @@ after:;
 			if (view.transform.tx > threshold) {
 				// move back to PAN_CLOSED_X
 				// do nothing
+				[self snapView:backCellTextBackgroundView toX:100 animated:YES];
 			} else {
 				// open segue after the cell goes back to X 0
-				dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, FAST_ANIMATION_DURATION/2 * NSEC_PER_SEC);
+				dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, FAST_ANIMATION_DURATION * NSEC_PER_SEC);
 				dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
 					[self performSegueWithIdentifier:@"OpenFarm" sender:nil];
 					[self setOpenCellIndexPath:nil];
 					[self setOpenCellLastTX:0];
+					[self snapView:backCellTextBackgroundView toX:100 animated:NO];
 				});
+				[self snapView:backCellTextBackgroundView toX:0 animated:NO];
 			}
 			
 			[self snapView:view toX:PAN_CLOSED_X animated:YES];
@@ -430,6 +434,7 @@ after:;
 				
 				[backCellTextBackgroundView setTransform:CGAffineTransformMakeTranslation(newX, 0)];
 			} else {
+				compare = threshold - ((threshold - compare) / 4);
 				// text = release to open
 				backCell.textLabel.text = @"Release";
 				//[backCell.textLabel setFrame:CGRectMake(10, backCell.bounds.origin.y, backCell.bounds.size.width, backCell.bounds.size.height)];

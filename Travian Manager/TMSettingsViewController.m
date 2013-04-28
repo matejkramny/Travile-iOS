@@ -103,6 +103,7 @@ static NSString *viewTitle = @"Settings";
 		if (indexPath.row == 0) {
 			UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:basicCellIdentifier];
 			cell.textLabel.text = @"Refresh Data";
+			[AppDelegate setRoundedCellAppearance:cell forIndexPath:indexPath forLastRow:NO];
 			
 			return cell;
 		} else if (indexPath.row == 1) {

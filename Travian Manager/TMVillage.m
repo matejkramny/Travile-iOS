@@ -469,7 +469,7 @@
 			for (HTMLNode *li in lis) {
 				TMConstruction *construction = [[TMConstruction alloc] init];
 				
-				HTMLNode *nameNode = [li findChildWithAttribute:@"class" matchingName:@"name" allowPartial:NO];
+				HTMLNode *nameNode = [li findChildWithAttribute:@"class" matchingName:@"name" allowPartial:YES];
 				NSString *conName = [[[nameNode contents] stringByReplacingOccurrencesOfString:@"\n" withString:@""] stringByReplacingOccurrencesOfString:@"\t" withString:@""];
 				
 				int level = [[[[nameNode findChildWithAttribute:@"class" matchingName:@"lvl" allowPartial:NO] contents] stringByTrimmingCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]] intValue];

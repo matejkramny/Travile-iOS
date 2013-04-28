@@ -22,6 +22,8 @@
 	int movementRows;
 	MBProgressHUD *HUD;
 	UITapGestureRecognizer *tapToCancel;
+	
+	NSArray *cells;
 }
 
 @end
@@ -52,6 +54,8 @@ static NSString *viewTitle = @"Overview";
 	//[self.navigationItem setHidesBackButton:NO];
 	//[self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithTitle:@"Villages" style:UIBarButtonItemStyleBordered target:self action:@selector(back:)]];
 	
+	[self buildCells];
+	
 	[super viewDidLoad];
 }
 
@@ -81,6 +85,7 @@ static NSString *viewTitle = @"Overview";
 			[village downloadAndParse];
 		}
 		
+		[self buildCells];
 		[self.tableView reloadData];
 	}
 	
@@ -115,6 +120,7 @@ static NSString *viewTitle = @"Overview";
 			[[storage account] removeObserver:self forKeyPath:@"status"];
 			[self.refreshControl endRefreshing];
 			// Reload data
+			[self buildCells];
 			[[self tableView] reloadData];
 		}
 	} else if ([keyPath isEqualToString:@"hasDownloaded"]) {
@@ -132,6 +138,7 @@ static NSString *viewTitle = @"Overview";
 	@catch (NSException *exception) {
 	}
 	@finally {
+		[self buildCells];
 		[self.tableView reloadData];
 	}
 }
@@ -142,28 +149,60 @@ static NSString *viewTitle = @"Overview";
 
 #pragma mark - Table view data source
 
+- (void)buildCells {
+	NSMutableArray *sections = [[NSMutableArray alloc] init];
+	
+	[sections addObject:@{@"header": village.name,
+	 @"cells": @[
+	 @{ @"name": @"Population", @"value": [NSString stringWithFormat:@"%d", village.population]},
+	 @{ @"name": @"Loyalty", @"value": [NSString stringWithFormat:@"%d", village.loyalty]}
+	 ]
+	 }];
+	
+	NSMutableArray *incoming = [[NSMutableArray alloc] init];
+	NSMutableArray *outgoing = [[NSMutableArray alloc] init];
+	NSMutableArray *other = [[NSMutableArray alloc] init];
+	for (TMMovement *movement in village.movements) {
+		NSDictionary *cell = @{@"name": movement.name,
+						 @"value": movement.finished,};
+		if ((movement.type & TMMovementTypeIncoming) != 0) {
+			// Incoming section
+			[incoming addObject:cell];
+		} else if ((movement.type & TMMovementTypeOutgoing) != 0) {
+			[outgoing addObject:cell];
+		} else {
+			[other addObject:cell];
+		}
+	}
+	
+	if (incoming.count > 0) [sections addObject:@{@"header": @"Incoming",
+							 @"cells": incoming}];
+	if (outgoing.count > 0) [sections addObject:@{@"header": @"Outgoing",
+							 @"cells": outgoing}];
+	if (other.count > 0) [sections addObject:@{@"header": @"Other Movements",
+						  @"cells": other}];
+	
+	NSMutableArray *constructions = [[NSMutableArray alloc] init];
+	for (TMConstruction *construction in village.constructions) {
+		[constructions addObject:@{@"name": construction.name, @"value": [construction finishTime]}];
+	}
+	if (constructions.count > 0) {
+		[sections addObject:@{@"header": NSLocalizedString(@"Constructions", @""),
+		 @"cells": constructions,
+		 @"footer": @"Tap on a construction or movement to schedule a notification"}];
+	}
+	
+	cells = sections;
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-	return 3;
+	return [cells count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-	if (section == 0) {
-		return 2;
-	} else if (section == 1) {
-		int c = [[village movements] count];
-		
-		movementRows = c == 0 ? 1 : c;
-		return movementRows;
-	} else if (section == 2) {
-		int c = [[village constructions] count];
-		
-		constructionRows = c == 0 ? 1 : c;
-		return constructionRows;
-	}
-	
-    return 0;
+    return [[[cells objectAtIndex:section] objectForKey:@"cells"] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -198,77 +237,26 @@ static NSString *viewTitle = @"Overview";
 	
 	static NSString *rightDetailCellIdentifier = @"RightDetail";
 	static NSString *rightDetailSelectableCellIdentifier = @"RightDetailSelectable";
-	static NSString *basicCellIdentifier = @"Basic";
+	__unused static NSString *basicCellIdentifier = @"Basic";
 	__unused static NSString *basicSelectableCellIdentifier = @"BasicSelectable";
 	
-    if (indexPath.section == 0) {
-		// Population & Loyalty
-		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:rightDetailCellIdentifier];
-		
-		if (indexPath.row == 0)
-		{
-			cell.textLabel.text = @"Population";
-			cell.detailTextLabel.text = [NSString stringWithFormat:@"%d", [village population]];
-			[AppDelegate setRoundedCellAppearance:cell forIndexPath:indexPath forLastRow:false];
-		}
-		else {
-			cell.textLabel.text = @"Loyalty";
-			cell.detailTextLabel.text = [NSString stringWithFormat:@"%d", [village loyalty]];
-		}
-		
-		return cell;
-	} else if (indexPath.section == 1) {
-		// Movements
-		if ([village.movements count] == 0)
-		{
-			UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:basicCellIdentifier];
-			
-			cell.textLabel.text = NSLocalizedString(@"No Movements", @"");
-			
-			return cell;
-		}
-		else
-		{
-			UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:rightDetailSelectableCellIdentifier];
-			
-			TMMovement *movement = [village.movements objectAtIndex:indexPath.row];
-			
-			NSString *type = @"";
-			if ((movement.type & TMMovementTypeIncoming) != 0)
-				type = @"<";
-			else if ((movement.type & TMMovementTypeOutgoing) != 0)
-				type = @">";
-			
-			cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", type, [movement name]];
-			cell.detailTextLabel.text = calculateRemainingTimeFromDate(movement.finished);
-			
-			[AppDelegate setRoundedCellAppearance:cell forIndexPath:indexPath forLastRow:indexPath.row+1 == movementRows];
-			
-			return cell;
-		}
-	} else if (indexPath.section == 2) {
-		// Constructions
-		if ([village.constructions count] == 0) {
-			// No constructions
-			UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:basicCellIdentifier];
-			cell.textLabel.text = NSLocalizedString(@"No Constructions", @"");
-			return cell;
-		} else {
-			UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:rightDetailSelectableCellIdentifier];
-			
-			TMConstruction *construction = [village.constructions objectAtIndex:indexPath.row];
-			
-			NSString *name = [NSString stringWithFormat:NSLocalizedString(@"construction lvl to", @"Construction name lvl X"), construction.name, construction.level];
-			cell.textLabel.text = name;
-			cell.detailTextLabel.text = calculateRemainingTimeFromDate(construction.finishTime);
-			
-			[AppDelegate setRoundedCellAppearance:cell forIndexPath:indexPath forLastRow:indexPath.row+1 == constructionRows];
-			
-			return cell;
-		}
+	NSDictionary *cellDicitionary = [[[cells objectAtIndex:indexPath.section] objectForKey:@"cells"] objectAtIndex:indexPath.row];
+	
+	UITableViewCell *cell;
+	id value = [cellDicitionary objectForKey:@"value"];
+	if ([value isKindOfClass:[NSDate class]]) {
+		cell = [tableView dequeueReusableCellWithIdentifier:rightDetailSelectableCellIdentifier];
+		cell.detailTextLabel.text = calculateRemainingTimeFromDate((NSDate *)value);
+	} else {
+		cell = [tableView dequeueReusableCellWithIdentifier:rightDetailCellIdentifier];
+		cell.detailTextLabel.text = (NSString *)value;
 	}
 	
-	return nil;
+	cell.textLabel.text = [cellDicitionary objectForKey:@"name"];
+	
+	[AppDelegate setRoundedCellAppearance:cell forIndexPath:indexPath forLastRow:[[[cells objectAtIndex:indexPath.section] objectForKey:@"cells"] count]-1 == indexPath.row];
+	
+	return cell;
 }
 
 - (IBAction)secondTimerFired:(id)sender {
@@ -276,23 +264,11 @@ static NSString *viewTitle = @"Overview";
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-	switch (section) {
-		case 0:
-			return village.name;
-		case 1:
-			return NSLocalizedString(@"Movements", @"");
-		case 2:
-			return NSLocalizedString(@"Constructions", @"");
-		default:
-			return @"";
-	}
+	return [[cells objectAtIndex:section] objectForKey:@"header"];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
-	if (section == 2)
-		return @"Tap on a construction or movement to schedule a notification";
-	
-	return @"";
+	return [[cells objectAtIndex:section] objectForKey:@"footer"];
 }
 
 #pragma mark - Table view delegate
@@ -300,34 +276,13 @@ static NSString *viewTitle = @"Overview";
 static NSDate *notificationDate;
 static NSString *notificationTitle;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (indexPath.section == 1) {
-		// Movements
-		if ([village.movements count] > 0) {
-			// Select row
-			TMMovement *movement = [village.movements objectAtIndex:indexPath.row];
-			
-			NSDate *finish = movement.finished;
-			if (DEBUG_APP)
-				finish = [NSDate dateWithTimeIntervalSinceNow:10];
-			
-			notificationTitle = [NSString stringWithFormat:@"%@ happened on village %@ from account %@", movement.name, village.name, storage.account.name];
-			notificationDate = [movement finished];
-		} else {
-			[tableView deselectRowAtIndexPath:indexPath animated:YES];
-			return;
-		}
-	} else if (indexPath.section == 2) {
-		// Construction
-		if ([village.constructions count] > 0) {
-			TMConstruction *construction = [village.constructions objectAtIndex:indexPath.row];
-			
-			NSDate *finish = construction.finishTime;
-			if (DEBUG_APP)
-				finish = [NSDate dateWithTimeIntervalSinceNow:10];
-			
-			notificationTitle = [NSString stringWithFormat:@"%@ constructed on village %@ from account %@", construction.name, village.name, storage.account.name];
-			notificationDate = [construction finishTime];
-		}
+	NSDictionary *cell = [[[cells objectAtIndex:indexPath.section] objectForKey:@"cells"] objectAtIndex:indexPath.row];
+	id value = [cell objectForKey:@"value"];
+	if ([value isKindOfClass:[NSDate class]]) {
+		notificationTitle = [cell objectForKey:@"name"];
+		notificationDate = (NSDate *)value;
+		if (DEBUG_APP)
+			notificationDate = [NSDate dateWithTimeIntervalSinceNow:40];
 	} else {
 		return;
 	}

@@ -118,12 +118,12 @@ static bool firstTime = true;
 	static UIImage *farmlistImage;
 	
 	if (!overviewImage) {
-		overviewImage = [UIImage imageNamed:@"53-house.png"];
-		resourcesImage = [UIImage imageNamed:@"48-fork-and-knife.png"];
-		troopsImage = [UIImage imageNamed:@"115-bow-and-arrow.png"];
-		buildingsImage = [UIImage imageNamed:@"177-building.png"];
-		villagesImage = [UIImage imageNamed:@"60-signpost.png"];
-		farmlistImage = [UIImage imageNamed:@"134-viking.png"];
+		overviewImage = [UIImage imageNamed:@"53-house-white.png"];
+		resourcesImage = [UIImage imageNamed:@"48-fork-and-knife-white.png"];
+		troopsImage = [UIImage imageNamed:@"115-bow-and-arrow-white.png"];
+		buildingsImage = [UIImage imageNamed:@"177-building-white.png"];
+		villagesImage = [UIImage imageNamed:@"60-signpost-white.png"];
+		farmlistImage = [UIImage imageNamed:@"134-viking-white.png"];
 	}
 	
 	if (tableView == headerTable) {

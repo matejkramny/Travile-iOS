@@ -208,6 +208,7 @@ static UIImage *darkSelecedCellImage;
 		selectedBackground = roundedTableCellSelectedBackgroundBottom;
 	}
 	
+	cell.backgroundColor = [UIColor whiteColor];
 	// Selected background
 	cell.selectedBackgroundView = selectedBackground;
 	cell.textLabel.highlightedTextColor = [UIColor whiteColor];

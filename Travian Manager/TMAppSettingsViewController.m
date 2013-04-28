@@ -6,6 +6,7 @@
 #import "TMApplicationSettings.h"
 #import "TMBasicToggleCell.h"
 #import "TMStorage.h"
+#import "AppDelegate.h"
 
 @interface TMAppSettingsViewController () {
 	TMApplicationSettings *settings;
@@ -74,6 +75,8 @@
 		[pushNotificationSwitch setOn:settings.pushNotifications];
 		[pushNotificationSwitch addTarget:self action:@selector(pushNotificationSwitchToggled:) forControlEvents:UIControlEventValueChanged];
 	}
+	
+	[AppDelegate setRoundedCellAppearance:cell forIndexPath:indexPath forLastRow:NO];
 	
 	return cell;
 }

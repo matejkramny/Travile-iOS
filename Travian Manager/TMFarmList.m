@@ -106,6 +106,15 @@
 				// Target Village Name
 				HTMLNode *target = [[slotRow findChildWithAttribute:@"class" matchingName:@"village" allowPartial:NO] findChildTag:@"label"];
 				entry.targetName = [target contents];
+				HTMLNode *coords = [target findChildWithAttribute:@"class" matchingName:@"coordinates" allowPartial:YES];
+				if (coords) {
+					HTMLNode *coordText = [coords findChildWithAttribute:@"class" matchingName:@"coordText" allowPartial:NO];
+					entry.targetName = [[coordText contents] stringByAppendingString:@" "];
+					NSArray *coordWrapper = [[coords findChildWithAttribute:@"class" matchingName:@"coordinatesWrapper" allowPartial:NO] children];
+					for (HTMLNode *child in coordWrapper) {
+						entry.targetName = [entry.targetName stringByAppendingString:[child contents]];
+					}
+				}
 				
 				// Population
 				HTMLNode *population = [slotRow findChildWithAttribute:@"class" matchingName:@"ew" allowPartial:NO];
