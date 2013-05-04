@@ -208,15 +208,15 @@ static NSString *farmList = @"build.php?tt=99&id=39";
 		return;
 	}
 	
-	//NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[self urlForString:@"logout.php"] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
+	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[self urlForString:@"logout.php"] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:60];
 	
-	//[request setHTTPShouldHandleCookies:YES];
+	[request setHTTPShouldHandleCookies:YES];
 	
 	[self setStatus:ANotLoggedIn];
 	
 	last_updated = [[NSDate date] timeIntervalSince1970];
 	
-	//NSURLConnection *conn __unused = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
+	NSURLConnection *conn __unused = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
 	
 	// Allow ARC to deallocate these.
 	village = nil;

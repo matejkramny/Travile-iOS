@@ -153,6 +153,7 @@ static NSString *title = @"Villages";
 	TMVillage *village = [[[storage account] villages] objectAtIndex:indexPath.row];
 	cell.textLabel.text = [village name];
 	//cell.backgroundColor = [UIColor colorWithRed:1.0 green:0 blue:0 alpha:1];
+	cell.detailTextLabel.text = [NSString stringWithFormat:@"%d", village.population];
 	
 	[AppDelegate setCellAppearance:cell forIndexPath:indexPath];
 	

@@ -132,16 +132,23 @@ static UIImageView *roundedTableCellSelectedBackgroundMiddle;
 static UIImage *detailAccessoryViewImage;
 static UIImageView *darkCellSelectedBackground;
 static UIImage *darkSelecedCellImage;
+static UIImage *cellOddBackground;
+static UIImage *cellEvenBackground;
 
 // Set appearance of cell based on indexPath
 + (void)setCellAppearance:(UITableViewCell *)cell forIndexPath:(NSIndexPath *)indexPath {
 	UIView *bg = [[UIView alloc] init];
 	
+	if (!cellOddBackground)
+		cellOddBackground = [[UIImage imageNamed:@"CellOdd.png"] stretchableImageWithLeftCapWidth:0 topCapHeight:0];
+	if (!cellEvenBackground)
+		cellEvenBackground = [[UIImage imageNamed:@"CellEven.png"] stretchableImageWithLeftCapWidth:0 topCapHeight:0];
+	
 	// Odd vs even row
 	if (indexPath.row % 2)
-		bg = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"CellOdd.png"] stretchableImageWithLeftCapWidth:0 topCapHeight:0]];
+		bg = [[UIImageView alloc] initWithImage:cellOddBackground];
 	else
-		bg = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"CellEven.png"] stretchableImageWithLeftCapWidth:0 topCapHeight:0]];
+		bg = [[UIImageView alloc] initWithImage:cellEvenBackground];
 	
 	// Background
 	cell.backgroundView = bg;

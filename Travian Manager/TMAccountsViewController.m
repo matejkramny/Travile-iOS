@@ -9,7 +9,6 @@
 #import "MBProgressHUD.h"
 #import "AppDelegate.h"
 #import "MKModalOverlay.h"
-#import "FlurryAds.h"
 
 @interface TMAccountsViewController () {
 	TMStorage *storage;
@@ -127,11 +126,6 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-	if (storage.accounts.count > 0) {
-		[FlurryAds setAdDelegate:self];
-		[FlurryAds fetchAndDisplayAdForSpace:@"LoginScreen" view:self.view size:BANNER_BOTTOM];
-	}
-	
 	if (firstAnimateButtons == false) {
 		// Do not fade buttons in, happens when returning from NewAccount scene
 		if ([[storage accounts] count] == 0) {
@@ -160,9 +154,6 @@
 	[super viewWillDisappear:animated];
 	
 	canSkipLoading = false;
-	
-	[FlurryAds removeAdFromSpace:@"LoginScreen"];
-	[FlurryAds setAdDelegate:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated {

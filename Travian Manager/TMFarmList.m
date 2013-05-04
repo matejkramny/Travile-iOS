@@ -124,6 +124,47 @@
 				HTMLNode *distance = [slotRow findChildWithAttribute:@"class" matchingName:@"distance" allowPartial:NO];
 				entry.distance = [[[distance contents] stringByReplacingOccurrencesOfString:@"\t" withString:@""] stringByReplacingOccurrencesOfString:@"\n" withString:@""];
 				
+				// Last Raid
+				HTMLNode *lastRaid = [slotRow findChildWithAttribute:@"class" matchingName:@"lastRaid" allowPartial:NO];
+				if (lastRaid) {
+					HTMLNode *iReport = [lastRaid findChildWithAttribute:@"class" matchingName:@"iReport" allowPartial:YES];
+					TMFarmListEntryFarmLastReportType type = 0;
+					if (iReport) {
+						NSString *iReportClass = [iReport getAttributeNamed:@"class"];
+						if ([iReportClass rangeOfString:@"iReport1"].location != NSNotFound) {
+							// No loss
+							type |= TMFarmListEntryFarmLastReportTypeLostNone;
+						} else if ([iReportClass rangeOfString:@"iReport2"].location != NSNotFound) {
+							// Some loss
+							type |= TMFarmListEntryFarmLastReportTypeLostSome;
+						} else if ([iReportClass rangeOfString:@"iReport3"].location != NSNotFound) {
+							// All lost
+							type |= TMFarmListEntryFarmLastReportTypeLostAll;
+						}
+					}
+					
+					HTMLNode *carry = [lastRaid findChildWithAttribute:@"class" matchingName:@"carry" allowPartial:YES];
+					if (carry) {
+						NSString *carryClass = [carry getAttributeNamed:@"class"];
+						if ([carryClass rangeOfString:@"empty"].location != NSNotFound) {
+							// no bounty
+							type |= TMFarmListEntryFarmLastReportTypeBountyNone;
+						} else if ([carryClass rangeOfString:@"half"].location != NSNotFound) {
+							// some bounty
+							type |= TMFarmListEntryFarmLastReportTypeBountyPartial;
+						} else if ([carryClass rangeOfString:@"full"].location != NSNotFound) {
+							// Full
+							type |= TMFarmListEntryFarmLastReportTypeBountyFull;
+						}
+						entry.lastReportBounty = [carry getAttributeNamed:@"alt"];
+					}
+					
+					HTMLNode *aTag = [lastRaid findChildTag:@"a"];
+					entry.lastReportTime = [aTag contents];
+					entry.lastReportURL = [[aTag getAttributeNamed:@"href"] stringByReplacingOccurrencesOfString:@"berichte.php?id=" withString:@""];
+					entry.lastReport = type;
+				}
+				
 				// List of troops
 				HTMLNode *troops = [slotRow findChildWithAttribute:@"class" matchingName:@"troops" allowPartial:NO];
 				if (troops) {

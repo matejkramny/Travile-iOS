@@ -41,6 +41,16 @@
 		}
 	}
 	
+	HTMLNode *subject = [node findChildWithAttribute:@"id" matchingName:@"subject" allowPartial:NO];
+	if (subject) {
+		name = [[subject findChildWithAttribute:@"class" matchingName:@"text" allowPartial:YES] contents];
+	}
+	
+	HTMLNode *time = [node findChildWithAttribute:@"id" matchingName:@"time" allowPartial:NO];
+	if (time) {
+		when = [[time findChildWithAttribute:@"class" matchingName:@"text" allowPartial:YES] contents];
+	}
+	
 	NSArray *tables = [report_content findChildTags:@"table"];
 	
 	for (HTMLNode *table in tables) {

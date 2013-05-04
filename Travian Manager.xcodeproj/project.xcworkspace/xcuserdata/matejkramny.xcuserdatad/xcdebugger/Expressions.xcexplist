@@ -3,6 +3,14 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "-[Building parsePage:fromHTMLNode:]:Building.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "-[Building connectionDidFinishLoading:]:Building.m">
          <PersistentStrings>
             <PersistentString
@@ -14,24 +22,24 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "-[PHVBuildingListViewController tableView:didSelectRowAtIndexPath:]:PHVBuildingListViewController.m">
-      </ContextState>
-      <ContextState
-         contextName = "-[Building parsePage:fromHTMLNode:]:Building.m">
+         contextName = "-[TMVillageBarracksCell configure]:TMVillageBarracksCell.m">
          <PersistentStrings>
             <PersistentString
-               value = "">
+               value = "troop.name">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[PHVBuildingsViewController phvBuildingListViewController:didSelectBuilding:]:PHVBuildingsViewController.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[PHVBuildingListViewController tableView:didSelectRowAtIndexPath:]:PHVBuildingListViewController.m">
       </ContextState>
       <ContextState
          contextName = "objc_retain:(null)">
       </ContextState>
       <ContextState
          contextName = "-[PHVillagesViewController viewWillAppear:]:PHVillagesViewController.m">
-      </ContextState>
-      <ContextState
-         contextName = "-[PHVBuildingsViewController phvBuildingListViewController:didSelectBuilding:]:PHVBuildingsViewController.m">
       </ContextState>
    </ContextStates>
 </VariablesViewState>
