@@ -249,10 +249,14 @@ static TMDarkImageCell *backCell; // shared
 	cell.bountyString.text = farm.lastReportBounty;
 	cell.lastAttackDate.text = farm.lastReportTime;
 	cell.distanceLabel.text = [farm.distance stringByAppendingString:@" sq"];
-	[cell configureReportStatus:farm.lastReport];
+	[cell configureReportStatus:farm.lastReport attacking:farm.attackInProgress];
 	
 	// Set the appearance of the cells
 	[AppDelegate setCellAppearance:cell forIndexPath:indexPath];
+	
+	if (farm.attackInProgress) {
+		cell.backgroundColor = [UIColor colorWithRed:0.3f green:0.3f blue:0.3f alpha:0.8f];
+	}
 	
 	//[cell addSubview:cell.frontView];
 	

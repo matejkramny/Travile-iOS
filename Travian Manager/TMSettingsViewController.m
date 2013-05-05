@@ -86,7 +86,6 @@ static NSString *viewTitle = @"Settings";
 		case 1:
 			return 3;
 		case 2:
-			return 1;
 		case 3:
 			return 2;
 	}
@@ -139,7 +138,11 @@ static NSString *viewTitle = @"Settings";
 		return cell;
 	} else if (indexPath.section == 2) {
 		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:basicCellSelectableIdentifier];
-		cell.textLabel.text = @"Credits";
+		
+		if (indexPath.row == 0)
+			cell.textLabel.text = @"Credits";
+		else
+			cell.textLabel.text = @"Contact Support";
 		
 		[AppDelegate setRoundedCellAppearance:cell forIndexPath:indexPath forLastRow:YES];
 		
@@ -174,8 +177,13 @@ static NSString *viewTitle = @"Settings";
 		[self.tabBarController setSelectedIndex:0];
 		
 		[tableView deselectRowAtIndexPath:indexPath animated:YES];
-	} else if (indexPath.section == 2 && indexPath.row == 0) {
-		[self performSegueWithIdentifier:@"OpenCredits" sender:self];
+	} else if (indexPath.section == 2) {
+		if (indexPath.row == 0)
+			[self performSegueWithIdentifier:@"OpenCredits" sender:self];
+		else {
+			[AppDelegate openSupportEmail];
+			[tableView deselectRowAtIndexPath:indexPath animated:YES];
+		}
 	} else if (indexPath.section == 3) {
 		TMAccount *a = [TMStorage sharedStorage].account;
 		NSString *url = [[NSString stringWithFormat:@"http://%@.travian.%@/%@", a.world, a.server, [TMAccount resources]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];

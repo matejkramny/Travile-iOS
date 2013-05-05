@@ -44,10 +44,10 @@ static bool firstTime = true;
 	
 	showsVillages = false;
 	[headerTable setBackgroundColor:backgroundImage];
-	//[headerTable setSeparatorStyle:UITableViewCellSeparatorStyleNone];
 	[contentTable setBackgroundColor:backgroundImage];
-	//[contentTable setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-	[self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"123-id-card-white.png"] style:UIBarButtonItemStylePlain target:self action:@selector(back:)]];
+	
+	[headerTable setFrame:CGRectMake(0, 0, 256, 88)];
+	[contentTable setFrame:CGRectMake(0, 88, 256, 372)];
 }
 
 - (void)didReceiveMemoryWarning
@@ -58,9 +58,6 @@ static bool firstTime = true;
 
 - (void)viewWillAppear:(BOOL)animated {
 	storage = [TMStorage sharedStorage];
-	
-	if (self.navigationItem != nil)
-		self.navigationItem.title = storage.account.village.name;
 	
 	if (firstTime) {
 		firstTime = false;
@@ -85,7 +82,7 @@ static bool firstTime = true;
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 	if (tableView == headerTable)
-		return 1;
+		return 2;
 	
 	if (showsVillages)
 		return storage.account.villages.count;
@@ -116,6 +113,7 @@ static bool firstTime = true;
 	static UIImage *buildingsImage;
 	static UIImage *villagesImage;
 	static UIImage *farmlistImage;
+	static UIImage *accountImage;
 	
 	if (!overviewImage) {
 		overviewImage = [UIImage imageNamed:@"53-house-white.png"];
@@ -124,12 +122,23 @@ static bool firstTime = true;
 		buildingsImage = [UIImage imageNamed:@"177-building-white.png"];
 		villagesImage = [UIImage imageNamed:@"60-signpost-white.png"];
 		farmlistImage = [UIImage imageNamed:@"134-viking-white.png"];
+		accountImage = [UIImage imageNamed:@"21-skull-white.png"];
 	}
 	
 	if (tableView == headerTable) {
-		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:BasicCellIdentifier forIndexPath:indexPath];
-		cell.textLabel.text = showsVillages ? @"To Village" : @"Switch Villages";
-		cell.imageView.image = villagesImage;
+		TMDarkImageCell *cell = [tableView dequeueReusableCellWithIdentifier:BasicCellIdentifier forIndexPath:indexPath];
+		if (!cell)
+			cell = [[TMDarkImageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:BasicCellIdentifier];
+		
+		cell.indentTitle = YES;
+		
+		if (indexPath.row == 0) {
+			cell.textLabel.text = @"Account";
+			cell.imageView.image = accountImage;
+		} else {
+			cell.textLabel.text = showsVillages ? @"To Village" : @"Switch Villages";
+			cell.imageView.image = villagesImage;
+		}
 		
 		[AppDelegate setDarkCellAppearance:cell forIndexPath:indexPath];
 		
@@ -189,6 +198,7 @@ static bool firstTime = true;
 				
 				text = [(TMConstruction *)[village.constructions objectAtIndex:row] name];
 			}
+			[cell setIndentTitle:NO];
 		}
 	}
 	
@@ -206,9 +216,6 @@ static bool firstTime = true;
 	
 	UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 35)];
 	
-	if (showsVillages)
-		return nil;
-	
 	if (tableView == contentTable) {
 		[header setBackgroundColor:backgroundColor];
 		UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, header.frame.size.width-10, header.frame.size.height)];
@@ -216,10 +223,14 @@ static bool firstTime = true;
 		label.textColor = [UIColor whiteColor];
 		label.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:20];
 		
-		if (section == 0) {
-			label.text = @"Village Sections";
+		if (showsVillages) {
+			label.text = [storage.account.username stringByAppendingString:@"'s Villages"];
 		} else {
-			label.text = @"Village Events";
+			if (section == 0) {
+				label.text = [@"Village " stringByAppendingString:storage.account.village.name];
+			} else {
+				label.text = @"Village Events";
+			}
 		}
 		
 		[header addSubview:label];
@@ -231,7 +242,7 @@ static bool firstTime = true;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-	if (tableView == contentTable && (section == 0 || section == 1) && !showsVillages) {
+	if (tableView == contentTable && (section == 0 || section == 1)) {
 		return 35;
 	}
 	
@@ -269,6 +280,12 @@ static bool firstTime = true;
 	NSIndexPath *path = indexPath;
 	
 	if (tableView == headerTable) {
+		if (indexPath.row == 0) {
+			// To account
+			[self back:nil];
+			return;
+		}
+		
 		showsVillages = !showsVillages;
 		
 		[self transitionTableContent:contentTable];

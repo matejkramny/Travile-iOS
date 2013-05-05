@@ -10,7 +10,7 @@
 
 @implementation TMSwipeableCell
 
-@synthesize backView, frontView, reportStatus, farmName, bountyString, lastAttackDate, reportBountyStatus, reportBountyStatusOverlay;
+@synthesize backView, frontView, reportStatus, farmName, bountyString, lastAttackDate, reportBountyStatus, reportBountyStatusOverlay, attackingIndicator;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -28,7 +28,7 @@
     // Configure the view for the selected state
 }
 
-- (void)configureReportStatus:(TMFarmListEntryFarmLastReportType)type {
+- (void)configureReportStatus:(TMFarmListEntryFarmLastReportType)type attacking:(bool)isAttacking {
 	//reportStatus.frame = CGRectMake(0, 0, 5, self.frame.size.height);
 	static UIColor *typeLostAllColour;
 	static UIColor *typeLostSomeColour;
@@ -73,6 +73,12 @@
 		reportBountyStatusOverlay.frame = CGRectMake(5, self.frame.size.height/2, 5, self.frame.size.height/2);
 	} else {
 		reportBountyStatusOverlay.frame = CGRectMake(5, 0, 5, 0);
+	}
+	
+	if (isAttacking) {
+		attackingIndicator.backgroundColor = typeLostSomeColour;
+	} else {
+		attackingIndicator.backgroundColor = [UIColor clearColor];
 	}
 }
 

@@ -104,7 +104,8 @@
 				entry.postName = [checkbox getAttributeNamed:@"name"];
 				
 				// Target Village Name
-				HTMLNode *target = [[slotRow findChildWithAttribute:@"class" matchingName:@"village" allowPartial:NO] findChildTag:@"label"];
+				HTMLNode *villageNode = [slotRow findChildWithAttribute:@"class" matchingName:@"village" allowPartial:NO];
+				HTMLNode *target = [villageNode findChildTag:@"label"];
 				entry.targetName = [target contents];
 				HTMLNode *coords = [target findChildWithAttribute:@"class" matchingName:@"coordinates" allowPartial:YES];
 				if (coords) {
@@ -113,6 +114,13 @@
 					NSArray *coordWrapper = [[coords findChildWithAttribute:@"class" matchingName:@"coordinatesWrapper" allowPartial:NO] children];
 					for (HTMLNode *child in coordWrapper) {
 						entry.targetName = [entry.targetName stringByAppendingString:[child contents]];
+					}
+				}
+				HTMLNode *villageImg = [villageNode findChildTag:@"img"];
+				entry.attackInProgress = NO;
+				if (villageImg) {
+					if ([[villageImg getAttributeNamed:@"class"] isEqualToString:@"attack att2"]) {
+						entry.attackInProgress = YES;
 					}
 				}
 				

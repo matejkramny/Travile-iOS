@@ -29,5 +29,6 @@ typedef enum {
 @property (nonatomic, strong) NSString *lastReportBounty; // Bounty string from last report
 @property (nonatomic, strong) NSString *lastReportTime; // Last attack time
 @property (nonatomic, strong) NSString *lastReportURL; // loading url of the report.
+@property (assign) bool attackInProgress;
 
 @end

@@ -28,7 +28,7 @@ static TMVillagePanelViewController *instance;
 - (void)awakeFromNib {
 	instance = self;
 	
-	[self setShouldResizeLeftPanel:YES];
+	[self setShouldResizeLeftPanel:NO];
 	[self setBounceOnSidePanelOpen:NO];
 	[self setBounceOnSidePanelClose:NO];
 	[self setAllowLeftOverpan:NO];
