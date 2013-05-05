@@ -65,6 +65,7 @@
 		} else {
 			cell = [tableView dequeueReusableCellWithIdentifier:SelectableCellIdentifier forIndexPath:indexPath];
 			cell.textLabel.text = @"Open Report";
+			cell.textLabel.backgroundColor = [UIColor clearColor];
 		}
 	} else {
 		cell = [tableView dequeueReusableCellWithIdentifier:RightDetailIdentifier forIndexPath:indexPath];
@@ -104,11 +105,24 @@ static TMReport *report;
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 	if (object == report) {
+		bool parsed = [(TMReport *)object parsed];
+		
+		if (!parsed) {
+			HUD.labelText = @"Error loading report";
+			[HUD hide:YES afterDelay:1.0];
+			[report removeObserver:self forKeyPath:@"parsed"];
+			[HUD removeGestureRecognizer:tapToCancel];
+			tapToCancel = nil;
+			[self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
+			return;
+		}
+		
 		UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard_iPhone" bundle:nil];
 		TMReportViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"reportView"];
 		[report removeObserver:self forKeyPath:@"parsed"];
 		vc.report = report;
 		[HUD hide:YES];
+		tapToCancel = nil;
 		[self.navigationController pushViewController:vc animated:YES];
 	}
 }
@@ -116,6 +130,9 @@ static TMReport *report;
 - (void)tappedToCancel:(id)sender {
 	[HUD hide:YES];
 	[report removeObserver:self forKeyPath:@"parsed"];
+	[self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
+	tapToCancel = nil;
+	[HUD removeGestureRecognizer:tapToCancel];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {

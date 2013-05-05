@@ -116,19 +116,6 @@ static UIBarButtonItem *executeButton;
 	}];
 }
 
-- (void)preloadCells {
-	cells = [[NSMutableArray alloc] init];
-	for (TMFarmListEntry *entry in village.farmList.farmLists) {
-		NSMutableArray *cell = [[NSMutableArray alloc] init];
-		
-		for (TMFarmListEntry *farm in entry.farms) {
-			[cell addObject:[NSNull null]];
-		}
-		
-		[cells addObject:cell];
-	}
-}
-
 - (void)tappedToCancel:(id)sender {
 	[HUD hide:YES];
 	[HUD removeGestureRecognizer:tapToCancel];
@@ -227,15 +214,9 @@ static TMDarkImageCell *backCell; // shared
 	}
 }
 
-- (UITableViewCell *)buildCellForTable:(UITableView *)tableView indexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	static NSString *BasicCellIdentifier = @"Basic";
 	static NSString *SwipeableCellidentifier = @"Swipeable";
-	
-	if ([cells count]-1 >= indexPath.section) {
-		[cells addObject:[[NSMutableArray alloc] init]];
-	}
-	
-	NSMutableArray *section = [cells objectAtIndex:indexPath.section];
 	
 	NSArray *lists = [village.farmList farmLists];
 	if (lists.count == 0 || [[lists objectAtIndex:indexPath.section] farms].count == 0) {
@@ -250,12 +231,6 @@ static TMDarkImageCell *backCell; // shared
 		[AppDelegate setCellAppearance:cell forIndexPath:indexPath];
 		
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;
-		
-		if ([section count]-1 > indexPath.row) {
-			[section addObject:cell];
-		} else {
-			[[cells objectAtIndex:indexPath.section] replaceObjectAtIndex:indexPath.row withObject:cell];
-		}
 		
 		return cell;
 	}
@@ -273,6 +248,7 @@ static TMDarkImageCell *backCell; // shared
 	cell.selectionStyle = UITableViewCellSelectionStyleBlue;
 	cell.bountyString.text = farm.lastReportBounty;
 	cell.lastAttackDate.text = farm.lastReportTime;
+	cell.distanceLabel.text = [farm.distance stringByAppendingString:@" sq"];
 	[cell configureReportStatus:farm.lastReport];
 	
 	// Set the appearance of the cells
@@ -291,21 +267,7 @@ static TMDarkImageCell *backCell; // shared
 	[panGestureRecognizer setDelegate:self];
 	[cell addGestureRecognizer:panGestureRecognizer];
 	
-	if (indexPath.row >= [section count]) {
-		[section addObject:cell];
-	} else {
-		[section replaceObjectAtIndex:indexPath.row withObject:cell];
-	}
-	
 	return cell;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if ([cells count]-1 >= indexPath.section || [[cells objectAtIndex:indexPath.section] count]-1 >= indexPath.row) {
-		return [self buildCellForTable:tableView indexPath:indexPath];
-	}
-	
-	return [[cells objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -490,19 +452,19 @@ after:;
 				compare = PAN_OPEN_X;
 			}
 			
-			if ([panGestureRecognizer translationInView:self.view].x > threshold) {
+			if (compare > threshold) {
 				// text = pull to open
 				backCell.textLabel.text = @"Pull";
 				//[backCell.textLabel setTransform:CGAffineTransformMakeTranslation(threshold*-1 + compare, 0)];
 				[UIView animateWithDuration:FAST_ANIMATION_DURATION animations:^{
 					[backCellTextBackgroundView setBackgroundColor:[UIColor colorWithRed:150.f/255.f green:180.f/255.f blue:56.f/255.f alpha:1.f]];
 				} completion:nil];
-				float newX = threshold * -1 + [panGestureRecognizer translationInView:self.view].x;
+				float newX = threshold * -1 + compare;
 				if (newX < 0) newX = 0;
 				
 				[backCellTextBackgroundView setTransform:CGAffineTransformMakeTranslation(newX, 0)];
 			} else {
-				compare = threshold - ((threshold - compare) / 4);
+				compare = threshold - ((threshold - compare) / 4); // Friction
 				// text = release to open
 				backCell.textLabel.text = @"Release";
 				//[backCell.textLabel setFrame:CGRectMake(10, backCell.bounds.origin.y, backCell.bounds.size.width, backCell.bounds.size.height)];

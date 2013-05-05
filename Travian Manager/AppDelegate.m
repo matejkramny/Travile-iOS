@@ -77,6 +77,11 @@ void uncaughtExceptionHandler(NSException *exception) {
 }
 - (void)applicationWillTerminate:(UIApplication *)application {}
 
++ (void)openSupportEmail {
+	NSString *url = [[NSString stringWithFormat:SupportEmail] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+	[[UIApplication sharedApplication] openURL:[NSURL URLWithString: url]];
+}
+
 @end
 
 @implementation AppDelegate (Appearance)

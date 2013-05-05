@@ -24,6 +24,7 @@
 #import "TMAccountTextFieldRightCell.h"
 #import "TMDeleteCell.h"
 #import "TMStorage.h"
+#import "AppDelegate.h"
 
 @interface TMAccountDetailsViewController () {
 	TMAccountTextFieldCell __weak *usernameCell, __weak *passwordCell, __weak *nameCell;
@@ -79,7 +80,7 @@ static NSString *editAccount = @"Edit Account";
 #pragma mark - TableView Data source methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return self.editingAccount == nil ? 3 : 4;
+	return self.editingAccount == nil ? 4 : 5;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -90,6 +91,7 @@ static NSString *editAccount = @"Edit Account";
 		case 2:
 			return 2;
 		case 3:
+		case 4:
 			return 1;
 	}
 	
@@ -189,6 +191,12 @@ static NSString *deleteButtonCellID = @"DeleteButton";
 		}
 		
 		return indexPath.row == 0 ? worldCell : serverCell;
+	} else if (indexPath.section == 3) {
+		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Button"];
+		cell.textLabel.text = @"Contact support";
+		
+		[AppDelegate setRoundedCellAppearance:cell forIndexPath:indexPath forLastRow:YES];
+		return cell;
 	} else {
 		// Delete button
 		TMDeleteCell *cell = [tableView dequeueReusableCellWithIdentifier:deleteButtonCellID];
@@ -233,8 +241,21 @@ static NSString *deleteButtonCellID = @"DeleteButton";
 	account.name = [(TMAccountTextFieldCell *)nameCell textField].text;
 	account.password = [(TMAccountTextFieldCell *)passwordCell textField].text;
 	account.username = [(TMAccountTextFieldCell *)usernameCell textField].text;
-	account.world = [(TMAccountTextFieldRightCell *)worldCell textField].text;
-	account.server = [(TMAccountTextFieldRightCell *)serverCell textField].text;
+	
+	NSString *worldS = [(TMAccountTextFieldRightCell *)worldCell textField].text;
+	NSString *serverS = [(TMAccountTextFieldRightCell *)serverCell textField].text;
+	if ([worldS hasPrefix:@"."] || [worldS hasPrefix:@"/"] || [worldS hasPrefix:@","])
+		worldS = [worldS substringFromIndex:1];
+	if ([serverS hasPrefix:@"."] || [serverS hasPrefix:@"/"] || [serverS hasPrefix:@","])
+		serverS = [serverS substringFromIndex:1];
+	
+	if ([worldS hasSuffix:@"."] || [worldS hasSuffix:@"/"] || [worldS hasSuffix:@","])
+		worldS = [worldS substringToIndex:worldS.length-1];
+	if ([serverS hasSuffix:@"."] || [serverS hasSuffix:@"/"] || [serverS hasSuffix:@","])
+		serverS = [serverS substringToIndex:serverS.length-1];
+	
+	account.world = worldS;
+	account.server = serverS;
 	
 	if (![account isComplete])
 	{
@@ -281,6 +302,10 @@ static NSString *deleteButtonCellID = @"DeleteButton";
 			}
 			break;
 		case 3:
+			[AppDelegate openSupportEmail];
+			[self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+			return;
+		case 4:
 			return;
 	}
 	
@@ -307,6 +332,8 @@ static NSString *deleteButtonCellID = @"DeleteButton";
 	switch (section) {
 		case 1:
 			return @"Leave password field empty to be asked every time";
+		case 2:
+			return @"Example travian server: http://ts1.travian.com/\nWorld: 'ts1'\nServer: 'com'";
 		default:
 			return @"";
 	}

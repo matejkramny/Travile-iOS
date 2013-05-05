@@ -1994,7 +1994,7 @@ bugs@matej.me</string>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="DeleteButton" id="w7O-m2-kbL" customClass="TMDeleteCell">
-                                <rect key="frame" x="0.0" y="135" width="320" height="45"/>
+                                <rect key="frame" x="0.0" y="135" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="10" y="0.0" width="300" height="43"/>
@@ -2022,6 +2022,25 @@ bugs@matej.me</string>
                                 <connections>
                                     <outlet property="button" destination="fco-Rv-Zrt" id="yEP-r4-qOr"/>
                                 </connections>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Button" textLabel="boi-th-pnz" style="IBUITableViewCellStyleDefault" id="rpN-uq-v4z" customClass="TMDeleteCell">
+                                <rect key="frame" x="0.0" y="179" width="320" height="45"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="10" y="0.0" width="280" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="boi-th-pnz">
+                                            <rect key="frame" x="10" y="0.0" width="260" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableViewCell>
                         </prototypes>
                         <sections/>
@@ -2128,28 +2147,45 @@ bugs@matej.me</string>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="CiK-pa-zYt">
-                                            <rect key="frame" x="13" y="2" width="285" height="21"/>
+                                            <rect key="frame" x="13" y="2" width="212" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="100.22 sq" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="y5G-Gx-a47">
+                                            <rect key="frame" x="233" y="2" width="65" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="13"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
                                         <view contentMode="scaleToFill" id="cXS-me-qrd">
-                                            <rect key="frame" x="0.0" y="0.0" width="10" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="5" height="44"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                        </view>
+                                        <view contentMode="scaleToFill" id="CeO-cL-kZK">
+                                            <rect key="frame" x="5" y="0.0" width="5" height="44"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                        </view>
+                                        <view contentMode="scaleToFill" id="80e-Kp-Gmx">
+                                            <rect key="frame" x="5" y="0.0" width="5" height="44"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                         </view>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Bounty: 1150 resources. Maximum capacity: 1150 resources." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="0vN-nO-fIp">
                                             <rect key="frame" x="13" y="22" width="163" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="13"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="04/30/13 04:21 pm" textAlignment="right" lineBreakMode="headTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8Oa-ja-9hd">
                                             <rect key="frame" x="184" y="22" width="114" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                            <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="13"/>
                                             <color key="textColor" name="keyboardFocusIndicatorColor" catalog="System" colorSpace="catalog"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
@@ -2158,8 +2194,11 @@ bugs@matej.me</string>
                                 </view>
                                 <connections>
                                     <outlet property="bountyString" destination="0vN-nO-fIp" id="Ikq-xO-byG"/>
+                                    <outlet property="distanceLabel" destination="y5G-Gx-a47" id="18m-cr-EWK"/>
                                     <outlet property="farmName" destination="CiK-pa-zYt" id="Vm3-ol-pSY"/>
                                     <outlet property="lastAttackDate" destination="8Oa-ja-9hd" id="OSo-73-xjS"/>
+                                    <outlet property="reportBountyStatus" destination="CeO-cL-kZK" id="Epx-be-fFS"/>
+                                    <outlet property="reportBountyStatusOverlay" destination="80e-Kp-Gmx" id="4yr-PC-MjE"/>
                                     <outlet property="reportStatus" destination="cXS-me-qrd" id="IEr-Bp-eXT"/>
                                 </connections>
                             </tableViewCell>
@@ -2481,8 +2520,11 @@ bugs@matej.me</string>
             <source key="sourceIdentifier" type="project" relativePath="./Classes/TMSwipeableCell.h"/>
             <relationships>
                 <relationship kind="outlet" name="bountyString" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="distanceLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="farmName" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="lastAttackDate" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="reportBountyStatus" candidateClass="UIView"/>
+                <relationship kind="outlet" name="reportBountyStatusOverlay" candidateClass="UIView"/>
                 <relationship kind="outlet" name="reportStatus" candidateClass="UIView"/>
             </relationships>
         </class>

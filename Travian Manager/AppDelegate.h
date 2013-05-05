@@ -19,12 +19,22 @@
 	#define DEBUG false
 #endif
 
+#ifndef UserAgent
+	#define UserAgent @"Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/28.0.1468.0 Safari/537.36"
+#endif
+
+#ifndef SupportEmail
+	#define SupportEmail @"mailto:matejkramny@gmail.com?subject=iTravian 4 Support"
+#endif
+
 @class TMStorage;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 @property (weak, nonatomic) TMStorage *storage;
+
++ (void)openSupportEmail;
 
 @end
 
