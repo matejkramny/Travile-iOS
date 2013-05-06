@@ -207,7 +207,7 @@
 		// Configure the cell...
 		TMAccount *a = [[storage accounts] objectAtIndex:indexPath.row];
 		cell.textLabel.text = [a name];
-		cell.detailTextLabel.text = [NSString stringWithFormat:@"%@@%@.travian.%@%@", a.username, a.world, a.server, DEBUG ? @"!!DEBUG" : @""];
+		cell.detailTextLabel.text = [NSString stringWithFormat:@"%@@%@.travian.%@%@", a.username, a.world, a.server, DEBUG ? @"!-DEBUG" : @""];
 
 		[cell setOpaque:YES];
 		[cell setAlpha:1];

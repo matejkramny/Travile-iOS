@@ -144,7 +144,7 @@ static NSString *viewTitle = @"Settings";
 		else
 			cell.textLabel.text = @"Contact Support";
 		
-		[AppDelegate setRoundedCellAppearance:cell forIndexPath:indexPath forLastRow:YES];
+		[AppDelegate setRoundedCellAppearance:cell forIndexPath:indexPath forLastRow:indexPath.row == 1];
 		
 		[cell.textLabel setBackgroundColor:[UIColor clearColor]];
 		

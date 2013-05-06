@@ -193,7 +193,7 @@ static NSString *deleteButtonCellID = @"DeleteButton";
 		return indexPath.row == 0 ? worldCell : serverCell;
 	} else if (indexPath.section == 3) {
 		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Button"];
-		cell.textLabel.text = @"Contact support";
+		cell.textLabel.text = @"Contact Support";
 		
 		[AppDelegate setRoundedCellAppearance:cell forIndexPath:indexPath forLastRow:YES];
 		return cell;
