@@ -121,8 +121,18 @@
 	
 	// get loyalty
 	HTMLNode *villageName = [node findChildWithAttribute:@"id" matchingName:@"villageName" allowPartial:NO];
+	if (!villageName) {
+		villageName = [node findChildWithAttribute:@"id" matchingName:@"sidebarBoxActiveVillage" allowPartial:NO];
+	}
 	if (villageName) {
-		NSString *span = [[[villageName findChildWithAttribute:@"class" matchingName:@"loyalty" allowPartial:YES] contents] stringByTrimmingCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]];
+		HTMLNode *loyaltyNode = [villageName findChildWithAttribute:@"class" matchingName:@"loyalty" allowPartial:YES];
+		HTMLNode *loyaltyNodeSpan = [loyaltyNode findChildTag:@"span"];
+		
+		NSString *span = [loyaltyNode contents];
+		if (loyaltyNodeSpan)
+			span = [loyaltyNodeSpan contents];
+		
+		span = [span stringByTrimmingCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]];
 		loyalty = [span intValue];
 	} else {
 		// T4.2 version?

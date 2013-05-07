@@ -84,7 +84,7 @@
 
 - (void)dismissView {
 //	[self dismissModalViewControllerAnimated:YES];
-	[self dismissViewControllerAnimated:YES completion:nil];
+	[self performSegueWithIdentifier:@"OpenAccount" sender:self];
 }
 
 @end
@@ -107,7 +107,7 @@
 	overlay = [[MKModalOverlay alloc] initWithTarget:self.navigationController.view];
 	[overlay configureBoundsBottomToTop];
 	
-	firstAnimateButtons = true;
+	firstAnimateButtons = false;
 	
 	addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addAccount:)];
 	editButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editButtonClicked:)];

@@ -45,7 +45,7 @@
 	NSMutableArray *strings = [[NSMutableArray alloc] initWithCapacity:[tr count]];
 	for (int i = 0; i < [tr count]; i++) {
 		HTMLNode *no = [tr objectAtIndex:i];
-		NSString *string = [[[no findChildWithAttribute:@"class" matchingName:@"num" allowPartial:NO] contents] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+		NSString *string = [[[no findChildWithAttribute:@"class" matchingName:@"num" allowPartial:NO] contents] stringByTrimmingCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]];
 		
 		[strings addObject:string];
 	}

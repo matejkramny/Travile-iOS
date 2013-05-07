@@ -11,6 +11,7 @@
 #import "TMOpenMessageViewController.h"
 #import "TMMessageCell.h"
 #import "MKModalOverlay/MKModalOverlay.h"
+#import "UIViewController+JASidePanel.h"
 
 @interface TMMessagesViewController () {
 	TMStorage *storage;

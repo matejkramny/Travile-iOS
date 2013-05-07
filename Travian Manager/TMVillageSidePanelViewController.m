@@ -20,6 +20,7 @@
 	UIViewController *currentViewController;
 	NSIndexPath *currentViewControllerIndexPath;
 	bool showsVillages;
+	bool showsVillage;
 }
 
 @end
@@ -46,7 +47,7 @@ static bool firstTime = true;
 	[headerTable setBackgroundColor:backgroundImage];
 	[contentTable setBackgroundColor:backgroundImage];
 	
-	[headerTable setFrame:CGRectMake(0, 0, 256, 88)];
+	[headerTable setFrame:CGRectMake(0, 0, 256, 44)];
 	[contentTable setFrame:CGRectMake(0, 88, 256, 372)];
 }
 
@@ -62,7 +63,7 @@ static bool firstTime = true;
 	if (firstTime) {
 		firstTime = false;
 		currentViewControllerIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-		currentViewController = [[TMVillagePanelViewController sharedInstance] villageOverview];
+		currentViewController = [[TMVillagePanelViewController sharedInstance] getReports];
 	}
 }
 
@@ -75,8 +76,10 @@ static bool firstTime = true;
 	
 	if (showsVillages)
 		return 1;
-	else
+	else if (showsVillage)
 		return storage.account.village.movements.count == 0 && storage.account.village.constructions.count == 0 ? 1 : 2;
+	else
+		return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -87,17 +90,25 @@ static bool firstTime = true;
 	if (showsVillages)
 		return storage.account.villages.count;
 	
-	if (section == 0)
-		return 5;
-	else if (section == 1) {
-		TMVillage *village = [storage account].village;
-		int count = 0;
-		if (village.movements && [village.movements count] > 0)
-			count += [village.movements count];
-		if (village.constructions)
-			count += [village.constructions count];
-		
-		return count;
+	if (showsVillage) {		
+		if (section == 0)
+			return 5;
+		else if (section == 1) {
+			TMVillage *village = [storage account].village;
+			int count = 0;
+			if (village.movements && [village.movements count] > 0)
+				count += [village.movements count];
+			if (village.constructions)
+				count += [village.constructions count];
+			
+			return count;
+		}
+	} else {
+		if (section == 0) {
+			return 4;
+		} else {
+			return storage.account.villages.count;
+		}
 	}
 	
 	return 0;
@@ -114,6 +125,10 @@ static bool firstTime = true;
 	static UIImage *villagesImage;
 	static UIImage *farmlistImage;
 	static UIImage *accountImage;
+	static UIImage *messagesImage;
+	static UIImage *reportsImage;
+	static UIImage *settingsImage;
+	static UIImage *heroImage;
 	
 	if (!overviewImage) {
 		overviewImage = [UIImage imageNamed:@"53-house-white.png"];
@@ -123,6 +138,10 @@ static bool firstTime = true;
 		villagesImage = [UIImage imageNamed:@"60-signpost-white.png"];
 		farmlistImage = [UIImage imageNamed:@"134-viking-white.png"];
 		accountImage = [UIImage imageNamed:@"21-skull-white.png"];
+		heroImage = [UIImage imageNamed:@"108-badge.png"];
+		messagesImage = [UIImage imageNamed:@"18-envelope-white.png"];
+		reportsImage = [UIImage imageNamed:@"16-line-chart.png"];
+		settingsImage = [UIImage imageNamed:@"20-gear2.png"];
 	}
 	
 	if (tableView == headerTable) {
@@ -146,6 +165,7 @@ static bool firstTime = true;
 	}
 	
 	// contentTable
+	
 	TMDarkImageCell *cell = [tableView dequeueReusableCellWithIdentifier:BasicSelectableCellIdentifier forIndexPath:indexPath];
 	if (!cell)
 		cell = [[TMDarkImageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:BasicSelectableCellIdentifier];
@@ -160,7 +180,7 @@ static bool firstTime = true;
 		if (village == storage.account.village) {
 			[tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
 		}
-	} else {
+	} else if (showsVillage) {
 		[cell setIndentTitle:YES];
 		
 		if (indexPath.section == 0) {
@@ -200,6 +220,30 @@ static bool firstTime = true;
 			}
 			[cell setIndentTitle:NO];
 		}
+	} else {
+		[cell setIndentTitle:YES];
+		if (indexPath.section == 0) {
+			switch (indexPath.row) {
+				case 0:
+					text = @"Messages";
+					cell.imageView.image = messagesImage;
+					break;
+				case 1:
+					text = @"Reports";
+					cell.imageView.image = reportsImage;
+					break;
+				case 2:
+					text = @"Hero";
+					cell.imageView.image = heroImage;
+					break;
+				case 3:
+					text = @"Settings";
+					cell.imageView.image = settingsImage;
+					break;
+			}
+		} else {
+			text = [[storage.account.villages objectAtIndex:indexPath.row] name];
+		}
 	}
 	
 	cell.textLabel.text = text;
@@ -225,12 +269,14 @@ static bool firstTime = true;
 		
 		if (showsVillages) {
 			label.text = [storage.account.username stringByAppendingString:@"'s Villages"];
-		} else {
+		} else if (showsVillage) {
 			if (section == 0) {
 				label.text = [@"Village " stringByAppendingString:storage.account.village.name];
 			} else {
 				label.text = @"Village Events";
 			}
+		} else {
+			label.text = @"Account";
 		}
 		
 		[header addSubview:label];
@@ -306,7 +352,7 @@ static bool firstTime = true;
 		newVC = currentViewController;
 		
 		if (newVC == nil) {
-			newVC = [panel villageOverview];
+			newVC = [panel getVillageOverview];
 			path = [NSIndexPath indexPathForRow:0 inSection:0];
 		}
 		
@@ -316,23 +362,42 @@ static bool firstTime = true;
 		
 		[self transitionTableContent:contentTable];
 		[self transitionTableContent:headerTable];
-	} else if (indexPath.section == 0) {
-		if (indexPath.row == 0)
-			newVC = [panel villageOverview];
-		else if (indexPath.row == 1)
-			newVC = [panel villageResources];
-		else if (indexPath.row == 2)
-			newVC = [panel villageTroops];
-		else if (indexPath.row == 3)
-			newVC = [panel villageBuildings];
-		else if (indexPath.row == 4)
-			newVC = [panel villageFarmlist];
+	} else if (showsVillage) {
+		if (indexPath.section == 0) {
+			if (indexPath.row == 0)
+				newVC = [panel getVillageOverview];
+			else if (indexPath.row == 1)
+				newVC = [panel getVillageResources];
+			else if (indexPath.row == 2)
+				newVC = [panel getVillageTroops];
+			else if (indexPath.row == 3)
+				newVC = [panel getVillageBuildings];
+			else if (indexPath.row == 4)
+				newVC = [panel getFarmList];
+		} else {
+			// Movements & constructions / events
+			newVC = [panel getVillageOverview];
+			path = [NSIndexPath indexPathForRow:0 inSection:0];
+			[tableView deselectRowAtIndexPath:indexPath animated:NO];
+			[tableView selectRowAtIndexPath:path animated:NO scrollPosition:UITableViewScrollPositionNone];
+		}
 	} else {
-		// Movements & constructions / events
-		newVC = [panel villageOverview];
-		path = [NSIndexPath indexPathForRow:0 inSection:0];
-		[tableView deselectRowAtIndexPath:indexPath animated:NO];
-		[tableView selectRowAtIndexPath:path animated:NO scrollPosition:UITableViewScrollPositionNone];
+		if (indexPath.section == 0) {
+			switch (indexPath.row) {
+				case 0:
+					newVC = [panel getMessages];
+					break;
+				case 1:
+					newVC = [panel getReports];
+					break;
+				case 2:
+					newVC = [panel getHero];
+					break;
+				case 3:
+					newVC = [panel getSettings];
+					break;
+			}
+		}
 	}
 	
 	currentViewController = newVC;

@@ -15,13 +15,17 @@
 
 @implementation TMVillagePanelViewController
 
-@synthesize villageOverview, villageResources, villageTroops, villageBuildings, villageFarmlist;
+@synthesize villageOverview, villageResources, villageTroops, villageBuildings, villageFarmlist, messages, reports, hero, settings;
 
 static NSString *villageOverviewIdentifier = @"villageOverview";
 static NSString *villageResourcesIdentifier = @"villageResources";
 static NSString *villageTroopsIdentifier = @"villageTroops";
 static NSString *villageBuildingsIdentifier = @"villageBuildings";
 static NSString *villageFarmlistIdentifier = @"villageFarmList";
+static NSString *messagesIdentifier = @"messages";
+static NSString *reportsIdentifier = @"reports";
+static NSString *heroIdentifier = @"hero";
+static NSString *settingsIdentifier = @"settings";
 
 static TMVillagePanelViewController *instance;
 
@@ -34,14 +38,8 @@ static TMVillagePanelViewController *instance;
 	[self setAllowLeftOverpan:NO];
 	[self setBounceOnCenterPanelChange:NO];
 	
-	villageOverview = [self.storyboard instantiateViewControllerWithIdentifier:villageOverviewIdentifier];
-	villageResources = [self.storyboard instantiateViewControllerWithIdentifier:villageResourcesIdentifier];
-	villageTroops = [self.storyboard instantiateViewControllerWithIdentifier:villageTroopsIdentifier];
-	villageBuildings = [self.storyboard instantiateViewControllerWithIdentifier:villageBuildingsIdentifier];
-	villageFarmlist = [self.storyboard instantiateViewControllerWithIdentifier:villageFarmlistIdentifier];
-	
 	[self setLeftPanel:[self.storyboard instantiateViewControllerWithIdentifier:@"sidebarVillage"]];
-	[self setCenterPanel:villageOverview];
+	[self setCenterPanel:[self getSettings]];
 }
 
 + (TMVillagePanelViewController *)sharedInstance {
@@ -54,6 +52,60 @@ static TMVillagePanelViewController *instance;
 	villageTroops = nil;
 	villageBuildings = nil;
 	villageFarmlist = nil;
+}
+
+- (UIViewController *)getMessages {
+	if (!messages) messages = [self.storyboard instantiateViewControllerWithIdentifier:messagesIdentifier];
+	
+	return messages;
+}
+
+- (UIViewController *)getReports {
+	if (!reports) reports = [self.storyboard instantiateViewControllerWithIdentifier:reportsIdentifier];
+	
+	return reports;
+}
+
+- (UIViewController *)getHero {
+	if (!hero) hero = [self.storyboard instantiateViewControllerWithIdentifier:heroIdentifier];
+	
+	return hero;
+}
+
+- (UIViewController *)getSettings {
+	if (!settings) settings = [self.storyboard instantiateViewControllerWithIdentifier:settingsIdentifier];
+	
+	return settings;
+}
+
+- (UIViewController *)getVillageOverview {
+	if (!villageOverview) villageOverview = [self.storyboard instantiateViewControllerWithIdentifier:villageOverviewIdentifier];
+	
+	return villageOverview;
+}
+
+- (UIViewController *)getVillageResources {
+	if (!villageResources) villageResources = [self.storyboard instantiateViewControllerWithIdentifier:villageResourcesIdentifier];
+	
+	return villageResources;
+}
+
+- (UIViewController *)getVillageTroops {
+	if (!villageTroops) villageTroops = [self.storyboard instantiateViewControllerWithIdentifier:villageTroopsIdentifier];
+	
+	return villageTroops;
+}
+
+- (UIViewController *)getVillageBuildings {
+	if (!villageBuildings) villageBuildings = [self.storyboard instantiateViewControllerWithIdentifier:villageBuildingsIdentifier];
+	
+	return villageBuildings;
+}
+
+- (UIViewController *)getFarmList {
+	if (!villageFarmlist) villageFarmlist = [self.storyboard instantiateViewControllerWithIdentifier:villageFarmlistIdentifier];
+	
+	return villageFarmlist;
 }
 
 @end
