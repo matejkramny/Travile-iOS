@@ -5,9 +5,6 @@
 #import <UIKit/UIKit.h>
 #import "JASidePanelController.h"
 
-@interface TMVillageSidePanelViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, JASidePanel>
-
-@property (weak, nonatomic) IBOutlet UITableView *headerTable;
-@property (weak, nonatomic) IBOutlet UITableView *contentTable;
+@interface TMVillageSidePanelViewController : UITableViewController
 
 @end

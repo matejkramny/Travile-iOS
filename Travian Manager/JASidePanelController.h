@@ -36,16 +36,6 @@ typedef enum _JASidePanelState {
     JASidePanelRightVisible
 } JASidePanelState;
 
-@protocol JASidePanel
-
-@optional
-- (void)willBecomeActiveAsPanelAnimated:(BOOL)animated withBounce:(BOOL)withBounce;
-- (void)didBecomeActiveAsPanelAnimated:(BOOL)animated withBounce:(BOOL)withBounce;
-- (void)willResignActiveAsPanelAnimated:(BOOL)animated withBounce:(BOOL)withBounce;
-- (void)didResignActiveAsPanelAnimated:(BOOL)animated withBounce:(BOOL)withBounce;
-
-@end
-
 @interface JASidePanelController : UIViewController<UIGestureRecognizerDelegate>
 
 #pragma mark - Usage
@@ -174,9 +164,5 @@ typedef enum _JASidePanelState {
 @property (nonatomic, strong, readonly) UIView *leftPanelContainer;
 @property (nonatomic, strong, readonly) UIView *rightPanelContainer;
 @property (nonatomic, strong, readonly) UIView *centerPanelContainer;
-
-#pragma mark - Call Pan from real world
-
-- (void)_handlePan:(UIGestureRecognizer *)sender;
 
 @end

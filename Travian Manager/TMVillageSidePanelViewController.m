@@ -27,8 +27,6 @@
 
 @implementation TMVillageSidePanelViewController
 
-@synthesize headerTable, contentTable;
-
 static bool firstTime = true;
 
 - (void)viewDidLoad
@@ -41,14 +39,10 @@ static bool firstTime = true;
 		backgroundImage = [UIColor colorWithPatternImage:[UIImage imageNamed:@"TMDarkBackground.png"]];
 	}
 	
-	[self.view setBackgroundColor:backgroundImage];
-	
 	showsVillages = false;
-	[headerTable setBackgroundColor:backgroundImage];
-	[contentTable setBackgroundColor:backgroundImage];
 	
-	[headerTable setFrame:CGRectMake(0, 0, 256, 44)];
-	[contentTable setFrame:CGRectMake(0, 88, 256, 372)];
+	[self.view setBackgroundColor:backgroundImage];
+	[self.tableView setBackgroundColor:backgroundImage];
 }
 
 - (void)didReceiveMemoryWarning
@@ -59,6 +53,7 @@ static bool firstTime = true;
 
 - (void)viewWillAppear:(BOOL)animated {
 	storage = [TMStorage sharedStorage];
+	[self.tableView setFrame:CGRectMake(0, 0, 256, 460)];
 	
 	if (firstTime) {
 		firstTime = false;
@@ -71,9 +66,6 @@ static bool firstTime = true;
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-	if (tableView == headerTable)
-		return 1;
-	
 	if (showsVillages)
 		return 1;
 	else if (showsVillage)
@@ -84,9 +76,6 @@ static bool firstTime = true;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-	if (tableView == headerTable)
-		return 2;
-	
 	if (showsVillages)
 		return storage.account.villages.count;
 	
@@ -143,28 +132,6 @@ static bool firstTime = true;
 		reportsImage = [UIImage imageNamed:@"16-line-chart.png"];
 		settingsImage = [UIImage imageNamed:@"20-gear2.png"];
 	}
-	
-	if (tableView == headerTable) {
-		TMDarkImageCell *cell = [tableView dequeueReusableCellWithIdentifier:BasicCellIdentifier forIndexPath:indexPath];
-		if (!cell)
-			cell = [[TMDarkImageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:BasicCellIdentifier];
-		
-		cell.indentTitle = YES;
-		
-		if (indexPath.row == 0) {
-			cell.textLabel.text = @"Account";
-			cell.imageView.image = accountImage;
-		} else {
-			cell.textLabel.text = showsVillages ? @"To Village" : @"Switch Villages";
-			cell.imageView.image = villagesImage;
-		}
-		
-		[AppDelegate setDarkCellAppearance:cell forIndexPath:indexPath];
-		
-		return cell;
-	}
-	
-	// contentTable
 	
 	TMDarkImageCell *cell = [tableView dequeueReusableCellWithIdentifier:BasicSelectableCellIdentifier forIndexPath:indexPath];
 	if (!cell)
@@ -260,35 +227,33 @@ static bool firstTime = true;
 	
 	UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 35)];
 	
-	if (tableView == contentTable) {
-		[header setBackgroundColor:backgroundColor];
-		UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, header.frame.size.width-10, header.frame.size.height)];
-		label.backgroundColor = [UIColor clearColor];
-		label.textColor = [UIColor whiteColor];
-		label.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:20];
-		
-		if (showsVillages) {
-			label.text = [storage.account.username stringByAppendingString:@"'s Villages"];
-		} else if (showsVillage) {
-			if (section == 0) {
-				label.text = [@"Village " stringByAppendingString:storage.account.village.name];
-			} else {
-				label.text = @"Village Events";
-			}
+	[header setBackgroundColor:backgroundColor];
+	UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, header.frame.size.width-10, header.frame.size.height)];
+	label.backgroundColor = [UIColor clearColor];
+	label.textColor = [UIColor whiteColor];
+	label.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:20];
+	
+	if (showsVillages) {
+		label.text = [storage.account.username stringByAppendingString:@"'s Villages"];
+	} else if (showsVillage) {
+		if (section == 0) {
+			label.text = [@"Village " stringByAppendingString:storage.account.village.name];
 		} else {
-			label.text = @"Account";
+			label.text = @"Village Events";
 		}
-		
-		[header addSubview:label];
+	} else if (section == 0) {
+		label.text = @"Account";
 	} else {
-		[header setBackgroundColor:[UIColor clearColor]];
+		label.text = @"Villages";
 	}
+	
+	[header addSubview:label];
 	
 	return header;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-	if (tableView == contentTable && (section == 0 || section == 1)) {
+	if ((section == 0 || section == 1)) {
 		return 35;
 	}
 	
@@ -309,10 +274,10 @@ static bool firstTime = true;
 	[transition setFillMode:kCAFillModeBoth];
 	[transition setDuration:0.2];
 	
-	if (showsVillages) {
-		[transition setSubtype:kCATransitionFromLeft];
-	} else {
+	if (showsVillage) {
 		[transition setSubtype:kCATransitionFromRight];
+	} else {
+		[transition setSubtype:kCATransitionFromLeft];
 	}
 	
 	[tableView reloadData];
@@ -325,24 +290,7 @@ static bool firstTime = true;
 	UIViewController *newVC = nil;
 	NSIndexPath *path = indexPath;
 	
-	if (tableView == headerTable) {
-		if (indexPath.row == 0) {
-			// To account
-			[self back:nil];
-			return;
-		}
-		
-		showsVillages = !showsVillages;
-		
-		[self transitionTableContent:contentTable];
-		[self transitionTableContent:headerTable];
-		if (!showsVillages)
-			[contentTable selectRowAtIndexPath:currentViewControllerIndexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
-		
-		[headerTable deselectRowAtIndexPath:indexPath animated:YES];
-		
-		return;
-	} else if (showsVillages) {
+	if (showsVillages) {
 		// Switch to the village.
 		TMVillage *village = [storage.account.villages objectAtIndex:indexPath.row];
 		[storage.account setVillage:village];
@@ -360,8 +308,7 @@ static bool firstTime = true;
 		[newVC viewWillAppear:NO]; // Simulate appearance
 		[newVC viewDidAppear:NO];
 		
-		[self transitionTableContent:contentTable];
-		[self transitionTableContent:headerTable];
+		[self transitionTableContent:tableView];
 	} else if (showsVillage) {
 		if (indexPath.section == 0) {
 			if (indexPath.row == 0)
@@ -397,6 +344,11 @@ static bool firstTime = true;
 					newVC = [panel getSettings];
 					break;
 			}
+		} else {
+			showsVillage = true;
+			[storage.account setVillage:[storage.account.villages objectAtIndex:indexPath.row]];
+			[self transitionTableContent:tableView];
+			return;
 		}
 	}
 	
@@ -408,7 +360,7 @@ static bool firstTime = true;
 #pragma mark - JASidePanelDelegate
 
 - (void)didBecomeActiveAsPanelAnimated:(BOOL)animated withBounce:(BOOL)withBounce {
-	[contentTable reloadData];
+	[self.tableView reloadData];
 	
 	if (!currentViewController) {
 		currentViewController = [TMVillagePanelViewController sharedInstance].villageOverview;
@@ -417,7 +369,7 @@ static bool firstTime = true;
 		currentViewControllerIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
 	}
 	
-	[contentTable selectRowAtIndexPath:currentViewControllerIndexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
+	[self.tableView selectRowAtIndexPath:currentViewControllerIndexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
 }
 
 @end

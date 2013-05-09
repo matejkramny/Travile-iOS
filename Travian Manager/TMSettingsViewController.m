@@ -76,17 +76,15 @@ static NSString *viewTitle = @"Settings";
 #pragma mark - Table view delegate
 
 - (int)numberOfSectionsInTableView:(UITableView *)tableView {
-	return 4;
+	return 3;
 }
 
 - (int)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	switch (section) {
 		case 0:
-			return 2;
-		case 1:
 			return 3;
+		case 1:
 		case 2:
-		case 3:
 			return 2;
 	}
 	
@@ -99,20 +97,6 @@ static NSString *viewTitle = @"Settings";
 	static NSString *basicToggleCellIdentifier = @"BasicToggle";
 	
 	if (indexPath.section == 0) {
-		if (indexPath.row == 0) {
-			UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:basicCellIdentifier];
-			cell.textLabel.text = @"Refresh Data";
-			[AppDelegate setRoundedCellAppearance:cell forIndexPath:indexPath forLastRow:NO];
-			
-			return cell;
-		} else if (indexPath.row == 1) {
-			UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:basicCellSelectableIdentifier];
-			cell.textLabel.text = @"Logout";
-			[AppDelegate setRoundedCellAppearance:cell forIndexPath:indexPath forLastRow:YES];
-			
-			return cell;
-		}
-	} else if (indexPath.section == 1) {
 		TMBasicToggleCell *cell = [tableView dequeueReusableCellWithIdentifier:basicToggleCellIdentifier];
 		if (!cell) {
 			cell = [[TMBasicToggleCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:basicToggleCellIdentifier];
@@ -136,7 +120,7 @@ static NSString *viewTitle = @"Settings";
 		}
 		
 		return cell;
-	} else if (indexPath.section == 2) {
+	} else if (indexPath.section == 1) {
 		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:basicCellSelectableIdentifier];
 		
 		if (indexPath.row == 0)
@@ -149,7 +133,7 @@ static NSString *viewTitle = @"Settings";
 		[cell.textLabel setBackgroundColor:[UIColor clearColor]];
 		
 		return cell;
-	} else if (indexPath.section == 3) {
+	} else if (indexPath.section == 2) {
 		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:basicCellSelectableIdentifier];
 		
 		if (indexPath.row == 0) {
@@ -168,23 +152,14 @@ static NSString *viewTitle = @"Settings";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	if (indexPath.section == 0 && indexPath.row == 0) {
-		// Reload data
-		[tableView deselectRowAtIndexPath:indexPath animated:YES];
-	} else if (indexPath.section == 0 && indexPath.row == 1) {
-		// Logout
-		[[TMStorage sharedStorage].account deactivateAccount];
-		[self.tabBarController setSelectedIndex:0];
-		
-		[tableView deselectRowAtIndexPath:indexPath animated:YES];
-	} else if (indexPath.section == 2) {
+	if (indexPath.section == 1) {
 		if (indexPath.row == 0)
 			[self performSegueWithIdentifier:@"OpenCredits" sender:self];
 		else {
 			[AppDelegate openSupportEmail];
 			[tableView deselectRowAtIndexPath:indexPath animated:YES];
 		}
-	} else if (indexPath.section == 3) {
+	} else if (indexPath.section == 2) {
 		TMAccount *a = [TMStorage sharedStorage].account;
 		NSString *url = [[NSString stringWithFormat:@"http://%@.travian.%@/%@", a.world, a.server, [TMAccount resources]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 		
@@ -213,7 +188,7 @@ static NSString *viewTitle = @"Settings";
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
 	switch (section) {
-		case 1:
+		case 0:
 			return @"Account Settings";
 		default:
 			return nil;
@@ -221,9 +196,9 @@ static NSString *viewTitle = @"Settings";
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
-	static NSString *selectedText = @"TM will only load a list of villages and unread messages count. This is the fastest and safest method.";
-	static NSString *notSelectedText = @"TM will load all villages at login time. This takes a bit longer depending on how many villages you have. Not recommended for players with many villages.";
-	if (section != 1) return nil;
+	static NSString *selectedText = @"App will only load a list of villages and unread messages count. This is the fastest and safest method.";
+	static NSString *notSelectedText = @"App will load all villages at login time. This takes a bit longer depending on how many villages you have. Not recommended for players with many villages.";
+	if (section != 0) return nil;
 	
 	if (settings.fastLogin) {
 		return selectedText;
