@@ -547,7 +547,7 @@
         <!--Village Panel View Controller-->
         <scene sceneID="ehD-mV-wJV">
             <objects>
-                <viewController id="0xI-A7-W2G" customClass="TMVillagePanelViewController" sceneMemberID="viewController">
+                <viewController modalTransitionStyle="flipHorizontal" id="0xI-A7-W2G" customClass="TMVillagePanelViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="d6q-mj-gSZ">
                         <rect key="frame" x="0.0" y="20" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
