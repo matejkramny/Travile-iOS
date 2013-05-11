@@ -2,18 +2,18 @@
  * All rights reserved.
  */
 
-#import "TMVillagePanelViewController.h"
+#import "TMSidePanelViewController.h"
 #import "TMVillageOverviewViewController.h"
 #import "TMVillageResourcesViewController.h"
 #import "TMVillageTroopsViewController.h"
 #import "TMVillageBuildingsViewController.h"
 
-@interface TMVillagePanelViewController () {
+@interface TMSidePanelViewController () {
 }
 
 @end
 
-@implementation TMVillagePanelViewController
+@implementation TMSidePanelViewController
 
 @synthesize villageOverview, villageResources, villageTroops, villageBuildings, villageFarmlist, messages, reports, hero, settings;
 
@@ -27,7 +27,7 @@ static NSString *reportsIdentifier = @"reports";
 static NSString *heroIdentifier = @"hero";
 static NSString *settingsIdentifier = @"settings";
 
-static TMVillagePanelViewController *instance;
+static TMSidePanelViewController *instance;
 
 - (void)awakeFromNib {
 	instance = self;
@@ -42,7 +42,7 @@ static TMVillagePanelViewController *instance;
 	[self setCenterPanel:[self getSettings]];
 }
 
-+ (TMVillagePanelViewController *)sharedInstance {
++ (TMSidePanelViewController *)sharedInstance {
 	return instance;
 }
 

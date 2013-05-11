@@ -3,7 +3,8 @@
  */
 
 #import <UIKit/UIKit.h>
+#import "JASidePanelController.h"
 
-@interface TMVillagesViewController : UITableViewController
+@interface TMSidePanelLeftViewController : UITableViewController
 
 @end

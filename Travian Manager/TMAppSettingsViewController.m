@@ -48,12 +48,12 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-	return 1;
+	return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 1;
+    return section == 0 ? 1 : 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -92,7 +92,11 @@
 	static NSString *icloud = @"Enable saving documents to iCloud";
 	static NSString *pushNotifications = @"Receive scheduled push notifications";
 	
-	if (section == 1)
+	if (section == 1) {
+		return [@"iTravian 4\nv" stringByAppendingFormat:@"%@\n© 2013 Matej Kramny", [AppDelegate getAppVersion]];
+	}
+	
+	if (section == 2)
 		return icloud;
 	else
 		return pushNotifications;

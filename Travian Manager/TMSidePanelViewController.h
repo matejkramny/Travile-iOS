@@ -5,7 +5,7 @@
 #import <UIKit/UIKit.h>
 #import "JASidePanelController.h"
 
-@interface TMVillagePanelViewController : JASidePanelController
+@interface TMSidePanelViewController : JASidePanelController
 
 @property (nonatomic, strong, getter = getVillageOverview) UIViewController *villageOverview;
 @property (nonatomic, strong, getter = getVillageResources) UIViewController *villageResources;
@@ -18,6 +18,6 @@
 @property (nonatomic, strong, getter = getHero) UIViewController *hero;
 @property (nonatomic, strong, getter = getSettings) UIViewController *settings;
 
-+ (TMVillagePanelViewController *)sharedInstance;
++ (TMSidePanelViewController *)sharedInstance;
 
 @end

@@ -82,6 +82,10 @@ void uncaughtExceptionHandler(NSException *exception) {
 	[[UIApplication sharedApplication] openURL:[NSURL URLWithString: url]];
 }
 
++ (NSString *)getAppVersion {
+	return [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
+}
+
 @end
 
 @implementation AppDelegate (Appearance)

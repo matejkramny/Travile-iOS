@@ -3,8 +3,9 @@
  */
 
 #import <UIKit/UIKit.h>
-#import "JASidePanelController.h"
 
-@interface TMVillageSidePanelViewController : UITableViewController
+@interface TMCreditsViewController : UIViewController
+
+@property (weak, nonatomic) IBOutlet UIWebView *webView;
 
 @end

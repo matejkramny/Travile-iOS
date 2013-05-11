@@ -124,15 +124,21 @@
 		4F578C48168235CF00DC9FB6 /* TMLabelAndTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F578C47168235CF00DC9FB6 /* TMLabelAndTextFieldCell.m */; };
 		4F578C4C168236B600DC9FB6 /* TMTextViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F578C4B168236B600DC9FB6 /* TMTextViewCell.m */; };
 		4F5F0A9415C0153400757356 /* TMOpenMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F5F0A9315C0153400757356 /* TMOpenMessageViewController.m */; };
-		4F6330691711E1F40005EE4B /* TMVillagePanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F6330681711E1F40005EE4B /* TMVillagePanelViewController.m */; };
+		4F6330691711E1F40005EE4B /* TMSidePanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F6330681711E1F40005EE4B /* TMSidePanelViewController.m */; };
 		4F63306E1711E22A0005EE4B /* JASidePanelController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F63306B1711E22A0005EE4B /* JASidePanelController.m */; };
 		4F63306F1711E22A0005EE4B /* UIViewController+JASidePanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F63306D1711E22A0005EE4B /* UIViewController+JASidePanel.m */; };
-		4F6330721711FE8C0005EE4B /* TMVillageSidePanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F6330711711FE8C0005EE4B /* TMVillageSidePanelViewController.m */; };
+		4F6330721711FE8C0005EE4B /* TMSidePanelLeftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F6330711711FE8C0005EE4B /* TMSidePanelLeftViewController.m */; };
 		4F6E222B15E15BFF002EC13F /* 37x-Checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F6E222915E15BFF002EC13F /* 37x-Checkmark.png */; };
 		4F6E222C15E15BFF002EC13F /* 37x-Checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F6E222A15E15BFF002EC13F /* 37x-Checkmark@2x.png */; };
 		4F6E222F15E51B85002EC13F /* TMBuildingAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F6E222E15E51B85002EC13F /* TMBuildingAction.m */; };
 		4F752573170C86FD00B447D4 /* MainStoryboard_iPhone.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4F752571170C86FD00B447D4 /* MainStoryboard_iPhone.strings */; };
 		4F81DFDC164F1CFE00523CF4 /* TMSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F81DFDB164F1CFD00523CF4 /* TMSettings.m */; };
+		4F888B26173EC24D00EFA3F2 /* 16-line-chart-white.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F888B20173EC24D00EFA3F2 /* 16-line-chart-white.png */; };
+		4F888B27173EC24D00EFA3F2 /* 16-line-chart-white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F888B21173EC24D00EFA3F2 /* 16-line-chart-white@2x.png */; };
+		4F888B28173EC24D00EFA3F2 /* 20-gear2-white.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F888B22173EC24D00EFA3F2 /* 20-gear2-white.png */; };
+		4F888B29173EC24D00EFA3F2 /* 20-gear2-white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F888B23173EC24D00EFA3F2 /* 20-gear2-white@2x.png */; };
+		4F888B2A173EC24D00EFA3F2 /* 108-badge-white.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F888B24173EC24D00EFA3F2 /* 108-badge-white.png */; };
+		4F888B2B173EC24D00EFA3F2 /* 108-badge-white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F888B25173EC24D00EFA3F2 /* 108-badge-white@2x.png */; };
 		4F895F1615C2C19A007525D9 /* TMHeroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F895F1515C2C19A007525D9 /* TMHeroViewController.m */; };
 		4F8A48A715C1FEDF00EC1564 /* NSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8A48A615C1FEDF00EC1564 /* NSString+HTML.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		4F8A48AA15C1FFB000EC1564 /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8A48A915C1FFB000EC1564 /* GTMNSString+HTML.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -217,6 +223,7 @@
 		4FEA4CCC17296467005AD0E9 /* 134-viking-white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FEA4CC017296467005AD0E9 /* 134-viking-white@2x.png */; };
 		4FEA4CCD17296467005AD0E9 /* 177-building-white.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FEA4CC117296467005AD0E9 /* 177-building-white.png */; };
 		4FEA4CCE17296467005AD0E9 /* 177-building-white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FEA4CC217296467005AD0E9 /* 177-building-white@2x.png */; };
+		4FFA06CB173C342A00CEFB98 /* TMCreditsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FFA06CA173C342A00CEFB98 /* TMCreditsViewController.m */; };
 		4FFA165A1736B89900C0A8A5 /* 21-skull-white.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FFA16581736B89900C0A8A5 /* 21-skull-white.png */; };
 		4FFA165B1736B89900C0A8A5 /* 21-skull-white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FFA16591736B89900C0A8A5 /* 21-skull-white@2x.png */; };
 /* End PBXBuildFile section */
@@ -378,14 +385,14 @@
 		4F578C4B168236B600DC9FB6 /* TMTextViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMTextViewCell.m; sourceTree = "<group>"; };
 		4F5F0A9215C0153400757356 /* TMOpenMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMOpenMessageViewController.h; sourceTree = "<group>"; };
 		4F5F0A9315C0153400757356 /* TMOpenMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMOpenMessageViewController.m; sourceTree = "<group>"; };
-		4F6330671711E1F40005EE4B /* TMVillagePanelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMVillagePanelViewController.h; sourceTree = "<group>"; };
-		4F6330681711E1F40005EE4B /* TMVillagePanelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMVillagePanelViewController.m; sourceTree = "<group>"; };
+		4F6330671711E1F40005EE4B /* TMSidePanelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMSidePanelViewController.h; sourceTree = "<group>"; };
+		4F6330681711E1F40005EE4B /* TMSidePanelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMSidePanelViewController.m; sourceTree = "<group>"; };
 		4F63306A1711E22A0005EE4B /* JASidePanelController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JASidePanelController.h; sourceTree = "<group>"; };
 		4F63306B1711E22A0005EE4B /* JASidePanelController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JASidePanelController.m; sourceTree = "<group>"; };
 		4F63306C1711E22A0005EE4B /* UIViewController+JASidePanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+JASidePanel.h"; sourceTree = "<group>"; };
 		4F63306D1711E22A0005EE4B /* UIViewController+JASidePanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+JASidePanel.m"; sourceTree = "<group>"; };
-		4F6330701711FE8C0005EE4B /* TMVillageSidePanelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMVillageSidePanelViewController.h; sourceTree = "<group>"; };
-		4F6330711711FE8C0005EE4B /* TMVillageSidePanelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMVillageSidePanelViewController.m; sourceTree = "<group>"; };
+		4F6330701711FE8C0005EE4B /* TMSidePanelLeftViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMSidePanelLeftViewController.h; sourceTree = "<group>"; };
+		4F6330711711FE8C0005EE4B /* TMSidePanelLeftViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMSidePanelLeftViewController.m; sourceTree = "<group>"; };
 		4F6E222915E15BFF002EC13F /* 37x-Checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "37x-Checkmark.png"; sourceTree = "<group>"; };
 		4F6E222A15E15BFF002EC13F /* 37x-Checkmark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "37x-Checkmark@2x.png"; sourceTree = "<group>"; };
 		4F6E222D15E51B84002EC13F /* TMBuildingAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMBuildingAction.h; sourceTree = "<group>"; };
@@ -397,6 +404,12 @@
 		4F75257E170CE77300B447D4 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4F81DFDA164F1CFD00523CF4 /* TMSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMSettings.h; sourceTree = "<group>"; };
 		4F81DFDB164F1CFD00523CF4 /* TMSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMSettings.m; sourceTree = "<group>"; };
+		4F888B20173EC24D00EFA3F2 /* 16-line-chart-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "16-line-chart-white.png"; sourceTree = "<group>"; };
+		4F888B21173EC24D00EFA3F2 /* 16-line-chart-white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "16-line-chart-white@2x.png"; sourceTree = "<group>"; };
+		4F888B22173EC24D00EFA3F2 /* 20-gear2-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "20-gear2-white.png"; sourceTree = "<group>"; };
+		4F888B23173EC24D00EFA3F2 /* 20-gear2-white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "20-gear2-white@2x.png"; sourceTree = "<group>"; };
+		4F888B24173EC24D00EFA3F2 /* 108-badge-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "108-badge-white.png"; sourceTree = "<group>"; };
+		4F888B25173EC24D00EFA3F2 /* 108-badge-white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "108-badge-white@2x.png"; sourceTree = "<group>"; };
 		4F895F1415C2C19A007525D9 /* TMHeroViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMHeroViewController.h; sourceTree = "<group>"; };
 		4F895F1515C2C19A007525D9 /* TMHeroViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMHeroViewController.m; sourceTree = "<group>"; };
 		4F8A48A515C1FEDF00EC1564 /* NSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+HTML.h"; sourceTree = "<group>"; };
@@ -516,6 +529,8 @@
 		4FEA4CC017296467005AD0E9 /* 134-viking-white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "134-viking-white@2x.png"; sourceTree = "<group>"; };
 		4FEA4CC117296467005AD0E9 /* 177-building-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "177-building-white.png"; sourceTree = "<group>"; };
 		4FEA4CC217296467005AD0E9 /* 177-building-white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "177-building-white@2x.png"; sourceTree = "<group>"; };
+		4FFA06C9173C342A00CEFB98 /* TMCreditsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMCreditsViewController.h; sourceTree = "<group>"; };
+		4FFA06CA173C342A00CEFB98 /* TMCreditsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMCreditsViewController.m; sourceTree = "<group>"; };
 		4FFA16581736B89900C0A8A5 /* 21-skull-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "21-skull-white.png"; sourceTree = "<group>"; };
 		4FFA16591736B89900C0A8A5 /* 21-skull-white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "21-skull-white@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -645,6 +660,7 @@
 				4F28C74015BB358500C976E3 /* TMAccountDetailsViewController.m */,
 				4FA47B20171163E400DFD460 /* TMAppSettingsViewController.h */,
 				4FA47B21171163E400DFD460 /* TMAppSettingsViewController.m */,
+				4FFA06C8173C33A000CEFB98 /* SidePanel */,
 				4FA1485316D94C76002E307B /* Village */,
 				4FC6F11D15BC4AC0006F583D /* TMReportsViewController.h */,
 				4FC6F11E15BC4AC0006F583D /* TMReportsViewController.m */,
@@ -660,6 +676,8 @@
 				4F895F1515C2C19A007525D9 /* TMHeroViewController.m */,
 				4FE58E9115C43C12004825EF /* TMSettingsViewController.h */,
 				4FE58E9215C43C12004825EF /* TMSettingsViewController.m */,
+				4FFA06C9173C342A00CEFB98 /* TMCreditsViewController.h */,
+				4FFA06CA173C342A00CEFB98 /* TMCreditsViewController.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -728,6 +746,8 @@
 				4F57044D15CEE126001614AC /* 106-sliders@2x.png */,
 				4F57044E15CEE126001614AC /* 108-badge.png */,
 				4F57044F15CEE126001614AC /* 108-badge@2x.png */,
+				4F888B24173EC24D00EFA3F2 /* 108-badge-white.png */,
+				4F888B25173EC24D00EFA3F2 /* 108-badge-white@2x.png */,
 				4F57045015CEE126001614AC /* 115-bow-and-arrow.png */,
 				4F57045115CEE126001614AC /* 115-bow-and-arrow@2x.png */,
 				4FEA4CBD17296467005AD0E9 /* 115-bow-and-arrow-white.png */,
@@ -750,6 +770,8 @@
 				4F57045D15CEE126001614AC /* 158-wrench-2@2x.png */,
 				4F57045E15CEE126001614AC /* 16-line-chart.png */,
 				4F57045F15CEE126001614AC /* 16-line-chart@2x.png */,
+				4F888B20173EC24D00EFA3F2 /* 16-line-chart-white.png */,
+				4F888B21173EC24D00EFA3F2 /* 16-line-chart-white@2x.png */,
 				4F57046015CEE126001614AC /* 177-building.png */,
 				4F57046115CEE126001614AC /* 177-building@2x.png */,
 				4FEA4CC117296467005AD0E9 /* 177-building-white.png */,
@@ -762,6 +784,8 @@
 				4F93DC1417394CB600269ECB /* 18-envelope-white@2x.png */,
 				4F57046615CEE126001614AC /* 20-gear2.png */,
 				4F57046715CEE126001614AC /* 20-gear2@2x.png */,
+				4F888B22173EC24D00EFA3F2 /* 20-gear2-white.png */,
+				4F888B23173EC24D00EFA3F2 /* 20-gear2-white@2x.png */,
 				4F57046815CEE126001614AC /* 21-skull.png */,
 				4F57046915CEE126001614AC /* 21-skull@2x.png */,
 				4FFA16581736B89900C0A8A5 /* 21-skull-white.png */,
@@ -865,10 +889,6 @@
 		4FA1485316D94C76002E307B /* Village */ = {
 			isa = PBXGroup;
 			children = (
-				4F6330671711E1F40005EE4B /* TMVillagePanelViewController.h */,
-				4F6330681711E1F40005EE4B /* TMVillagePanelViewController.m */,
-				4F6330701711FE8C0005EE4B /* TMVillageSidePanelViewController.h */,
-				4F6330711711FE8C0005EE4B /* TMVillageSidePanelViewController.m */,
 				4FC6F11A15BC4107006F583D /* TMVillagesViewController.h */,
 				4FC6F11B15BC4107006F583D /* TMVillagesViewController.m */,
 				4FE58E9915C59B55004825EF /* TMVillageOverviewViewController.h */,
@@ -975,6 +995,17 @@
 				4FD64FCA15DAAD57002FAFFC /* TMBuildingMap.m */,
 			);
 			name = BuildingMap;
+			sourceTree = "<group>";
+		};
+		4FFA06C8173C33A000CEFB98 /* SidePanel */ = {
+			isa = PBXGroup;
+			children = (
+				4F6330671711E1F40005EE4B /* TMSidePanelViewController.h */,
+				4F6330681711E1F40005EE4B /* TMSidePanelViewController.m */,
+				4F6330701711FE8C0005EE4B /* TMSidePanelLeftViewController.h */,
+				4F6330711711FE8C0005EE4B /* TMSidePanelLeftViewController.m */,
+			);
+			name = SidePanel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1163,6 +1194,12 @@
 				4FFA165B1736B89900C0A8A5 /* 21-skull-white@2x.png in Resources */,
 				4F93DC1517394CB600269ECB /* 18-envelope-white.png in Resources */,
 				4F93DC1617394CB600269ECB /* 18-envelope-white@2x.png in Resources */,
+				4F888B26173EC24D00EFA3F2 /* 16-line-chart-white.png in Resources */,
+				4F888B27173EC24D00EFA3F2 /* 16-line-chart-white@2x.png in Resources */,
+				4F888B28173EC24D00EFA3F2 /* 20-gear2-white.png in Resources */,
+				4F888B29173EC24D00EFA3F2 /* 20-gear2-white@2x.png in Resources */,
+				4F888B2A173EC24D00EFA3F2 /* 108-badge-white.png in Resources */,
+				4F888B2B173EC24D00EFA3F2 /* 108-badge-white@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1250,10 +1287,10 @@
 				4FA47AE51710652A00DFD460 /* TMBasicToggleCell.m in Sources */,
 				4FA47B22171163E500DFD460 /* TMAppSettingsViewController.m in Sources */,
 				4FA47B25171169D900DFD460 /* TMApplicationSettings.m in Sources */,
-				4F6330691711E1F40005EE4B /* TMVillagePanelViewController.m in Sources */,
+				4F6330691711E1F40005EE4B /* TMSidePanelViewController.m in Sources */,
 				4F63306E1711E22A0005EE4B /* JASidePanelController.m in Sources */,
 				4F63306F1711E22A0005EE4B /* UIViewController+JASidePanel.m in Sources */,
-				4F6330721711FE8C0005EE4B /* TMVillageSidePanelViewController.m in Sources */,
+				4F6330721711FE8C0005EE4B /* TMSidePanelLeftViewController.m in Sources */,
 				4F995DCA1712DBD2002E69AC /* TMDarkImageCell.m in Sources */,
 				4F995DDE17178C1F002E69AC /* TMReportViewController.m in Sources */,
 				4F97FBF5171EA48A00DF27B9 /* TMFarmList.m in Sources */,
@@ -1262,6 +1299,7 @@
 				4F0806C3171FE81000D0A453 /* TMFarmListEntryFarm.m in Sources */,
 				4F8F7DB817254E9F0055FE0A /* TMSwipeableCell.m in Sources */,
 				4F99DE841725E4FE00724E5F /* TMFarmListFarmViewController.m in Sources */,
+				4FFA06CB173C342A00CEFB98 /* TMCreditsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

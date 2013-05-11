@@ -92,7 +92,6 @@ static NSString *viewTitle = @"Settings";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	static NSString *basicCellIdentifier = @"BasicCell";
 	static NSString *basicCellSelectableIdentifier = @"BasicCellSelectable";
 	static NSString *basicToggleCellIdentifier = @"BasicToggle";
 	

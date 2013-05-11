@@ -178,7 +178,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nnN-X4-CPH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3215" y="-636"/>
+            <point key="canvasLocation" x="3215" y="0.0"/>
         </scene>
         <!--Navigation Controller - Overview-->
         <scene sceneID="3HU-UI-Eqg">
@@ -194,7 +194,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rlV-qA-iEs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2849" y="-636"/>
+            <point key="canvasLocation" x="2849" y="0.0"/>
         </scene>
         <!--Village Resources View Controller-->
         <scene sceneID="Cil-hf-ny0">
@@ -445,12 +445,12 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jsV-Zi-YGK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3215" y="-1217"/>
+            <point key="canvasLocation" x="3215" y="-581"/>
         </scene>
-        <!--Village Panel View Controller-->
+        <!--Side Panel View Controller-->
         <scene sceneID="ehD-mV-wJV">
             <objects>
-                <viewController modalTransitionStyle="flipHorizontal" id="0xI-A7-W2G" customClass="TMVillagePanelViewController" sceneMemberID="viewController">
+                <viewController modalTransitionStyle="flipHorizontal" id="0xI-A7-W2G" customClass="TMSidePanelViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="d6q-mj-gSZ">
                         <rect key="frame" x="0.0" y="20" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -462,10 +462,10 @@
             </objects>
             <point key="canvasLocation" x="1569" y="1490"/>
         </scene>
-        <!--Village Side Panel View Controller-->
+        <!--Side Panel Left View Controller-->
         <scene sceneID="Y4C-jg-pVt">
             <objects>
-                <tableViewController storyboardIdentifier="sidebarVillage" id="vGK-Q8-g39" customClass="TMVillageSidePanelViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="sidebarVillage" id="vGK-Q8-g39" customClass="TMSidePanelLeftViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="RNk-Vl-yCc">
                         <rect key="frame" x="0.0" y="20" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -580,7 +580,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kzl-nE-xlP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3215" y="-1793"/>
+            <point key="canvasLocation" x="3215" y="-1157"/>
         </scene>
         <!--Reports View Controller-->
         <scene sceneID="QV1-H3-GfR">
@@ -1119,7 +1119,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bFH-EL-H4y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3215" y="-2377"/>
+            <point key="canvasLocation" x="3215" y="-1741"/>
         </scene>
         <!--Village Open Building View Controller-->
         <scene sceneID="TCI-h5-TNx">
@@ -1277,7 +1277,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="geN-x5-EHz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3579" y="-2377"/>
+            <point key="canvasLocation" x="3579" y="-1741"/>
         </scene>
         <!--Navigation Controller - Reports-->
         <scene sceneID="OMB-44-1ep">
@@ -1380,7 +1380,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vzM-Oc-zfC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3945" y="-2377"/>
+            <point key="canvasLocation" x="3945" y="-1741"/>
         </scene>
         <!--Settings View Controller-->
         <scene sceneID="KSd-gl-cUs">
@@ -1464,7 +1464,7 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="1OQ-K8-coH"/>
                     <connections>
-                        <segue destination="M3S-CU-Tr9" kind="push" identifier="OpenCredits" id="cO0-JD-n5u"/>
+                        <segue destination="Vff-aF-PGF" kind="push" identifier="OpenCredits" id="cgP-Yq-jsR"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h9l-Y8-UHi" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1492,11 +1492,11 @@
             <objects>
                 <viewController id="M3S-CU-Tr9" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="WXv-ub-JCr">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="NkC-E3-php">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="iTravian 4" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="mcV-9F-a48">
@@ -1552,7 +1552,32 @@ bugs@matej.me</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="emi-ho-llS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3582" y="2471"/>
+            <point key="canvasLocation" x="3579" y="2819"/>
+        </scene>
+        <!--Credits View Controller - Credits-->
+        <scene sceneID="fkn-rh-uDy">
+            <objects>
+                <viewController id="Vff-aF-PGF" customClass="TMCreditsViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="xRe-He-Rvk">
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" id="NrZ-DK-KTv">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Credits" id="Fa6-oy-zo4"/>
+                    <connections>
+                        <outlet property="webView" destination="NrZ-DK-KTv" id="VTx-1d-Jhs"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="i5Y-IG-Wws" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3964" y="2473"/>
         </scene>
         <!--Navigation Controller - Hero-->
         <scene sceneID="Xrx-2O-od3">
@@ -1956,7 +1981,7 @@ bugs@matej.me</string>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="78u-qK-vuD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2849" y="-1217"/>
+            <point key="canvasLocation" x="2849" y="-581"/>
         </scene>
         <!--Farm List View Controller-->
         <scene sceneID="ZG1-js-EhO">
@@ -2081,7 +2106,7 @@ bugs@matej.me</string>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="C2L-e8-xJi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3215" y="-2953"/>
+            <point key="canvasLocation" x="3215" y="-2317"/>
         </scene>
         <!--Farm List Farm View Controller-->
         <scene sceneID="lbt-zu-qbU">
@@ -2170,7 +2195,7 @@ bugs@matej.me</string>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="17g-rQ-1ek" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3579" y="-2953"/>
+            <point key="canvasLocation" x="3579" y="-2317"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="vAz-oU-bGm">
@@ -2185,7 +2210,7 @@ bugs@matej.me</string>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EUL-dd-Coe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2849" y="-2953"/>
+            <point key="canvasLocation" x="2849" y="-2317"/>
         </scene>
         <!--Navigation Controller - Buildings-->
         <scene sceneID="WwQ-k2-10I">
@@ -2201,7 +2226,7 @@ bugs@matej.me</string>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iNy-Pi-qiF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2849" y="-2377"/>
+            <point key="canvasLocation" x="2849" y="-1741"/>
         </scene>
         <!--Navigation Controller - Troops-->
         <scene sceneID="V3K-aZ-rvZ">
@@ -2217,7 +2242,7 @@ bugs@matej.me</string>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xpv-5r-PoW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2849" y="-1793"/>
+            <point key="canvasLocation" x="2849" y="-1157"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Nvc-qG-mGl">
@@ -2286,6 +2311,12 @@ bugs@matej.me</string>
             <relationships>
                 <relationship kind="outlet" name="title" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="toggle" candidateClass="UISwitch"/>
+            </relationships>
+        </class>
+        <class className="TMCreditsViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TMCreditsViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="webView" candidateClass="UIWebView"/>
             </relationships>
         </class>
         <class className="TMDarkImageCell" superclassName="UITableViewCell">
@@ -2382,6 +2413,12 @@ bugs@matej.me</string>
                 <relationship kind="outlet" name="warehouseIndicator" candidateClass="UISwitch"/>
             </relationships>
         </class>
+        <class className="TMSidePanelLeftViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TMSidePanelLeftViewController.h"/>
+        </class>
+        <class className="TMSidePanelViewController" superclassName="JASidePanelController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TMSidePanelViewController.h"/>
+        </class>
         <class className="TMSwipeableCell" superclassName="UITableViewCell">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/TMSwipeableCell.h"/>
             <relationships>
@@ -2423,9 +2460,6 @@ bugs@matej.me</string>
                 <relationship kind="action" name="secondTimerFired:"/>
             </relationships>
         </class>
-        <class className="TMVillagePanelViewController" superclassName="JASidePanelController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/TMVillagePanelViewController.h"/>
-        </class>
         <class className="TMVillageResearchViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/TMVillageResearchViewController.h"/>
         </class>
@@ -2441,9 +2475,6 @@ bugs@matej.me</string>
                 <relationship kind="outlet" name="wheat" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="wood" candidateClass="UILabel"/>
             </relationships>
-        </class>
-        <class className="TMVillageSidePanelViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/TMVillageSidePanelViewController.h"/>
         </class>
         <class className="TMVillageTroopsViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/TMVillageTroopsViewController.h"/>

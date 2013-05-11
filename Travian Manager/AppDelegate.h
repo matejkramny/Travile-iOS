@@ -35,6 +35,7 @@
 @property (weak, nonatomic) TMStorage *storage;
 
 + (void)openSupportEmail;
++ (NSString *)getAppVersion;
 
 @end
 
