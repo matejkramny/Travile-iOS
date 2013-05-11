@@ -389,7 +389,7 @@ static char ja_kvoContext;
     }
 }
 
-- (void)setLeftPanel:(UIViewController *)leftPanel {
+- (void)setLeftPanel:(UIViewController<JASidePanelDelegate> *)leftPanel {
     if (leftPanel != _leftPanel) {
         [_leftPanel willMoveToParentViewController:nil];
         [_leftPanel.view removeFromSuperview];
@@ -818,6 +818,10 @@ static char ja_kvoContext;
         }
     }
     
+	if ([self.leftPanel respondsToSelector:@selector(didBecomeActiveAsPanelAnimated:)]) {
+		[self.leftPanel didBecomeActiveAsPanelAnimated:animated];
+	}
+	
     if (self.style == JASidePanelSingleActive) {
         self.tapView = [[UIView alloc] init];
     }

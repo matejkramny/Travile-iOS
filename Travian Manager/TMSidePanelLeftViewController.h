@@ -5,6 +5,6 @@
 #import <UIKit/UIKit.h>
 #import "JASidePanelController.h"
 
-@interface TMSidePanelLeftViewController : UITableViewController
+@interface TMSidePanelLeftViewController : UITableViewController <JASidePanelDelegate>
 
 @end

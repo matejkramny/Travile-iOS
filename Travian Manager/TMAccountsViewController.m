@@ -83,7 +83,6 @@
 }
 
 - (void)dismissView {
-//	[self dismissModalViewControllerAnimated:YES];
 	[self performSegueWithIdentifier:@"OpenAccount" sender:self];
 }
 
@@ -392,7 +391,7 @@
 			[storage.account removeObserver:self forKeyPath:@"progressIndicator"];
 			[storage.account removeObserver:self forKeyPath:@"status"];
 			
-			[[self tableView] deselectRowAtIndexPath:[[self tableView] indexPathForSelectedRow] animated:YES];
+			//[[self tableView] deselectRowAtIndexPath:[[self tableView] indexPathForSelectedRow] animated:YES];
 			
 			[self performSelector:@selector(dismissView) withObject:self afterDelay:0.6];
 		}
@@ -444,21 +443,16 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-	if ([segue.identifier isEqualToString:@"NewAccount"])
-	{
-		[overlay addOverlayAnimated:YES];
-		
+	[overlay addOverlayAnimated:YES];
+	
+	if ([segue.identifier isEqualToString:@"NewAccount"]) {
 		UINavigationController *navigationController = segue.destinationViewController;
 		TMAccountDetailsViewController *advc = [[navigationController viewControllers] objectAtIndex:0];
 		
 		advc.delegate = self;
 		advc.editingAccount = selectedAccount;
-	} else if ([segue.identifier isEqualToString:@"OpenSettings"]) {
-		[overlay addOverlayAnimated:YES];
-		insideSettings = true;
 	} else {
-		// open account
-		firstAnimateButtons = true;
+		insideSettings = true;
 	}
 }
 

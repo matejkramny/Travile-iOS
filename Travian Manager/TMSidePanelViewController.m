@@ -39,7 +39,7 @@ static TMSidePanelViewController *instance;
 	[self setBounceOnCenterPanelChange:NO];
 	
 	[self setLeftPanel:[self.storyboard instantiateViewControllerWithIdentifier:@"sidebarVillage"]];
-	[self setCenterPanel:[self getSettings]];
+	[self setCenterPanel:[self getMessages]];
 }
 
 + (TMSidePanelViewController *)sharedInstance {

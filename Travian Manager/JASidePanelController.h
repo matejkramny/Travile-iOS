@@ -36,12 +36,19 @@ typedef enum _JASidePanelState {
     JASidePanelRightVisible
 } JASidePanelState;
 
+@protocol JASidePanelDelegate <NSObject>
+
+@optional
+- (void)didBecomeActiveAsPanelAnimated:(BOOL)animated;
+
+@end
+
 @interface JASidePanelController : UIViewController<UIGestureRecognizerDelegate>
 
 #pragma mark - Usage
 
 // set the panels
-@property (nonatomic, strong) UIViewController *leftPanel;   // optional
+@property (nonatomic, strong) UIViewController<JASidePanelDelegate> *leftPanel;   // optional
 @property (nonatomic, strong) UIViewController *centerPanel; // required
 @property (nonatomic, strong) UIViewController *rightPanel;  // optional
 

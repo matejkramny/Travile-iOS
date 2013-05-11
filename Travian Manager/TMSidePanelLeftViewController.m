@@ -20,6 +20,7 @@
 	UIViewController *currentViewController;
 	NSIndexPath *currentViewControllerIndexPath;
 	bool showsVillage;
+	NSIndexPath *currentVillageIndexPath; // indexpath of active village
 }
 
 @end
@@ -56,8 +57,8 @@ static bool firstTime = true;
 	
 	if (firstTime) {
 		firstTime = false;
-		currentViewControllerIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-		currentViewController = [[TMSidePanelViewController sharedInstance] getReports];
+		currentViewControllerIndexPath = [NSIndexPath indexPathForRow:0 inSection:1];
+		currentViewController = [[TMSidePanelViewController sharedInstance] getMessages];
 	}
 }
 
@@ -68,7 +69,7 @@ static bool firstTime = true;
 	if (showsVillage)
 		return storage.account.village.movements.count == 0 && storage.account.village.constructions.count == 0 ? 2 : 3;
 	else
-		return 2;
+		return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -90,6 +91,8 @@ static bool firstTime = true;
 		}
 	} else {
 		if (section == 0) {
+			return 1;
+		} else if (section == 1) {
 			return 4;
 		} else {
 			return storage.account.villages.count;
@@ -177,6 +180,10 @@ static bool firstTime = true;
 		}
 	} else {
 		if (indexPath.section == 0) {
+			[cell setIndentTitle:NO];
+			text = @"Logout";
+			cell.imageView.image = nil;
+		} else if (indexPath.section == 1) {
 			[cell setIndentTitle:YES];
 			switch (indexPath.row) {
 				case 0:
@@ -232,8 +239,10 @@ static bool firstTime = true;
 			label.text = @"Village Events";
 		}
 	} else if (section == 0) {
+		return nil;
+	} else if (section == 1) {
 		label.text = @"Account";
-	} else {
+	} else if (section == 2) {
 		label.text = @"Villages";
 	}
 	
@@ -243,7 +252,7 @@ static bool firstTime = true;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-	if ((showsVillage && (section == 1 || section == 2)) || (!showsVillage && (section == 0 || section == 1))) {
+	if ((showsVillage && (section == 1 || section == 2)) || (!showsVillage && (section == 1 || section == 2))) {
 		return 35;
 	}
 	
@@ -291,7 +300,7 @@ static bool firstTime = true;
 			showsVillage = false;
 			[storage.account setVillage:nil];
 			[self transitionTableContent:tableView];
-			[tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1] animated:YES scrollPosition:UITableViewScrollPositionNone];
+			[tableView selectRowAtIndexPath:currentVillageIndexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
 			return;
 		} else if (indexPath.section == 1) {
 			if (indexPath.row == 0)
@@ -313,6 +322,21 @@ static bool firstTime = true;
 		}
 	} else {
 		if (indexPath.section == 0) {
+			[storage.account deactivateAccount];
+			
+			firstTime = YES;
+			
+			// Close the left panel
+			[self.sidePanelController toggleLeftPanel:self];
+			
+			// Dismiss the view *after* the left panel closes
+			dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.2f * NSEC_PER_SEC);
+			dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+				[self dismissViewControllerAnimated:YES completion:nil];
+			});
+			
+			return;
+		} else if (indexPath.section == 1) {
 			switch (indexPath.row) {
 				case 0:
 					newVC = [panel getMessages];
@@ -330,6 +354,7 @@ static bool firstTime = true;
 		} else {
 			showsVillage = true;
 			[storage.account setVillage:[storage.account.villages objectAtIndex:indexPath.row]];
+			currentVillageIndexPath = indexPath;
 			[self transitionTableContent:tableView];
 			return;
 		}
@@ -340,9 +365,9 @@ static bool firstTime = true;
 	[self.sidePanelController setCenterPanel:newVC];
 }
 
-#pragma mark - JASidePanelDelegate
+#pragma mark -
 
-- (void)didBecomeActiveAsPanelAnimated:(BOOL)animated withBounce:(BOOL)withBounce {
+- (void)didBecomeActiveAsPanelAnimated:(BOOL)animated {
 	[self.tableView reloadData];
 	
 	if (!currentViewController) {
