@@ -93,7 +93,7 @@
 	static NSString *pushNotifications = @"Receive scheduled push notifications";
 	
 	if (section == 1) {
-		return [@"iTravian 4\nv" stringByAppendingFormat:@"%@\n© 2013 Matej Kramny", [AppDelegate getAppVersion]];
+		return [@"Travian Reader\nv" stringByAppendingFormat:@"%@\n© 2013 Matej Kramny", [AppDelegate getAppVersion]];
 	}
 	
 	if (section == 2)

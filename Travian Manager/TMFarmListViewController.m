@@ -27,6 +27,8 @@
 	bool cancelledExecution;
 	
 	NSMutableArray *cells;
+	
+	NSIndexPath *highlightedFarmIndexPath;
 }
 
 @end
@@ -286,32 +288,10 @@ static TMDarkImageCell *backCell; // shared
 		return;
 	
 	UITableViewCell *cell = (UITableViewCell *)gesture.view;
-	NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
-	TMFarmListEntry *selectedEntry = [village.farmList.farmLists objectAtIndex:cellIndexPath.section];
-	// Toggle all on-or off based on this cell
-	TMFarmListEntryFarm *selectedFarm = [[selectedEntry farms] objectAtIndex:cellIndexPath.row];
-	bool newState = !selectedFarm.selected;
+	highlightedFarmIndexPath = [self.tableView indexPathForCell:cell];
 	
-	int i = 0;
-	for (TMFarmListEntry *entry in village.farmList.farmLists) {
-		bool toBeReloaded = false;
-		for (TMFarmListEntryFarm *farm in entry.farms) {
-			if (i == cellIndexPath.section) {
-				farm.selected = newState;
-				toBeReloaded = true;
-			} else if (newState == true && farm.selected == true) {
-				farm.selected = false;
-				toBeReloaded = true;
-			}
-		}
-		
-		if (toBeReloaded)
-			[self.tableView reloadSections:[NSIndexSet indexSetWithIndex:i] withRowAnimation:UITableViewRowAnimationFade];
-		
-		i++;
-	}
-	
-	[self setExecuteButtonEnabled];
+	UIActionSheet *stateActionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Nothing" destructiveButtonTitle:@"Deactivate farms" otherButtonTitles:@"Activate farms", @"Activate good farms", @"Activate full-bounty farms", nil];
+	[stateActionSheet showFromRect:self.view.frame inView:self.view animated:YES];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -329,16 +309,16 @@ static TMDarkImageCell *backCell; // shared
 		for (TMFarmListEntryFarm *farm in entry.farms) {
 			if (farm.selected) {
 				selectedCount++;
-				goto after;
 			}
 		}
 	}
-after:;
 	
 	if (selectedCount > 0) {
 		[executeButton setEnabled:YES];
+		[executeButton setTitle:[@"Execute " stringByAppendingFormat:@"%d", selectedCount]];
 	} else {
 		[executeButton setEnabled:NO];
+		[executeButton setTitle:@"Execute"];
 	}
 }
 
@@ -511,6 +491,74 @@ after:;
 		[self setOpenCellIndexPath:nil];
 		[self setOpenCellLastTX:0];
 	}
+}
+
+#pragma mark - UIActionSheetDelegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+	if (buttonIndex == 0 || buttonIndex == 1) {
+		bool newState = (bool)buttonIndex;
+		
+		int i = 0;
+		for (TMFarmListEntry *entry in village.farmList.farmLists) {
+			bool toBeReloaded = false;
+			for (TMFarmListEntryFarm *farm in entry.farms) {
+				if (i == highlightedFarmIndexPath.section) {
+					farm.selected = newState;
+					toBeReloaded = true;
+				} else if (newState == true && farm.selected == true) {
+					farm.selected = false;
+					toBeReloaded = true;
+				}
+			}
+			
+			if (toBeReloaded)
+				[self.tableView reloadSections:[NSIndexSet indexSetWithIndex:i] withRowAnimation:UITableViewRowAnimationFade];
+			
+			i++;
+		}
+	} else if (buttonIndex == 2) {
+		int i = 0;
+		for (TMFarmListEntry *entry in village.farmList.farmLists) {
+			bool toBeReloaded = false;
+			for (TMFarmListEntryFarm *farm in entry.farms) {
+				if (i == highlightedFarmIndexPath.section && (farm.lastReport & TMFarmListEntryFarmLastReportTypeLostNone) != 0) {
+					farm.selected = true;
+					toBeReloaded = true;
+				} else if (farm.selected == true) {
+					farm.selected = false;
+					toBeReloaded = true;
+				}
+			}
+			
+			if (toBeReloaded)
+				[self.tableView reloadSections:[NSIndexSet indexSetWithIndex:i] withRowAnimation:UITableViewRowAnimationFade];
+			
+			i++;
+		}
+	} else if (buttonIndex == 3) {
+		int i = 0;
+		for (TMFarmListEntry *entry in village.farmList.farmLists) {
+			bool toBeReloaded = false;
+			for (TMFarmListEntryFarm *farm in entry.farms) {
+				if (i == highlightedFarmIndexPath.section && (farm.lastReport & TMFarmListEntryFarmLastReportTypeBountyFull) != 0) {
+					farm.selected = true;
+					toBeReloaded = true;
+				} else if (farm.selected == true) {
+					farm.selected = false;
+					toBeReloaded = true;
+				}
+			}
+			
+			if (toBeReloaded)
+				[self.tableView reloadSections:[NSIndexSet indexSetWithIndex:i] withRowAnimation:UITableViewRowAnimationFade];
+			
+			i++;
+		}
+	}
+	
+	
+	[self setExecuteButtonEnabled];
 }
 
 @end
