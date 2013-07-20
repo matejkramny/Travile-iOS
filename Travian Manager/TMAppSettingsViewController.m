@@ -91,9 +91,13 @@
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
 	static NSString *icloud = @"Enable saving documents to iCloud";
 	static NSString *pushNotifications = @"Receive scheduled push notifications";
+	static NSString *creditsString;
+	
+	if (!creditsString)
+		creditsString = [@"Travile \nv" stringByAppendingFormat:@"%@\n© 2013 Matej Kramny\n\nOpen Source application\ngithub.com/matejkramny/Travian-iOS-App\n\nThis app wouldn't be possible without the awesome Travian game by Travian Gmbh.", [AppDelegate getAppVersion]];
 	
 	if (section == 1) {
-		return [@"Travian Reader\nv" stringByAppendingFormat:@"%@\n© 2013 Matej Kramny", [AppDelegate getAppVersion]];
+		return creditsString;
 	}
 	
 	if (section == 2)

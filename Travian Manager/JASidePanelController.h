@@ -36,19 +36,12 @@ typedef enum _JASidePanelState {
     JASidePanelRightVisible
 } JASidePanelState;
 
-@protocol JASidePanelDelegate <NSObject>
-
-@optional
-- (void)didBecomeActiveAsPanelAnimated:(BOOL)animated;
-
-@end
-
 @interface JASidePanelController : UIViewController<UIGestureRecognizerDelegate>
 
 #pragma mark - Usage
 
 // set the panels
-@property (nonatomic, strong) UIViewController<JASidePanelDelegate> *leftPanel;   // optional
+@property (nonatomic, strong) UIViewController *leftPanel;   // optional
 @property (nonatomic, strong) UIViewController *centerPanel; // required
 @property (nonatomic, strong) UIViewController *rightPanel;  // optional
 
@@ -69,12 +62,13 @@ typedef enum _JASidePanelState {
 // Calling this while the left or right panel is visible causes the center panel to be completely hidden
 - (void)setCenterPanelHidden:(BOOL)centerPanelHidden animated:(BOOL)animated duration:(NSTimeInterval) duration;
 
-- (void)_handlePan:(UIPanGestureRecognizer *)panGestureRecognizer;
-
 #pragma mark - Look & Feel
 
 // style
 @property (nonatomic) JASidePanelStyle style; // default is JASidePanelSingleActive
+
+// push side panels instead of overlapping them
+@property (nonatomic, assign) BOOL pushesSidePanels;
 
 // size the left panel based on % of total screen width
 @property (nonatomic) CGFloat leftGapPercentage; 
@@ -173,5 +167,9 @@ typedef enum _JASidePanelState {
 @property (nonatomic, strong, readonly) UIView *leftPanelContainer;
 @property (nonatomic, strong, readonly) UIView *rightPanelContainer;
 @property (nonatomic, strong, readonly) UIView *centerPanelContainer;
+
+
+#pragma mark -
+- (void)_handlePan:(UIGestureRecognizer *)sender;
 
 @end

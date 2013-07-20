@@ -45,7 +45,7 @@ static NSString *viewTitle = @"Reports";
     [super viewDidLoad];
 	
 	storage = [TMStorage sharedStorage];
-	[self.navigationItem setLeftBarButtonItem:editButton animated:NO];
+	//[self.navigationItem setLeftBarButtonItem:editButton animated:NO];
 	[self setTitle:viewTitle];
 }
 

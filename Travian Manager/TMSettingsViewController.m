@@ -113,7 +113,9 @@ static NSString *viewTitle = @"Settings";
 			warehouseIndicator = cell.toggle;
 		} else if (indexPath.row == 2) {
 			cell.title.text = @"Fast login";
-			[cell.toggle setOn:settings.fastLogin];
+			[cell.toggle setOn:false];
+			[cell.toggle setEnabled:false];
+//#warning disabled fast login for now - buggy
 			[cell.toggle addTarget:self action:@selector(loadAllAtOnce:) forControlEvents:UIControlEventTouchUpInside];
 			loadAllAtOnce = cell.toggle;
 		}

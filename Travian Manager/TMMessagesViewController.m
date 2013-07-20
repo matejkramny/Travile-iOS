@@ -24,9 +24,9 @@
 	UITableViewCell *noMessagesCell;
 	
 	UIBarButtonItem *newMessageButtonItem;
-	UIBarButtonItem *editButtonItem;
-	UIBarButtonItem *deleteButtonItem;
-	UIBarButtonItem *editDoneButtonItem;
+	//UIBarButtonItem *editButtonItem;
+	//UIBarButtonItem *deleteButtonItem;
+	//UIBarButtonItem *editDoneButtonItem;
 	
 	NSMutableArray *deleteArray;
 	bool forceZeroRows;
@@ -88,9 +88,9 @@ static NSString *viewTitle = @"Messages";
 	account = [storage account];
 	[[self tableView] setAllowsSelectionDuringEditing:YES];
 	newMessageButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(newMessage:)];
-	editButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editButtonClicked:)];
-	deleteButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(delete:)];
-	editDoneButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(editButtonClicked:)];
+	//editButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editButtonClicked:)];
+	//deleteButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(delete:)];
+	//editDoneButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(editButtonClicked:)];
 	
 	[self reloadBadgeCount];
 	
@@ -173,16 +173,16 @@ static NSString *viewTitle = @"Messages";
 }
 - (void)setNavigationItems:(BOOL)editing animated:(BOOL)animated {
 	if (editing) {
-		[self.navigationItem setLeftBarButtonItem:editDoneButtonItem animated:animated];
-		[self.navigationItem setRightBarButtonItem:deleteButtonItem animated:animated];
+		//[self.navigationItem setLeftBarButtonItem:editDoneButtonItem animated:animated];
+		//[self.navigationItem setRightBarButtonItem:deleteButtonItem animated:animated];
 	} else {
 		[self.navigationItem setRightBarButtonItems:nil animated:animated];
-		[self.navigationItem setLeftBarButtonItems:nil animated:animated];
+		//[self.navigationItem setLeftBarButtonItems:nil animated:animated];
 		[self.navigationItem setRightBarButtonItem:newMessageButtonItem animated:animated];
 		if ([cells count] != 0) {
-			[self.navigationItem setLeftBarButtonItem:editButtonItem animated:animated];
+			//[self.navigationItem setLeftBarButtonItem:editButtonItem animated:animated];
 		} else {
-			[self.navigationItem setLeftBarButtonItem:nil animated:animated];
+			//[self.navigationItem setLeftBarButtonItem:nil animated:animated];
 		}
 	}
 }

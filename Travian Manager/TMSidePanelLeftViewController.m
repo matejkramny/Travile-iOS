@@ -21,6 +21,7 @@
 	NSIndexPath *currentViewControllerIndexPath;
 	bool showsVillage;
 	NSIndexPath *currentVillageIndexPath; // indexpath of active village
+	NSIndexPath *lastVillageIndexPath;
 }
 
 @end
@@ -313,6 +314,7 @@ static bool firstTime = true;
 				newVC = [panel getVillageBuildings];
 			else if (indexPath.row == 4)
 				newVC = [panel getFarmList];
+			lastVillageIndexPath = indexPath;
 		} else {
 			// Movements & constructions / events
 			newVC = [panel getVillageOverview];
@@ -356,6 +358,7 @@ static bool firstTime = true;
 			[storage.account setVillage:[storage.account.villages objectAtIndex:indexPath.row]];
 			currentVillageIndexPath = indexPath;
 			[self transitionTableContent:tableView];
+			[tableView selectRowAtIndexPath:lastVillageIndexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
 			return;
 		}
 	}

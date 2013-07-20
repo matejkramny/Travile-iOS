@@ -71,6 +71,8 @@ static UIBarButtonItem *executeButton;
 	
 	[self setExecuteButtonEnabled];
 	
+	[storage.account addObserver:self forKeyPath:@"village" options:NSKeyValueObservingOptionNew context:nil];
+	
 	if (village != storage.account.village) {
 		// Refresh
 		village = storage.account.village;
@@ -84,6 +86,17 @@ static UIBarButtonItem *executeButton;
 	if (village.farmList == nil || village.farmList.loaded == false) {
 		if (!village.farmList.loading)
 			[self loadFarmLists];
+	}
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+	[super viewWillDisappear:animated];
+	
+	@try {
+		[storage.account removeObserver:self forKeyPath:@"village"];
+	}
+	@catch (id exception) {
+		// do nothing.. means it isn't registered as observer
 	}
 }
 
@@ -161,6 +174,18 @@ foundEntry:;
 			[self.tableView reloadSections:[NSIndexSet indexSetWithIndex:selectedEntrySection] withRowAnimation:UITableViewRowAnimationFade];
 			[self setExecuteButtonEnabled];
 		}];
+	}
+}
+
+#pragma mark - KVO
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+	if ([keyPath isEqualToString:@"village"]) {
+		if (village != storage.account.village && storage.account.village != nil) {
+			// Refresh
+			village = storage.account.village;
+			[self loadFarmLists];
+		}
 	}
 }
 
@@ -375,6 +400,7 @@ static TMDarkImageCell *backCell; // shared
 -(void)handlePan:(UIPanGestureRecognizer *)panGestureRecognizer
 {
 	[self.sidePanelController _handlePan:panGestureRecognizer]; // call to sidepanel to delegate the direction of the swipe
+	
 	float threshold = -90;
 	float vX = 0.0;
 	float compare;

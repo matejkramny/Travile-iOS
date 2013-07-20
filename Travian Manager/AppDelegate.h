@@ -24,7 +24,7 @@
 #endif
 
 #ifndef SupportEmail
-	#define SupportEmail @"mailto:matejkramny@gmail.com?subject=iTravian 4 Support"
+	#define SupportEmail @"mailto:matejkramny@gmail.com?subject=Travile Support"
 #endif
 
 @class TMStorage;

@@ -47,11 +47,20 @@ static NSString *viewTitle = @"Troops";
 
 - (void)viewDidUnload
 {
+	@try {
+		[storage.account removeObserver:self forKeyPath:@"village"];
+	}
+	@catch (id exception) {
+		// do nothing.. means it isn't registered as observer
+	}
+	
     [super viewDidUnload];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
+	
+	[[storage account] addObserver:self forKeyPath:@"village" options:NSKeyValueObservingOptionNew context:nil];
 	
 	if (village != storage.account.village) {
 		village = storage.account.village;
@@ -69,6 +78,17 @@ static NSString *viewTitle = @"Troops";
 		
 		[self.tableView reloadData];
 	}
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+	@try {
+		[storage.account removeObserver:self forKeyPath:@"village"];
+	}
+	@catch (id exception) {
+		// do nothing.. means it isn't registered as observer
+	}
+	
+	[super viewWillDisappear:animated];
 }
 
 - (void)finishedLoadingVillageWithHUD {
@@ -142,6 +162,23 @@ static NSString *NoTroopsCellID = @"NoTroops";
 		}
 	} else if ([keyPath isEqualToString:@"hasDownloaded"]) {
 		[self finishedLoadingVillageWithHUD];
+	} else if ([keyPath isEqualToString:@"village"]) {
+		if (village != storage.account.village && storage.account.village != nil) {
+			village = storage.account.village;
+			
+			if (!village.hasDownloaded) {
+				// Download the village.
+				HUD = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+				[HUD setLabelText:[NSString stringWithFormat:@"Loading %@", village.name]];
+				[HUD setDetailsLabelText:@"Tap to cancel"];
+				tapToCancel = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedToCancel:)];
+				[HUD addGestureRecognizer:tapToCancel];
+				[village addObserver:self forKeyPath:@"hasDownloaded" options:NSKeyValueObservingOptionNew context:nil];
+				[village downloadAndParse];
+			}
+			
+			[self.tableView reloadData];
+		}
 	}
 }
 

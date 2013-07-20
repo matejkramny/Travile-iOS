@@ -25,7 +25,8 @@
 	
 	showsDecimalResources = [aDecoder decodeBoolForKey:@"decimalResources"];
 	showsResourceProgress = [aDecoder decodeBoolForKey:@"resourceProgress"];
-	fastLogin = [aDecoder decodeBoolForKey:@"loadsAllDataAtLogin"];
+	fastLogin = false;//[aDecoder decodeBoolForKey:@"loadsAllDataAtLogin"];
+//#warning fast login temporarily disabled.
 	
 	return self;
 }

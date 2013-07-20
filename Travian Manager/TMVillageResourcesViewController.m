@@ -63,6 +63,8 @@ static NSString *viewTitle = @"Resources";
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	
+	[[storage account] addObserver:self forKeyPath:@"village" options:NSKeyValueObservingOptionNew context:nil];
+	
 	if (secondTimer)
 		[secondTimer invalidate];
 	
@@ -95,11 +97,20 @@ static NSString *viewTitle = @"Resources";
 		secondTimer = nil;
 	}
 	
+	@try {
+		[storage.account removeObserver:self forKeyPath:@"village"];
+	}
+	@catch (id exception) {
+		// do nothing.. means it isn't registered as observer
+	}
+	
 	[super viewWillDisappear:animated];
 }
 
 - (void)viewDidUnload
 {
+	[super viewDidUnload];
+	
 	[self setWood:nil];
 	[self setClay:nil];
 	[self setIron:nil];
@@ -108,7 +119,13 @@ static NSString *viewTitle = @"Resources";
 	[self setGranary:nil];
 	[self setConsuming:nil];
 	[self setProducing:nil];
-    [super viewDidUnload];
+    
+	@try {
+		[storage.account removeObserver:self forKeyPath:@"village"];
+	}
+	@catch (id exception) {
+		// do nothing.. means it isn't registered as observer
+	}
 	
 	if (secondTimer)
 		[secondTimer invalidate];
@@ -189,6 +206,23 @@ static NSString *viewTitle = @"Resources";
 		}
 	} else if ([keyPath isEqualToString:@"hasDownloaded"]) {
 		[self finishedLoadingVillageWithHUD];
+	} else if ([keyPath isEqualToString:@"village"]) {
+		if (village != storage.account.village && storage.account.village != nil) {
+			village = storage.account.village;
+			
+			if (!village.hasDownloaded) {
+				// Download the village.
+				HUD = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+				[HUD setLabelText:[NSString stringWithFormat:@"Loading %@", village.name]];
+				[HUD setDetailsLabelText:@"Tap to cancel"];
+				tapToCancel = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedToCancel:)];
+				[HUD addGestureRecognizer:tapToCancel];
+				[village addObserver:self forKeyPath:@"hasDownloaded" options:NSKeyValueObservingOptionNew context:nil];
+				[village downloadAndParse];
+			}
+			
+			[self.tableView reloadData];
+		}
 	}
 }
 

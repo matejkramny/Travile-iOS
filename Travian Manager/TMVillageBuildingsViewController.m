@@ -68,6 +68,8 @@ static NSString *viewTitle = @"Buildings";
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	
+	[account addObserver:self forKeyPath:@"village" options:NSKeyValueObservingOptionNew context:nil];
+	
 	if (sections == nil || last_update == 0 || account.last_updated < last_update || village != account.village) {
 		village = account.village;
 		if (!village.hasDownloaded) {
@@ -84,6 +86,17 @@ static NSString *viewTitle = @"Buildings";
 			[self.tableView reloadData];
 		}
 	}
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+	@try {
+		[account removeObserver:self forKeyPath:@"village"];
+	}
+	@catch (id exception) {
+		// do nothing.. means it isn't registered as observer
+	}
+	
+	[super viewWillDisappear:animated];
 }
 
 - (void)loadBuildingsToSections {
@@ -352,6 +365,23 @@ static NSString *viewTitle = @"Buildings";
 		}
 	} else if ([keyPath isEqualToString:@"hasDownloaded"]) {
 		[self finishedLoadingVillageWithHUD];
+	} else if ([keyPath isEqualToString:@"village"]) {
+		if ((sections == nil || last_update == 0 || account.last_updated < last_update || village != account.village) && account.village != nil) {
+			village = account.village;
+			if (!village.hasDownloaded) {
+				// Download the village.
+				HUD = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+				[HUD setLabelText:[NSString stringWithFormat:@"Loading %@", village.name]];
+				[HUD setDetailsLabelText:@"Tap to cancel"];
+				tapToCancel = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedToCancelVillageLoading:)];
+				[HUD addGestureRecognizer:tapToCancel];
+				[village addObserver:self forKeyPath:@"hasDownloaded" options:NSKeyValueObservingOptionNew context:nil];
+				[village downloadAndParse];
+			} else {
+				[self loadBuildingsToSections];
+				[self.tableView reloadData];
+			}
+		}
 	}
 }
 
