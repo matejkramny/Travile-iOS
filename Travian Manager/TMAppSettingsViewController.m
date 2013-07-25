@@ -94,7 +94,7 @@
 	static NSString *creditsString;
 	
 	if (!creditsString)
-		creditsString = [@"Travile \nv" stringByAppendingFormat:@"%@\n© 2013 Matej Kramny\n\nOpen Source application\ngithub.com/matejkramny/Travian-iOS-App\n\nThis app wouldn't be possible without the awesome Travian game by Travian Gmbh.", [AppDelegate getAppVersion]];
+		creditsString = [NSString stringWithFormat:@"%@ \nv%@\n© 2013 Matej Kramny\n\nOpen Source application\ngithub.com/matejkramny/Travian-iOS-App\n\nThis app wouldn't be possible without the awesome Travian game by Travian Gmbh.", [AppDelegate getAppName], [AppDelegate getAppVersion]];
 	
 	if (section == 1) {
 		return creditsString;

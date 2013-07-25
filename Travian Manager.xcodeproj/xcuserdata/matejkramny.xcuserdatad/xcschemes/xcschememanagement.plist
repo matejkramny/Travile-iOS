@@ -4,6 +4,16 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Full.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
+		<key>Lite.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
 		<key>Travian Manager.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
@@ -13,6 +23,16 @@
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>4F095207155C767700C15D6E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4F2C0D43179AE20200D917B7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4F2C0D5D179AE23700D917B7</key>
 		<dict>
 			<key>primary</key>
 			<true/>

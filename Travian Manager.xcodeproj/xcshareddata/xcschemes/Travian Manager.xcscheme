@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4F095207155C767700C15D6E"
-               BuildableName = "Travian Manager.app"
-               BlueprintName = "Travian Manager"
+               BuildableName = "Travile.app"
+               BlueprintName = "Full"
                ReferencedContainer = "container:Travian Manager.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -33,8 +33,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4F095207155C767700C15D6E"
-            BuildableName = "Travian Manager.app"
-            BlueprintName = "Travian Manager"
+            BuildableName = "Travile.app"
+            BlueprintName = "Full"
             ReferencedContainer = "container:Travian Manager.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -52,8 +52,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4F095207155C767700C15D6E"
-            BuildableName = "Travian Manager.app"
-            BlueprintName = "Travian Manager"
+            BuildableName = "Travile.app"
+            BlueprintName = "Full"
             ReferencedContainer = "container:Travian Manager.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -70,8 +70,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4F095207155C767700C15D6E"
-            BuildableName = "Travian Manager.app"
-            BlueprintName = "Travian Manager"
+            BuildableName = "Travile.app"
+            BlueprintName = "Full"
             ReferencedContainer = "container:Travian Manager.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

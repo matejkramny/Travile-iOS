@@ -15,6 +15,7 @@
 	TMAccount *selectedAccount;
 	UIAlertView *passwordPromptView;
 	UIAlertView *passwordRetryView;
+	UIAlertView *buyAlert;
 	TMAccount *passwordRetryAccount;
 	MBProgressHUD *hud;
 	UITapGestureRecognizer *tapGestureRecognizer;
@@ -55,8 +56,15 @@
 }
 
 - (void)addAccount:(id)sender {
-	selectedAccount = nil;
-	[self performSegueWithIdentifier:@"NewAccount" sender:self];
+	if (IsFULL) {
+		selectedAccount = nil;
+		[self performSegueWithIdentifier:@"NewAccount" sender:self];
+	} else {
+		if ([storage.accounts count] > 0) {
+			buyAlert = [[UIAlertView alloc] initWithTitle:@"Lite version" message:@"Full version allows unlimited Travian accounts + more features. Click on Buy Now button to purchase on iTunes" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Buy now", nil];
+			[buyAlert show];
+		}
+	}
 }
 
 - (void)showSettings:(id)sender {
@@ -206,7 +214,7 @@
 		// Configure the cell...
 		TMAccount *a = [[storage accounts] objectAtIndex:indexPath.row];
 		cell.textLabel.text = [a name];
-		cell.detailTextLabel.text = [NSString stringWithFormat:@"%@@%@.travian.%@%@", a.username, a.world, a.server, DEBUG ? @"!-DEBUG" : @""];
+		cell.detailTextLabel.text = [NSString stringWithFormat:@"%@@%@.travian.%@%@%@", a.username, a.world, a.server, DEBUG ? @"!-DEBUG" : @"", IsFULL ? @"-FULL" : @"-LITE"];
 
 		[cell setOpaque:YES];
 		[cell setAlpha:1];
@@ -414,6 +422,12 @@
 		}
 		else {
 			[self logIn:passwordRetryAccount withPasword:[[alertView textFieldAtIndex:0] text]];
+		}
+		
+		return;
+	} else if (alertView == buyAlert) {
+		if (buttonIndex == 1) {
+			[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"itms://itunes.com/apps/Travile"]];
 		}
 		
 		return;

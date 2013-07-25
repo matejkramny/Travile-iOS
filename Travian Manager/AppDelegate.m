@@ -6,7 +6,6 @@
 #import "TMStorage.h"
 #import "TMAPNService.h"
 #import "Flurry.h"
-#import "FlurryAds.h"
 
 @implementation AppDelegate {
 	unsigned int timeAtGoingToInactiveState; // States the time when the app resignsActive
@@ -32,9 +31,14 @@ void uncaughtExceptionHandler(NSException *exception) {
 	
 	[[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
 	
-	[Flurry startSession:@"N6J2D56H5TFWSNNBKPB4"];
+	if (IsFULL) {
+		[Flurry startSession:@"N6J2D56H5TFWSNNBKPB4"];
+	}
+	else {
+		[Flurry startSession:@"N87JR8QHVZR8DTDNFTRW"];
+	}
+	
 	[Flurry setDebugLogEnabled:NO];
-	[FlurryAds initialize:self.window.rootViewController];
 	
 	// iCloud
 	NSFileManager *fileManager = [NSFileManager defaultManager];
@@ -84,6 +88,10 @@ void uncaughtExceptionHandler(NSException *exception) {
 
 + (NSString *)getAppVersion {
 	return [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
+}
+
++ (NSString *)getAppName {
+	return [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"];
 }
 
 @end

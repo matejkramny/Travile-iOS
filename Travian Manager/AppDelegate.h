@@ -27,6 +27,18 @@
 	#define SupportEmail @"mailto:matejkramny@gmail.com?subject=Travile Support"
 #endif
 
+#ifdef FULL
+
+#if FULL
+	#define IsFULL true
+#else
+	#define IsFULL false
+#endif
+
+#else
+	#define IsFULL false
+#endif
+
 @class TMStorage;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
@@ -36,6 +48,7 @@
 
 + (void)openSupportEmail;
 + (NSString *)getAppVersion;
++ (NSString *)getAppName;
 
 @end
 
