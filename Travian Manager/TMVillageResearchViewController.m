@@ -36,7 +36,7 @@
 
 @synthesize action;
 
-static NSString *viewTitle = @"Research";
+static NSString *viewTitle;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -50,6 +50,8 @@ static NSString *viewTitle = @"Research";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+	
+	viewTitle = NSLocalizedString(@"Research", @"Research view title");
 	
 	[self.tableView setBackgroundView:nil];
 }
@@ -103,26 +105,26 @@ static NSString *resourceCellID = @"Resource";
 			cell = [tableView dequeueReusableCellWithIdentifier:resourceCellID];
 			switch (indexPath.row) {
 				case 0:
-					cell.textLabel.text = @"Wood";
+					cell.textLabel.text = NSLocalizedString(@"Wood", nil);
 					cell.detailTextLabel.text = [NSString stringWithFormat:@"%.0f", action.resources.wood];
 					break;
 				case 1:
-					cell.textLabel.text = @"Clay";
+					cell.textLabel.text = NSLocalizedString(@"Clay", nil);
 					cell.detailTextLabel.text = [NSString stringWithFormat:@"%.0f", action.resources.clay];
 					break;
 				case 2:
-					cell.textLabel.text = @"Iron";
+					cell.textLabel.text = NSLocalizedString(@"Iron", nil);
 					cell.detailTextLabel.text = [NSString stringWithFormat:@"%.0f", action.resources.iron];
 					break;
 				case 3:
-					cell.textLabel.text = @"Wheat";
+					cell.textLabel.text = NSLocalizedString(@"Wheat", nil);
 					cell.detailTextLabel.text = [NSString stringWithFormat:@"%.0f", action.resources.wheat];
 					break;
 			}
 			break;
 		case 2:
 			cell = [tableView dequeueReusableCellWithIdentifier:selectableCellID];
-			cell.textLabel.text = @"Research";
+			cell.textLabel.text = NSLocalizedString(@"Research", nil);
 			[AppDelegate setRoundedCellAppearance:cell forIndexPath:indexPath forLastRow:YES];
 			break;
 	}
@@ -133,9 +135,9 @@ static NSString *resourceCellID = @"Resource";
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
 	switch (section) {
 		case 0:
-			return @"Details";
+			return NSLocalizedString(@"Details", nil);
 		case 1:
-			return @"Required resources";
+			return NSLocalizedString(@"Required resources", nil);
 		default:
 			return @"";
 	}
@@ -155,7 +157,7 @@ static NSString *resourceCellID = @"Resource";
 	HUD = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:NO];
 	[HUD setMode:MBProgressHUDModeCustomView];
 	[HUD setCustomView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"37x-Checkmark.png"]]];
-	[HUD setLabelText:@"Done"];
+	[HUD setLabelText:NSLocalizedString(@"Done", nil)];
 	[HUD hide:YES afterDelay:0.7];
 	
 	[self performSelector:@selector(closeView:) withObject:self afterDelay:1.2];

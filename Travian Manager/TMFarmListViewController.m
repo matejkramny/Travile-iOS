@@ -54,7 +54,7 @@ static UIBarButtonItem *executeButton;
 	
 	storage = [TMStorage sharedStorage];
 	village = [storage.account village];
-	self.navigationItem.title = @"Farm Lists";
+	self.navigationItem.title = NSLocalizedString(@"Farm Lists", @"Farm lists view controller title");
 	cells = [[NSMutableArray alloc] init];
 	
 	self.refreshControl = [[UIRefreshControl alloc] init];
@@ -65,7 +65,7 @@ static UIBarButtonItem *executeButton;
 	[super viewWillAppear:animated];
 	
 	if (!executeButton)
-		executeButton = [[UIBarButtonItem alloc] initWithTitle:@"Execute" style:UIBarButtonItemStylePlain target:self action:@selector(executeFarmList:)];
+		executeButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Execute", @"Navigation bar button title to execute farm list") style:UIBarButtonItemStylePlain target:self action:@selector(executeFarmList:)];
 	
 	self.navigationItem.rightBarButtonItem = executeButton;
 	
@@ -107,8 +107,8 @@ static UIBarButtonItem *executeButton;
 	if (hud) {
 		// Load the farm list.
 		HUD = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-		[HUD setLabelText:@"Loading"];
-		[HUD setDetailsLabelText:@"Tap to cancel"];
+		[HUD setLabelText:NSLocalizedString(@"Loading", nil)];
+		[HUD setDetailsLabelText:NSLocalizedString(@"Tap to cancel", @"Shown in HUD, informative to cancel the operation")];
 		tapToCancel = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedToCancel:)];
 		[HUD addGestureRecognizer:tapToCancel];
 	}
@@ -158,13 +158,13 @@ foundEntry:;
 	
 	if (selectedEntry) {
 		HUD = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-		HUD.labelText = [@"Executing " stringByAppendingString:[selectedEntry name]];
-		HUD.detailsLabelText = @"Tap to hide";
+		HUD.labelText = [NSLocalizedString(@"Executing ", @"Executing farm list.. Eg.. 'Executing Natar farm list'. Farm list name is appended to this string!") stringByAppendingString:[selectedEntry name]];
+		HUD.detailsLabelText = NSLocalizedString(@"Tap to hide", @"Shown in HUD, informative to hide the operation");
 		tapToCancel = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedToCancel:)];
 		[HUD addGestureRecognizer:tapToCancel];
 		
 		[selectedEntry executeWithCompletion:^{
-			[HUD setLabelText:@"Loading Farm List"];
+			[HUD setLabelText:NSLocalizedString(@"Loading Farm List", @"HUD title, loading X")];
 			[self loadFarmLists:NO];
 			
 			for (TMFarmListEntryFarm *farm in selectedEntry.farms) {
@@ -230,7 +230,7 @@ static TMDarkImageCell *backCell; // shared
 		
 		[backCell setFrame:CGRectMake(320, 0, 320, 44)];
 		[backCell setIndentTitle:NO];
-		[backCell textLabel].text = @"Pull to open";
+		[backCell textLabel].text = NSLocalizedString(@"Pull to open", @"Farm list cell, shown while swiping the cell to the left.");
 		[backCell setBackgroundView:nil];
 		[backCell setBackgroundColor:backViewColour];
 		UIView *backCellTextBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
@@ -251,9 +251,9 @@ static TMDarkImageCell *backCell; // shared
 		
 		// Return no farms found || no farms in farm list
 		if (lists.count == 0) {
-			cell.textLabel.text = @"No Farm lists found";
+			cell.textLabel.text = NSLocalizedString(@"No Farm lists found", @"No farm lists found informative text when no farm lists exist in the village");
 		} else {
-			cell.textLabel.text = @"No Farms found";
+			cell.textLabel.text = NSLocalizedString(@"No Farms found", @"no farms found in the current farm list");
 		}
 		[AppDelegate setCellAppearance:cell forIndexPath:indexPath];
 		
@@ -315,7 +315,7 @@ static TMDarkImageCell *backCell; // shared
 	UITableViewCell *cell = (UITableViewCell *)gesture.view;
 	highlightedFarmIndexPath = [self.tableView indexPathForCell:cell];
 	
-	UIActionSheet *stateActionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Nothing" destructiveButtonTitle:@"Deactivate farms" otherButtonTitles:@"Activate farms", @"Activate good farms", @"Activate full-bounty farms", nil];
+	UIActionSheet *stateActionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"Nothing", @"Do nothing button") destructiveButtonTitle:NSLocalizedString(@"Deactivate farms", @"deactivate selected farms button") otherButtonTitles:NSLocalizedString(@"Activate farms", @"Activate selected farms button"), NSLocalizedString(@"Activate good farms", @"Activate only 'good' farms. These farms had no damage in previous report"), NSLocalizedString(@"Activate full-bounty farms", @"Button activates farms that returned with full bounty"), nil];
 	[stateActionSheet showFromRect:self.view.frame inView:self.view animated:YES];
 }
 
@@ -340,10 +340,10 @@ static TMDarkImageCell *backCell; // shared
 	
 	if (selectedCount > 0) {
 		[executeButton setEnabled:YES];
-		[executeButton setTitle:[@"Execute " stringByAppendingFormat:@"%d", selectedCount]];
+		[executeButton setTitle:[NSLocalizedString(@"Execute ", @"Execute farm list button. Farm name is appended to this string.") stringByAppendingFormat:@"%d", selectedCount]];
 	} else {
 		[executeButton setEnabled:NO];
-		[executeButton setTitle:@"Execute"];
+		[executeButton setTitle:NSLocalizedString(@"Execute", nil)];
 	}
 }
 
@@ -464,7 +464,7 @@ static TMDarkImageCell *backCell; // shared
 			
 			if (compare > threshold) {
 				// text = pull to open
-				backCell.textLabel.text = @"Pull";
+				backCell.textLabel.text = NSLocalizedString(@"Pull", @"Used to show the user to keep pulling (a cell in farm list)");
 				//[backCell.textLabel setTransform:CGAffineTransformMakeTranslation(threshold*-1 + compare, 0)];
 				[UIView animateWithDuration:FAST_ANIMATION_DURATION animations:^{
 					[backCellTextBackgroundView setBackgroundColor:[UIColor colorWithRed:150.f/255.f green:180.f/255.f blue:56.f/255.f alpha:1.f]];
@@ -476,7 +476,7 @@ static TMDarkImageCell *backCell; // shared
 			} else {
 				compare = threshold - ((threshold - compare) / 4); // Friction
 				// text = release to open
-				backCell.textLabel.text = @"Release";
+				backCell.textLabel.text = NSLocalizedString(@"Release", @"Used to show the user that they can release the cell they are pulling");
 				//[backCell.textLabel setFrame:CGRectMake(10, backCell.bounds.origin.y, backCell.bounds.size.width, backCell.bounds.size.height)];
 				[UIView animateWithDuration:FAST_ANIMATION_DURATION animations:^{
 					[backCellTextBackgroundView setBackgroundColor:[UIColor colorWithRed:126.f/255.f green:155.f/255.f blue:40.f/255.f alpha:1.f]];

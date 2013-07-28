@@ -66,7 +66,7 @@
 
 @implementation TMMessagesViewController
 
-static NSString *viewTitle = @"Messages";
+static NSString *viewTitle;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -80,6 +80,8 @@ static NSString *viewTitle = @"Messages";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+	
+	viewTitle = NSLocalizedString(@"Messages", @"Messages view title");
 	
 	[self setRefreshControl:[[UIRefreshControl alloc] init]];
 	[self.refreshControl addTarget:self action:@selector(didBeginRefreshing:) forControlEvents:UIControlEventValueChanged];
@@ -278,12 +280,12 @@ static NSString *noMessagesCellIdentifier = @"NoMessagesCell";
 	}
 	
 	if (deleteArray.count == 0) {
-		[[[UIAlertView alloc] initWithTitle:@"No messages" message:@"There are no selected messages to be deleted" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil] show];
+		[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"No messages", @"Shown when there are no messages to be deleted") message:NSLocalizedString(@"There are no selected messages to be deleted", @"Shown when there are no messages to be deleted") delegate:nil cancelButtonTitle:NSLocalizedString(@"Continue", nil) otherButtonTitles: nil] show];
 		
 		return;
 	}
 	
-	deleteAlert = [[UIAlertView alloc] initWithTitle:@"Delete messages?" message:[NSString stringWithFormat:@"Are you sure you want to delete %d messages?", [deleteArray count]] delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+	deleteAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Delete messages?", @"Shown when the user is trying to delete X messages") message:[NSString stringWithFormat:NSLocalizedString(@"Are you sure you want to delete %d messages?", @"Shown when the user is trying to delete X messages"), [deleteArray count]] delegate:self cancelButtonTitle:NSLocalizedString(@"No", nil) otherButtonTitles:NSLocalizedString(@"Yes", nil), nil];
 	[deleteAlert show];
 }
 
@@ -301,7 +303,7 @@ static NSString *noMessagesCellIdentifier = @"NoMessagesCell";
 	HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.tabBarController.view];
 	[self.navigationController.tabBarController.view addSubview:HUD];
 	HUD.delegate = self;
-	HUD.labelText = [NSString stringWithFormat:@"Deleted %d Messages", total];
+	HUD.labelText = [NSString stringWithFormat:NSLocalizedString(@"Deleted %d Messages", @"Shown as HUD after the app deleted X messages"), total];
 	
 	[HUD show:YES];
 	[self deleteTask:sender];
@@ -457,7 +459,7 @@ static NSString *noMessagesCellIdentifier = @"NoMessagesCell";
 		HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.tabBarController.view];
 		[self.navigationController.tabBarController.view addSubview:HUD];
 		HUD.delegate = self;
-		HUD.labelText = [NSString stringWithFormat:@"Downloading message"];
+		HUD.labelText = [NSString stringWithFormat:NSLocalizedString(@"Downloading message", @"Shown to user when downloading message")];
 		
 		[HUD show:YES];
 		

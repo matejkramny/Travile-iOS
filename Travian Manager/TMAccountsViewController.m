@@ -61,7 +61,7 @@
 		[self performSegueWithIdentifier:@"NewAccount" sender:self];
 	} else {
 		if ([storage.accounts count] > 0) {
-			buyAlert = [[UIAlertView alloc] initWithTitle:@"Lite version" message:@"Full version allows unlimited Travian accounts + more features. Click on Buy Now button to purchase on iTunes" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Buy now", nil];
+			buyAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Lite version", @"Used as title of popup") message:NSLocalizedString(@"Full version allows unlimited Travian accounts + more features. Click on Buy Now button to purchase on iTunes", @"Text displayed when the user doesn't have the full version of the app") delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:NSLocalizedString(@"Buy now", nil), nil];
 			[buyAlert show];
 		}
 	}
@@ -214,7 +214,7 @@
 		// Configure the cell...
 		TMAccount *a = [[storage accounts] objectAtIndex:indexPath.row];
 		cell.textLabel.text = [a name];
-		cell.detailTextLabel.text = [NSString stringWithFormat:@"%@@%@.travian.%@%@%@", a.username, a.world, a.server, DEBUG ? @"!-DEBUG" : @"", IsFULL ? @"-FULL" : @"-LITE"];
+		cell.detailTextLabel.text = [NSString stringWithFormat:@"%@@%@.travian.%@%@", a.username, a.world, a.server, DEBUG ? @"!-DEBUG" : @""];
 
 		[cell setOpaque:YES];
 		[cell setAlpha:1];
@@ -250,7 +250,7 @@
 	
 	hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
 	hud.labelText = NSLocalizedString(@"Logging In", @"");
-	hud.detailsLabelText = NSLocalizedString(@"Tap to cancel", @"Shown on Progress HUD");
+	hud.detailsLabelText = NSLocalizedString(@"Tap to cancel", @"Shown in HUD, informative to cancel the operation");
 	hud.dimBackground = YES;
 	
 	// Cancel tap Gesture recognizer
@@ -319,7 +319,7 @@
 		TMAccount *a = [[storage accounts] objectAtIndex:indexPath.row];
 		
 		if ([[a password] length] == 0) {
-			passwordPromptView = [[UIAlertView alloc] initWithTitle:@"Password required" message:[NSString stringWithFormat:@"Please enter password for account %@", [a name]] delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Continue", nil];
+			passwordPromptView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Password required", @"Title of popup displayed when there is no password during login") message:[NSString stringWithFormat:NSLocalizedString(@"Please enter password for account %@", @"Prompts the user to enter password"), [a name]] delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:NSLocalizedString(@"Continue", nil), nil];
 			[passwordPromptView setAlertViewStyle:UIAlertViewStyleSecureTextInput];
 			[passwordPromptView show];
 			
@@ -336,7 +336,7 @@
 	if ([keyPath isEqualToString:@"notificationPending"]) {
 		NSNumber *n = [change objectForKey:NSKeyValueChangeNewKey];
 		if ([n boolValue] == YES) {
-			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Notification pending" message:@"There is a Travian notification pending review." delegate:self cancelButtonTitle:@"Proceed" otherButtonTitles:@"View", nil];
+			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Notification pending", @"Title of popup when there is a notification pending") message:NSLocalizedString(@"There is a Travian notification pending review.", @"Text of popup when there is a notification pending") delegate:self cancelButtonTitle:NSLocalizedString(@"Continue", nil) otherButtonTitles:NSLocalizedString(@"View", nil), nil];
 			[alert show];
 		}
 	} else if ([keyPath isEqualToString:@"progressIndicator"]) {
@@ -346,15 +346,15 @@
 		if (selectedAccount.villages.count > 0) {
 			// Enable to hide the loading and continue
 			canSkipLoading = true;
-			hud.detailsLabelText = @"Logged in. Tap to continue";
+			hud.detailsLabelText = NSLocalizedString(@"Logged in. Tap to continue", @"Shown after the user is logged in");
 		}
 	} else if ([keyPath isEqualToString:@"status"]) {
 		// Checks for change of account status
 		AccountStatus stat = [[change objectForKey:NSKeyValueChangeNewKey] intValue];
 		if ((stat & AConnectionFailed) != 0) {
 			// The connection failed
-			hud.labelText = @"Connection failed"; // TODO localise this
-			hud.detailsLabelText = @"Tap to dismiss.";
+			hud.labelText = NSLocalizedString(@"Connection failed", @"Shown on HUD when the connection fails");
+			hud.detailsLabelText = NSLocalizedString(@"Tap to dismiss.", nil);
 			/// TODO Show big X (image)
 		} else if ((stat & (ACannotLogIn)) != 0) {
 			// Cannot log in.
@@ -375,7 +375,7 @@
 			tapGestureRecognizer = nil;
 			
 			passwordRetryAccount = storage.account;
-			passwordRetryView = [[UIAlertView alloc] initWithTitle:@"Cannot log in" message:@"TM cannot log in. Enter your password to retry." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Retry", nil];
+			passwordRetryView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Cannot log in", @"Shown as title of popup when the app cannot log the user in") message:NSLocalizedString(@"TM cannot log in. Enter your password to retry.", @"Shown as text of popup when the password is incorrect during login") delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:NSLocalizedString(@"Retry", nil), nil];
 			[passwordRetryView setAlertViewStyle:UIAlertViewStyleSecureTextInput];
 			[passwordRetryView show];
 		} else if ((stat & ARefreshed) != 0) {
@@ -386,7 +386,7 @@
 			startedLoadingUNIXTime = 0;
 			//[tracker sendTimingWithCategory:@"resources" withValue:diff withName:@"login" withLabel:nil];
 			
-			[hud setLabelText:@"Done"];
+			[hud setLabelText:NSLocalizedString(@"Done", @"Shown on HUD when the app finishes logging in. Shown with a big Tick picture..")];
 			[hud setDetailsLabelText:@""];
 			[hud removeGestureRecognizer:tapGestureRecognizer];
 			tapGestureRecognizer = nil;

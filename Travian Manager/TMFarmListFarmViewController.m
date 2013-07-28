@@ -49,22 +49,22 @@
 	if (indexPath.section == 0) {
 		cell = [tableView dequeueReusableCellWithIdentifier:DetailIdentifier forIndexPath:indexPath];
 		if (indexPath.row == 0) {
-			cell.textLabel.text = @"Population";
+			cell.textLabel.text = NSLocalizedString(@"Population", nil);
 			cell.detailTextLabel.text = farm.targetPopulation;
 		} else {
-			cell.textLabel.text = @"Distance";
+			cell.textLabel.text = NSLocalizedString(@"Distance", nil);
 			int squares = [farm.distance intValue];
-			cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ square%@", farm.distance, squares == 1 ? @"" : @"s"];
+			cell.detailTextLabel.text = [NSString stringWithFormat:NSLocalizedString(@"%@ square%@", @"Used to describe distance to a farm"), farm.distance, squares == 1 ? @"" : @"s"];
 		}
 	} else if (indexPath.section == 1) {
 		
 		if (indexPath.row == 0) {
 			cell = [tableView dequeueReusableCellWithIdentifier:DetailIdentifier forIndexPath:indexPath];
-			cell.textLabel.text = @"Time";
+			cell.textLabel.text = NSLocalizedString(@"Time", nil);
 			cell.detailTextLabel.text = farm.lastReportTime;
 		} else {
 			cell = [tableView dequeueReusableCellWithIdentifier:SelectableCellIdentifier forIndexPath:indexPath];
-			cell.textLabel.text = @"Open Report";
+			cell.textLabel.text = NSLocalizedString(@"Open Report", nil);
 			cell.textLabel.backgroundColor = [UIColor clearColor];
 		}
 	} else {
@@ -94,8 +94,8 @@ static TMReport *report;
 		[report addObserver:self forKeyPath:@"parsed" options:NSKeyValueObservingOptionNew context:nil];
 		[report downloadAndParse];
 		HUD = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-		HUD.labelText = @"Loading Report";
-		HUD.detailsLabelText = @"Tap to Cancel";
+		HUD.labelText = NSLocalizedString(@"Loading Report", @"Title for HUD when loading report");
+		HUD.detailsLabelText = NSLocalizedString(@"Tap to cancel", @"Shown in HUD, informative to cancel the operation");
 		tapToCancel = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedToCancel:)];
 		[HUD addGestureRecognizer:tapToCancel];
 	} else {
@@ -108,7 +108,7 @@ static TMReport *report;
 		bool parsed = [(TMReport *)object parsed];
 		
 		if (!parsed) {
-			HUD.labelText = @"Error loading report";
+			HUD.labelText = NSLocalizedString(@"Error loading report", @"Shown in HUD when there is an error loading selected report");
 			[HUD hide:YES afterDelay:1.0];
 			[report removeObserver:self forKeyPath:@"parsed"];
 			[HUD removeGestureRecognizer:tapToCancel];
@@ -139,9 +139,9 @@ static TMReport *report;
 	if (section == 0) {
 		return farm.targetName;
 	} else if (section == 1) {
-		return @"Last Report";
+		return NSLocalizedString(@"Last Report", nil);
 	} else {
-		return @"Troops";
+		return NSLocalizedString(@"Troops", nil);
 	}
 }
 
@@ -150,7 +150,7 @@ static TMReport *report;
 		return farm.lastReportBounty;
 	}
 	if (section == 2) {
-		return [NSString stringWithFormat:@"%d troop type%@", farm.troops.count, farm.troops.count == 1 ? @"" : @"s"];
+		return [NSString stringWithFormat:NSLocalizedString(@"%d troop type%@", @"Used to describe troop type. E.g. '2 troop types' or '1 troop type'"), farm.troops.count, farm.troops.count == 1 ? @"" : @"s"];
 	}
 	
 	return nil;

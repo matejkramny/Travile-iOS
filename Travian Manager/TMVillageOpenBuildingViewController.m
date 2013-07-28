@@ -147,34 +147,34 @@ static NSString *barracksCellID = @"Barracks";
 			
 			if (upgradeable.count > 0) {
 				[secs addObject:[upgradeable copy]];
-				[titles addObject:@"Available Buildings"];
-				[footers addObject:@"Select a building to open it."];
+				[titles addObject:NSLocalizedString(@"Available Buildings", nil)];
+				[footers addObject:NSLocalizedString(@"Select a building to open it.", nil)];
 				[types addObject:basicSelectableCellID];
 			}
 			
 			if (nonupgradeable.count > 0) {
 				[secs addObject:[nonupgradeable copy]];
-				[titles addObject:@"Unavailable Buildings"];
-				[footers addObject:@"These buildings cannot be built because they have unmet requirements"];
+				[titles addObject:NSLocalizedString(@"Unavailable Buildings", nil)];
+				[footers addObject:NSLocalizedString(@"These buildings cannot be built because they have unmet requirements", nil)];
 				[types addObject:basicSelectableCellID];
 			}
 		} else {
-			[secs addObject:@"No buildings available"];
-			[titles addObject:@"Buildings"];
+			[secs addObject:NSLocalizedString(@"No buildings available", nil)];
+			[titles addObject:NSLocalizedString(@"Buildings", nil)];
 			[footers addObject:@""];
 			[types addObject:basicCellID];
 		}
 	} else {
 		// Details
-		[secs addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d", [selectedBuilding level]], @"Level", nil]]; // level
-		[titles addObject:@"Details"];
+		[secs addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d", [selectedBuilding level]], NSLocalizedString(@"Level", nil), nil]]; // level
+		[titles addObject:NSLocalizedString(@"Details", nil)];
 		[footers addObject:selectedBuilding.description != nil ? selectedBuilding.description : @""];
 		[types addObject:rightDetailCellID];
 		
 		// Properties
 		if ([[selectedBuilding properties] count] > 0) {
 			[secs addObject:[selectedBuilding properties]];
-			[titles addObject:@"Properties"];
+			[titles addObject:NSLocalizedString(@"Properties", nil)];
 			[footers addObject:@""];
 			[types addObject:rightDetailCellID];
 		}
@@ -182,10 +182,10 @@ static NSString *barracksCellID = @"Barracks";
 		// Resources
 		if ([selectedBuilding resources]) {
 			TMResources *res = [selectedBuilding resources];
-			[secs addObject:@{ @"Wood" : [NSString stringWithFormat:@"%d", (int)res.wood],
-			 @"Clay" : [NSString stringWithFormat:@"%d", (int)res.clay],
-			 @"Iron" : [NSString stringWithFormat:@"%d", (int)res.iron],
-			 @"Wheat" : [NSString stringWithFormat:@"%d", (int)res.wheat]
+			[secs addObject:@{ NSLocalizedString(@"Wood", nil) : [NSString stringWithFormat:@"%d", (int)res.wood],
+			 NSLocalizedString(@"Clay", nil) : [NSString stringWithFormat:@"%d", (int)res.clay],
+			 NSLocalizedString(@"Iron", nil) : [NSString stringWithFormat:@"%d", (int)res.iron],
+			 NSLocalizedString(@"Wheat", nil) : [NSString stringWithFormat:@"%d", (int)res.wheat]
 			 }];
 			
 			if (isBuildingSiteAvailableBuilding)
@@ -194,9 +194,9 @@ static NSString *barracksCellID = @"Barracks";
 				[titles addObject:NSLocalizedString(@"Resources required", @"Resources required to upgrade building to next level")];
 			
 			if ([[selectedBuilding.parent resources] hasMoreResourcesThanResource:selectedBuilding.resources])
-				[footers addObject:@"You have enough resources"];
+				[footers addObject:NSLocalizedString(@"You have enough resources", nil)];
 			else
-				[footers addObject:@"You do not have enough resources"];
+				[footers addObject:NSLocalizedString(@"You do not have enough resources", nil)];
 			
 			[types addObject:rightDetailCellID];
 		}
@@ -209,7 +209,7 @@ static NSString *barracksCellID = @"Barracks";
 			}
 			
 			[secs addObject:strings];
-			[titles addObject:@"Research"];
+			[titles addObject:NSLocalizedString(@"Research", nil)];
 			[footers addObject:@""];
 			[types addObject:basicSelectableCellID];
 			
@@ -223,8 +223,8 @@ static NSString *barracksCellID = @"Barracks";
 			
 			if (barracks.researching && barracks.researching.count > 0) {
 				[secs addObject:barracks.researching];
-				[titles addObject:@"Training"];
-				[footers addObject:@"These troops are being trained"];
+				[titles addObject:NSLocalizedString(@"Training", nil)];
+				[footers addObject:NSLocalizedString(@"These troops are being trained", nil)];
 				[types addObject:rightDetailCellID];
 			}
 			
@@ -233,10 +233,10 @@ static NSString *barracksCellID = @"Barracks";
 				for (TMTroop *troop in barracks.troops) {
 					[sec addObject:troop];
 				}
-				[sec addObject:@"Train"];
+				[sec addObject:NSLocalizedString(@"Train", nil)];
 				
 				[secs addObject:[sec copy]];
-				[titles addObject:@"Train troops"];
+				[titles addObject:NSLocalizedString(@"Train troops", nil)];
 				[footers addObject:@""];
 				[types addObject:barracksCellID];
 				
@@ -247,19 +247,19 @@ static NSString *barracksCellID = @"Barracks";
 		// Conditions
 		if ([[selectedBuilding buildConditionsDone] count] > 0) {
 			[secs addObject:selectedBuilding.buildConditionsDone];
-			[titles addObject:@"Accomplished build conditions"];
+			[titles addObject:NSLocalizedString(@"Accomplished build conditions", nil)];
 			[footers addObject:@""];
 			[types addObject:basicCellID];
 		}
 		if ([[selectedBuilding buildConditionsError] count] > 0) {
 			[secs addObject:selectedBuilding.buildConditionsError];
-			[titles addObject:@"Build conditions"];
-			[footers addObject:@"Upgrade buildings listed in order to build"];
+			[titles addObject:NSLocalizedString(@"Build conditions", nil)];
+			[footers addObject:NSLocalizedString(@"Upgrade buildings listed in order to build", nil)];
 			[types addObject:basicCellID];
 		}
 		if ([selectedBuilding cannotBuildReason] != nil) {
 			[secs addObject:selectedBuilding.cannotBuildReason];
-			[titles addObject:@"Cannot build"];
+			[titles addObject:NSLocalizedString(@"Cannot build", nil)];
 			[footers addObject:@""];
 			[types addObject:basicCellID];
 		}
@@ -269,15 +269,15 @@ static NSString *barracksCellID = @"Barracks";
 			if (isBuildingSiteAvailableBuilding) {
 				if (selectedBuilding.upgradeURLString) {
 					[secs addObject:[NSString stringWithFormat:NSLocalizedString(@"Build", @"Build building site object"), selectedBuilding.name]];
-					[titles addObject:@"Build"];
+					[titles addObject:NSLocalizedString(@"Build", nil)];
 					[footers addObject:@""];
 					[types addObject:basicSelectableCellID];
 					buildActionIndexPath = [NSIndexPath indexPathForRow:0 inSection:[secs count]-1];
 				}
 			} else {
 				// Upgrade button
-				[secs addObject:[NSString stringWithFormat:@"Upgrade to level %d", [selectedBuilding level]+1]];
-				[titles addObject:@"Actions"];
+				[secs addObject:[NSString stringWithFormat:NSLocalizedString(@"Upgrade to level %d", nil), [selectedBuilding level]+1]];
+				[titles addObject:NSLocalizedString(@"Actions", nil)];
 				[footers addObject:@""];
 				[types addObject:basicSelectableCellID];
 				buildActionIndexPath = [NSIndexPath indexPathForRow:0 inSection:[secs count]-1];
@@ -296,8 +296,8 @@ static NSString *barracksCellID = @"Barracks";
 	[selectedBuilding fetchDescription];
 	
 	HUD = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-	HUD.labelText = @"Loading";
-	HUD.detailsLabelText = @"Tap to hide";
+	HUD.labelText = NSLocalizedString(@"Loading", nil);
+	HUD.detailsLabelText = NSLocalizedString(@"Tap to hide", @"Shown in HUD, informative to hide the operation");
 	tapToHide = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedToHide:)];
 	[HUD addGestureRecognizer:tapToHide];
 }
@@ -357,7 +357,7 @@ static NSString *barracksCellID = @"Barracks";
 		if ([[sec objectAtIndex:indexPath.row] isKindOfClass:[NSString class]]) {
 			// Train button
 			UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:basicSelectableCellID];
-			cell.textLabel.text = @"Train";
+			cell.textLabel.text = NSLocalizedString(@"Train", nil);
 			
 			[AppDelegate setRoundedCellAppearance:cell forIndexPath:indexPath forLastRow:YES];
 			

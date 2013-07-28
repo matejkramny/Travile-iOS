@@ -65,12 +65,12 @@
 	}
 	
 	if (indexPath.section == 1) {
-		[[(TMBasicToggleCell *)cell title] setText:@"iCloud"];
+		[[(TMBasicToggleCell *)cell title] setText:NSLocalizedString(@"iCloud", nil)];
 		icloudSwitch = [(TMBasicToggleCell *)cell toggle];
 		[icloudSwitch setOn:settings.ICloud];
 		[icloudSwitch addTarget:self action:@selector(icloudSwitchToggled:) forControlEvents:UIControlEventValueChanged];
 	} else {
-		[[(TMBasicToggleCell *)cell title] setText:@"Push Notifications"];
+		[[(TMBasicToggleCell *)cell title] setText:NSLocalizedString(@"Push Notifications", nil)];
 		pushNotificationSwitch = [(TMBasicToggleCell *)cell toggle];
 		[pushNotificationSwitch setOn:settings.pushNotifications];
 		[pushNotificationSwitch addTarget:self action:@selector(pushNotificationSwitchToggled:) forControlEvents:UIControlEventValueChanged];
@@ -89,12 +89,17 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
-	static NSString *icloud = @"Enable saving documents to iCloud";
-	static NSString *pushNotifications = @"Receive scheduled push notifications";
+	static NSString *icloud;
+	static NSString *pushNotifications;
 	static NSString *creditsString;
 	
-	if (!creditsString)
-		creditsString = [NSString stringWithFormat:@"%@ \nv%@\n© 2013 Matej Kramny\n\nOpen Source application\ngithub.com/matejkramny/Travian-iOS-App\n\nThis app wouldn't be possible without the awesome Travian game by Travian Gmbh.", [AppDelegate getAppName], [AppDelegate getAppVersion]];
+	if (!creditsString) {
+		icloud = NSLocalizedString(@"Enable saving documents to iCloud", nil);
+		
+		pushNotifications = NSLocalizedString(@"Receive scheduled push notifications", nil);
+		
+		creditsString = [NSString stringWithFormat:@"%@ \nv%@\n© 2013 Matej Kramny\n\n%@\ngithub.com/matejkramny/Travian-iOS-App\n\n%@ Travian Gmbh.", [AppDelegate getAppName], [AppDelegate getAppVersion], NSLocalizedString(@"Open Source application", nil), NSLocalizedString(@"This app wouldn't be possible without the awesome Travian game by", nil)];
+	}
 	
 	if (section == 1) {
 		return creditsString;

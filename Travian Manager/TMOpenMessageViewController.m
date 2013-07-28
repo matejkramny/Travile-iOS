@@ -82,7 +82,7 @@
 
 - (IBAction)menuBarPressed:(id)sender {
 	if (!optionsActionSheet) {
-		optionsActionSheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Reply", @"Forward", @"Archive", @"Delete", nil];
+		optionsActionSheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Reply", nil), NSLocalizedString(@"Forward", nil), NSLocalizedString(@"Archive", nil), NSLocalizedString(@"Delete", nil), nil];
 	}
 	
 	[optionsActionSheet showFromRect:CGRectMake(0, 0, [self.view frame].size.width, [self.view frame].size.height) inView:self.view animated:YES];
@@ -94,7 +94,7 @@ static NSString *subjectCellIdentifier = @"SubjectCell";
 
 - (void)buildCells {
 	UITableViewCell *fromCell = [self.tableView dequeueReusableCellWithIdentifier:rightDetailCellIdentifier];
-	fromCell.textLabel.text = @"Sender";
+	fromCell.textLabel.text = NSLocalizedString(@"Sender", @"Sender of a message");
 	fromCell.detailTextLabel.text = [message sender];
 	
 	UITableViewCell *subjectCell = [self.tableView dequeueReusableCellWithIdentifier:subjectCellIdentifier];

@@ -34,7 +34,7 @@
 
 @implementation TMVillageBuildingsViewController
 
-static NSString *viewTitle = @"Buildings";
+static NSString *viewTitle;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -48,6 +48,8 @@ static NSString *viewTitle = @"Buildings";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+	
+	viewTitle = NSLocalizedString(@"Buildings", @"View title for Buildings");
 	
 	account = [[TMStorage sharedStorage] account];
 	village = account.village;
@@ -75,8 +77,8 @@ static NSString *viewTitle = @"Buildings";
 		if (!village.hasDownloaded) {
 			// Download the village.
 			HUD = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-			[HUD setLabelText:[NSString stringWithFormat:@"Loading %@", village.name]];
-			[HUD setDetailsLabelText:@"Tap to cancel"];
+			[HUD setLabelText:[NSString stringWithFormat:NSLocalizedString(@"Loading %@", @"Shown in HUD when loading a village"), village.name]];
+			[HUD setDetailsLabelText:NSLocalizedString(@"Tap to cancel", @"Shown in HUD, informative to cancel the operation")];
 			tapToCancel = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedToCancelVillageLoading:)];
 			[HUD addGestureRecognizer:tapToCancel];
 			[village addObserver:self forKeyPath:@"hasDownloaded" options:NSKeyValueObservingOptionNew context:nil];
@@ -282,11 +284,11 @@ static NSString *viewTitle = @"Buildings";
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
 	switch (section) {
 		case 0:
-			return @"Resource fields";
+			return NSLocalizedString(@"Resource fields", nil);
 		case 1:
-			return @"Village buildings";
+			return NSLocalizedString(@"Village buildings", nil);
 		case 2:
-			return @"Building sites";
+			return NSLocalizedString(@"Building sites", nil);
 		default:
 			return @"";
 	}
@@ -331,8 +333,8 @@ static NSString *viewTitle = @"Buildings";
 		[b addObserver:self forKeyPath:[[selectedBuildings objectAtIndex:0] finishedLoadingKVOIdentifier] options:NSKeyValueObservingOptionNew context:nil];
 		[b fetchDescription];
 		HUD = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-		HUD.labelText = @"Loading";
-		HUD.detailsLabelText = @"Tap to cancel";
+		HUD.labelText = NSLocalizedString(@"Loading", @"Shown in HUD when loading a village");
+		HUD.detailsLabelText = NSLocalizedString(@"Tap to cancel", @"Shown in HUD, informative to cancel the operation");
 		tapToCancel = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedToCancel:)];
 		[HUD addGestureRecognizer:tapToCancel];
 	} else {
@@ -371,8 +373,8 @@ static NSString *viewTitle = @"Buildings";
 			if (!village.hasDownloaded) {
 				// Download the village.
 				HUD = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-				[HUD setLabelText:[NSString stringWithFormat:@"Loading %@", village.name]];
-				[HUD setDetailsLabelText:@"Tap to cancel"];
+				[HUD setLabelText:[NSString stringWithFormat:NSLocalizedString(@"Loading %@", @"Shown in HUD when loading a village"), village.name]];
+				[HUD setDetailsLabelText:NSLocalizedString(@"Tap to cancel", @"Shown in HUD, informative to cancel the operation")];
 				tapToCancel = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedToCancelVillageLoading:)];
 				[HUD addGestureRecognizer:tapToCancel];
 				[village addObserver:self forKeyPath:@"hasDownloaded" options:NSKeyValueObservingOptionNew context:nil];
@@ -414,8 +416,8 @@ static NSString *viewTitle = @"Buildings";
 	[[selectedBuildings objectAtIndex:0] buildFromAccount:account];
 	
 	HUD = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-	HUD.labelText = @"Building";
-	HUD.detailsLabelText = @"Tap to hide";
+	HUD.labelText = NSLocalizedString(@"Building", nil);
+	HUD.detailsLabelText = NSLocalizedString(@"Tap to hide", @"Shown in HUD, informative to hide the operation");
 	tapToHide = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedToHide:)];
 	[HUD addGestureRecognizer:tapToHide];
 }

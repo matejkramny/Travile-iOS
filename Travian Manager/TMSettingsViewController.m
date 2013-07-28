@@ -18,7 +18,7 @@
 
 @synthesize settings, decimalResources, warehouseIndicator, loadAllAtOnce;
 
-static NSString *viewTitle = @"Settings";
+static NSString *viewTitle;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -32,6 +32,8 @@ static NSString *viewTitle = @"Settings";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+	
+	viewTitle = NSLocalizedString(@"Settings", @"Title of the Settings view");
 	
 	[[self tableView] setBackgroundView:nil];
 
@@ -102,17 +104,17 @@ static NSString *viewTitle = @"Settings";
 		}
 		
 		if (indexPath.row == 0) {
-			cell.title.text = @"Decimal Resources";
+			cell.title.text = NSLocalizedString(@"Decimal Resources", @"Switch in the settings view");
 			[cell.toggle setOn:settings.showsDecimalResources];
 			[cell.toggle addTarget:self action:@selector(changedDecimalResources:) forControlEvents:UIControlEventTouchUpInside];
 			decimalResources = cell.toggle;
 		} else if (indexPath.row == 1) {
-			cell.title.text = @"Warehouse Indicator";
+			cell.title.text = NSLocalizedString(@"Warehouse Indicator", @"Switch in the settings view");
 			[cell.toggle setOn:settings.showsResourceProgress];
 			[cell.toggle addTarget:self action:@selector(changedWarehouseIndicator:) forControlEvents:UIControlEventTouchUpInside];
 			warehouseIndicator = cell.toggle;
 		} else if (indexPath.row == 2) {
-			cell.title.text = @"Fast login";
+			cell.title.text = NSLocalizedString(@"Fast login", @"Switch in the settings view");
 			[cell.toggle setOn:false];
 			[cell.toggle setEnabled:false];
 //#warning disabled fast login for now - buggy
@@ -125,9 +127,9 @@ static NSString *viewTitle = @"Settings";
 		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:basicCellSelectableIdentifier];
 		
 		if (indexPath.row == 0)
-			cell.textLabel.text = @"Credits";
+			cell.textLabel.text = NSLocalizedString(@"Credits", @"Credits button in settings");
 		else
-			cell.textLabel.text = @"Contact Support";
+			cell.textLabel.text = NSLocalizedString(@"Contact Support", @"Contact support button in settings");
 		
 		[AppDelegate setRoundedCellAppearance:cell forIndexPath:indexPath forLastRow:indexPath.row == 1];
 		
@@ -138,9 +140,9 @@ static NSString *viewTitle = @"Settings";
 		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:basicCellSelectableIdentifier];
 		
 		if (indexPath.row == 0) {
-			cell.textLabel.text = @"Browse in Safari";
+			cell.textLabel.text = NSLocalizedString(@"Browse in Safari", @"Browse in safari button, settings");
 		} else {
-			cell.textLabel.text = @"Browse in Google Chrome";
+			cell.textLabel.text = NSLocalizedString(@"Browse in Google Chrome", @"Browse in chrome button, settings");
 		}
 		
 		[AppDelegate setRoundedCellAppearance:cell forIndexPath:indexPath forLastRow:indexPath.row == 1];
@@ -197,8 +199,14 @@ static NSString *viewTitle = @"Settings";
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
-	static NSString *selectedText = @"App will only load a list of villages and unread messages count. This is the fastest and safest method.";
-	static NSString *notSelectedText = @"App will load all villages at login time. This takes a bit longer depending on how many villages you have. Not recommended for players with many villages.";
+	static NSString *selectedText;
+	static NSString *notSelectedText;
+	
+	if (!selectedText) {
+		selectedText = NSLocalizedString(@"App will only load a list of villages and unread messages count. This is the fastest and safest method.", @"Fast login indicator...");
+		notSelectedText = NSLocalizedString(@"App will load all villages at login time. This takes a bit longer depending on how many villages you have. Not recommended for players with many villages.", @"Fast login indicator...");
+	}
+	
 	if (section != 0) return nil;
 	
 	if (settings.fastLogin) {

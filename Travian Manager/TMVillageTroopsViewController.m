@@ -21,7 +21,7 @@
 
 @implementation TMVillageTroopsViewController
 
-static NSString *viewTitle = @"Troops";
+static NSString *viewTitle;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -35,6 +35,8 @@ static NSString *viewTitle = @"Troops";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+	
+	viewTitle = NSLocalizedString(@"Troops", @"View title for Troops");
 	
 	storage = [TMStorage sharedStorage];
 	village = storage.account.village;
@@ -68,8 +70,8 @@ static NSString *viewTitle = @"Troops";
 		if (!village.hasDownloaded) {
 			// Download the village.
 			HUD = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-			[HUD setLabelText:[NSString stringWithFormat:@"Loading %@", village.name]];
-			[HUD setDetailsLabelText:@"Tap to cancel"];
+			[HUD setLabelText:[NSString stringWithFormat:NSLocalizedString(@"Loading %@", @"Shown in HUD when loading a village"), village.name]];
+			[HUD setDetailsLabelText:NSLocalizedString(@"Tap to cancel", @"Shown in HUD, informative to cancel the operation")];
 			tapToCancel = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedToCancel:)];
 			[HUD addGestureRecognizer:tapToCancel];
 			[village addObserver:self forKeyPath:@"hasDownloaded" options:NSKeyValueObservingOptionNew context:nil];
@@ -169,8 +171,8 @@ static NSString *NoTroopsCellID = @"NoTroops";
 			if (!village.hasDownloaded) {
 				// Download the village.
 				HUD = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-				[HUD setLabelText:[NSString stringWithFormat:@"Loading %@", village.name]];
-				[HUD setDetailsLabelText:@"Tap to cancel"];
+				[HUD setLabelText:[NSString stringWithFormat:NSLocalizedString(@"Loading %@", @"Shown in HUD when loading a village"), village.name]];
+				[HUD setDetailsLabelText:NSLocalizedString(@"Tap to cancel", @"Shown in HUD, informative to cancel the operation")];
 				tapToCancel = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedToCancel:)];
 				[HUD addGestureRecognizer:tapToCancel];
 				[village addObserver:self forKeyPath:@"hasDownloaded" options:NSKeyValueObservingOptionNew context:nil];

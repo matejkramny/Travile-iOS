@@ -1,45 +1,594 @@
-"Logging In" = "Logging in";
-/* Shown when loading account */
-"Found notification" = "Found notification";
-/* Shown when loading account - cannot load */
-"Cannot load" = "Cannot load";
-/* Shown when loading account - villages */
-"Loading villages" = "Loading Villages";
-/* Shown when loading account - reports */
-"Loading reports" = "Loading Reports";
-/* Shown when loading account - messages */
-"Loading messages" = "Loading Messages";
-/* Shown when loading account - hero */
-"Loading hero" = "Loading Hero";
-/* Connection failed */
+/* Shown in report with troops. Displays troop statistic. E.g. '4 sent 2 died'. */
+"%@ sent %@ died" = "%1$@ sent %2$@ died";
+
+/* Used to describe distance to a farm */
+"%@ square%@" = "%1$@ square%2$@";
+
+/* Shown in barracks, shows hours:minutes:seconds to train a troop */
+"%@:%@:%@ hrs to train" = "%1$@:%2$@:%3$@ hrs to train";
+
+/* Used to describe troop type. E.g. '2 troop types' or '1 troop type' */
+"%d troop type%@" = "%1$d troop type%2$@";
+
+/* No comment provided by engineer. */
+"Accomplished build conditions" = "Accomplished build conditions";
+
+/* Sidebar cell text */
+"Account" = "Account";
+
+/* Title of section header in the Create Account view */
+"Account name" = "Account name";
+
+/* No comment provided by engineer. */
+"Actions" = "Actions";
+
+/* Activate selected farms button */
+"Activate farms" = "Activate farms";
+
+/* Button activates farms that returned with full bounty */
+"Activate full-bounty farms" = "Activate full-bounty farms";
+
+/* Activate only 'good' farms. These farms had no damage in previous report */
+"Activate good farms" = "Activate good farms";
+
+/* Shown as title of a view */
+"Add Account" = "Add Account";
+
+/* Hero attribute section title */
+"Adventures" = "Adventures";
+
+/* Fast login indicator... */
+"App will load all villages at login time. This takes a bit longer depending on how many villages you have. Not recommended for players with many villages." = "App will load all villages at login time. This takes a bit longer depending on how many villages you have. Not recommended for players with many villages.";
+
+/* Fast login indicator... */
+"App will only load a list of villages and unread messages count. This is the fastest and safest method." = "App will only load a list of villages and unread messages count. This is the fastest and safest method.";
+
+/* No comment provided by engineer. */
+"Archive" = "Archive";
+
+/* Shown when the user is trying to delete X messages */
+"Are you sure you want to delete %d messages?" = "Are you sure you want to delete %d messages?";
+
+/* Confirmation for delete-all reports dialog */
+"Are you sure you want to delete all reports?" = "Are you sure you want to delete all reports?";
+
+/* Shown after pressing Delete Account button */
+"Are you sure you want to delete this account?" = "Are you sure you want to delete this account?";
+
+/* No comment provided by engineer. */
+"Are you sure you want to send wihtout message subject?" = "Are you sure you want to send wihtout message subject?";
+
+/* Shown as header of a report */
+"Attacker" = "Attacker";
+
+/* Hero attribute section title */
+"Attributes" = "Attributes";
+
+/* No comment provided by engineer. */
+"Available Buildings" = "Available Buildings";
+
+/* Shown as header of a report */
+"Bounty" = "Bounty";
+
+/* Browse in chrome button, settings */
+"Browse in Google Chrome" = "Browse in Google Chrome";
+
+/* Browse in safari button, settings */
+"Browse in Safari" = "Browse in Safari";
+
+/* Build building site object */
+"Build" = "Build";
+
+/* No comment provided by engineer. */
+"Build conditions" = "Build conditions";
+
+/* No comment provided by engineer. */
+"Building" = "Building";
+
+/* No comment provided by engineer. */
+"Building sites" = "Building sites";
+
+/* View title for Buildings */
+"Buildings" = "Buildings";
+
+/* No comment provided by engineer. */
+"Buy now" = "Buy now";
+
+/* No comment provided by engineer. */
+"Cancel" = "Cancel";
+
+/* No comment provided by engineer. */
+"Cannot build" = "Cannot build";
+
+/* Shown when loading account - canot load */
+"Cannot load" = "Impossibile caricare";
+
+/* Shown as title of popup when the app cannot log the user in */
+"Cannot log in" = "Cannot log in";
+
+/* No comment provided by engineer. */
+"Clay" = "Clay";
+
+/* Shown on HUD when the connection fails */
 "Connection failed" = "Connection failed";
-"Village" = "Village";
-"Movements" = "Movements";
+
+/* No comment provided by engineer. */
 "Constructions" = "Constructions";
-"No Movements" = "No Movements";
-"No Constructions" = "No Constructions";
-"No Buildings" = "No Buildings";
-/* Construction name lvl X */
-"construction lvl to" = "%@ lvl %d";
-/* Village contains no troops - shown inside table as a cell */
-"NoTroops" = "No troops in this village";
+
+/* Contact support button in settings */
+"Contact Support" = "Contact Support";
+
+/* No comment provided by engineer. */
+"Continue" = "Continue";
+
+/* Overall string is too long in cranny building. This is a short-text like 'All Resoruces Hidden' */
+"Cranny Overall" = "Cranny Overall";
+
+/* Credits button in settings */
+"Credits" = "Credits";
+
+/* No comment provided by engineer. */
+"Data missing" = "Data missing";
+
+/* deactivate selected farms button */
+"Deactivate farms" = "Deactivate farms";
+
+/* Switch in the settings view */
+"Decimal Resources" = "Decimal Resources";
+
+/* Hero attribute */
+"Def Bonus" = "Def Bonus";
+
+/* Shown as header of a report */
+"Defender" = "Defender";
+
+/* No comment provided by engineer. */
+"Delete" = "Delete";
+
+/* Confirmation for delete-all reports dialog */
+"Delete all?" = "Delete all?";
+
+/* Shown when the user is trying to delete X messages */
+"Delete messages?" = "Delete messages?";
+
+/* Shown as HUD after the app deleted X messages */
+"Deleted %d Messages" = "Deleted %d Messages";
+
+/* E.g.: 'Deleted 5 reports'. Message shown in HUD after some reports are deleted */
+"Deleted %d Reports" = "Deleted %d Reports";
+
+/* No comment provided by engineer. */
+"Details" = "Details";
+
+/* No comment provided by engineer. */
+"Distance" = "Distance";
+
+/* Shown on HUD when the app finishes logging in. Shown with a big Tick picture.. */
+"Done" = "Done";
+
+/* Shown to user when downloading message */
+"Downloading message" = "Downloading message";
+
+/* Shown as title of a view */
+"Edit Account" = "Edit Account";
+
+/* No comment provided by engineer. */
+"Enable" = "Enable";
+
+/* No comment provided by engineer. */
+"Enable Push Notifications?" = "Enable Push Notifications?";
+
+/* No comment provided by engineer. */
+"Enable saving documents to iCloud" = "Enable saving documents to iCloud";
+
+/* Shown in HUD when there is an error loading selected report */
+"Error loading report" = "Error loading report";
+
+/* Timer has reached < 0 seconds */
+"Event Happened" = "Event Happened";
+
+/* Pending event message */
+"Event Pending" = "Event Pending";
+
+/* Informative footer showing an example of server configuration shown in the Create Account view */
+"Example travian server: http://ts1.travian.com/\nWorld: 'ts1'\nServer: 'com'" = "Example travian server: http://ts1.travian.com/\nWorld: 'ts1'\nServer: 'com'";
+
+/* Navigation bar button title to execute farm list */
+"Execute" = "Execute";
+
+/* Execute farm list button. Farm name is appended to this string. */
+"Execute " = "Execute ";
+
+/* Executing farm list.. Eg.. 'Executing Natar farm list'. Farm list name is appended to this string! */
+"Executing " = "Executing ";
+
+/* Hero attribute */
+"Experience" = "Experience";
+
+/* Hero attribute section title */
+"Facts" = "Facts";
+
+/* Sidebar cell text */
+"Farm List" = "Farm List";
+
+/* Farm lists view controller title */
+"Farm Lists" = "Farm Lists";
+
+/* Switch in the settings view */
+"Fast login" = "Fast login";
+
+/* No comment provided by engineer. */
+"Forward" = "Forward";
+
+/* beginning of a message which is prepended to the original message, Please retain the special characters with brackets etc. */
+"Forwarded message from [player]%@[/player] \n\n > ____________\n%@" = "Forwarded message from [player]%1$@[/player] \n\n > ____________\n%2$@";
+
+/* Shown when loading account */
+"Found notification" = "Trovata Notifica";
+
+/* Text displayed when the user doesn't have the full version of the app */
+"Full version allows unlimited Travian accounts + more features. Click on Buy Now button to purchase on iTunes" = "Full version allows unlimited Travian accounts + more features. Click on Buy Now button to purchase on iTunes";
+
+/* Hard adventure difficulty */
+"Hard" = "Hard";
+
+/* Hero attribute */
+"Health" = "Health";
+
+/* Hero view title */
+"Hero" = "Hero";
+
+/* Hero attribute */
+"Hero hiding" = "Hero hiding";
+
 /* Timers suffix (hours remaining) */
 "hrs" = "hrs";
+
+/* No comment provided by engineer. */
+"iCloud" = "iCloud";
+
+/* Movements related */
+"Incoming" = "Incoming";
+
+/* No comment provided by engineer. */
+"Iron" = "Iron";
+
+/* No comment provided by engineer. */
+"Last Report" = "Last Report";
+
+/* Section header footer in the Create Account view */
+"Leave password field empty to be asked every time" = "Leave password field empty to be asked every time";
+
+/* No comment provided by engineer. */
+"Level" = "Level";
+
+/* Used as title of popup */
+"Lite version" = "Lite version";
+
+/* Shown in HUD when loading a village */
+"Loading" = "Loading";
+
+/* Shown in HUD when loading a village */
+"Loading %@" = "Loading %@";
+
+/* HUD title, loading X */
+"Loading Farm List" = "Loading Farm List";
+
+/* Shown when loading account - hero */
+"Loading hero" = "Loading hero";
+
+/* Shown when loading account - messages */
+"Loading messages" = "Loading messages";
+
+/* Shown when loading a report */
+"Loading report" = "Loading report";
+
+/* Title for HUD when loading report */
+"Loading Report" = "Loading Report";
+
+/* Shown when loading account - reports */
+"Loading reports" = "Loading reports";
+
+/* Shown when loading account - villages */
+"Loading villages" = "Loading villages";
+
+/* Shown after the user is logged in */
+"Logged in. Tap to continue" = "Logged in. Tap to continue";
+
+/* No comment provided by engineer. */
+"Logging In" = "Accedendo";
+
+/* Title of section header in the Create Account view */
+"Login details" = "Login details";
+
+/* Sidebar cell text, logging out from account */
+"Logout" = "Logout";
+
+/* No comment provided by engineer. */
+"Loyalty" = "Loyalty";
+
+/* Messages view title */
+"Messages" = "Messages";
+
 /* Timers suffix (minutes remaining) */
 "min" = "min";
+
+/* No comment provided by engineer. */
+"NO" = "NO";
+
+/* No comment provided by engineer. */
+"No" = "No";
+
+/* Hero attribute - no adventures available */
+"No adventures" = "No adventures";
+
+/* No comment provided by engineer. */
+"No Buildings" = "No Buildings";
+
+/* No comment provided by engineer. */
+"No buildings available" = "No buildings available";
+
+/* No farm lists found informative text when no farm lists exist in the village */
+"No Farm lists found" = "No Farm lists found";
+
+/* no farms found in the current farm list */
+"No Farms found" = "No Farms found";
+
+/* Shown when there are no messages to be deleted */
+"No messages" = "No messages";
+
+/* Shown as popup title when there are no reports to be deleted */
+"No reports" = "No reports";
+
+/* Shown when trying to send a message without subject */
+"No subject. Send anyway?" = "No subject. Send anyway?";
+
+/* Shown in report when no troops were used in the attack */
+"No troops" = "No troops";
+
+/* Normal adventure difficulty */
+"Normal" = "Normal";
+
+/* No comment provided by engineer. */
+"Not now" = "Not now";
+
+/* Do nothing button */
+"Nothing" = "Nothing";
+
+/* Title of popup when there is a notification pending */
+"Notification pending" = "Notification pending";
+
+/* Village contains no troops - shown inside table as a cell */
+"NoTroops" = "NoTroops";
+
+/* Hero attribute */
+"Off Bonus" = "Off Bonus";
+
+/* No comment provided by engineer. */
+"Open Report" = "Open Report";
+
+/* No comment provided by engineer. */
+"Open Source application" = "Open Source application";
+
+/* Movements related */
+"Other Movements" = "Other Movements";
+
+/* Movements related */
+"Outgoing" = "Outgoing";
+
+/* Overview view title */
+"Overview" = "Overview";
+
+/* Shown as placeholder in text field */
+"Password" = "Password";
+
+/* Title of popup displayed when there is no password during login */
+"Password required" = "Password required";
+
+/* Prompts the user to enter password */
+"Please enter password for account %@" = "Please enter password for account %@";
+
+/* No comment provided by engineer. */
+"Population" = "Population";
+
+/* No comment provided by engineer. */
+"Properties" = "Properties";
+
+/* Used to show the user to keep pulling (a cell in farm list) */
+"Pull" = "Pull";
+
+/* Farm list cell, shown while swiping the cell to the left. */
+"Pull to open" = "Pull to open";
+
+/* No comment provided by engineer. */
+"Push Notifications" = "Push Notifications";
+
+/* No comment provided by engineer. */
+"Push notifications are not enabled right now." = "Push notifications are not enabled right now.";
+
+/* No comment provided by engineer. */
+"Receive scheduled push notifications" = "Receive scheduled push notifications";
+
+/* Used to show the user that they can release the cell they are pulling */
+"Release" = "Release";
+
+/* No comment provided by engineer. */
+"Reply" = "Reply";
+
+/* View title for Reports */
+"Reports" = "Reports";
+
+/* No comment provided by engineer. */
+"Required resources" = "Required resources";
+
+/* Research view title */
+"Research" = "Research";
+
+/* Hero attribute */
+"Resource Bonus pts" = "Resource Bonus pts";
+
+/* No comment provided by engineer. */
+"Resource fields" = "Resource fields";
+
+/* Sidebar cell text */
+"Resources" = "Resources";
+
+/* Hero attribute section title */
+"Resources boost" = "Resources boost";
+
+/* Resources required to upgrade building to next level */
+"Resources required" = "Resources required";
+
+/* Resources required to build */
+"Resources required build" = "Resources required build";
+
+/* No comment provided by engineer. */
+"Retry" = "Retry";
+
 /* Timers suffix (seconds remaining) */
 "sec" = "sec";
-/* Timer has reached < 0 seconds */
-"Event Happened" = "Finished";
-/* Pending event message */
-"Event Pending" = "Pending";
-/* Overall string is too long in cranny building. This is a short-text like 'All Resoruces Hidden' */
-"Cranny Overall" = "Total resources hidden";
-/* Resources required to upgrade building to next level */
-"Resources required" = "Resources required for upgrade";
-/* Resources required to build */
-"Resources required build" = "Resources required for build";
-/* Shown on Progress HUD */
+
+/* No comment provided by engineer. */
+"Select a building to open it." = "Select a building to open it.";
+
+/* Sender of a message */
+"Sender" = "Sender";
+
+/* Shown as title of a dialog when sending message */
+"Sending message" = "Sending message";
+
+/* Travian server, used as label when creating an account */
+"Server" = "Server";
+
+/* Title of the Settings view */
+"Settings" = "Settings";
+
+/* Shown when data in the account is incomplete */
+"Some data in this account is missing." = "Some data in this account is missing.";
+
+/* Shown as placeholder in text field */
+"Something meaningful" = "Something meaningful";
+
+/* Hero attribute */
+"Speed" = "Speed";
+
+/* Hero attribute */
+"Strength" = "Strength";
+
+/* Informing the user to tap on a movement to schedula a push notification */
+"Tap on a construction or movement to schedule a notification" = "Tap on a construction or movement to schedule a notification";
+
+/* Shown in HUD, informative to cancel the operation */
 "Tap to cancel" = "Tap to cancel";
-/* Build building site object */
-"Build" = "Build %@";
+
+/* No comment provided by engineer. */
+"Tap to dismiss." = "Tap to dismiss.";
+
+/* Shown in HUD, informative to hide the operation */
+"Tap to hide" = "Tap to hide";
+
+/* Popup message body stating that there are no deleteable reports */
+"There are no reports that can be deleted" = "There are no reports that can be deleted";
+
+/* Shown when there are no messages to be deleted */
+"There are no selected messages to be deleted" = "There are no selected messages to be deleted";
+
+/* Text of popup when there is a notification pending */
+"There is a Travian notification pending review." = "There is a Travian notification pending review.";
+
+/* No comment provided by engineer. */
+"These buildings cannot be built because they have unmet requirements" = "These buildings cannot be built because they have unmet requirements";
+
+/* No comment provided by engineer. */
+"These troops are being trained" = "These troops are being trained";
+
+/* No comment provided by engineer. */
+"This app wouldn't be possible without the awesome Travian game by" = "This app wouldn't be possible without the awesome Travian game by";
+
+/* No comment provided by engineer. */
+"Time" = "Time";
+
+/* Shown as text of popup when the password is incorrect during login */
+"TM cannot log in. Enter your password to retry." = "TM cannot log in. Enter your password to retry.";
+
+/* Sidebar cell text, returning from village list to account */
+"To Account" = "To Account";
+
+/* Shown as header of a report */
+"Trade" = "Trade";
+
+/* No comment provided by engineer. */
+"Train" = "Train";
+
+/* No comment provided by engineer. */
+"Train troops" = "Train troops";
+
+/* No comment provided by engineer. */
+"Training" = "Training";
+
+/* Title of section header in the Create Account view */
+"Travian server" = "Travian server";
+
+/* View title for Troops */
+"Troops" = "Troops";
+
+/* No comment provided by engineer. */
+"Unavailable Buildings" = "Unavailable Buildings";
+
+/* No comment provided by engineer. */
+"Upgrade buildings listed in order to build" = "Upgrade buildings listed in order to build";
+
+/* No comment provided by engineer. */
+"Upgrade to level %d" = "Upgrade to level %d";
+
+/* Shown as placeholder in text field */
+"Username or email" = "Username or email";
+
+/* No comment provided by engineer. */
+"View" = "View";
+
+/* View less adventures */
+"View less" = "View less";
+
+/* View more adventures */
+"View more (%d total)" = "View more (%d total)";
+
+/* Example: 'Village My Little Village'. Village name is appended to this string! */
+"Village " = "Village ";
+
+/* No comment provided by engineer. */
+"Village buildings" = "Village buildings";
+
+/* Sidebar cell text */
+"Village Events" = "Village Events";
+
+/* Village view title */
+"Villages" = "Villages";
+
+/* Switch in the settings view */
+"Warehouse Indicator" = "Warehouse Indicator";
+
+/* No comment provided by engineer. */
+"Wheat" = "Wheat";
+
+/* No comment provided by engineer. */
+"Wood" = "Wood";
+
+/* Travian world, used as label when creating an account */
+"World" = "World";
+
+/* This is part of a message when trying to reply to a user. E.g. 'TravianKing wrote:' */
+"wrote" = "wrote";
+
+/* No comment provided by engineer. */
+"YES" = "YES";
+
+/* No comment provided by engineer. */
+"Yes" = "Yes";
+
+/* No comment provided by engineer. */
+"You do not have enough resources" = "You do not have enough resources";
+
+/* No comment provided by engineer. */
+"You have enough resources" = "You have enough resources";
+

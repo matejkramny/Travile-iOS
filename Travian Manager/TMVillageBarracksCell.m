@@ -71,7 +71,7 @@
 	}
 	
 	__weak TMResources *r = troop.resources;
-	[resources setText:[NSString stringWithFormat:@"%.0f Wood %.0f Clay %.0f Iron %.0f Wheat", r.wood * troops, r.clay * troops, r.iron * troops, r.wheat * troops]];
+	[resources setText:[NSString stringWithFormat:@"%.0f %@ %.0f %@ %.0f %@ %.0f %@", r.wood * troops, NSLocalizedString(@"Wood", nil), r.clay * troops, NSLocalizedString(@"Clay", nil), r.iron * troops, NSLocalizedString(@"Iron", nil), r.wheat * troops, NSLocalizedString(@"Wheat", nil)]];
 	
 	int secs = troop.researchTime * troops;
 	int hours = secs / (60 * 60);
@@ -83,7 +83,7 @@
 	int seconds = secs;
 	NSString *secondsString = seconds < 10 ? [NSString stringWithFormat:@"0%d", seconds] : [NSString stringWithFormat:@"%d", seconds];
 	
-	[otherDetails setText:[NSString stringWithFormat:@"%@:%@:%@ hrs to train", hoursString, minutesString, secondsString]];
+	[otherDetails setText:[NSString stringWithFormat:NSLocalizedString(@"%@:%@:%@ hrs to train", @"Shown in barracks, shows hours:minutes:seconds to train a troop"), hoursString, minutesString, secondsString]];
 }
 
 - (IBAction)manyEditingChanged:(id)sender {

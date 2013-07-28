@@ -37,7 +37,7 @@
 
 @implementation TMHeroViewController
 
-static NSString *viewTitle = @"Hero";
+static NSString *viewTitle;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -51,6 +51,8 @@ static NSString *viewTitle = @"Hero";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+	
+	viewTitle = NSLocalizedString(@"Hero", @"Hero view title");
 	
 	[[self tableView] setBackgroundView:nil];
 	
@@ -72,13 +74,13 @@ static NSString *viewTitle = @"Hero";
 	TMResources *r = [hero resourceProductionBoost];
 	resourceBoost = [[NSMutableArray alloc] initWithCapacity:4];
 	if (r.wood != 0.0f)
-		[resourceBoost addObject:@{@"label": @"Wood", @"value":[NSNumber numberWithInt:r.wood]}];
+		[resourceBoost addObject:@{@"label": NSLocalizedString(@"Wood", nil), @"value":[NSNumber numberWithInt:r.wood]}];
 	if (r.clay != 0.0f)
-		[resourceBoost addObject:@{@"label": @"Clay", @"value":[NSNumber numberWithInt:r.clay]}];
+		[resourceBoost addObject:@{@"label": NSLocalizedString(@"Clay", nil), @"value":[NSNumber numberWithInt:r.clay]}];
 	if (r.iron != 0.0f)
-		[resourceBoost addObject:@{@"label": @"Iron", @"value":[NSNumber numberWithInt:r.iron]}];
+		[resourceBoost addObject:@{@"label": NSLocalizedString(@"Iron", nil), @"value":[NSNumber numberWithInt:r.iron]}];
 	if (r.wheat != 0.0f)
-		[resourceBoost addObject:@{@"label": @"Wheat", @"value":[NSNumber numberWithInt:r.wheat]}];
+		[resourceBoost addObject:@{@"label": NSLocalizedString(@"Wheat", nil), @"value":[NSNumber numberWithInt:r.wheat]}];
 	
 	[self.tableView reloadData];
 }
@@ -149,22 +151,22 @@ static NSString *viewTitle = @"Hero";
 			switch (indexPath.row) {
 				case 0:
 					cell = [tableView dequeueReusableCellWithIdentifier:@"RightDetailCell"];
-					cell.textLabel.text = @"Hero hiding";
-					cell.detailTextLabel.text = [hero isHidden] ? @"YES" : @"NO";
+					cell.textLabel.text = NSLocalizedString(@"Hero hiding", @"Hero attribute");
+					cell.detailTextLabel.text = [hero isHidden] ? NSLocalizedString(@"YES", nil) : NSLocalizedString(@"NO", nil);
 					break;
 				case 1:
 					cell = [tableView dequeueReusableCellWithIdentifier:@"RightDetailCell"];
-					cell.textLabel.text = @"Experience";
+					cell.textLabel.text = NSLocalizedString(@"Experience", @"Hero attribute");
 					cell.detailTextLabel.text = [NSString stringWithFormat:@"%d", [hero experience]];
 					break;
 				case 2:
 					cell = [tableView dequeueReusableCellWithIdentifier:@"RightDetailCell"];
-					cell.textLabel.text = @"Speed";
+					cell.textLabel.text = NSLocalizedString(@"Speed", @"Hero attribute");
 					cell.detailTextLabel.text = [NSString stringWithFormat:@"%d", [hero speed]];
 					break;
 				case 3:
 					cell = [tableView dequeueReusableCellWithIdentifier:@"RightDetailCell"];
-					cell.textLabel.text = @"Health";
+					cell.textLabel.text = NSLocalizedString(@"Health", @"Hero attribute");
 					cell.detailTextLabel.text = [NSString stringWithFormat:@"%d", [hero health]];
 					break;
 			}
@@ -174,22 +176,22 @@ static NSString *viewTitle = @"Hero";
 			switch (indexPath.row) {
 				case 0:
 					cell = [tableView dequeueReusableCellWithIdentifier:@"RightDetailCell"];
-					cell.textLabel.text = @"Strength";
+					cell.textLabel.text = NSLocalizedString(@"Strength", @"Hero attribute");
 					cell.detailTextLabel.text = [NSString stringWithFormat:@"%d", [hero strengthPoints]];
 					break;
 				case 1:
 					cell = [tableView dequeueReusableCellWithIdentifier:@"RightDetailCell"];
-					cell.textLabel.text = @"Off Bonus";
+					cell.textLabel.text = NSLocalizedString(@"Off Bonus", @"Hero attribute");
 					cell.detailTextLabel.text = [NSString stringWithFormat:@"%d%%", [hero offBonusPercentage]];
 					break;
 				case 2:
 					cell = [tableView dequeueReusableCellWithIdentifier:@"RightDetailCell"];
-					cell.textLabel.text = @"Def Bonus";
+					cell.textLabel.text = NSLocalizedString(@"Def Bonus", @"Hero attribute");
 					cell.detailTextLabel.text = [NSString stringWithFormat:@"%d%%", [hero defBonusPercentage]];
 					break;
 				case 3:
 					cell = [tableView dequeueReusableCellWithIdentifier:@"RightDetailCell"];
-					cell.textLabel.text = @"Resource Bonus pts";
+					cell.textLabel.text = NSLocalizedString(@"Resource Bonus pts", @"Hero attribute");
 					cell.detailTextLabel.text = [NSString stringWithFormat:@"%d", [hero resourceProductionPoints]];
 					break;
 			}
@@ -200,17 +202,17 @@ static NSString *viewTitle = @"Hero";
 			
 			if (qsc == 0) {
 				cell = [tableView dequeueReusableCellWithIdentifier:@"BasicCell"];
-				cell.textLabel.text = @"No adventures";
+				cell.textLabel.text = NSLocalizedString(@"No adventures", @"Hero attribute - no adventures available");
 			} else if (indexPath.row+1 == (viewingMoreQuests ? qsc+1 : 4)) {
 				// Button comes last
 				cell = [tableView dequeueReusableCellWithIdentifier:@"BasicSelectableCell"];
-				cell.textLabel.text = viewingMoreQuests ? @"View less" : [NSString stringWithFormat:@"View more (%d total)", qsc];
+				cell.textLabel.text = viewingMoreQuests ? NSLocalizedString(@"View less", @"View less adventures") : [NSString stringWithFormat:NSLocalizedString(@"View more (%d total)", @"View more adventures"), qsc];
 			} else {
 				cell = [tableView dequeueReusableCellWithIdentifier:@"BasicSelectableCell"];
-				NSString *difficulty = @"Normal";
+				NSString *difficulty = NSLocalizedString(@"Normal", @"Normal adventure difficulty");
 				TMHeroQuest *quest = [[hero quests] objectAtIndex:indexPath.row];
 				if ([quest difficulty] == QD_VERY_HARD)
-					difficulty = @"Hard";
+					difficulty = NSLocalizedString(@"Hard", @"Hard adventure difficulty");
 				
 				cell.textLabel.text = [NSString stringWithFormat:@"[%@] %ds", difficulty, [quest duration]];
 			}
@@ -235,13 +237,13 @@ static NSString *viewTitle = @"Hero";
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
 	switch (section) {
 		case 0:
-			return @"Facts";
+			return NSLocalizedString(@"Facts", @"Hero attribute section title");
 		case 1:
-			return @"Attributes";
+			return NSLocalizedString(@"Attributes", @"Hero attribute section title");
 		case 2:
-			return @"Adventures";
+			return NSLocalizedString(@"Adventures", @"Hero attribute section title");
 		case 3:
-			return @"Resources boost";
+			return NSLocalizedString(@"Resources boost", @"Hero attribute section title");
 	}
 	
 	return @"";

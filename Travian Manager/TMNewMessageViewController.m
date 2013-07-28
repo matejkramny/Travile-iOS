@@ -135,7 +135,7 @@ static NSString *contentCellIdentifier = @"ContentCell";
 		}
 		
 		[[subjectCell field] setText:tit];
-		[[contentCell textView] setText:[NSString stringWithFormat:@"\n____________\n%@ wrote:\n%@", [replyToMessage sender], [replyToMessage content]]];
+		[[contentCell textView] setText:[NSString stringWithFormat:@"\n____________\n%@ %@:\n%@", [replyToMessage sender], NSLocalizedString(@"wrote", @"This is part of a message when trying to reply to a user. E.g. 'TravianKing wrote:'"), [replyToMessage content]]];
 	} else if (forwardMessage != nil) {
 		NSString *tit = [forwardMessage title];
 		if ([tit length] <= 4 || ![[tit substringToIndex:4] isEqualToString:@"FWD "]) {
@@ -143,7 +143,7 @@ static NSString *contentCellIdentifier = @"ContentCell";
 		}
 		
 		[[subjectCell field] setText:tit];
-		[[contentCell textView] setText:[NSString stringWithFormat:@"Forwarded message from [player]%@[/player] \n\n > ____________\n%@", [forwardMessage sender], [forwardMessage content]]];
+		[[contentCell textView] setText:[NSString stringWithFormat:NSLocalizedString(@"Forwarded message from [player]%@[/player] \n\n > ____________\n%@", @"beginning of a message which is prepended to the original message, Please retain the special characters with brackets etc."), [forwardMessage sender], [forwardMessage content]]];
 	}
 	
 	TMMessageContentTextView *textView = [contentCell textView];
@@ -207,7 +207,7 @@ static NSString *contentCellIdentifier = @"ContentCell";
 	} else if ([[[[cells objectAtIndex:1] field] text] length] == 0) {
 		[self closeKeyboard];
 		
-		continueWithoutSubject = [[UIAlertView alloc] initWithTitle:@"No subject. Send anyway?" message:@"Are you sure you want to send wihtout message subject?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+		continueWithoutSubject = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"No subject. Send anyway?", @"Shown when trying to send a message without subject") message:NSLocalizedString(@"Are you sure you want to send wihtout message subject?", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"No", nil) otherButtonTitles:NSLocalizedString(@"Yes", nil), nil];
 		[continueWithoutSubject show];
 		
 		return;
@@ -245,7 +245,7 @@ static NSString *contentCellIdentifier = @"ContentCell";
 	[sentMessage addObserver:self forKeyPath:@"sent" options:NSKeyValueObservingOptionNew context:nil];
 	HUD = [MBProgressHUD showHUDAddedTo:[[self navigationController] view] animated:YES];
 	HUD.delegate= self;
-	HUD.labelText = @"Sending message";
+	HUD.labelText = NSLocalizedString(@"Sending message", @"Shown as title of a dialog when sending message");
 	[self closeKeyboard];
 	
 	[sentMessage send:[[[cells objectAtIndex:0] field] text]];

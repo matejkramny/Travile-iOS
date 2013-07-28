@@ -140,29 +140,29 @@ static bool firstTime = true;
 	if (showsVillage) {
 		[cell setIndentTitle:NO];
 		if (indexPath.section == 0) {
-			text = @"To Account";
+			text = NSLocalizedString(@"To Account", @"Sidebar cell text, returning from village list to account");
 			cell.imageView.image = nil;
 		} else if (indexPath.section == 1) {
 			[cell setIndentTitle:YES];
 			switch (indexPath.row) {
 				case 0:
-					text = @"Overview";
+					text = NSLocalizedString(@"Overview", @"Overview view title");
 					cell.imageView.image = overviewImage;
 					break;
 				case 1:
-					text = @"Resources";
+					text = NSLocalizedString(@"Resources", @"Sidebar cell text");
 					cell.imageView.image = resourcesImage;
 					break;
 				case 2:
-					text = @"Troops";
+					text = NSLocalizedString(@"Troops", @"View title for Troops");
 					cell.imageView.image = troopsImage;
 					break;
 				case 3:
-					text = @"Buildings";
+					text = NSLocalizedString(@"Buildings", @"View title for Buildings");
 					cell.imageView.image = buildingsImage;
 					break;
 				case 4:
-					text = @"Farm List";
+					text = NSLocalizedString(@"Farm List", @"Sidebar cell text");
 					cell.imageView.image = farmlistImage;
 					break;
 			}
@@ -182,25 +182,25 @@ static bool firstTime = true;
 	} else {
 		if (indexPath.section == 0) {
 			[cell setIndentTitle:NO];
-			text = @"Logout";
+			text = NSLocalizedString(@"Logout", @"Sidebar cell text, logging out from account");
 			cell.imageView.image = nil;
 		} else if (indexPath.section == 1) {
 			[cell setIndentTitle:YES];
 			switch (indexPath.row) {
 				case 0:
-					text = @"Messages";
+					text = NSLocalizedString(@"Messages", @"Messages view title");
 					cell.imageView.image = messagesImage;
 					break;
 				case 1:
-					text = @"Reports";
+					text = NSLocalizedString(@"Reports", @"View title for Reports");
 					cell.imageView.image = reportsImage;
 					break;
 				case 2:
-					text = @"Hero";
+					text = NSLocalizedString(@"Hero", @"Hero view title");
 					cell.imageView.image = heroImage;
 					break;
 				case 3:
-					text = @"Settings";
+					text = NSLocalizedString(@"Settings", @"Title of the Settings view");
 					cell.imageView.image = settingsImage;
 					break;
 			}
@@ -235,16 +235,16 @@ static bool firstTime = true;
 		if (section == 0) {
 			return nil;
 		} else if (section == 1) {
-			label.text = [@"Village " stringByAppendingString:storage.account.village.name];
+			label.text = [NSLocalizedString(@"Village ", @"Example: 'Village My Little Village'. Village name is appended to this string!") stringByAppendingString:storage.account.village.name];
 		} else {
-			label.text = @"Village Events";
+			label.text = NSLocalizedString(@"Village Events", @"Sidebar cell text");
 		}
 	} else if (section == 0) {
 		return nil;
 	} else if (section == 1) {
-		label.text = @"Account";
+		label.text = NSLocalizedString(@"Account", @"Sidebar cell text");
 	} else if (section == 2) {
-		label.text = @"Villages";
+		label.text = NSLocalizedString(@"Villages", @"Village view title");
 	}
 	
 	[header addSubview:label];

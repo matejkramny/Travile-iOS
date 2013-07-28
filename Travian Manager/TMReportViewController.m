@@ -63,14 +63,14 @@ static NSString *RightDetailCell = @"RightDetail";
 	for (NSNumber *index in indexes) {
 		UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:RightDetailCell];
 		cell.textLabel.text = [troopNames objectAtIndex:[index intValue]];
-		cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ sent %@ died", [troops objectAtIndex:[index intValue]], [troopCasualties objectAtIndex:[index intValue]]];
+		cell.detailTextLabel.text = [NSString stringWithFormat:NSLocalizedString(@"%@ sent %@ died", @"Shown in report with troops. Displays troop statistic. E.g. '4 sent 2 died'."), [troops objectAtIndex:[index intValue]], [troopCasualties objectAtIndex:[index intValue]]];
 		
 		[cells addObject:cell];
 	}
 	
 	if ([indexes count] == 0) {
 		UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:BasicCell];
-		cell.textLabel.text = @"No troops";
+		cell.textLabel.text = NSLocalizedString(@"No troops", @"Shown in report when no troops were used in the attack");
 		[cells addObject:cell];
 	}
 	
@@ -85,22 +85,22 @@ static NSString *RightDetailCell = @"RightDetail";
 			TMResources *res = resources;
 			
 			cell = [self.tableView dequeueReusableCellWithIdentifier:RightDetailCell];
-			cell.textLabel.text = @"Wood";
+			cell.textLabel.text = NSLocalizedString(@"Wood", nil);
 			cell.detailTextLabel.text = [NSString stringWithFormat:@"%d", (int)res.wood];
 			[cells addObject:cell];
 			
 			cell = [self.tableView dequeueReusableCellWithIdentifier:RightDetailCell];
-			cell.textLabel.text = @"Clay";
+			cell.textLabel.text = NSLocalizedString(@"Clay", nil);
 			cell.detailTextLabel.text = [NSString stringWithFormat:@"%d", (int)res.clay];
 			[cells addObject:cell];
 			
 			cell = [self.tableView dequeueReusableCellWithIdentifier:RightDetailCell];
-			cell.textLabel.text = @"Iron";
+			cell.textLabel.text = NSLocalizedString(@"Iron", nil);
 			cell.detailTextLabel.text = [NSString stringWithFormat:@"%d", (int)res.iron];
 			[cells addObject:cell];
 			
 			cell = [self.tableView dequeueReusableCellWithIdentifier:RightDetailCell];
-			cell.textLabel.text = @"Wheat";
+			cell.textLabel.text = NSLocalizedString(@"Wheat", nil);
 			cell.detailTextLabel.text = [NSString stringWithFormat:@"%d", (int)res.wheat];
 			[cells addObject:cell];
 		}
@@ -113,7 +113,7 @@ static NSString *RightDetailCell = @"RightDetail";
 	if (report.trade) {
 		// Trade scenario
 		[sections addObject:@{
-		 @"header": @"Trade",
+		 @"header": NSLocalizedString(@"Trade", @"Shown as header of a report"),
 		 @"footer": [report.trade objectForKey:@"header"],
 		 @"cells": buildResourceCells([report.trade objectForKey:@"resources"])
 		 }];
@@ -124,13 +124,13 @@ static NSString *RightDetailCell = @"RightDetail";
 	}
 	
 	// Attacker
-	[sections addObject:@{@"header": @"Attacker",
+	[sections addObject:@{@"header": NSLocalizedString(@"Attacker", @"Shown as header of a report"),
 	 @"footer": [report.attacker objectForKey:@"name"],
 	 @"cells": [self getTroopCells:report.attacker]}];
 	 
 	// bounty
 	if (report.bounty || report.bountyResources) {
-		[sections addObject:@{@"header": @"Bounty",
+		[sections addObject:@{@"header": NSLocalizedString(@"Bounty", @"Shown as header of a report"),
 		 @"footer": report.bounty == nil ? @"" : report.bounty,
 		 @"cells": buildResourceCells(report.bountyResources)}];
 	}
@@ -145,7 +145,7 @@ static NSString *RightDetailCell = @"RightDetail";
 	// Defenders
 	int count = 0;
 	for (NSDictionary *defender in report.defenders) {
-		[sections addObject:@{@"header": count == 0 ? @"Defender" : @"",
+		[sections addObject:@{@"header": count == 0 ? NSLocalizedString(@"Defender", @"Shown as header of a report") : @"",
 		 @"footer": [defender objectForKey:@"name"],
 		 @"cells": [self getTroopCells:defender]}];
 		

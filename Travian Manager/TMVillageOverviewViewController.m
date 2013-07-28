@@ -30,7 +30,7 @@
 
 @implementation TMVillageOverviewViewController
 
-static NSString *viewTitle = @"Overview";
+static NSString *viewTitle;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -43,6 +43,8 @@ static NSString *viewTitle = @"Overview";
 
 - (void)viewDidLoad
 {
+	viewTitle = NSLocalizedString(@"Overview", @"Overview view title");
+	
 	storage = [TMStorage sharedStorage];
 	village = [[storage account] village];
 	
@@ -85,8 +87,8 @@ static NSString *viewTitle = @"Overview";
 		if (!village.hasDownloaded) {
 			// Download the village.
 			HUD = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-			[HUD setLabelText:[NSString stringWithFormat:@"Loading %@", village.name]];
-			[HUD setDetailsLabelText:@"Tap to cancel"];
+			[HUD setLabelText:[NSString stringWithFormat:NSLocalizedString(@"Loading %@", @"Shown in HUD when loading a village"), village.name]];
+			[HUD setDetailsLabelText:NSLocalizedString(@"Tap to cancel", @"Shown in HUD, informative to cancel the operation")];
 			tapToCancel = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedToCancel:)];
 			[HUD addGestureRecognizer:tapToCancel];
 			[village addObserver:self forKeyPath:@"hasDownloaded" options:NSKeyValueObservingOptionNew context:nil];
@@ -142,8 +144,8 @@ static NSString *viewTitle = @"Overview";
 			if (!village.hasDownloaded) {
 				// Download the village.
 				HUD = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-				[HUD setLabelText:[NSString stringWithFormat:@"Loading %@", village.name]];
-				[HUD setDetailsLabelText:@"Tap to cancel"];
+				[HUD setLabelText:[NSString stringWithFormat:NSLocalizedString(@"Loading %@", @"Shown in HUD when loading a village"), village.name]];
+				[HUD setDetailsLabelText:NSLocalizedString(@"Tap to cancel", @"Shown in HUD, informative to cancel the operation")];
 				tapToCancel = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedToCancel:)];
 				[HUD addGestureRecognizer:tapToCancel];
 				[village addObserver:self forKeyPath:@"hasDownloaded" options:NSKeyValueObservingOptionNew context:nil];
@@ -182,8 +184,8 @@ static NSString *viewTitle = @"Overview";
 	
 	[sections addObject:@{@"header": village.name,
 	 @"cells": @[
-	 @{ @"name": @"Population", @"value": [NSString stringWithFormat:@"%d", village.population]},
-	 @{ @"name": @"Loyalty", @"value": [NSString stringWithFormat:@"%d", village.loyalty]}
+	 @{ @"name": NSLocalizedString(@"Population", nil), @"value": [NSString stringWithFormat:@"%d", village.population]},
+	 @{ @"name": NSLocalizedString(@"Loyalty", nil), @"value": [NSString stringWithFormat:@"%d", village.loyalty]}
 	 ]
 	 }];
 	
@@ -203,11 +205,11 @@ static NSString *viewTitle = @"Overview";
 		}
 	}
 	
-	if (incoming.count > 0) [sections addObject:@{@"header": @"Incoming",
+	if (incoming.count > 0) [sections addObject:@{@"header": NSLocalizedString(@"Incoming", @"Movements related"),
 							 @"cells": incoming}];
-	if (outgoing.count > 0) [sections addObject:@{@"header": @"Outgoing",
+	if (outgoing.count > 0) [sections addObject:@{@"header": NSLocalizedString(@"Outgoing", @"Movements related"),
 							 @"cells": outgoing}];
-	if (other.count > 0) [sections addObject:@{@"header": @"Other Movements",
+	if (other.count > 0) [sections addObject:@{@"header": NSLocalizedString(@"Other Movements", @"Movements related"),
 						  @"cells": other}];
 	
 	NSMutableArray *constructions = [[NSMutableArray alloc] init];
@@ -217,7 +219,7 @@ static NSString *viewTitle = @"Overview";
 	if (constructions.count > 0) {
 		[sections addObject:@{@"header": NSLocalizedString(@"Constructions", @""),
 		 @"cells": constructions,
-		 @"footer": @"Tap on a construction or movement to schedule a notification"}];
+		 @"footer": NSLocalizedString(@"Tap on a construction or movement to schedule a notification", @"Informing the user to tap on a movement to schedula a push notification")}];
 	}
 	
 	cells = sections;
@@ -319,7 +321,7 @@ static NSString *notificationTitle;
 		[[TMAPNService sharedInstance] scheduleNotification:notificationDate withMessageTitle:notificationTitle];
 		[tableView deselectRowAtIndexPath:indexPath animated:YES];
 	} else {
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Enable Push Notifications?" message:@"Push notifications are not enabled right now." delegate:self cancelButtonTitle:@"Not now" otherButtonTitles:@"Enable", nil];
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Enable Push Notifications?", nil) message:NSLocalizedString(@"Push notifications are not enabled right now.", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Not now", nil) otherButtonTitles:NSLocalizedString(@"Enable", nil), nil];
 		[alert show];
 	}
 }

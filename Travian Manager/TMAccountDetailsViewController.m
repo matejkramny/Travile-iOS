@@ -39,8 +39,8 @@
 
 @synthesize delegate, editingAccount;
 
-static NSString *addAccount = @"Add Account";
-static NSString *editAccount = @"Edit Account";
+static NSString *addAccount;
+static NSString *editAccount;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -53,6 +53,9 @@ static NSString *editAccount = @"Edit Account";
 
 - (void)viewDidLoad
 {
+	addAccount = NSLocalizedString(@"Add Account", @"Shown as title of a view");
+	editAccount = NSLocalizedString(@"Edit Account", @"Shown as title of a view");
+	
 	if (self.editingAccount != nil)
 	{
 		// Editing mode
@@ -109,8 +112,8 @@ static NSString *deleteButtonCellID = @"DeleteButton";
 			if (!cell)
 				cell = [[TMAccountTextFieldCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:textFieldCellID];
 		
-			cell.textField.placeholder = @"Something meaningful";
-		
+			cell.textField.placeholder = NSLocalizedString(@"Something meaningful", @"Shown as placeholder in text field");
+			
 			if (self.editingAccount != nil)
 				cell.textField.text = editingAccount.name;
 			
@@ -132,7 +135,7 @@ static NSString *deleteButtonCellID = @"DeleteButton";
 				cell = [[TMAccountTextFieldCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:textFieldCellID];
 			
 			if (indexPath.row == 0) {
-				cell.textField.placeholder = @"Username or email";
+				cell.textField.placeholder = NSLocalizedString(@"Username or email", @"Shown as placeholder in text field");
 				
 				if (editingAccount != nil)
 					cell.textField.text = editingAccount.username;
@@ -141,7 +144,7 @@ static NSString *deleteButtonCellID = @"DeleteButton";
 				
 				usernameCell = cell;
 			} else {
-				cell.textField.placeholder = @"Password";
+				cell.textField.placeholder = NSLocalizedString(@"Password", @"Shown as placeholder in text field");
 				
 				if (editingAccount != nil)
 					cell.textField.text = editingAccount.password;
@@ -166,7 +169,7 @@ static NSString *deleteButtonCellID = @"DeleteButton";
 			
 			if (indexPath.row == 0) {
 				cell.textField.placeholder = @"ts1";
-				cell.label.text = @"World";
+				cell.label.text = NSLocalizedString(@"World", @"Travian world, used as label when creating an account");
 				
 				if (editingAccount != nil)
 					cell.textField.text = editingAccount.world;
@@ -174,7 +177,7 @@ static NSString *deleteButtonCellID = @"DeleteButton";
 				worldCell = cell;
 			} else {
 				cell.textField.placeholder = @"com";
-				cell.label.text = @"Server";
+				cell.label.text = NSLocalizedString(@"Server", @"Travian server, used as label when creating an account");
 				
 				if (editingAccount != nil)
 					cell.textField.text = editingAccount.server;
@@ -193,7 +196,7 @@ static NSString *deleteButtonCellID = @"DeleteButton";
 		return indexPath.row == 0 ? worldCell : serverCell;
 	} else if (indexPath.section == 3) {
 		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Button"];
-		cell.textLabel.text = @"Contact Support";
+		cell.textLabel.text = NSLocalizedString(@"Contact Support", nil);
 		
 		[AppDelegate setRoundedCellAppearance:cell forIndexPath:indexPath forLastRow:YES];
 		return cell;
@@ -226,7 +229,7 @@ static NSString *deleteButtonCellID = @"DeleteButton";
 - (IBAction)deleteAccount:(id)sender {
 	// Add method to delegate
 	
-	UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"Are you sure you want to delete this account?" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Delete" otherButtonTitles: nil];
+	UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Are you sure you want to delete this account?", @"Shown after pressing Delete Account button") delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:NSLocalizedString(@"Delete", nil) otherButtonTitles: nil];
 	[sheet showInView:self.navigationController.view];
 }
 
@@ -259,7 +262,7 @@ static NSString *deleteButtonCellID = @"DeleteButton";
 	
 	if (![account isComplete])
 	{
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Data missing" message:@"Some data in this account is missing." delegate:nil cancelButtonTitle:@"Continue" otherButtonTitles: nil];
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Data missing", nil) message:NSLocalizedString(@"Some data in this account is missing.", @"Shown when data in the account is incomplete") delegate:nil cancelButtonTitle:NSLocalizedString(@"Continue", nil) otherButtonTitles: nil];
 		
 		[alert show];
 		
@@ -318,11 +321,11 @@ static NSString *deleteButtonCellID = @"DeleteButton";
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
 	switch (section) {
 		case 0:
-			return @"Account name";
+			return NSLocalizedString(@"Account name", @"Title of section header in the Create Account view");
 		case 1:
-			return @"Login details";
+			return NSLocalizedString(@"Login details", @"Title of section header in the Create Account view");
 		case 2:
-			return @"Travian server";
+			return NSLocalizedString(@"Travian server", @"Title of section header in the Create Account view");
 		default:
 			return @"";
 	}
@@ -331,9 +334,9 @@ static NSString *deleteButtonCellID = @"DeleteButton";
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
 	switch (section) {
 		case 1:
-			return @"Leave password field empty to be asked every time";
+			return NSLocalizedString(@"Leave password field empty to be asked every time", @"Section header footer in the Create Account view");
 		case 2:
-			return @"Example travian server: http://ts1.travian.com/\nWorld: 'ts1'\nServer: 'com'";
+			return NSLocalizedString(@"Example travian server: http://ts1.travian.com/\nWorld: 'ts1'\nServer: 'com'", @"Informative footer showing an example of server configuration shown in the Create Account view");
 		default:
 			return @"";
 	}

@@ -725,6 +725,10 @@
 		4FD4810015724B6500BECE24 /* TMMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMMessage.m; sourceTree = "<group>"; };
 		4FD64FC915DAAD57002FAFFC /* TMBuildingMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMBuildingMap.h; sourceTree = "<group>"; };
 		4FD64FCA15DAAD57002FAFFC /* TMBuildingMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMBuildingMap.m; sourceTree = "<group>"; };
+		4FD67A0217A41B09002A993C /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
+		4FD67A0317A41B09002A993C /* it */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = it; path = it.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
+		4FD67A0417A41B09002A993C /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/MainStoryboard_iPhone.strings; sourceTree = "<group>"; };
+		4FD67A0517A41B09002A993C /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4FDA07831563189100E9C6C2 /* TMResourcesProduction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMResourcesProduction.h; sourceTree = "<group>"; };
 		4FDA07841563189100E9C6C2 /* TMResourcesProduction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMResourcesProduction.m; sourceTree = "<group>"; };
 		4FE58E9115C43C12004825EF /* TMSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMSettingsViewController.h; sourceTree = "<group>"; };
@@ -1294,6 +1298,7 @@
 				cs,
 				Base,
 				fr,
+				it,
 			);
 			mainGroup = 4F0951FD155C767700C15D6E;
 			productRefGroup = 4F095209155C767800C15D6E /* Products */;
@@ -1797,6 +1802,7 @@
 			children = (
 				4F095216155C767800C15D6E /* en */,
 				4F75257D170CE77300B447D4 /* cs */,
+				4FD67A0517A41B09002A993C /* it */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -1805,6 +1811,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				4F752570170C796000B447D4 /* Base */,
+				4FD67A0317A41B09002A993C /* it */,
 			);
 			name = MainStoryboard_iPhone.storyboard;
 			sourceTree = "<group>";
@@ -1814,6 +1821,7 @@
 			children = (
 				4F5704D615CF166F001614AC /* en */,
 				4F75257E170CE77300B447D4 /* cs */,
+				4FD67A0217A41B09002A993C /* it */,
 			);
 			name = Localizable.strings;
 			path = ..;
@@ -1824,6 +1832,7 @@
 			children = (
 				4F752572170C86FD00B447D4 /* en */,
 				4F75257C170CE77300B447D4 /* cs */,
+				4FD67A0417A41B09002A993C /* it */,
 			);
 			name = MainStoryboard_iPhone.strings;
 			sourceTree = "<group>";

@@ -25,7 +25,7 @@
 
 @implementation TMVillagesViewController
 
-static NSString *title = @"Villages";
+static NSString *title;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -39,6 +39,8 @@ static NSString *title = @"Villages";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+	
+	title = NSLocalizedString(@"Villages", @"Village view title");
 	
 	storage = [TMStorage sharedStorage];
 	
@@ -153,8 +155,8 @@ static NSString *title = @"Villages";
 	
 	if (![village hasDownloaded]) {
 		HUD = [MBProgressHUD showHUDAddedTo:self.navigationController.tabBarController.view animated:YES];
-		[HUD setLabelText:[NSString stringWithFormat:@"Loading %@", village.name]];
-		[HUD setDetailsLabelText:@"Tap to cancel"];
+		[HUD setLabelText:[NSString stringWithFormat:NSLocalizedString(@"Loading %@", @"Shown in HUD when loading a village"), village.name]];
+		[HUD setDetailsLabelText:NSLocalizedString(@"Tap to cancel", @"Shown in HUD, informative to cancel the operation")];
 		tapToCancel = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedToCancel:)];
 		[HUD addGestureRecognizer:tapToCancel];
 		[village addObserver:self forKeyPath:@"hasDownloaded" options:NSKeyValueObservingOptionNew context:nil];

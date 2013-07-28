@@ -29,7 +29,7 @@
 
 @implementation TMReportsViewController
 
-static NSString *viewTitle = @"Reports";
+static NSString *viewTitle;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -43,6 +43,8 @@ static NSString *viewTitle = @"Reports";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+	
+	viewTitle = NSLocalizedString(@"Reports", @"View title for Reports");
 	
 	storage = [TMStorage sharedStorage];
 	//[self.navigationItem setLeftBarButtonItem:editButton animated:NO];
@@ -118,7 +120,7 @@ static NSString *viewTitle = @"Reports";
 - (IBAction)deleteAll:(id)sender {
 	if ([[[storage account] reports] count] == 0) {
 		@autoreleasepool {
-			UIAlertView *a = [[UIAlertView alloc] initWithTitle:@"No reports" message:@"There are no reports that can be deleted" delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles: nil];
+			UIAlertView *a = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"No reports", @"Shown as popup title when there are no reports to be deleted") message:NSLocalizedString(@"There are no reports that can be deleted", @"Popup message body stating that there are no deleteable reports") delegate:nil cancelButtonTitle:NSLocalizedString(@"Continue", nil) otherButtonTitles: nil];
 			[a show];
 		}
 		
@@ -127,7 +129,7 @@ static NSString *viewTitle = @"Reports";
 		return;
 	}
 	
-	deleteAllAlert = [[UIAlertView alloc] initWithTitle:@"Delete all?" message:@"Are you sure you want to delete all reports?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+	deleteAllAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Delete all?", @"Confirmation for delete-all reports dialog") message:NSLocalizedString(@"Are you sure you want to delete all reports?", @"Confirmation for delete-all reports dialog") delegate:self cancelButtonTitle:NSLocalizedString(@"No", nil) otherButtonTitles:NSLocalizedString(@"Yes", nil), nil];
 	[deleteAllAlert show];
 }
 
@@ -142,7 +144,7 @@ static NSString *viewTitle = @"Reports";
 	HUD = [[MBProgressHUD alloc] initWithView:self.tabBarController.navigationController.view];
 	[self.tabBarController.navigationController.view addSubview:HUD];
 	HUD.delegate = self;
-	HUD.labelText = [NSString stringWithFormat:@"Deleted %d Reports", total];
+	HUD.labelText = [NSString stringWithFormat:NSLocalizedString(@"Deleted %d Reports", @"E.g.: 'Deleted 5 reports'. Message shown in HUD after some reports are deleted"), total];
 	
 	[HUD show:YES];
 	[self deleteTask:sender];
@@ -217,8 +219,8 @@ static NSString *viewTitle = @"Reports";
 		[selectedReport addObserver:self forKeyPath:@"parsed" options:NSKeyValueObservingOptionNew context:nil];
 		[selectedReport downloadAndParse];
 		
-		HUD = [MBProgressHUD showHUDAddedTo:self.navigationController.tabBarController.view animated:YES];
-		HUD.labelText = @"Loading report";
+		HUD = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+		HUD.labelText = NSLocalizedString(@"Loading report", @"Shown when loading a report");
 		HUD.delegate = self;
 	} else {
 		[self performSegueWithIdentifier:@"openReport" sender:self];
