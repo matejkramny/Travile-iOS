@@ -1,0 +1,45 @@
+"Logging In" = "Accedendo";
+/* Shown when loading account */
+"Found notification" = "Trovata Notifica";
+/* Shown when loading account - cannot load */
+"Cannot load" = "Impossibile caricare";
+/* Shown when loading account - villages */
+"Loading villages" = "Caricando i Villaggi";
+/* Shown when loading account - reports */
+"Loading reports" = "Caricando i Report";
+/* Shown when loading account - messages */
+"Loading messages" = "Caricando i Messaggi";
+/* Shown when loading account - hero */
+"Loading hero" = "Caricando l'Eroe";
+/* Connection failed */
+"Connection failed" = "Connessione Fallita";
+"Village" = "Villaggio";
+"Movements" = "Movimenti";
+"Constructions" = "Costruzioni";
+"No Movements" = "Nessun Movimento";
+"No Constructions" = "Nessuna Costruzione";
+"No Buildings" = "Nessun Edificio";
+/* Construction name lvl X */
+"construction lvl to" = "%@ lvl %d";
+/* Village contains no troops - shown inside table as a cell */
+"NoTroops" = "Nessuna truppa in questo villaggio";
+/* Timers suffix (hours remaining) */
+"hrs" = "h";
+/* Timers suffix (minutes remaining) */
+"min" = "min";
+/* Timers suffix (seconds remaining) */
+"sec" = "sec";
+/* Timer has reached < 0 seconds */
+"Event Happened" = "Finito";
+/* Pending event message */
+"Event Pending" = "In sospeso";
+/* Overall string is too long in cranny building. This is a short-text like 'All Resoruces Hidden' */
+"Cranny Overall" = "Totale risorse nascoste";
+/* Resources required to upgrade building to next level */
+"Resources required" = "Risorse richieste per aggiornare";
+/* Resources required to build */
+"Resources required build" = "Risorse richieste per costruire";
+/* Shown on Progress HUD */
+"Tap to cancel" = "Clicca per cancellare";
+/* Build building site object */
+"Build" = "Costruisci %@";
