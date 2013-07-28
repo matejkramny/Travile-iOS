@@ -142,6 +142,12 @@ static UIBarButtonItem *executeButton;
 }
 
 - (void)executeFarmList:(id)sender {
+	if (!IsFULL) {
+		[AppDelegate displayLiteWarning];
+		
+		return;
+	}
+	
 	TMFarmListEntry *selectedEntry = nil;
 	int selectedEntrySection = 0;
 	for (TMFarmListEntry *entry in village.farmList.farmLists) {

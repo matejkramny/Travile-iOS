@@ -41,7 +41,7 @@
 
 @class TMStorage;
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate, UIAlertViewDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 @property (weak, nonatomic) TMStorage *storage;
@@ -49,6 +49,8 @@
 + (void)openSupportEmail;
 + (NSString *)getAppVersion;
 + (NSString *)getAppName;
+
++ (void)displayLiteWarning;
 
 @end
 

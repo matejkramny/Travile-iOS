@@ -371,6 +371,11 @@ static NSString *noMessagesCellIdentifier = @"NoMessagesCell";
 }
 
 - (IBAction)newMessage:(id)sender {
+	if (!IsFULL) {
+		[AppDelegate displayLiteWarning];
+		return;
+	}
+	
 	[self performSegueWithIdentifier:@"NewMessage" sender:self];
 }
 

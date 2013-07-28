@@ -8,11 +8,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Travian Manager/TMFarmListViewController.m"
-         timestampString = "396023220.15477"
+         timestampString = "396741887.161826"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "413"
-         endingLineNumber = "413"
+         startingLineNumber = "419"
+         endingLineNumber = "419"
          landmarkName = "-handlePan:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -177,11 +177,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Travian Manager/TMFarmListViewController.m"
-         timestampString = "396023220.15477"
+         timestampString = "396741887.161826"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "285"
-         endingLineNumber = "285"
+         startingLineNumber = "291"
+         endingLineNumber = "291"
          landmarkName = "-tableView:cellForRowAtIndexPath:"
          landmarkType = "5">
       </FileBreakpoint>

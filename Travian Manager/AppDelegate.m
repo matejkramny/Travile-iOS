@@ -94,6 +94,19 @@ void uncaughtExceptionHandler(NSException *exception) {
 	return [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"];
 }
 
++ (void)displayLiteWarning {
+	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Lite version", @"Used as title of popup") message:NSLocalizedString(@"Full version allows unlimited Travian accounts, Farm Lists + more features. Click on Buy Now button to purchase on iTunes", @"Text displayed when the user doesn't have the full version of the app") delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:NSLocalizedString(@"Buy now", nil), nil];
+	[alert show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+	if (buttonIndex == 1) {
+		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"itms://itunes.com/apps/Travile"]];
+	}
+	
+	return;
+}
+
 @end
 
 @implementation AppDelegate (Appearance)

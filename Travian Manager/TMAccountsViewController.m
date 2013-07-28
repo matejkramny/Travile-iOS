@@ -15,7 +15,6 @@
 	TMAccount *selectedAccount;
 	UIAlertView *passwordPromptView;
 	UIAlertView *passwordRetryView;
-	UIAlertView *buyAlert;
 	TMAccount *passwordRetryAccount;
 	MBProgressHUD *hud;
 	UITapGestureRecognizer *tapGestureRecognizer;
@@ -61,8 +60,7 @@
 		[self performSegueWithIdentifier:@"NewAccount" sender:self];
 	} else {
 		if ([storage.accounts count] > 0) {
-			buyAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Lite version", @"Used as title of popup") message:NSLocalizedString(@"Full version allows unlimited Travian accounts + more features. Click on Buy Now button to purchase on iTunes", @"Text displayed when the user doesn't have the full version of the app") delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:NSLocalizedString(@"Buy now", nil), nil];
-			[buyAlert show];
+			[AppDelegate displayLiteWarning];
 		}
 	}
 }
@@ -422,12 +420,6 @@
 		}
 		else {
 			[self logIn:passwordRetryAccount withPasword:[[alertView textFieldAtIndex:0] text]];
-		}
-		
-		return;
-	} else if (alertView == buyAlert) {
-		if (buttonIndex == 1) {
-			[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"itms://itunes.com/apps/Travile"]];
 		}
 		
 		return;
