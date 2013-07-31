@@ -1,0 +1,23 @@
+Whats new in this release:
+
+- Improved farm list functionality.
+.... Long-press on a farm in farm list view to bring options.
+.... - You can open the last report from a farm list entry
+.... - Select only farms that have returned with full bounty
+.... - Select only farms that have no casualties
+
+- Improved navigation using sidebar
+
+- Added 'Contact support' buttons, and mini guide when adding account.
+
+- Added Global Settings page, to view press 'Edit' in the accounts list, then 'Settings'.
+
+- Travile is now translated into
+.... - Italian, thanks to Carmine A.
+.... - Slovenian, thanks to Anže Jenšterle
+.... - Vietnamese, thanks to Phan Anh
+.... - Partial Czech translation (by me)
+
+If you wish to contribute to translations, please visit https://www.transifex.com/projects/p/travile/
+
+Big thanks to you all for using this app!

@@ -461,8 +461,8 @@ static NSString *noMessagesCellIdentifier = @"NoMessagesCell";
 		[selectedMessage addObserver:self forKeyPath:@"content" options:NSKeyValueObservingOptionNew context:NULL];
 		[selectedMessage downloadAndParse];
 				
-		HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.tabBarController.view];
-		[self.navigationController.tabBarController.view addSubview:HUD];
+		HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+		[self.navigationController.view addSubview:HUD];
 		HUD.delegate = self;
 		HUD.labelText = [NSString stringWithFormat:NSLocalizedString(@"Downloading message", @"Shown to user when downloading message")];
 		

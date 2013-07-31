@@ -77,7 +77,7 @@
 "Browse in Safari" = "Browse in Safari";
 
 /* Build building site object */
-"Build" = "Postavit";
+"Build" = "Build";
 
 /* No comment provided by engineer. */
 "Build conditions" = "Build conditions";
@@ -122,7 +122,7 @@
 "Continue" = "Continue";
 
 /* Overall string is too long in cranny building. This is a short-text like 'All Resoruces Hidden' */
-"Cranny Overall" = "Event Pending";
+"Cranny Overall" = "Cranny Overall";
 
 /* Credits button in settings */
 "Credits" = "Credits";
@@ -185,10 +185,10 @@
 "Error loading report" = "Error loading report";
 
 /* Timer has reached < 0 seconds */
-"Event Happened" = "Hotovo";
+"Event Happened" = "Event Happened";
 
 /* Pending event message */
-"Event Pending" = "Čeká";
+"Event Pending" = "Event Pending";
 
 /* Informative footer showing an example of server configuration shown in the Create Account view */
 "Example travian server: http://ts1.travian.com/\nWorld: 'ts1'\nServer: 'com'" = "Example travian server: http://ts1.travian.com/\nWorld: 'ts1'\nServer: 'com'";
@@ -242,7 +242,7 @@
 "Hero hiding" = "Hero hiding";
 
 /* Timers suffix (hours remaining) */
-"hrs" = "hod";
+"hrs" = "hod.";
 
 /* No comment provided by engineer. */
 "iCloud" = "iCloud";
@@ -275,28 +275,28 @@
 "Loading Farm List" = "Loading Farm List";
 
 /* Shown when loading account - hero */
-"Loading hero" = "Načítám hrdinu";
+"Loading hero" = "Loading hero";
 
 /* Shown when loading account - messages */
-"Loading messages" = "Načítám zprávy";
+"Loading messages" = "Loading messages";
 
 /* Shown when loading a report */
 "Loading report" = "Loading report";
 
 /* Title for HUD when loading report */
-"Loading Report" = "Načítám reports";
+"Loading Report" = "Loading Report";
 
 /* Shown when loading account - reports */
 "Loading reports" = "Loading reports";
 
 /* Shown when loading account - villages */
-"Loading villages" = "Načítám vesnice";
+"Loading villages" = "Loading villages";
 
 /* Shown after the user is logged in */
 "Logged in. Tap to continue" = "Logged in. Tap to continue";
 
 /* No comment provided by engineer. */
-"Logging In" = "Přihlašuji";
+"Logging In" = "Logging In";
 
 /* Title of section header in the Create Account view */
 "Login details" = "Login details";
@@ -311,7 +311,7 @@
 "Messages" = "Messages";
 
 /* Timers suffix (minutes remaining) */
-"min" = "min";
+"min" = "min.";
 
 /* No comment provided by engineer. */
 "NO" = "NO";
@@ -359,7 +359,7 @@
 "Notification pending" = "Notification pending";
 
 /* Village contains no troops - shown inside table as a cell */
-"NoTroops" = "V této vesnici nejsou vojáci";
+"NoTroops" = "NoTroops";
 
 /* Hero attribute */
 "Off Bonus" = "Off Bonus";
@@ -437,16 +437,16 @@
 "Resources boost" = "Resources boost";
 
 /* Resources required to upgrade building to next level */
-"Resources required" = "Suroviny požadované pro další level";
+"Resources required" = "Resources required";
 
 /* Resources required to build */
-"Resources required build" = "Suroviny požadované pro postavení";
+"Resources required build" = "Resources required build";
 
 /* No comment provided by engineer. */
 "Retry" = "Retry";
 
 /* Timers suffix (seconds remaining) */
-"sec" = "sec";
+"sec" = "sek.";
 
 /* No comment provided by engineer. */
 "Select a building to open it." = "Select a building to open it.";

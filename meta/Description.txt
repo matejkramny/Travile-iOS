@@ -1,0 +1,35 @@
+Must-have if you play Travian! 
+
+Travile is the BEST Travian experience on iPhone. 
+Take Travian anywhere with Travile and stay on top of all your Travian accounts, wherever you are, whatever you are doing. 
+
+No zooming-in, no accidental clicking on links and no loading tediousness with Travile. Play Travian even when you are not on 3G without having to wait for minutes and drain your battery. 
+
+- Check current resources, percentage full in your warehouse 
+- Train troops 
+- See movements in and out of your villages 
+- Schedule push notifications to alert you when a movement/construction finishes 
+- Upgrade your Resource Fields and Buildings 
+- View a map of your resource fields and buildings 
+- View building properties, such as how many resources are covered by all your cranny's 
+- Send Hero on adventures 
+- Send, forward, reply to messages 
+- Read detailed reports. 
+- Send Raids from your Farm Lists. 
+- - Open last report from latest raid from a farm
+- - Selecting only farms that returned with full bounty (unique feature)
+- - Selecting only farms that have no casualties (unique feature)
+- Add multiple accounts, just tap the on your account to log in. You don't need to enter your password every time and it is very easy to manage your account on the go! 
+
+After you launch the app, add a new account. You will need: 
+- Travian username 
+- Travian password 
+- Travian world (e.g. 'ts4' if my travian address is 'http://ts4.travian.us')
+- Travian server (e.g. 'us' if my travian address is 'http://ts4.travian.us')
+
+If you require support setting up an account, please do not hesitate to contact us using the 'Contact Support' button within the app, or using the iTunes support link. 
+
+* This app only works with Travian 4 and new Travian 4.2 
+* Not all features of Travian have been implemented 
+* This app is not associated with Travian Games GmbH who retain all copyright. 
+** This application is NOT intended to automate tasks (bot), it simply provides a better way to control your Travian account. Not all features of Travian are implemented.
