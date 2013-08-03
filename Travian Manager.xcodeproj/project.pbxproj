@@ -536,6 +536,10 @@
 		4F509F5D15C5BC9300A15924 /* TMVillageTroopsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMVillageTroopsViewController.m; sourceTree = "<group>"; };
 		4F509F5F15C5C08600A15924 /* TMVillageBuildingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMVillageBuildingsViewController.h; sourceTree = "<group>"; };
 		4F509F6015C5C08600A15924 /* TMVillageBuildingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMVillageBuildingsViewController.m; sourceTree = "<group>"; };
+		4F54014317AD696C00F01D96 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/Localizable.strings; sourceTree = "<group>"; };
+		4F54014417AD696C00F01D96 /* vi */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = vi; path = vi.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
+		4F54014517AD696C00F01D96 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/MainStoryboard_iPhone.strings; sourceTree = "<group>"; };
+		4F54014617AD696C00F01D96 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4F57044815CEE126001614AC /* 102-walk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "102-walk.png"; sourceTree = "<group>"; };
 		4F57044915CEE126001614AC /* 102-walk@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "102-walk@2x.png"; sourceTree = "<group>"; };
 		4F57044A15CEE126001614AC /* 103-map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "103-map.png"; sourceTree = "<group>"; };
@@ -1304,6 +1308,7 @@
 				fr,
 				it,
 				sl,
+				vi,
 			);
 			mainGroup = 4F0951FD155C767700C15D6E;
 			productRefGroup = 4F095209155C767800C15D6E /* Products */;
@@ -1809,6 +1814,7 @@
 				4F75257D170CE77300B447D4 /* cs */,
 				4FD67A0517A41B09002A993C /* it */,
 				4FD67A0917A5CF15002A993C /* sl */,
+				4F54014617AD696C00F01D96 /* vi */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -1819,6 +1825,7 @@
 				4F752570170C796000B447D4 /* Base */,
 				4FD67A0317A41B09002A993C /* it */,
 				4FD67A0717A5CF15002A993C /* sl */,
+				4F54014417AD696C00F01D96 /* vi */,
 			);
 			name = MainStoryboard_iPhone.storyboard;
 			sourceTree = "<group>";
@@ -1830,6 +1837,7 @@
 				4F75257E170CE77300B447D4 /* cs */,
 				4FD67A0217A41B09002A993C /* it */,
 				4FD67A0617A5CF15002A993C /* sl */,
+				4F54014317AD696C00F01D96 /* vi */,
 			);
 			name = Localizable.strings;
 			path = ..;
@@ -1842,6 +1850,7 @@
 				4F75257C170CE77300B447D4 /* cs */,
 				4FD67A0417A41B09002A993C /* it */,
 				4FD67A0817A5CF15002A993C /* sl */,
+				4F54014517AD696C00F01D96 /* vi */,
 			);
 			name = MainStoryboard_iPhone.strings;
 			sourceTree = "<group>";
@@ -2013,8 +2022,8 @@
 					"\"$(SRCROOT)/Travian Manager/Flurry\"",
 				);
 				PRODUCT_NAME = "Travile Lite";
-				PROVISIONING_PROFILE = "816A8BD6-D1B4-4992-994C-5F172E94D191";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "816A8BD6-D1B4-4992-994C-5F172E94D191";
+				PROVISIONING_PROFILE = "58D3CE28-039F-48E3-B190-7B014540BFFA";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "58D3CE28-039F-48E3-B190-7B014540BFFA";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -2047,8 +2056,8 @@
 					"\"$(SRCROOT)/Travian Manager/Flurry\"",
 				);
 				PRODUCT_NAME = "Travile Lite";
-				PROVISIONING_PROFILE = "0DCF36B5-75BB-4E6C-ADAC-F84014100C83";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "0DCF36B5-75BB-4E6C-ADAC-F84014100C83";
+				PROVISIONING_PROFILE = "F99CAE90-E02B-4C65-9983-D6A8F0552C82";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F99CAE90-E02B-4C65-9983-D6A8F0552C82";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};

@@ -18,6 +18,8 @@
 	NSTimer *secondTimer;
 	MBProgressHUD *HUD;
 	UITapGestureRecognizer *tapToCancel;
+	
+	UITableViewCell *wood, *clay, *iron, *wheat, *producing, *consuming, *warehouse, *granary;
 }
 
 - (void)timerFired:(id)sender;
@@ -25,15 +27,6 @@
 @end
 
 @implementation TMVillageResourcesViewController
-
-@synthesize wood;
-@synthesize clay;
-@synthesize iron;
-@synthesize wheat;
-@synthesize warehouse;
-@synthesize granary;
-@synthesize consuming;
-@synthesize producing;
 
 static NSString *viewTitle;
 
@@ -60,6 +53,24 @@ static NSString *viewTitle;
 	
 	[[self tableView] setBackgroundView:nil];
 	[self.navigationItem setTitle:viewTitle];
+	
+	wood = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:nil];
+	clay = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:nil];
+	iron = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:nil];
+	wheat = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:nil];
+	granary = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:nil];
+	warehouse = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:nil];
+	consuming = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:nil];
+	producing = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:nil];
+	
+	wood.textLabel.text = NSLocalizedString(@"Wood", nil);
+	clay.textLabel.text = NSLocalizedString(@"Clay", nil);
+	iron.textLabel.text = NSLocalizedString(@"Iron", nil);
+	wheat.textLabel.text = NSLocalizedString(@"Wheat", nil);
+	warehouse.textLabel.text = NSLocalizedString(@"Warehouse", nil);
+	granary.textLabel.text = NSLocalizedString(@"Granary", nil);
+	consuming.textLabel.text = NSLocalizedString(@"Consuming", nil);
+	producing.textLabel.text = NSLocalizedString(@"Producing", nil);
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -112,15 +123,6 @@ static NSString *viewTitle;
 - (void)viewDidUnload
 {
 	[super viewDidUnload];
-	
-	[self setWood:nil];
-	[self setClay:nil];
-	[self setIron:nil];
-	[self setWheat:nil];
-	[self setWarehouse:nil];
-	[self setGranary:nil];
-	[self setConsuming:nil];
-	[self setProducing:nil];
     
 	@try {
 		[storage.account removeObserver:self forKeyPath:@"village"];
@@ -147,19 +149,19 @@ static NSString *viewTitle;
 	bool indicatePercentage = storage.account.settings.showsResourceProgress;
 	bool decimalResources = storage.account.settings.showsDecimalResources;
 	
-	void (^setFormatToResource)(UILabel *, float, int, int) = ^(UILabel *l, float rv, int rpv, int percentage) {
+	void (^setFormatToResource)(UITableViewCell *, float, int, int) = ^(UITableViewCell *l, float rv, int rpv, int percentage) {
 		if (decimalResources)
-			[l setText:[NSString stringWithFormat:@"%.01f", rv]];
+			l.detailTextLabel.text = [NSString stringWithFormat:@"%.01f", rv];
 		else
-			[l setText:[NSString stringWithFormat:@"%d", (int)rv]];
+			l.detailTextLabel.text = [NSString stringWithFormat:@"%d", (int)rv];
 		
-		[l setText:[[l text] stringByAppendingFormat:@" (%d) ", rpv]];
+		l.detailTextLabel.text = [l.detailTextLabel.text stringByAppendingFormat:@" (%d) ", rpv];
 		
 		if (indicatePercentage)
-			[l setText:[[l text] stringByAppendingFormat:@"%d%% full", percentage]];
+			l.detailTextLabel.text = [l.detailTextLabel.text stringByAppendingFormat:@"%d%% full", percentage];
 	};
-	void (^setSimpleFormatToResource)(UILabel *, int) = ^(UILabel *l, int rv) {
-		[l setText:[NSString stringWithFormat:@"%d", rv]];
+	void (^setSimpleFormatToResource)(UITableViewCell *, int) = ^(UITableViewCell *l, int rv) {
+		l.detailTextLabel.text = [NSString stringWithFormat:@"%d", rv];
 	};
 	
 	setFormatToResource(wood, r.wood, rp.wood, [r getPercentageForResource:r.wood warehouse:v.warehouse]);
@@ -226,6 +228,79 @@ static NSString *viewTitle;
 			[self.tableView reloadData];
 		}
 	}
+}
+
+#pragma mark - Table delegation
+
+- (int)numberOfSectionsInTableView:(UITableView *)tableView {
+	return 3;
+}
+
+- (int)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+	switch (section) {
+		case 0:
+			return 4;
+		case 1:
+		case 2:
+			return 2;
+	}
+	
+	return 0;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+	switch (indexPath.section) {
+		case 0:
+			switch (indexPath.row) {
+				case 0:
+					return wood;
+				case 1:
+					return clay;
+				case 2:
+					return iron;
+				case 3:
+					return wheat;
+			}
+			break;
+		case 1:
+			switch (indexPath.row) {
+				case 0:
+					return warehouse;
+				case 1:
+					return granary;
+			}
+		case 2:
+			switch (indexPath.row) {
+				case 0:
+					return consuming;
+				case 1:
+					return producing;
+			}
+	}
+	
+	return nil;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+	switch (section) {
+		case 0:
+			return NSLocalizedString(@"Resources", @"Sidebar cell text");
+		case 1:
+			return NSLocalizedString(@"Storage", @"Storage section label in the Village Resource view");
+		case 2:
+			return NSLocalizedString(@"Consumption", @"Consumption section label in the village Resource view");
+	}
+	
+	return nil;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
+	switch (section) {
+		case 0:
+			return NSLocalizedString(@"Stored now (Produced per hour) Full%", @"Resource section footer label in the Village Resource view. It explains what each cell contains.");
+	}
+	
+	return nil;
 }
 
 @end

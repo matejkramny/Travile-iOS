@@ -7,6 +7,7 @@
 
 @interface TMAPNService () {
 	NSString *token;
+	NSMutableString *metadata;
 	NSURLConnection *registerConnection;
 	NSMutableData *registerData;
 	NSURLConnection *scheduleConnection;
@@ -57,10 +58,34 @@
 
 @implementation TMAPNService
 
+- (id)init {
+	self = [super init];
+	
+	if (self) {
+		metadata = [[NSMutableString alloc] init];
+		
+		if (IsFULL) {
+			[metadata appendString:@"full=true&"];
+		} else {
+			[metadata appendString:@"full=false&"];
+		}
+		
+		if (DEBUG) {
+			[metadata appendString:@"debug=true&"];
+		} else {
+			[metadata appendString:@"debug=false&"];
+		}
+		
+		[metadata appendFormat:@"version=%@&", [AppDelegate getAppVersion]];
+	}
+	
+	return self;
+}
+
 - (void)sendToken:(NSString *)theToken {
 	token = [[[theToken stringByReplacingOccurrencesOfString:@"<" withString:@""] stringByReplacingOccurrencesOfString:@">" withString:@""] stringByReplacingOccurrencesOfString:@" " withString:@""];
 	
-	NSString *postData = [[NSString alloc] initWithFormat:@"token=%@", token];
+	NSString *postData = [[NSString alloc] initWithFormat:@"token=%@&%@", token, metadata];
 	NSData *myRequestData = [NSData dataWithBytes: [postData UTF8String] length: [postData length]];
 	
 	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", APN_URL, @"register"]];
@@ -74,7 +99,7 @@
 }
 
 - (void)scheduleNotification:(NSDate *)date withMessageTitle:(NSString *)title {
-	NSString *postData = [[NSString alloc] initWithFormat:@"token=%@&deliveryTime=%d&title=%@", token, (int)[date timeIntervalSince1970], title];
+	NSString *postData = [[NSString alloc] initWithFormat:@"token=%@&deliveryTime=%d&title=%@&%@", token, (int)[date timeIntervalSince1970], title, metadata];
 	NSData *myRequestData = [NSData dataWithBytes: [postData UTF8String] length: [postData length]];
 	
 	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", APN_URL, @"schedule"]];

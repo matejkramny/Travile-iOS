@@ -9,11 +9,20 @@
 	#define DEBUG_ANIMATION false
 #endif
 
-#ifdef DEBUG
-	#define APN_URL @"http://apn.sandbox.matej.me/" // used when running the app without the distribution prov. profile
+#ifdef FULL
+
+#if FULL
+	#define IsFULL true
 #else
-	#define APN_URL @"http://apn.matej.me/" // ad-hoc and app store mode.
+	#define IsFULL false
 #endif
+
+#else
+	#define IsFULL false
+#endif
+
+// APN Notification server
+#define APN_URL @"http://apn.travileapp.com/"
 
 #ifndef DEBUG
 	#define DEBUG false
@@ -25,18 +34,6 @@
 
 #ifndef SupportEmail
 	#define SupportEmail @"mailto:matejkramny@gmail.com?subject=Travile Support"
-#endif
-
-#ifdef FULL
-
-#if FULL
-	#define IsFULL true
-#else
-	#define IsFULL false
-#endif
-
-#else
-	#define IsFULL false
 #endif
 
 @class TMStorage;

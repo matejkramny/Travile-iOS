@@ -36,6 +36,9 @@
 
 - (void)viewWillAppear:(BOOL)animated {
 	settings = [TMStorage sharedStorage].appSettings;
+	[self.navigationItem setTitle:NSLocalizedString(@"App Settings", @"View title")];
+	
+	[super viewWillAppear:animated];
 }
 
 - (void)didReceiveMemoryWarning

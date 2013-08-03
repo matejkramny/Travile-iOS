@@ -115,7 +115,7 @@
 	addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addAccount:)];
 	editButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editButtonClicked:)];
 	editButtonDone = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(editButtonClicked:)];
-	settingsButton = [[UIBarButtonItem alloc] initWithTitle:@"Settings" style:UIBarButtonItemStylePlain target:self action:@selector(showSettings:)];
+	settingsButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Settings", nil) style:UIBarButtonItemStylePlain target:self action:@selector(showSettings:)];
 	
 	insideSettings = false;
 	canSkipLoading = false;
@@ -149,6 +149,8 @@
 		[overlay removeOverlayAnimated:YES];
 		[self setEditing:NO animated:NO];
 	}
+	
+	[self.navigationItem setTitle:NSLocalizedString(@"Accounts", nil)];
 	
 	[super viewWillAppear:animated];
 }

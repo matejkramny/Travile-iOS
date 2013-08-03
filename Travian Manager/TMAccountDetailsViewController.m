@@ -60,6 +60,8 @@ static NSString *editAccount;
 	{
 		// Editing mode
 		[[self navigationItem] setTitle:self.editingAccount.name];
+	} else {
+		[self.navigationItem setTitle:NSLocalizedString(@"Add account", @"View title")];
 	}
 	
 	[[self tableView] setBackgroundView:nil];

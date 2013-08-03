@@ -106,6 +106,10 @@ static NSString *contentCellIdentifier = @"ContentCell";
 			height = minHeight;
 		[textView setFrame:CGRectMake(0, 0, [textView contentSize].width, height)];
 	}
+	
+	[self.navigationItem setTitle:NSLocalizedString(@"New Message", @"View title")];
+	[[self.navigationItem leftBarButtonItem] setTitle:NSLocalizedString(@"Cancel", nil)];
+	[[self.navigationItem rightBarButtonItem] setTitle:NSLocalizedString(@"Send", nil)];
 }
 
 - (void)buildCells {

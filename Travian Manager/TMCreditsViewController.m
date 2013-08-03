@@ -22,4 +22,10 @@
 	[webView loadRequest:request];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+	[self.navigationItem setTitle:NSLocalizedString(@"Credits", @"Credits button in settings")];
+	
+	[super viewWillAppear:animated];
+}
+
 @end
