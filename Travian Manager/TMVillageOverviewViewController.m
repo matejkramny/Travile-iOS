@@ -214,7 +214,7 @@ static NSString *viewTitle;
 	
 	NSMutableArray *constructions = [[NSMutableArray alloc] init];
 	for (TMConstruction *construction in village.constructions) {
-		[constructions addObject:@{@"name": construction.name, @"value": [construction finishTime]}];
+		[constructions addObject:@{@"name": construction.name, @"value": ([construction finishTime] == nil ? [NSNull null] : [construction finishTime]) }];
 	}
 	if (constructions.count > 0) {
 		[sections addObject:@{@"header": NSLocalizedString(@"Constructions", @""),
@@ -279,7 +279,11 @@ static NSString *viewTitle;
 		cell.detailTextLabel.text = calculateRemainingTimeFromDate((NSDate *)value);
 	} else {
 		cell = [tableView dequeueReusableCellWithIdentifier:rightDetailCellIdentifier];
-		cell.detailTextLabel.text = (NSString *)value;
+		if ([value isKindOfClass:[NSString class]]) {
+			cell.detailTextLabel.text = (NSString *)value;
+		} else {
+			cell.detailTextLabel.text = @"--:--:--";
+		}
 	}
 	
 	cell.textLabel.text = [cellDicitionary objectForKey:@"name"];

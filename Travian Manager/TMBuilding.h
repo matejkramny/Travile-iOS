@@ -33,6 +33,8 @@
 @property (assign) bool isBeingUpgraded; // Indicates whether this building is being currently upgraded.
 @property (nonatomic, strong) NSArray *actions; // Building Actions - such as Research a troop
 @property (nonatomic, strong) HTMLNode *buildDiv; // Contract HTMLNode
+@property (assign) bool buildEnabled;
+@property (assign) bool buildWithMaster; // Flags when the village has to build with master builder
 
 // Building in what village?
 @property (nonatomic, weak) TMVillage *parent;

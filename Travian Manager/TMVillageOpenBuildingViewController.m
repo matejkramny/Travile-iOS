@@ -268,9 +268,13 @@ static NSString *barracksCellID = @"Barracks";
 		if ([[selectedBuilding buildConditionsError] count] == 0 && ![selectedBuilding cannotBuildReason]) {
 			if (isBuildingSiteAvailableBuilding) {
 				if (selectedBuilding.upgradeURLString) {
-					[secs addObject:[NSString stringWithFormat:NSLocalizedString(@"Build", @"Build building site object"), selectedBuilding.name]];
+					[secs addObject:[NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Build", @"Build building site object"), selectedBuilding.name]];
 					[titles addObject:NSLocalizedString(@"Build", nil)];
-					[footers addObject:@""];
+					if ([selectedBuilding buildWithMaster]) {
+						[footers addObject:NSLocalizedString(@"Upgrades the building with Master Builder (costs 1 gold)", @"Warns the user that the build costs 1 gold")];
+					} else {
+						[footers addObject:@""];
+					}
 					[types addObject:basicSelectableCellID];
 					buildActionIndexPath = [NSIndexPath indexPathForRow:0 inSection:[secs count]-1];
 				}
@@ -278,7 +282,11 @@ static NSString *barracksCellID = @"Barracks";
 				// Upgrade button
 				[secs addObject:[NSString stringWithFormat:NSLocalizedString(@"Upgrade to level %d", nil), [selectedBuilding level]+1]];
 				[titles addObject:NSLocalizedString(@"Actions", nil)];
-				[footers addObject:@""];
+				if ([selectedBuilding buildWithMaster]) {
+					[footers addObject:NSLocalizedString(@"Upgrades the building with Master Builder (costs 1 gold)", @"Warns the user that the build costs 1 gold")];
+				} else {
+					[footers addObject:@""];
+				}
 				[types addObject:basicSelectableCellID];
 				buildActionIndexPath = [NSIndexPath indexPathForRow:0 inSection:[secs count]-1];
 			}

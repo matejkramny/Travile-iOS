@@ -29,7 +29,7 @@
 
 @implementation TMBuilding
 
-@synthesize bid, name, page, resources, level, parent, availableBuildings, description, finishedLoading, cannotBuildReason, coordinates, buildConditionsDone, buildConditionsError, isBeingUpgraded, upgradeURLString, gid, properties, actions, buildDiv, finishedLoadingKVOIdentifier;
+@synthesize bid, name, page, resources, level, parent, availableBuildings, description, finishedLoading, cannotBuildReason, coordinates, buildConditionsDone, buildConditionsError, isBeingUpgraded, upgradeURLString, gid, properties, actions, buildDiv, finishedLoadingKVOIdentifier, buildEnabled, buildWithMaster;
 
 - (id)init {
 	self = [super init];
@@ -134,12 +134,23 @@
 		return;
 	}
 	
+	HTMLNode *idContract = [node findChildWithAttribute:@"id" matchingName:@"contract" allowPartial:NO];
+	buildEnabled = false;
+	if (idContract) {
+		HTMLNode *button = [idContract findChildWithAttribute:@"class" matchingName:@"build" allowPartial:YES];
+		if (button) {
+			buildEnabled = true;
+			if ([[button getAttributeNamed:@"class"] rangeOfString:@"builder"].location != NSNotFound) {
+				buildWithMaster = true;
+			}
+		}
+	}
+	
 	if (!wantsToBuild) {
 		[self setFinishedLoading:YES];
 		return;
 	}
 	
-	HTMLNode *idContract = [node findChildWithAttribute:@"id" matchingName:@"contract" allowPartial:NO];
 	if (!idContract) {
 		return;
 	}
@@ -209,19 +220,25 @@
 		[b fetchResourcesFromContract:contract];
 		// Description
 		NSString *aTagRaw = [[desc findChildTag:@"a"] rawContents];
+		if (!aTagRaw) continue;
 		b.description = [[[[[[desc rawContents] stringByReplacingOccurrencesOfString:aTagRaw withString:@""] stringByReplacingOccurrencesOfString:@"<div class=\"build_desc\">" withString:@""] stringByReplacingOccurrencesOfString:@"</div>" withString:@""] stringByReplacingOccurrencesOfString:@"\n" withString:@""] stringByReplacingOccurrencesOfString:@"\t" withString:@""];
 		
 		// GID?
 		
 		// Contract
 		HTMLNode *button = [contract findChildWithAttribute:@"class" matchingName:@"new" allowPartial:YES];
-		if (!button) {
+		HTMLNode *builder = [contract findChildWithAttribute:@"class" matchingName:@"builder" allowPartial:YES];
+		if (!button && !builder) {
 			// Cannot build this
 			
 			[b fetchContractConditionsFromContractID:contract];
-		} else
+		} else {
+			if (!button) {
+				button = builder;
+				b.buildWithMaster = true;
+			}
 			b.upgradeURLString = [[[button getAttributeNamed:@"onclick"] stringByReplacingOccurrencesOfString:@"window.location.href = '" withString:@""] stringByReplacingOccurrencesOfString:@"'; return false;" withString:@""];
-		
+		}
 		b.parent = self.parent;
 		
 		// Inherits some properties from this building
