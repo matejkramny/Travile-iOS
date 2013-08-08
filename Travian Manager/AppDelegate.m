@@ -4,6 +4,7 @@
 
 #import "AppDelegate.h"
 #import "TMStorage.h"
+#import "TMApplicationSettings.h"
 #import "TMAPNService.h"
 #import "Flurry.h"
 
@@ -44,6 +45,13 @@ void uncaughtExceptionHandler(NSException *exception) {
 	NSFileManager *fileManager = [NSFileManager defaultManager];
 	id currentToken = [fileManager ubiquityIdentityToken];
 	storage.signedIntoICloud = (currentToken!=nil);
+	
+	// Expires in 3 days.
+	if (storage.appSettings.created > (double)([[NSDate date] timeIntervalSince1970] - 259200.f)) {
+		hasExpired = false;
+	} else {
+		hasExpired = true;
+	}
 	
 	return YES;
 }
@@ -94,8 +102,13 @@ void uncaughtExceptionHandler(NSException *exception) {
 	return [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"];
 }
 
+static BOOL hasExpired = false;
++ (BOOL)hasExpired {
+	return hasExpired;
+}
+
 + (void)displayLiteWarning {
-	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Lite version", @"Used as title of popup") message:NSLocalizedString(@"Full version allows unlimited Travian accounts, Farm Lists + more features. Click on Buy Now button to purchase on iTunes", @"Text displayed when the user doesn't have the full version of the app") delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:NSLocalizedString(@"Buy now", nil), nil];
+	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Trial Expired", @"Used as title of popup") message:NSLocalizedString(@"Your 3 day trial has expired. Full version restores all functionality. Click on Buy Now button to purchase on iTunes", @"Text displayed when the user doesn't have the full version of the app") delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:NSLocalizedString(@"Buy now", nil), nil];
 	[alert show];
 }
 

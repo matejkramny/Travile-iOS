@@ -8,5 +8,6 @@
 
 @property (assign) bool ICloud;
 @property (assign) bool pushNotifications;
+@property (assign) double created; // UNIX timestamp, time of the creation of this object.
 
 @end

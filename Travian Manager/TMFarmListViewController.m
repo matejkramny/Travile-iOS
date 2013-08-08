@@ -142,7 +142,7 @@ static UIBarButtonItem *executeButton;
 }
 
 - (void)executeFarmList:(id)sender {
-	if (!IsFULL) {
+	if (!IsFULL && [AppDelegate hasExpired]) {
 		[AppDelegate displayLiteWarning];
 		
 		return;

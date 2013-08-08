@@ -55,12 +55,8 @@
 }
 
 - (void)addAccount:(id)sender {
-	if (IsFULL || [storage.accounts count] < 1) {
-		selectedAccount = nil;
-		[self performSegueWithIdentifier:@"NewAccount" sender:self];
-	} else {
-		[AppDelegate displayLiteWarning];
-	}
+	selectedAccount = nil;
+	[self performSegueWithIdentifier:@"NewAccount" sender:self];
 }
 
 - (void)showSettings:(id)sender {

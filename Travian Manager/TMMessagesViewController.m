@@ -371,7 +371,7 @@ static NSString *noMessagesCellIdentifier = @"NoMessagesCell";
 }
 
 - (IBAction)newMessage:(id)sender {
-	if (!IsFULL) {
+	if (!IsFULL && [AppDelegate hasExpired]) {
 		[AppDelegate displayLiteWarning];
 		return;
 	}

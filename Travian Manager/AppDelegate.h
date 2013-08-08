@@ -47,6 +47,7 @@
 + (NSString *)getAppVersion;
 + (NSString *)getAppName;
 
++ (BOOL)hasExpired;
 + (void)displayLiteWarning;
 
 @end

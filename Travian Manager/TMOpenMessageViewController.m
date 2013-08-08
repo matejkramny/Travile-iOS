@@ -183,7 +183,7 @@ static NSString *subjectCellIdentifier = @"SubjectCell";
 #pragma mark UIActionSheetDelegate
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-	if (!IsFULL) {
+	if (!IsFULL && [AppDelegate hasExpired]) {
 		[AppDelegate displayLiteWarning];
 		return;
 	}
