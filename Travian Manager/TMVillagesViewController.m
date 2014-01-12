@@ -8,13 +8,11 @@
 #import "TMAccount.h"
 #import "TMVillage.h"
 #import "TMVillageOverviewViewController.h"
-#import "MKModalOverlay.h"
 #import "MBProgressHUD.h"
 
 @interface TMVillagesViewController () {
 	TMStorage *storage;
 	NSIndexPath *selectedVillageIndexPath;
-	MKModalOverlay *overlay;
 	MBProgressHUD *HUD;
 	UITapGestureRecognizer *tapToCancel;
 }
@@ -46,9 +44,6 @@ static NSString *title;
 	
 	[self setRefreshControl:[[UIRefreshControl alloc] init]];
 	[self.refreshControl addTarget:self action:@selector(didBeginRefreshing:) forControlEvents:UIControlEventValueChanged];
-	
-	overlay = [[MKModalOverlay alloc] initWithTarget:self.navigationController.tabBarController.view];
-	[overlay configureBoundsBottomToTop];
 }
 
 - (void)viewDidUnload
@@ -58,13 +53,10 @@ static NSString *title;
 
 - (void)viewWillAppear:(BOOL)animated {
 	if (![storage account] || ([storage.account status] & ANotLoggedIn) != 0) {
-		[overlay addOverlayAnimated:NO usingAnimationType:OverlayAnimationTypeMove];
 		return;
 	} else {
 		if (selectedVillageIndexPath == nil) {
-			[overlay removeOverlayAnimated:NO usingAnimationType:OverlayAnimationTypeComplete];
 		} else {
-			[overlay removeOverlayAnimated:YES usingAnimationType:OverlayAnimationTypeComplete];
 		}
 	}
 	
@@ -168,8 +160,6 @@ static NSString *title;
     [[storage account] setVillage:village];
 	
 	[self performSegueWithIdentifier:@"OpenVillage" sender:self];
-	
-	[overlay addOverlayAnimated:TRUE];
 }
 
 #pragma mark -

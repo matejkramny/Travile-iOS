@@ -10,8 +10,6 @@
 #import "MBProgressHUD.h"
 #import "TMOpenMessageViewController.h"
 #import "TMMessageCell.h"
-#import "MKModalOverlay/MKModalOverlay.h"
-#import "UIViewController+JASidePanel.h"
 
 @interface TMMessagesViewController () {
 	TMStorage *storage;
@@ -33,7 +31,6 @@
 	
 	__weak TMAccount *account;
 	
-	MKModalOverlay *overlay;
 	bool inModal;
 }
 
@@ -98,8 +95,6 @@ static NSString *viewTitle;
 	
 	forceZeroRows = false;
 	
-	overlay = [[MKModalOverlay alloc] initWithTarget:self.navigationController.tabBarController.view];
-	[overlay configureBoundsBottomToTop];
 	inModal = false;
 	
 	self.clearsSelectionOnViewWillAppear = NO;
@@ -138,7 +133,6 @@ static NSString *viewTitle;
 	}
 	
 	if (inModal) {
-		[overlay removeOverlayAnimated:YES];
 		inModal = false;
 	}
 }
@@ -532,7 +526,6 @@ static NSString *noMessagesCellIdentifier = @"NoMessagesCell";
 			openMessageAction = 0;
 		}
 		
-		[overlay addOverlayAnimated:YES];
 		inModal = true;
 	}
 }

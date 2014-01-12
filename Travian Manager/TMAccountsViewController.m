@@ -8,7 +8,6 @@
 #import "TMAccountDetailsViewController.h"
 #import "MBProgressHUD.h"
 #import "AppDelegate.h"
-#import "MKModalOverlay.h"
 
 @interface TMAccountsViewController () {
 	TMStorage *storage;
@@ -18,7 +17,6 @@
 	TMAccount *passwordRetryAccount;
 	MBProgressHUD *hud;
 	UITapGestureRecognizer *tapGestureRecognizer;
-	MKModalOverlay *overlay;
 	bool firstAnimateButtons;
 	
 	// Analytics - waiting for loading interval
@@ -103,9 +101,6 @@
 {
 	storage = [TMStorage sharedStorage];
 	
-	overlay = [[MKModalOverlay alloc] initWithTarget:self.navigationController.view];
-	[overlay configureBoundsBottomToTop];
-	
 	firstAnimateButtons = false;
 	
 	addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addAccount:)];
@@ -142,7 +137,6 @@
 	}
 	
 	if (insideSettings) {
-		[overlay removeOverlayAnimated:YES];
 		[self setEditing:NO animated:NO];
 	}
 	
@@ -445,8 +439,6 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-	[overlay addOverlayAnimated:YES];
-	
 	if ([segue.identifier isEqualToString:@"NewAccount"]) {
 		UINavigationController *navigationController = segue.destinationViewController;
 		TMAccountDetailsViewController *advc = [[navigationController viewControllers] objectAtIndex:0];
@@ -469,7 +461,6 @@
 	
 	// Dismiss the view
 	[self dismissViewControllerAnimated:YES completion:nil];
-	[overlay removeOverlayAnimated:YES];
 	
 	if ([storage.accounts count]-1 == 0) {
 		// First account created..
@@ -489,7 +480,6 @@
 {
 	// Dismiss view
 	[self dismissViewControllerAnimated:YES completion:nil];
-	[overlay removeOverlayAnimated:YES];
 	
 	selectedAccount = nil;
 	[self setEditing:NO];
@@ -501,7 +491,6 @@
 - (void)accountDetailsViewControllerDidCancel:(TMAccountDetailsViewController *)controller
 {
 	[self dismissViewControllerAnimated:YES completion:nil];
-	[overlay removeOverlayAnimated:YES];
 	
 	selectedAccount = nil;
 	[self setEditing:NO];
@@ -523,7 +512,6 @@
 	selectedAccount = nil;
 	
 	[self dismissViewControllerAnimated:YES completion:nil];
-	[overlay removeOverlayAnimated:YES];
 	
 	[self.tableView reloadData];
 	

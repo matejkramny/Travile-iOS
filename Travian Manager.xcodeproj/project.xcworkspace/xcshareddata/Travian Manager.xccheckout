@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>16FBDF4A-768A-480F-940B-23A44ECA52E3</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Travian Manager</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>7BC58C21-BFA2-4D0C-83E0-0E8016ED8087</key>
+		<string>ssh://github.com/matejkramny/iTravian-4.git</string>
+		<key>BE93D7B7-4874-4609-B8EC-04870F1D9D6E</key>
+		<string>ssh://github.com/matejkramny/MKModalOverlay.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Travian Manager.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>7BC58C21-BFA2-4D0C-83E0-0E8016ED8087</key>
+		<string>../..</string>
+		<key>BE93D7B7-4874-4609-B8EC-04870F1D9D6E</key>
+		<string>../../Travian Manager/MKModalOverlay</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>ssh://github.com/matejkramny/iTravian-4.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>7BC58C21-BFA2-4D0C-83E0-0E8016ED8087</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>BE93D7B7-4874-4609-B8EC-04870F1D9D6E</string>
+			<key>IDESourceControlWCCName</key>
+			<string>MKModalOverlay</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>7BC58C21-BFA2-4D0C-83E0-0E8016ED8087</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Travian Manager</string>
+		</dict>
+	</array>
+</dict>
+</plist>

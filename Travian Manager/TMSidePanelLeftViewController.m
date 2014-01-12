@@ -3,7 +3,6 @@
  */
 
 #import "TMSidePanelLeftViewController.h"
-#import "UIViewController+JASidePanel.h"
 #import "JASidePanelController.h"
 #import "TMSidePanelViewController.h"
 #import "TMStorage.h"
@@ -34,27 +33,11 @@ static bool firstTime = true;
 {
     [super viewDidLoad];
 	
-	static UIColor *backgroundImage;
-	
-	if (!backgroundImage) {
-		backgroundImage = [UIColor colorWithPatternImage:[UIImage imageNamed:@"TMDarkBackground.png"]];
-	}
-	
 	showsVillage = false;
-	
-	[self.view setBackgroundColor:backgroundImage];
-	[self.tableView setBackgroundColor:backgroundImage];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void)viewWillAppear:(BOOL)animated {
 	storage = [TMStorage sharedStorage];
-	[self.tableView setFrame:CGRectMake(0, 0, 256, 460)];
 	
 	if (firstTime) {
 		firstTime = false;
@@ -218,46 +201,25 @@ static bool firstTime = true;
     return cell;
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-	static UIColor *backgroundColor;
-	if (!backgroundColor)
-		backgroundColor = [UIColor colorWithPatternImage:[[UIImage imageNamed:@"DarkSection.png"] stretchableImageWithLeftCapWidth:0 topCapHeight:0]];
-	
-	UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 35)];
-	
-	[header setBackgroundColor:backgroundColor];
-	UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, header.frame.size.width-10, header.frame.size.height)];
-	label.backgroundColor = [UIColor clearColor];
-	label.textColor = [UIColor whiteColor];
-	label.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:20];
-	
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+	NSString *text;
 	if (showsVillage) {
 		if (section == 0) {
 			return nil;
 		} else if (section == 1) {
-			label.text = [NSLocalizedString(@"Village ", @"Example: 'Village My Little Village'. Village name is appended to this string!") stringByAppendingString:storage.account.village.name];
+			text = [NSLocalizedString(@"Village ", @"Example: 'Village My Little Village'. Village name is appended to this string!") stringByAppendingString:storage.account.village.name];
 		} else {
-			label.text = NSLocalizedString(@"Village Events", @"Sidebar cell text");
+			text = NSLocalizedString(@"Village Events", @"Sidebar cell text");
 		}
 	} else if (section == 0) {
 		return nil;
 	} else if (section == 1) {
-		label.text = NSLocalizedString(@"Account", @"Sidebar cell text");
+		text = NSLocalizedString(@"Account", @"Sidebar cell text");
 	} else if (section == 2) {
-		label.text = NSLocalizedString(@"Villages", @"Village view title");
+		text = NSLocalizedString(@"Villages", @"Village view title");
 	}
 	
-	[header addSubview:label];
-	
-	return header;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-	if ((showsVillage && (section == 1 || section == 2)) || (!showsVillage && (section == 1 || section == 2))) {
-		return 35;
-	}
-	
-	return 0;
+	return text;
 }
 
 - (void)back:(id)sender {
@@ -328,14 +290,7 @@ static bool firstTime = true;
 			
 			firstTime = YES;
 			
-			// Close the left panel
-			[self.sidePanelController toggleLeftPanel:self];
-			
-			// Dismiss the view *after* the left panel closes
-			dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.2f * NSEC_PER_SEC);
-			dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-				[self dismissViewControllerAnimated:YES completion:nil];
-			});
+			[self.navigationController popViewControllerAnimated:YES];
 			
 			return;
 		} else if (indexPath.section == 1) {
@@ -365,7 +320,8 @@ static bool firstTime = true;
 	
 	currentViewController = newVC;
 	currentViewControllerIndexPath = path;
-	[self.sidePanelController setCenterPanel:newVC];
+//	[self.sidePanelController setCenterPanel:newVC];
+#warning Something should happen here
 }
 
 #pragma mark -

@@ -12,8 +12,6 @@
 #import "MBProgressHUD.h"
 #import "AppDelegate.h"
 #import "TMSwipeableCell.h"
-#import "UIViewController+JASidePanel.h"
-#import "JASidePanelController.h"
 #import "TMDarkImageCell.h"
 #import "TMFarmListFarmViewController.h"
 
@@ -405,8 +403,6 @@ static TMDarkImageCell *backCell; // shared
 
 -(void)handlePan:(UIPanGestureRecognizer *)panGestureRecognizer
 {
-	[self.sidePanelController _handlePan:panGestureRecognizer]; // call to sidepanel to delegate the direction of the swipe
-	
 	float threshold = -90;
 	float vX = 0.0;
 	float compare;

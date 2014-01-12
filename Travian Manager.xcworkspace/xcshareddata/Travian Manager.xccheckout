@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>33202DCA-29EF-4964-9470-1274EE63F8DB</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Travian Manager</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>1810F7B7-3C8B-4044-9441-DC914B920922</key>
+		<string>ssh://github.com/matejkramny/iTravian-4.git</string>
+		<key>C510C32C-A3C5-4126-9F26-544B9C93516C</key>
+		<string>ssh://github.com/matejkramny/iTravian-4.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Travian Manager.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>1810F7B7-3C8B-4044-9441-DC914B920922</key>
+		<string>..</string>
+		<key>C510C32C-A3C5-4126-9F26-544B9C93516C</key>
+		<string>../../../Developer/Travian Manager</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>ssh://github.com/matejkramny/iTravian-4.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>1810F7B7-3C8B-4044-9441-DC914B920922</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>1810F7B7-3C8B-4044-9441-DC914B920922</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Travian Manager</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>C510C32C-A3C5-4126-9F26-544B9C93516C</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Travian Manager</string>
+		</dict>
+	</array>
+</dict>
+</plist>

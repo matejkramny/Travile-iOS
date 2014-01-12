@@ -200,7 +200,7 @@
 		if (!atLeastOneTroop)
 			return NO;
 		
-		tempPostData = [NSString stringWithFormat:@"%@%@", postData, tempPostData];
+		tempPostData = [[NSString stringWithFormat:@"%@%@", postData, tempPostData] mutableCopy];
 		
 		NSData *myRequestData = [NSData dataWithBytes:[tempPostData UTF8String] length:tempPostData.length];
 		

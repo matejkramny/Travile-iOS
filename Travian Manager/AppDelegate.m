@@ -15,14 +15,8 @@
 @synthesize window = _window;
 @synthesize storage;
 
-void uncaughtExceptionHandler(NSException *exception) {
-	[Flurry logError:@"Uncaught" message:@"Crashed!" exception:exception];
-}
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-	NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
-	
 	// Sets appearance for UI
 	[self customizeAppearance];
 	
@@ -40,6 +34,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 	}
 	
 	[Flurry setDebugLogEnabled:NO];
+	[Flurry setCrashReportingEnabled:YES];
 	
 	// iCloud
 	NSFileManager *fileManager = [NSFileManager defaultManager];
@@ -125,46 +120,10 @@ static BOOL hasExpired = false;
 @implementation AppDelegate (Appearance)
 
 - (void)customizeAppearance {
-	// Tiled background image
-	UIImage *background = [[UIImage imageNamed:@"UINavigationBar.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(10, 0, 31.5, 0)];
-	// Landscape
-	UIImage *backgroundLandscape = [UIImage imageNamed:@"UINavigationBarLandscape.png"];
-	
-	// Set background
-	[[UINavigationBar appearance] setBackgroundImage:background forBarMetrics:UIBarMetricsDefault];
-	[[UINavigationBar appearance] setBackgroundImage:backgroundLandscape forBarMetrics:UIBarMetricsLandscapePhone];
-	
-	// Set Navigation Bar text
-	[[UINavigationBar appearance] setTitleTextAttributes:@{
-							   UITextAttributeTextColor : [UIColor colorWithRed:60.0/255.0 green:70.0/255.0 blue:81.0/255.0 alpha:1.0],
-						 UITextAttributeTextShadowColor : [UIColor colorWithRed:126.0/255.0 green:126.0/255.0 blue:126.0/255.0 alpha:0.5],
-						UITextAttributeTextShadowOffset : [NSValue valueWithCGSize:CGSizeMake(0, -1)],
-									UITextAttributeFont : [UIFont fontWithName:@"Arial Rounded MT Bold" size:20.0] }];
-	
-	// Back Button
-	UIImage *backButton = [[UIImage imageNamed:@"BackButton.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 13, 0, 8)];
-	// Landscape
-	UIImage *backButtonLandscape = [[UIImage imageNamed:@"BackButtonLandscape.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 12, 0, 8)];
-	
-	// Button (normal state)
-	UIImage *button = [[UIImage imageNamed:@"ButtonStateNormal.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 5, 0, 5)];
-	// Lanscape
-	UIImage *buttonLandscape = [[UIImage imageNamed:@"ButtonStyleNormalLandscape.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 5, 0, 5)];
-	
-	// Set Button
-	[[UIBarButtonItem appearance] setBackgroundImage:button forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-	[[UIBarButtonItem appearance] setBackgroundImage:buttonLandscape forState:UIControlStateNormal barMetrics:UIBarMetricsLandscapePhone];
-	// Set Back Button
-	[[UIBarButtonItem appearance] setBackButtonBackgroundImage:backButton forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-	[[UIBarButtonItem appearance] setBackButtonBackgroundImage:backButtonLandscape forState:UIControlStateNormal barMetrics:UIBarMetricsLandscapePhone];
-	
-	// SegmentedControl
-	[[UISegmentedControl appearance] setBackgroundImage:button forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-	//[[UISegmentedControl appearance] setDividerImage:background forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault]; // Requires its own image.. This is for segmented control's middle gap image.
-	
-	// Table background
-	[[UITableView appearance] setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"TMBackground.png"]]];
-	[[UITableView appearance] setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+	[[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+	[[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:0.1f green:0.8f blue:0.2f alpha:1.f]];
+	[[UINavigationBar appearance] setTitleTextAttributes: [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:UITextAttributeTextColor]];
+	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 }
 
 static UIImage *tableCellSelectedBackgroundImage;
@@ -180,6 +139,7 @@ static UIImage *cellEvenBackground;
 
 // Set appearance of cell based on indexPath
 + (void)setCellAppearance:(UITableViewCell *)cell forIndexPath:(NSIndexPath *)indexPath {
+	return;
 	UIView *bg = [[UIView alloc] init];
 	
 	if (!cellOddBackground)
@@ -207,6 +167,7 @@ static UIImage *cellEvenBackground;
 	cell.detailTextLabel.highlightedTextColor = [UIColor whiteColor];
 }
 + (void)setDarkCellAppearance:(UITableViewCell *)cell forIndexPath:(NSIndexPath *)indexPath {
+	return;
 	if (!darkCellSelectedBackground) {
 		darkSelecedCellImage = [[UIImage imageNamed:@"DarkSelectedCell.png"] stretchableImageWithLeftCapWidth:0 topCapHeight:0];
 		darkCellSelectedBackground = [[UIImageView alloc] initWithImage:darkSelecedCellImage];
@@ -226,6 +187,7 @@ static UIImage *cellEvenBackground;
 }
 // Set appearance of a rounded cell (so UITableView style is not 'Plain')
 + (void)setRoundedCellAppearance:(UITableViewCell *)cell forIndexPath:(NSIndexPath *)indexPath forLastRow:(bool)lastRow {
+	return;
 	// Background
 	__weak UIImageView *selectedBackground;
 	
