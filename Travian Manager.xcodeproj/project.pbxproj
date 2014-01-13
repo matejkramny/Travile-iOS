@@ -97,8 +97,6 @@
 		4F2C0D98179AE23700D917B7 /* TMBasicToggleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA47AE41710652A00DFD460 /* TMBasicToggleCell.m */; };
 		4F2C0D99179AE23700D917B7 /* TMAppSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA47B21171163E400DFD460 /* TMAppSettingsViewController.m */; };
 		4F2C0D9A179AE23700D917B7 /* TMApplicationSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA47B24171169D900DFD460 /* TMApplicationSettings.m */; };
-		4F2C0D9B179AE23700D917B7 /* TMSidePanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F6330681711E1F40005EE4B /* TMSidePanelViewController.m */; };
-		4F2C0D9E179AE23700D917B7 /* TMSidePanelLeftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F6330711711FE8C0005EE4B /* TMSidePanelLeftViewController.m */; };
 		4F2C0D9F179AE23700D917B7 /* TMDarkImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F995DC91712DBD2002E69AC /* TMDarkImageCell.m */; };
 		4F2C0DA0179AE23700D917B7 /* TMReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F995DDD17178C1A002E69AC /* TMReportViewController.m */; };
 		4F2C0DA1179AE23700D917B7 /* TMFarmList.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F97FBF4171EA48A00DF27B9 /* TMFarmList.m */; };
@@ -136,8 +134,6 @@
 		4F578C48168235CF00DC9FB6 /* TMLabelAndTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F578C47168235CF00DC9FB6 /* TMLabelAndTextFieldCell.m */; };
 		4F578C4C168236B600DC9FB6 /* TMTextViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F578C4B168236B600DC9FB6 /* TMTextViewCell.m */; };
 		4F5F0A9415C0153400757356 /* TMOpenMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F5F0A9315C0153400757356 /* TMOpenMessageViewController.m */; };
-		4F6330691711E1F40005EE4B /* TMSidePanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F6330681711E1F40005EE4B /* TMSidePanelViewController.m */; };
-		4F6330721711FE8C0005EE4B /* TMSidePanelLeftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F6330711711FE8C0005EE4B /* TMSidePanelLeftViewController.m */; };
 		4F6E222F15E51B85002EC13F /* TMBuildingAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F6E222E15E51B85002EC13F /* TMBuildingAction.m */; };
 		4F752573170C86FD00B447D4 /* MainStoryboard_iPhone.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4F752571170C86FD00B447D4 /* MainStoryboard_iPhone.strings */; };
 		4F81DFDC164F1CFE00523CF4 /* TMSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F81DFDB164F1CFD00523CF4 /* TMSettings.m */; };
@@ -272,10 +268,6 @@
 		4F578C4B168236B600DC9FB6 /* TMTextViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMTextViewCell.m; sourceTree = "<group>"; };
 		4F5F0A9215C0153400757356 /* TMOpenMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMOpenMessageViewController.h; sourceTree = "<group>"; };
 		4F5F0A9315C0153400757356 /* TMOpenMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMOpenMessageViewController.m; sourceTree = "<group>"; };
-		4F6330671711E1F40005EE4B /* TMSidePanelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMSidePanelViewController.h; sourceTree = "<group>"; };
-		4F6330681711E1F40005EE4B /* TMSidePanelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMSidePanelViewController.m; sourceTree = "<group>"; };
-		4F6330701711FE8C0005EE4B /* TMSidePanelLeftViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMSidePanelLeftViewController.h; sourceTree = "<group>"; };
-		4F6330711711FE8C0005EE4B /* TMSidePanelLeftViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMSidePanelLeftViewController.m; sourceTree = "<group>"; };
 		4F6E222D15E51B84002EC13F /* TMBuildingAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMBuildingAction.h; sourceTree = "<group>"; };
 		4F6E222E15E51B85002EC13F /* TMBuildingAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMBuildingAction.m; sourceTree = "<group>"; };
 		4F752570170C796000B447D4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
@@ -521,7 +513,6 @@
 				4F28C74015BB358500C976E3 /* TMAccountDetailsViewController.m */,
 				4FA47B20171163E400DFD460 /* TMAppSettingsViewController.h */,
 				4FA47B21171163E400DFD460 /* TMAppSettingsViewController.m */,
-				4FFA06C8173C33A000CEFB98 /* SidePanel */,
 				4FA1485316D94C76002E307B /* Village */,
 				4FC6F11D15BC4AC0006F583D /* TMReportsViewController.h */,
 				4FC6F11E15BC4AC0006F583D /* TMReportsViewController.m */,
@@ -688,17 +679,6 @@
 				4FD64FCA15DAAD57002FAFFC /* TMBuildingMap.m */,
 			);
 			name = BuildingMap;
-			sourceTree = "<group>";
-		};
-		4FFA06C8173C33A000CEFB98 /* SidePanel */ = {
-			isa = PBXGroup;
-			children = (
-				4F6330671711E1F40005EE4B /* TMSidePanelViewController.h */,
-				4F6330681711E1F40005EE4B /* TMSidePanelViewController.m */,
-				4F6330701711FE8C0005EE4B /* TMSidePanelLeftViewController.h */,
-				4F6330711711FE8C0005EE4B /* TMSidePanelLeftViewController.m */,
-			);
-			name = SidePanel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -942,8 +922,6 @@
 				4FA47AE51710652A00DFD460 /* TMBasicToggleCell.m in Sources */,
 				4FA47B22171163E500DFD460 /* TMAppSettingsViewController.m in Sources */,
 				4FA47B25171169D900DFD460 /* TMApplicationSettings.m in Sources */,
-				4F6330691711E1F40005EE4B /* TMSidePanelViewController.m in Sources */,
-				4F6330721711FE8C0005EE4B /* TMSidePanelLeftViewController.m in Sources */,
 				4F995DCA1712DBD2002E69AC /* TMDarkImageCell.m in Sources */,
 				4F995DDE17178C1F002E69AC /* TMReportViewController.m in Sources */,
 				4F97FBF5171EA48A00DF27B9 /* TMFarmList.m in Sources */,
@@ -1018,8 +996,6 @@
 				4F2C0D98179AE23700D917B7 /* TMBasicToggleCell.m in Sources */,
 				4F2C0D99179AE23700D917B7 /* TMAppSettingsViewController.m in Sources */,
 				4F2C0D9A179AE23700D917B7 /* TMApplicationSettings.m in Sources */,
-				4F2C0D9B179AE23700D917B7 /* TMSidePanelViewController.m in Sources */,
-				4F2C0D9E179AE23700D917B7 /* TMSidePanelLeftViewController.m in Sources */,
 				4F2C0D9F179AE23700D917B7 /* TMDarkImageCell.m in Sources */,
 				4F2C0DA0179AE23700D917B7 /* TMReportViewController.m in Sources */,
 				4F2C0DA1179AE23700D917B7 /* TMFarmList.m in Sources */,

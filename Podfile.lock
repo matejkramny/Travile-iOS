@@ -1,13 +1,10 @@
 PODS:
-  - JASidePanels (1.3.2)
   - MBProgressHUD (0.8)
 
 DEPENDENCIES:
-  - JASidePanels (~> 1.3.2)
   - MBProgressHUD (~> 0.8)
 
 SPEC CHECKSUMS:
-  JASidePanels: c0e642a7311ec9cc9adfa616fa4a795e4e169f20
   MBProgressHUD: 2bbc6f470111daf7f3eaa4eb12b8cbf01c4c0622
 
 COCOAPODS: 0.26.2

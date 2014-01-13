@@ -25,30 +25,16 @@
 
 static NSString *title;
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	
-	title = NSLocalizedString(@"Villages", @"Village view title");
-	
 	storage = [TMStorage sharedStorage];
+	
+	title = [storage.account name];
 	
 	[self setRefreshControl:[[UIRefreshControl alloc] init]];
 	[self.refreshControl addTarget:self action:@selector(didBeginRefreshing:) forControlEvents:UIControlEventValueChanged];
-}
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -115,33 +101,74 @@ static NSString *title;
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [[[storage account] villages] count];
+	if (section == 1) {
+		return [[[storage account] villages] count];
+	}
+	
+	return 4;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"VillageCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    
-	TMVillage *village = [[[storage account] villages] objectAtIndex:indexPath.row];
-	cell.textLabel.text = [village name];
-	//cell.backgroundColor = [UIColor colorWithRed:1.0 green:0 blue:0 alpha:1];
-	cell.detailTextLabel.text = [NSString stringWithFormat:@"%d", village.population];
+	static NSString *CellIdentifier = @"VillageCell";
+	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 	
-	[AppDelegate setCellAppearance:cell forIndexPath:indexPath];
+	if (indexPath.section == 0) {
+		switch (indexPath.row) {
+			case 0:
+				cell.textLabel.text = @"Messages";
+				break;
+			case 1:
+				cell.textLabel.text = @"Reports";
+				break;
+			case 2:
+				cell.textLabel.text = @"Hero";
+				break;
+			case 3:
+				cell.textLabel.text = @"Settings";
+				break;
+			default:
+				break;
+		}
+	} else if (indexPath.section == 1) {
+		TMVillage *village = [[[storage account] villages] objectAtIndex:indexPath.row];
+		cell.textLabel.text = [village name];
+		cell.detailTextLabel.text = [NSString stringWithFormat:@"%d", village.population];
+	}
 	
-    return cell;
+	return cell;
 }
 
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+	if (indexPath.section == 0) {
+		NSString *segue;
+		switch (indexPath.row) {
+			case 0:
+				segue = @"Messages";
+				break;
+			case 1:
+				segue = @"Reports";
+				break;
+			case 2:
+				segue = @"Hero";
+				break;
+			case 3:
+				segue = @"Settings";
+				break;
+		}
+		
+		[self performSegueWithIdentifier:segue sender:self];
+		return;
+	}
+	
 	TMVillage *village = [[storage account].villages objectAtIndex:indexPath.row];
 	selectedVillageIndexPath = indexPath;
 	

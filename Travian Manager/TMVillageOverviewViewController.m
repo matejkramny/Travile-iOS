@@ -32,15 +32,6 @@
 
 static NSString *viewTitle;
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
 	viewTitle = NSLocalizedString(@"Overview", @"Overview view title");
@@ -107,8 +98,8 @@ static NSString *viewTitle;
 		[secondTimer invalidate];
 	
 	@try {
-		[storage.account removeObserver:self forKeyPath:@"status"];
 		[storage.account removeObserver:self forKeyPath:@"village"];
+		[storage.account removeObserver:self forKeyPath:@"status"];
 		[self.refreshControl endRefreshing];
 	}
 	@catch (id exception) {
@@ -222,6 +213,16 @@ static NSString *viewTitle;
 		 @"footer": NSLocalizedString(@"Tap on a construction or movement to schedule a notification", @"Informing the user to tap on a movement to schedula a push notification")}];
 	}
 	
+	[sections addObject:@{@"header": @"",
+						  @"cells": @[
+									@{@"name": @"Farm List", @"value": @"", @"segue": @"farm list"},
+									@{@"name": @"Resources", @"value": @"", @"segue": @"resources"},
+									@{@"name": @"Buildings", @"value": @"", @"segue": @"buildings"},
+									@{@"name": @"Troops", @"value": @"", @"segue": @"troops"}
+									  ],
+						  @"footer": @""}
+	 ];
+	
 	cells = sections;
 }
 
@@ -284,11 +285,15 @@ static NSString *viewTitle;
 		} else {
 			cell.detailTextLabel.text = @"--:--:--";
 		}
+		
+		if (cell.detailTextLabel.text.length == 0) {
+			cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+		} else {
+			cell.accessoryType = UITableViewCellAccessoryNone;
+		}
 	}
 	
 	cell.textLabel.text = [cellDicitionary objectForKey:@"name"];
-	
-	[AppDelegate setRoundedCellAppearance:cell forIndexPath:indexPath forLastRow:[[[cells objectAtIndex:indexPath.section] objectForKey:@"cells"] count]-1 == indexPath.row];
 	
 	return cell;
 }
@@ -311,6 +316,13 @@ static NSDate *notificationDate;
 static NSString *notificationTitle;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	NSDictionary *cell = [[[cells objectAtIndex:indexPath.section] objectForKey:@"cells"] objectAtIndex:indexPath.row];
+	
+	NSString *segue = [cell objectForKey:@"segue"];
+	if (segue != nil) {
+		[self performSegueWithIdentifier:segue sender:nil];
+		return;
+	}
+	
 	id value = [cell objectForKey:@"value"];
 	if ([value isKindOfClass:[NSDate class]]) {
 		notificationTitle = [cell objectForKey:@"name"];
